@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/26 17:10:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/08/27 18:08:11 by anavagya         ###   ########.fr       */
+/*   Created: 2025/08/27 18:02:02 by anavagya          #+#    #+#             */
+/*   Updated: 2025/08/27 18:13:41 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtins.h"
 
-#include <aio.h>
-#include <unistd.h>
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
 
-int	check_built_in_type(char **arg);
-int	built_in_echo(char **args);
-int	built_in_cd(char **args);
-int	built_in_pwd(char **args);
-int	built_in_export(char **args);
-int	built_in_unset(char **args);
-int	built_in_env(char **args);
-int	built_in_exit(char **args);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
-#endif
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (i < n - 1 && s1[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
