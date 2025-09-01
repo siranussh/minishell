@@ -1,38 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/26 17:09:32 by anavagya          #+#    #+#             */
-/*   Updated: 2025/08/28 14:39:47 by anavagya         ###   ########.fr       */
+/*   Created: 2025/08/28 13:18:51 by anavagya          #+#    #+#             */
+/*   Updated: 2025/08/28 14:12:30 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	n_flag(char **args)
+int	main()
 {
-	if (!args  || !*args)
-		return (0);
-	
-}
-
-int	built_in_echo(char **args)
-{
-	int	i;
-
-	i = 1;
-	if (!args  || !*args)
-		return (0);
-	while (args[i])
-	{
-		printf("%s", args[i]);
-		if (args[i + 1])
-			printf(" ");
-		i++;
-	}
-	printf("\n");
-	return (1);
+	char *str[] = {NULL};
+	built_in_echo(str);
+	return (0);
 }
