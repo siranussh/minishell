@@ -6,33 +6,74 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 17:09:32 by anavagya          #+#    #+#             */
-/*   Updated: 2025/08/28 14:39:47 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/03 19:04:15 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	n_flag(char **args)
+int	is_n_flag(char *str)
 {
-	if (!args  || !*args)
+	int	i;
+
+	if (!str || !*str)
 		return (0);
-	
+	i = 0;
+	if (str[i] == '-')
+		i++;
+	else
+		return (0);
+	while (i < ft_strlen(str))
+	{
+		if (str[i] != 'n')
+			return (0);
+
+		i++;
+	}
+	return (1);
+
+}
+
+int	check_n_flag(char **args)
+{
+	int	i;
+
+	if (!args || !*args || !args[1])
+		return (0);
+	i = 1;
+	while (args[i])
+	{
+		if (is_n_flag(args[i]) == 0 && i == 1)
+			return (0);
+		else if (is_n_flag(args[i]))
+			i++;
+		else
+			break;
+	}
+	return (--i);
 }
 
 int	built_in_echo(char **args)
 {
-	int	i;
+	int	index;
 
-	i = 1;
-	if (!args  || !*args)
+	index = 0;
+	if (!args || !*args)
 		return (0);
-	while (args[i])
+	index = check_n_flag(args);
+	if (check_n_flag(args) == 0 && index == 0)
+		printf("\n");
+	index++;
+	if (!args[index])
+		return (0);
+	while (args[index])
 	{
-		printf("%s", args[i]);
-		if (args[i + 1])
+		printf("%s", args[index]);
+		if (args[index + 1])
 			printf(" ");
-		i++;
+		index++;
 	}
-	printf("\n");
+	if (check_n_flag(args) == 0)
+		printf("\n");
 	return (1);
 }

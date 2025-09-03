@@ -6,15 +6,15 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 18:02:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/08/27 18:13:41 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/03 13:37:36 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -22,9 +22,9 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, int n)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	if (n == 0)
