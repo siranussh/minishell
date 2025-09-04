@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 17:09:32 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/03 19:04:15 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/04 13:21:09 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,9 @@ int	built_in_echo(char **args)
 	if (!args || !*args)
 		return (0);
 	index = check_n_flag(args);
-	if (check_n_flag(args) == 0 && index == 0)
-		printf("\n");
-	index++;
 	if (!args[index])
-		return (0);
+		return (printf("\n"), 0);
+	index++;
 	while (args[index])
 	{
 		printf("%s", args[index]);
