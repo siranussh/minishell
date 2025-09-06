@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 17:09:32 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/04 13:21:09 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/06 14:03:21 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,9 @@ int	is_n_flag(char *str)
 	{
 		if (str[i] != 'n')
 			return (0);
-
 		i++;
 	}
 	return (1);
-
 }
 
 int	check_n_flag(char **args)
@@ -48,7 +46,7 @@ int	check_n_flag(char **args)
 		else if (is_n_flag(args[i]))
 			i++;
 		else
-			break;
+			break ;
 	}
 	return (--i);
 }
