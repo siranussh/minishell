@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/28 13:18:51 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/09 12:43:26 by anavagya         ###   ########.fr       */
+/*   Created: 2025/09/06 17:58:50 by anavagya          #+#    #+#             */
+/*   Updated: 2025/09/09 14:25:31 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	main(int argc, char **argv, char **envp)
+int	built_in_env(char **envp)
 {
-	(void)argc;
-	(void)argv;
-	// char *str[] = {"echo", "-nnnnnnnnnnnnnnnnnnnnnnnnn", "-n", "spasi", NULL};
-	// char *str[] = {"echo", "-n", NULL};
-	// char *str[] = {NULL};
-	// char *str[] = {"echo", NULL};
-	// char *str[] = {"echo", "-n", "-nn", "barev", "aziz", "-nnnnn", "-n", "jan", NULL};
-	built_in_env(envp);
-	return (0);
+	int	i;
+
+	if (!envp || !*envp)
+		return (0);
+	i = 0;
+	while (envp[i])
+	{
+		// stugel PATH ka te voch;
+		printf("%s\n", envp[i]);
+		i++;
+	}
+	return (1);
 }
