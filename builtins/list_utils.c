@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:17:23 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/09 15:10:21 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/15 18:16:02 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,18 @@ void	ft_lstadd_back(t_env **lst, t_env *new)
 	while (current->next)
 		current = current->next;
 	current->next = new;
+}
+
+void	free_env_list(t_env *head)
+{
+	t_env	*tmp;
+
+	while (head)
+	{
+		tmp = head->next;
+		free(head->name);
+		free(head->value);
+		free(head);
+		head = tmp;
+	}
 }

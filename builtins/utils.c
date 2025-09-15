@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 18:02:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/09 14:36:30 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/15 12:47:23 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,31 @@ int	ft_strncmp(const char *s1, const char *s2, int n)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strdup(const char *s1)
 {
-	size_t	i;
+	int		len;
+	int		i;
+	char	*dest;
+
+	len = 0;
+	i = 0;
+	while (s1[len] != '\0')
+		len++;
+	dest = (char *)malloc(len + 1);
+	if (dest == NULL)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		dest[i] = s1[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+char	*ft_substr(char const *s, int start, int len)
+{
+	int		i;
 	char	*str;
 
 	if (!s)

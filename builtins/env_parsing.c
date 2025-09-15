@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:24:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/09 15:11:23 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/15 18:17:10 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	return_name_size(char *arg)
 	int	i;
 
 	i = 0;
-	if (!arg || !arg)
+	if (!arg || !*arg)
 		return (-1);
 	while (arg[i])
 	{
@@ -28,21 +28,45 @@ int	return_name_size(char *arg)
 	return (-1);
 }
 
-void	env_parse(char **envp)
+char	*return_name(char *arg)
 {
-	int		i;
-	int		name_len;
+	int	index;
+
+	if (!arg || !*arg)
+		return (NULL);
+	index = return_name_size(arg);
+	if (index < 0)
+		return (NULL);
+	return (ft_substr(arg, 0, index));
+}
+
+char	*return_value(char *arg)
+{
+	int	index;
+
+	if (!arg || !*arg)
+		return (NULL);
+	index = return_name_size(arg);
+	if (index < 0)
+		return (NULL);
+	return (ft_substr(arg, index + 1, ft_strlen(arg) - index - 1));
+}
+
+t_env	*env_parse(char **envp)
+{
 	char	*name;
 	char	*value;
+	t_env	*head;
+	t_env	*tmp;
 
-	i = 0;
-	/////////////////////////////////////////////////////////////////////////////
-	while(envp[i])
+	head = NULL;
+	while (*envp)
 	{
-		name_len = return_name_size(envp[i]);
-		name = (char *)malloc(name_len + 1);
-		value = (char *)malloc(ft_strlen(envp[i]) - name_len);
-		i++;
+		name = return_name(envp);
+		value = return_value(envp);
+		tmp = ft_lstnew(name, value);
+		ft_lstadd_back(&head, tmp);
+		envp++;
 	}
-	/////////////////////////////////////////////////////////////////////////////
+	return (head);
 }

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:18:51 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/09 12:43:26 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/15 18:15:04 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@ int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	// char *str[] = {"echo", "-nnnnnnnnnnnnnnnnnnnnnnnnn", "-n", "spasi", NULL};
-	// char *str[] = {"echo", "-n", NULL};
-	// char *str[] = {NULL};
-	// char *str[] = {"echo", NULL};
 	// char *str[] = {"echo", "-n", "-nn", "barev", "aziz", "-nnnnn", "-n", "jan", NULL};
-	built_in_env(envp);
+	// built_in_env(envp);
+	// t_env	*env;
+
+	// env = env_parse(envp);
+	// while (env)
+	// {
+	// 	printf("%s=%s\n", env->name, env->value);
+	// 	env = env->next;
+	// }
 	return (0);
 }
