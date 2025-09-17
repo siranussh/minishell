@@ -1,15 +1,24 @@
 #include "tokenization.h"
 
-int skip_quotes(int i, char *str, char c)
+int count_tokens(char *str)
 {
-    while(str[i] && str[i] != c)
-        i++;
-    return (i);
+    int i;
+    int result;
+
+    i = -1;
+    result = 0;
+    while (str[++i])
+    {
+        if((str[i] != 32 && str[i] != 34 && str[i] != 39)
+        && (str[i + 1] == 32 || str[i + 1] == '\0' || str[i + 1] == 34 || str[i + 1] == 39))
+            result ++;
+        if(str[i] == 34 || str[i] == 39)
+        {
+            result++;
+            i = find_closing_quote(i + 1, str, str[i]);
+        }
+    }
+    return (result);
 }
 
 
-int exit_error(char *str, int code)
-{
-    printf("%s\n", str);
-    exit(code);
-}
