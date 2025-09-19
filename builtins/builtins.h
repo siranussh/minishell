@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 17:10:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/15 18:18:14 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/17 15:59:19 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		check_n_flag(char **args);
 int		built_in_pwd(void);
 
 // env.c
-int		built_in_env(char **envp);
+int		built_in_env(t_env *env);
 
 // env_parsing.c
 int		return_name_size(char *arg);

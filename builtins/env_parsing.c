@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:24:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/15 18:17:10 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/19 10:51:02 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*return_name(char *arg)
 		return (NULL);
 	index = return_name_size(arg);
 	if (index < 0)
-		return (NULL);
+		return (NULL)
 	return (ft_substr(arg, 0, index));
 }
 
@@ -62,8 +62,8 @@ t_env	*env_parse(char **envp)
 	head = NULL;
 	while (*envp)
 	{
-		name = return_name(envp);
-		value = return_value(envp);
+		name = return_name(*envp);
+		value = return_value(*envp);
 		tmp = ft_lstnew(name, value);
 		ft_lstadd_back(&head, tmp);
 		envp++;
