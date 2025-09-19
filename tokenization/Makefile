@@ -8,7 +8,7 @@ SRC = create_token.c \
       handle_quotes.c \
       handle_quotes_2.c \
       libft_utils.c \
-      redirection_utils.c \
+      token_pipe_redir_utils.c \
       token_utils.c \
 
 OBJ = $(SRC:.c=.o)

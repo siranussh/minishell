@@ -21,4 +21,25 @@ int count_tokens(char *str)
     return (result);
 }
 
-
+// int parse_line(t_data **data, char *line, char **tokens_by_pipe)
+// {
+//     (*data)->flags->quote = check_dquote(line, 2, 2, (*data));
+//     if ((*data)->flags->quote == 0)
+//     {
+//         free(line);
+//         return (1);
+//     }
+//     (*data)->flags->pipe = count_pipes(line);
+//     if((*data)->flags->pipe = -1)
+//     {
+//         free(line);
+//         return (1);
+//     }
+//     *tokens_by_pipe = split_pipes(line);
+//     if (!(*tokens_by_pipe))
+//     {
+//         free(line);
+//         return (1);
+//     }
+//     return (0);
+// }

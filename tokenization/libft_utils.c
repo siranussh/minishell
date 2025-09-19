@@ -123,3 +123,29 @@ void	*ft_memset(void *b, int c, size_t len)
 	}
 	return (b);
 }
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i] && fd >= 0)
+	{
+		ft_putchar_fd(s[i], fd);
+		i++;
+	}
+}
+
+void	ft_putchar_fd(char c, int fd)
+{
+	if (fd >= 0)
+		write(fd, &c, 1);
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
+}

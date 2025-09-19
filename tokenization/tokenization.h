@@ -4,9 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <unistd.h>
 
 #define EMPTY_QUOTE_MARK 27 
 
+int global_error;
 
 
 typedef struct s_env
@@ -47,7 +49,14 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strchr(const char *s, int c);
 void	*ft_calloc(size_t count, size_t size);
 void	*ft_memset(void *b, int c, size_t len);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putendl_fd(char *s, int fd);
+void	ft_putchar_fd(char c, int fd);
+
 int exit_error(char *str, int code);
+void print_error(char *name, char *file, char *err);
+int pipe_syntax_error(void);
+int quote_error(void);
 
 int check_quotes_type(char *str);
 int find_closing_quote(int i, char *str, char c);
@@ -55,4 +64,5 @@ char *skip_empty_quotes(char *str, t_cmd *cmd);
 char *delete_quotes(char *str, char c);
 int is_other_op(char c);
 int count_tokens(char *str);
+int parse_line(t_data **data, char *line, char **tokens_by_pipe);
 #endif

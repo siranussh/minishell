@@ -4,6 +4,8 @@ int find_closing_quote(int i, char *str, char c)
 {
     while (str[i] && str[i] != c)
         i++;
+    if(!str[i])
+        return (-1);
     return (i);
 }
 
