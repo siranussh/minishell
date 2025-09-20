@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 17:10:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/20 15:18:49 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/20 18:46:38 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -14,7 +14,7 @@
 # define BUILTINS_H
 
 # include <aio.h>
-# include <unistd.h> //getcwd()
+# include <unistd.h> //getcwd() chdir()
 # include <stdio.h>
 # include <stdlib.h>
 
@@ -40,9 +40,7 @@ char	*ft_substr(char const *s, int start, int len);
 int		check_built_in_type(char **args, char **envp);
 
 // echo.c
-int		is_n_flag(char *str);
 int		built_in_echo(char **args);
-int		check_n_flag(char **args);
 
 // pwd.c
 int		built_in_pwd(void);
@@ -56,7 +54,10 @@ t_env	*env_parse(char **envp);
 // env.c
 int		built_in_env(t_env *env);
 
-// int	built_in_cd(char **args);
+// cd .c
+// char	*get_env_values(t_env *env, char *key);
+// int	built_in_cd(int argc, char **args, t_env *env);
+
 // int	built_in_export(char **args);
 // int	built_in_unset(char **args);
 // int	built_in_exit(char **args);
