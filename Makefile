@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC_FILES = utils.c list_utils.c echo.c pwd.c env.c env_parsing.c main.c
+SRC_FILES = utils.c list_utils.c echo.c pwd.c env.c env_parsing.c cd.c main.c
 
 SRCS = $(addprefix ./builtins/, $(SRC_FILES))
 
