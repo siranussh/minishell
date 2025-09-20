@@ -36,7 +36,7 @@ char	*return_name(char *arg)
 		return (NULL);
 	index = return_name_size(arg);
 	if (index < 0)
-		return (NULL)
+		return (NULL);
 	return (ft_substr(arg, 0, index));
 }
 

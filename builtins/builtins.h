@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
@@ -6,15 +6,15 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 17:10:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/17 15:59:19 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/20 15:18:49 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
 # include <aio.h>
-# include <unistd.h>
+# include <unistd.h> //getcwd()
 # include <stdio.h>
 # include <stdlib.h>
 
@@ -37,7 +37,7 @@ char	*ft_strdup(const char *s1);
 char	*ft_substr(char const *s, int start, int len);
 
 // builtins.c
-int		check_built_in_type(char **arg);
+int		check_built_in_type(char **args, char **envp);
 
 // echo.c
 int		is_n_flag(char *str);
@@ -47,14 +47,14 @@ int		check_n_flag(char **args);
 // pwd.c
 int		built_in_pwd(void);
 
-// env.c
-int		built_in_env(t_env *env);
-
 // env_parsing.c
 int		return_name_size(char *arg);
 char	*return_name(char *arg);
 char	*return_value(char *arg);
 t_env	*env_parse(char **envp);
+
+// env.c
+int		built_in_env(t_env *env);
 
 // int	built_in_cd(char **args);
 // int	built_in_export(char **args);

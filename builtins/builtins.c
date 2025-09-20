@@ -12,8 +12,11 @@
 
 #include "builtins.h"
 
-int	check_built_in_type(char **args)
+int	check_built_in_type(char **args, char **envp)
 {
+	t_env	*env;
+
+	env = env_parse(envp);
 	if (args[0] == "echo")
 		return (built_in_echo(args));
 	else if (args[0] == "cd")
@@ -25,7 +28,7 @@ int	check_built_in_type(char **args)
 	else if (args[0] == "unset")
 		return (built_in_unset(args));
 	else if (args[0] == "env")
-		return (built_in_env(args));
+		return (built_in_env(env));
 	else if (args[0] == "exit")
 		return (built_in_exit(args));
 	else

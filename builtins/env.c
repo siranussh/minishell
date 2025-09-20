@@ -16,17 +16,20 @@ int	check_path(t_env *env)
 {
 	while (env)
 	{
-		if (ft_strncmp(env->name, "PATH=", 5) != 0)
-			return (0);
+		if (ft_strncmp(env->name, "PATH", 4) == 0)
+			return (1);
+		else
+			env = env->next;
+
 	}
-	return (1);
+	return (0);
 }
 
 int	built_in_env(t_env *env)
 {
-	if (check_path(env))
+	if (check_path(env) == 0)
 	{
-		printf("%s\n", "env: No such file or directory");
+		printf("%s\n", "minishell: env: No such file or directory");
 		return (0);
 	}
 	while (env)
