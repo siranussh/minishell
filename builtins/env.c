@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/06 17:58:50 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/17 17:52:39 by anavagya         ###   ########.fr       */
+/*   Created: 2025/09/22 12:52:21 by anavagya          #+#    #+#             */
+/*   Updated: 2025/09/22 12:53:56 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	check_path(t_env *env)
 			return (1);
 		else
 			env = env->next;
-
 	}
 	return (0);
 }
