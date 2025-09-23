@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:17:23 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/23 12:07:01 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/23 23:11:19 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "builtins.h"
 
@@ -40,14 +40,17 @@ void	ft_lstadd_back(t_env **lst, t_env *new)
 	current->next = new;
 }
 
-void	ft_lstdelone(t_env *env, void (*del)(void*))
+void	del_env_node(t_env *prew)
 {
-	if (env)
-	{
-		del(env->name);
-		del(env->value);
-		free(env);
-	}
+	t_env	*tmp;
+
+	if (!prew)
+		return ;
+	tmp = prew->next;
+	free(tmp->name);
+	free(tmp->value);
+	prew->next = tmp->next;
+	free(tmp);
 }
 
 void	free_env_list(t_env *head)

@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 17:10:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/23 12:18:20 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/23 23:11:45 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
@@ -28,7 +28,7 @@ typedef struct s_env
 // list_utils.c
 t_env	*ft_lstnew(char *name, char *value);
 void	ft_lstadd_back(t_env **lst, t_env *new);
-void	ft_lstdelone(t_env *env, void (*del)(void*));
+void	del_env_node(t_env *prew);
 void	free_env_list(t_env *head);
 
 // utils.c
@@ -63,7 +63,8 @@ int		cd_helper(char *path, char *old_pwd, t_env *env);
 int		built_in_cd(int argc, char **args, t_env *env);
 
 // unset.c
-int		built_in_unset(char **args, t_env *env);
+int		get_env_key_index(t_env *env, char *key);
+int		built_in_unset(char **args, t_env **env);
 
 // unset -> exit -> export;
 //
