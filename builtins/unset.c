@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:48:12 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/22 18:43:42 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/23 18:26:18 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,37 @@ t_env	*if_env_key_exist(t_env *env, char *key)
 	return (NULL);
 }
 
-void	del_env_value(t_env *prew)
+int	get_env_key_index(t_env *env, char *key)
+{
+	int	i;
+
+	i = 0;
+	if (!key)
+		return (-1);
+	while (env)
+	{
+		// printf("env->name = %s, key = %s\n", env->name, key);
+		if (ft_strcmp(env->name, key) == 0)
+		{
+			// printf("zibil qeez %s           i =====%d\n", key, i);
+			return (i);
+		}
+		// else
+		// {
+		env = env->next;
+		i++;
+		// }
+	}
+	// printf("cankacac zibil((((((((((\n");
+	// printf("*******env->name = %s, key = %s\n", env->name, key);
+	return (-1);
+}
+
+void	del_env_node(t_env *prew)
 {
 	t_env	*tmp;
 
-	if (!prew || !prew->next)
+	if (!prew)
 		return ;
 	tmp = prew->next;
 	free(tmp->name);
@@ -36,21 +62,47 @@ void	del_env_value(t_env *prew)
 	free(tmp);
 }
 
-int	built_in_unset(char **args);
+int	built_in_unset(char **args, t_env *env)
 {
-	int	i;
+	int		i;
+	int		j;
+	int		nb;
+	int		prew_index;
+	t_env	*prew;
 
 	i = 1;
+	j = 0;
+	// prew = NULL;
 	if (!args || !*args)
 		return (0);
 	while (args[i])
 	{
-		if (!if_env_key_exist(env, args[i]))
-			i++;
-		else
+		printf("stexa %s\n%d\n\n", args[i], nb);
+		nb = get_env_key_index(env, args[i]);
+		if (nb == -1)
 		{
-			ft_lstdelone(env, )
+			printf("stex chpetq a mtnes %s\n\n\n", args[i]);
+			// printf("index = %d\n", nb);
 			i++;
 		}
+		else
+		{
+			prew_index = nb - 1;
+			j = 0;
+			while (env)
+			{
+				if (j == prew_index)
+				{
+					prew = env;
+					del_env_node(prew);
+					break ;
+				}
+				env = env->next;
+				j++;
+			}
+			i++;
+		}
+		// printf("lerinik in red =%d\n", i);
 	}
+	return (1);
 }

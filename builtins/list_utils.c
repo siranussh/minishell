@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:17:23 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/22 18:25:34 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/23 12:07:01 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,6 @@ void	ft_lstadd_back(t_env **lst, t_env *new)
 	while (current->next)
 		current = current->next;
 	current->next = new;
-}
-
-void	del_env_value(void *ptr)
-{
-	t_env	*env;
-
-	env = (t_env *)ptr;
-	
-
 }
 
 void	ft_lstdelone(t_env *env, void (*del)(void*))

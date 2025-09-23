@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 17:10:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/22 16:22:06 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/23 12:18:20 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		cd_helper(char *path, char *old_pwd, t_env *env);
 int		built_in_cd(int argc, char **args, t_env *env);
 
 // unset.c
-// int	built_in_unset(char **args);
+int		built_in_unset(char **args, t_env *env);
 
 // unset -> exit -> export;
 //
