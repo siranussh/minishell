@@ -21,25 +21,48 @@ int count_tokens(char *str)
     return (result);
 }
 
-// int parse_line(t_data **data, char *line, char **tokens_by_pipe)
-// {
-//     (*data)->flags->quote = check_dquote(line, 2, 2, (*data));
-//     if ((*data)->flags->quote == 0)
-//     {
-//         free(line);
-//         return (1);
-//     }
-//     (*data)->flags->pipe = count_pipes(line);
-//     if((*data)->flags->pipe = -1)
-//     {
-//         free(line);
-//         return (1);
-//     }
-//     *tokens_by_pipe = split_pipes(line);
-//     if (!(*tokens_by_pipe))
-//     {
-//         free(line);
-//         return (1);
-//     }
-//     return (0);
-// }
+int check_redir(char **tk, int i)
+{
+    char *temp;
+    int j;
+
+    j = 0;
+    if(redir_type(tk[i]) == -1)
+        return (redir_error());
+    temp = ft_strchr(tk[i], redir_smb(redir_type(tk[i])));
+    while (temp && redir_type(temp + j))
+    {
+        j = 0;
+        while(temp[j] && (temp[j] == 32 || is_other_op(temp[j])))
+            j++;
+        if ((redir_type(tk[i]) && !temp[j]) || is_other_op(temp[ft_strlen(temp) - 1]))
+            return (redir_error());
+        temp = ft_strchr(temp + j, redir_smb(redir_type(temp + j)));
+    }
+    return (0);
+}
+
+
+int parse_line(t_data **data, char *line, char ***tokens_by_pipe)
+{
+    (*data)->flags->quote = check_dquote(line, 2, 2, (*data));
+    if ((*data)->flags->quote == 0)
+    {
+        free(line);
+        return (1);
+    }
+    (*data)->flags->pipe = count_pipes(line);
+    if((*data)->flags->pipe == -1)
+    {
+        free(line);
+        return (1);
+    }
+    *tokens_by_pipe = split_pipes(line);
+    if (!(*tokens_by_pipe))
+    {
+        free(line);
+        return (1);
+    }
+    return (0);
+}
+
