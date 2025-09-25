@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 17:10:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/25 12:24:21 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/25 17:23:22 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_env	*ft_lstnew(char *name, char *value);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 void	del_env_node(t_env *prew);
 void	free_env_list(t_env *head);
+void	ft_lstswap(t_env *env);
 
 // utils.c
 int		ft_strlen(const char *s);
@@ -72,6 +73,6 @@ int		built_in_unset(char **args, t_env **env);
 // int	built_in_exit(char **args);
 
 // export.c
-int	built_in_export(char **args);
+int		built_in_export(t_env *env);
 
 #endif
