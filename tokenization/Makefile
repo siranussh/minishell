@@ -13,6 +13,7 @@ SRC = create_token.c \
       token_redir_utils.c \
       token_utils.c \
       expand.c \
+      expand_utils.c \
       minishell.c \
 
 OBJ_DIR = obj

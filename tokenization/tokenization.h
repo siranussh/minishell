@@ -79,5 +79,9 @@ int find_next_redir(char *str);
 int	check_redir(char **arg, int i);
 
 char *extract_env_value(char *str);
-
+int find_next_char(char *str, char c, int j);
+char *expand_dollar(char *new_line, char *line, char *var, int c);
+char *expand_line(char *line, char*var);
+int skip_double_quotes(char *str, int i, int j);
+int skip_single_quotes(char *str, int i);
 #endif
