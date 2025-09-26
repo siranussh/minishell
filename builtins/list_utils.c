@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:17:23 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/25 18:00:36 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/26 12:20:37 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,19 @@ void	ft_lstadd_back(t_env **lst, t_env *new)
 	current->next = new;
 }
 
+int	ft_lstsize(t_env *env)
+{
+	int	count;
+
+	count = 0;
+	while (env != NULL)
+	{
+		count++;
+		env = env->next;
+	}
+	return (count);
+}
+
 void	del_env_node(t_env *prew)
 {
 	t_env	*tmp;
@@ -67,14 +80,14 @@ void	free_env_list(t_env *head)
 	}
 }
 
-void	ft_lstswap(t_env *env)
-{
-	t_env	*tmp;
+// void	ft_lstswap(t_env *env)
+// {
+// 	t_env	*tmp;
 
-	if (!env || !env->next)
-		return ;
-	tmp = env;
-	env = env->next;
-	tmp->next = env->next;
-	env->next = tmp;
-}
+// 	if (!env || !env->next)
+// 		return ;
+// 	tmp = env;
+// 	env = env->next;
+// 	tmp->next = env->next;
+// 	env->next = tmp;
+// }
