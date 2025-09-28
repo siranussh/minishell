@@ -84,4 +84,7 @@ char *expand_dollar(char *new_line, char *line, char *var, int c);
 char *expand_line(char *line, char*var);
 int skip_double_quotes(char *str, int i, int j);
 int skip_single_quotes(char *str, int i);
+int is_digit_or_special(int i);
+char *delete_invalid_dollar(char *str, int i, int j);
+int check_dollar_purpose(char *line);
 #endif

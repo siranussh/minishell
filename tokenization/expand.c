@@ -63,3 +63,31 @@ char *expand_line(char *line, char*var)
     free(var);
     return (new_line);
 }
+
+char *delete_invalid_dollar(char *str, int i, int j)
+{
+    char *new_str;
+
+    while (str[++i])
+    {
+        if (str[i] && str[i] == '$'  && str[i + 1] && is_digit_or_special(str[i + 1]) == 1)
+        {
+            j = -1;
+            new_str = malloc(sizeof(char) * ft_strlen(str) - 1);
+            if (!new_str)
+                exit_error("minishell: malloc failed", 1);
+            while(++j < i)
+                new_str[j] = str[j];
+            i++;
+            while(str[++i])
+            {
+                new_str[j] = str[i];
+                j++;
+            }
+            new_str[j] = '\0';
+            free(str);
+            str = delete_invalid_dollar(new_str, -1, -1);
+        }
+    }
+    return (str);
+}
