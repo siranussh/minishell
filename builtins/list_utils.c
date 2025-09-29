@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:17:23 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/26 12:20:37 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/29 14:44:22 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,3 @@ void	free_env_list(t_env *head)
 		head = tmp;
 	}
 }
-
-// void	ft_lstswap(t_env *env)
-// {
-// 	t_env	*tmp;
-
-// 	if (!env || !env->next)
-// 		return ;
-// 	tmp = env;
-// 	env = env->next;
-// 	tmp->next = env->next;
-// 	env->next = tmp;
-// }

@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/28 13:18:51 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/29 18:09:36 by anavagya         ###   ########.fr       */
+/*   Created: 2025/09/29 14:44:42 by anavagya          #+#    #+#             */
+/*   Updated: 2025/09/29 14:45:14 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_free(char **str)
 {
-	t_env	*env;
+	int	i;
 
-	(void)argc;
-	(void)argv;
-	// char *str[] = {"echo", "-n", "-nn", "barev", "aziz", "-n", "jan", NULL};
-	char *str[] = {"export", NULL};
-	env = env_parse(envp);
-	built_in_env(env);
-	// built_in_unset(str, &env);
-	printf("\n\n\n");
-	built_in_export(str, argc, env);
-	return (0);
+	i = 0;
+	if (!str || !*str)
+		return ;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
 }

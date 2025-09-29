@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:48:12 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/25 12:06:12 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/29 14:43:07 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	unset_head(t_env **env)
 
 static void	unset_middle(t_env *head, int nb)
 {
-	int	j;
+	int		j;
 	t_env	*prew;
 
 	prew = head;

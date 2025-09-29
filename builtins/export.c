@@ -6,13 +6,13 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 12:23:25 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/26 13:48:46 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/29 18:35:05 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-char	**convert_to_array(t_env *env)
+static char	**convert_to_array(t_env *env)
 {
 	int		i;
 	int		size;
@@ -33,16 +33,16 @@ char	**convert_to_array(t_env *env)
 	return (env_arr);
 }
 
-void	sort_in_alpha_order(char **env_arr)
+static void	sort_in_alpha_order(char **env_arr)
 {
 	int		i;
 	int		j;
 	char	*tmp;
 
 	i = 0;
-	j = 1;
 	while (env_arr[i])
 	{
+		j = i + 1;
 		while (env_arr[j])
 		{
 			if (ft_strcmp(env_arr[i], env_arr[j]) > 0)
@@ -57,23 +57,42 @@ void	sort_in_alpha_order(char **env_arr)
 	}
 }
 
-int	built_in_export(t_env *env)
+char	*if_env_value_exist(t_env *env, char *key)
 {
-	char **env_arr;
+	while (env)
+	{
+		if (ft_strcmp(env->name, key) == 0)
+			return (env->value);
+		env = env->next;
+	}
+	return (NULL);
+}
+
+int	built_in_export(char **args, int argc, t_env **env)
+{
+	int		i;
+	char	*value;
+	char	**env_arr;
 
 	if (!env)
 		return (0);
+	i = 0;
 	env_arr = convert_to_array(env);
 	sort_in_alpha_order(env_arr);
-	// dasavorel aybenakan kargov env-n minchev tpely
-	while (env)
+	if (argc == 1)
 	{
-		if (env->value)
-			printf("declare -x %s=\"%s\"\n", env->name, env->value);
-		else
-			printf("declare -x %s\n", env->name);
-		env = env->next;
+		while (env_arr[i])
+		{
+			value = if_env_value_exist(env, env_arr[i]);
+			if (value)
+				printf("declare -x %s=\"%s\"\n", env_arr[i], value);
+			else
+				printf("declare -x %s\n", env_arr[i]);
+			i++;
+		}
 	}
+	else
+	{}
+	ft_free(env_arr);
 	return (1);
-
 }
