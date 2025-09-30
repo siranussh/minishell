@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/22 12:52:21 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/30 13:14:08 by anavagya         ###   ########.fr       */
+/*   Created: 2025/01/31 16:33:17 by anavagya          #+#    #+#             */
+/*   Updated: 2025/01/31 16:35:24 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "libft.h"
 
-int	built_in_env(t_env *env)
+void	ft_putchar_fd(char c, int fd)
 {
-	while (env)
-	{
-		if (env->value)
-			printf("%s=%s\n", env->key, env->value);
-		env = env->next;
-	}
-	return (1);
+	write(fd, &c, 1);
 }

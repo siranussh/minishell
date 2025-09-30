@@ -6,13 +6,14 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 17:10:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/29 18:09:40 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/30 16:25:13 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
+# include "libft.h"
 # include <aio.h>
 # include <unistd.h> //getcwd() chdir()
 # include <stdio.h>
@@ -20,24 +21,22 @@
 
 typedef struct s_env
 {
-	char			*name;
+	char			*key;
 	char			*value;
 	struct s_env	*next;
 }	t_env;
 
 // list_utils.c
-t_env	*ft_lstnew(char *name, char *value);
-void	ft_lstadd_back(t_env **lst, t_env *new);
-int		ft_lstsize(t_env *env);
+t_env	*ft_env_new(char *key, char *value);
+void	ft_env_add_back(t_env **lst, t_env *new);
+int		ft_env_size(t_env *env);
 void	del_env_node(t_env *prew);
 void	free_env_list(t_env *head);
 
 // utils.c
-int		ft_strlen(const char *s);
+int		ft_strlen_ms(const char *s);
 int		ft_strcmp(char *s1, char *s2);
-char	*ft_strdup(const char *s1);
-char	*ft_substr(char const *s, int start, int len);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_substr_ms(char const *s, int start, int len);
 char	*ft_strcpy(char *dest, char *src);
 
 // free.c
@@ -53,8 +52,10 @@ int		built_in_echo(char **args);
 int		built_in_pwd(void);
 
 // env_parsing.c
-int		return_name_size(char *arg);
-char	*return_name(char *arg);
+int		return_key_size(char *arg);
+// char	*return_key(char *arg, int (*size_funct)(char *));
+// char	*return_value(char *arg, int (*size_funct)(char *));
+char	*return_key(char *arg);
 char	*return_value(char *arg);
 t_env	*env_parse(char **envp);
 
@@ -78,6 +79,9 @@ int		built_in_unset(char **args, t_env **env);
 
 // export.c
 char	*if_env_value_exist(t_env *env, char *key);
+int		return_key_size_export(char *arg);
+char	*return_key_export(char *arg);
+char	*return_value_export(char *arg);
 int		built_in_export(char **args, int argc, t_env **env);
 
 #endif

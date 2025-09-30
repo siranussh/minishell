@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:48:12 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/29 14:43:07 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/30 13:15:52 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	get_env_key_index(t_env *env, char *key)
 		return (-1);
 	while (env)
 	{
-		if (ft_strcmp(env->name, key) == 0)
+		if (ft_strcmp(env->key, key) == 0)
 		{
 			return (i);
 		}
@@ -37,7 +37,7 @@ static void	unset_head(t_env **env)
 
 	tmp = *env;
 	*env = (*env)->next;
-	free(tmp->name);
+	free(tmp->key);
 	free(tmp->value);
 	free(tmp);
 }

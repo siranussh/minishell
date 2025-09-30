@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/22 12:52:21 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/30 13:14:08 by anavagya         ###   ########.fr       */
+/*   Created: 2025/01/27 17:32:49 by anavagya          #+#    #+#             */
+/*   Updated: 2025/01/27 18:18:18 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "libft.h"
 
-int	built_in_env(t_env *env)
+char	*ft_strrchr(const char *s, int c)
 {
-	while (env)
+	int		len;
+	char	*p;
+
+	len = ft_strlen(s);
+	p = (char *)s + len;
+	while (len >= 0)
 	{
-		if (env->value)
-			printf("%s=%s\n", env->key, env->value);
-		env = env->next;
+		if (*p == (char)c)
+			return (p);
+		p--;
+		len--;
 	}
-	return (1);
+	return (NULL);
 }

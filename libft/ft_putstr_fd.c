@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/22 12:52:21 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/30 13:14:08 by anavagya         ###   ########.fr       */
+/*   Created: 2025/01/31 16:53:16 by anavagya          #+#    #+#             */
+/*   Updated: 2025/01/31 16:55:20 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "libft.h"
 
-int	built_in_env(t_env *env)
+void	ft_putstr_fd(char *s, int fd)
 {
-	while (env)
+	size_t	i;
+
+	i = 0;
+	while (i < ft_strlen(s))
 	{
-		if (env->value)
-			printf("%s=%s\n", env->key, env->value);
-		env = env->next;
+		write(fd, &s[i], 1);
+		i++;
 	}
-	return (1);
 }

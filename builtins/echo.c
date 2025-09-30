@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:54:20 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/22 12:54:22 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:06:00 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	is_n_flag(char *str)
 		i++;
 	else
 		return (0);
-	while (i < ft_strlen(str))
+	while (i < ft_strlen_ms(str))
 	{
 		if (str[i] != 'n')
 			return (0);

@@ -16,7 +16,7 @@ char	*get_env_values(t_env *env, char *key)
 {
 	while (env)
 	{
-		if (ft_strcmp(env->name, key) != 0)
+		if (ft_strcmp(env->key, key) != 0)
 			env = env->next;
 		else
 			return (env->value);
@@ -28,7 +28,7 @@ int	change_env_value(t_env *env, char *key, char *value)
 {
 	while (env)
 	{
-		if (ft_strcmp(env->name, key) == 0)
+		if (ft_strcmp(env->key, key) == 0)
 		{
 			free(env->value);
 			env->value = ft_strdup(value);

@@ -6,13 +6,13 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:52:31 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/22 12:52:34 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/30 16:25:44 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	return_name_size(char *arg)
+int	return_key_size(char *arg)
 {
 	int	i;
 
@@ -28,16 +28,40 @@ int	return_name_size(char *arg)
 	return (-1);
 }
 
-char	*return_name(char *arg)
+// char	*return_key(char *arg, int (*size_funct)(char *))
+// {
+// 	int	index;
+
+// 	if (!arg || !*arg)
+// 		return (NULL);
+// 	index = size_funct(arg);
+// 	if (index < 0)
+// 		return (NULL);
+// 	return (ft_substr_ms(arg, 0, index));
+// }
+
+// char	*return_value(char *arg, int (*size_funct)(char *))
+// {
+// 	int	index;
+
+// 	if (!arg || !*arg)
+// 		return (NULL);
+// 	index = size_funct(arg);
+// 	if (index < 0)
+// 		return (NULL);
+// 	return (ft_substr_ms(arg, index + 1, ft_strlen_ms(arg) - index - 1));
+// }
+
+char	*return_key(char *arg)
 {
 	int	index;
 
 	if (!arg || !*arg)
 		return (NULL);
-	index = return_name_size(arg);
+	index = return_key_size(arg);
 	if (index < 0)
 		return (NULL);
-	return (ft_substr(arg, 0, index));
+	return (ft_substr_ms(arg, 0, index));
 }
 
 char	*return_value(char *arg)
@@ -46,15 +70,15 @@ char	*return_value(char *arg)
 
 	if (!arg || !*arg)
 		return (NULL);
-	index = return_name_size(arg);
+	index = return_key_size(arg);
 	if (index < 0)
 		return (NULL);
-	return (ft_substr(arg, index + 1, ft_strlen(arg) - index - 1));
+	return (ft_substr_ms(arg, index + 1, ft_strlen_ms(arg) - index - 1));
 }
 
 t_env	*env_parse(char **envp)
 {
-	char	*name;
+	char	*key;
 	char	*value;
 	t_env	*head;
 	t_env	*tmp;
@@ -62,10 +86,10 @@ t_env	*env_parse(char **envp)
 	head = NULL;
 	while (*envp)
 	{
-		name = return_name(*envp);
+		key = return_key(*envp);
 		value = return_value(*envp);
-		tmp = ft_lstnew(name, value);
-		ft_lstadd_back(&head, tmp);
+		tmp = ft_env_new(key, value);
+		ft_env_add_back(&head, tmp);
 		envp++;
 	}
 	return (head);

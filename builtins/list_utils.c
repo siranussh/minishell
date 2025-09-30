@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
@@ -6,26 +6,26 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 16:17:23 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/29 21:28:57 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/09/30 13:56:33 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "builtins.h"
 
-t_env	*ft_lstnew(char *name, char *value)
+t_env	*ft_env_new(char *key, char *value)
 {
 	t_env	*new_node;
 
 	new_node = (t_env *)malloc(sizeof(t_env));
 	if (!new_node)
 		return (NULL);
-	new_node->name = name;
+	new_node->key = key;
 	new_node->value = value;
 	new_node->next = NULL;
 	return (new_node);
 }
 
-void	ft_lstadd_back(t_env **lst, t_env *new)
+void	ft_env_add_back(t_env **lst, t_env *new)
 {
 	t_env	*current;
 
@@ -40,7 +40,7 @@ void	ft_lstadd_back(t_env **lst, t_env *new)
 	current->next = new;
 }
 
-int	ft_lstsize(t_env *env)
+int	ft_env_size(t_env *env)
 {
 	int	count;
 
@@ -60,7 +60,7 @@ void	del_env_node(t_env *prew)
 	if (!prew)
 		return ;
 	tmp = prew->next;
-	free(tmp->name);
+	free(tmp->key);
 	free(tmp->value);
 	prew->next = tmp->next;
 	free(tmp);
@@ -73,7 +73,7 @@ void	free_env_list(t_env *head)
 	while (head)
 	{
 		tmp = head->next;
-		free(head->name);
+		free(head->key);
 		free(head->value);
 		free(head);
 		head = tmp;
