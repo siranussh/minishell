@@ -51,31 +51,10 @@ int find_next_char(char *str, char c, int j)
     return (-1);
 }
 
-int is_digit_or_special(int i)
+int is_special(char c)
 {
-    if(i == 42 || i == 64 || i == 92)
-        return (1);
-    else if(i < 48 || i > 57)
-        return (0);
-    return (1);
-}
-
-int check_dollar_purpose(char *line)
-{
-    int i;
-    int is_double;
-
-    i = 0;
-    is_double = 1;
-    while(line[i])
-    {
-        if(line[i] == 39 && is_double == 1)
-            i = find_closing_quote(i + 1,line, line[i]);
-        if(line[i] == 34)
-            is_double *= -1;
-        if (line[i] == '$' && line[i + 1] && line[i + 1] != ' ')
-            return (1);
-        i++;
-    }
+    const char *specials = "=@#-+{}[]!~?%^*/$;";
+    if(ft_strchr(specials, c))
+        return (-1);
     return (0);
 }

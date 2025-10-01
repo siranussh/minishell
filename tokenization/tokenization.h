@@ -86,5 +86,9 @@ int skip_double_quotes(char *str, int i, int j);
 int skip_single_quotes(char *str, int i);
 int is_digit_or_special(int i);
 char *delete_invalid_dollar(char *str, int i, int j);
+int is_invalid_dollar(char *str);
 int check_dollar_purpose(char *line);
+int is_tilde_path(char *str);
+char *replace_tilde(char *str);
+int is_special(char c);
 #endif
