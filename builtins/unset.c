@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:48:12 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/30 13:15:52 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/02 23:33:50 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "builtins.h"
 
@@ -70,11 +70,14 @@ int	built_in_unset(char **args, t_env **env)
 	while (args[i])
 	{
 		head = *env;
-		nb = get_env_key_index(head, args[i]);
-		if (nb == 0)
-			unset_head(env);
-		else if (nb > 0)
-			unset_middle(head, nb);
+		if (ft_strcmp(args[i], "_") != 0)
+		{
+			nb = get_env_key_index(head, args[i]);
+			if (nb == 0)
+				unset_head(env);
+			else if (nb > 0)
+				unset_middle(head, nb);
+		}
 		i++;
 	}
 	return (1);
