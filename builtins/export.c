@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 12:23:25 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/30 16:28:36 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:38:23 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	return_key_size_export(char *arg)
 		return (-1);
 	while (arg[i])
 	{
-		if (arg[i] == '=')
+		if (arg[i] == '=' || arg[i] == '+')
 			return (i);
 		i++;
 	}
@@ -104,16 +104,51 @@ char	*return_value_export(char *arg)
 		return (NULL);
 	index = return_key_size(arg);
 	if (index < 0)
-		return (NULL);
+	return (NULL);
+	if (arg[index + 1] == '+')
+		return (ft_substr_ms(arg, index + 2, ft_strlen_ms(arg) - index - 1));
 	return (ft_substr_ms(arg, index + 1, ft_strlen_ms(arg) - index - 1));
+}
+
+void	append_export(t_env **env, char *key, char *value)
+{
+	char	*new_value;
+	t_env	*tmp;
+	t_env	*head;
+
+	head = *env;
+	if (get_env_key_index(*env, key) == -1)
+	{
+		tmp = ft_env_new(key, value);
+		ft_env_add_back(env, tmp);
+	}
+	if (get_env_key_index(*env, key) != -1 && !if_env_value_exist(*env, key))
+	{
+		while (head)
+		{
+			if (ft_strcmp(head->key, key) == 0)
+				head->value = value;
+			head = head->next;
+		}
+	}
+	else if (get_env_key_index(*env, key) != -1 && if_env_value_exist(*env, key))
+	{
+		new_value = ft_strjoin(if_env_value_exist(*env, key), value);
+		while (head)
+		{
+			if (ft_strcmp(head->key, key) == 0)
+				head->value = new_value;
+			head = head->next;
+		}
+	}
 }
 
 int	built_in_export(char **args, int argc, t_env **env)
 {
 	int		i;
+	int		key_size;
 	char	*key;
 	char	*value;
-	char	*env_value;
 	char	**env_arr;
 	t_env	*tmp;
 	t_env	*head;
@@ -126,16 +161,21 @@ int	built_in_export(char **args, int argc, t_env **env)
 	{
 		while (args[i])
 		{
-			if (!ft_isalpha(*args[i]))
+			if (!ft_isalpha(*args[i]))// *args[i] != '_')
 			{
 				printf("minishell: export: `%s': not a valid identifier\n", args[i]);
 				i++;
 			}
+			key_size = return_key_size_export(args[i]);
+			key = return_key_export(args[i]);
+			value = return_value_export(args[i]);
+			if (args[i][key_size + 1] == '+')
+				append_export(env, key, value);////////////////////////////
 			else
 			{
-				key = return_key_export(args[i]);
-				value = return_value_export(args[i]);
-				if (get_env_key_index(*env, key) == -1 && !if_env_value_exist(*env, key))
+				// key = return_key_export(args[i]);///////////
+				// value = return_value_export(args[i]);
+				if (get_env_key_index(*env, key) == -1)
 				{
 					tmp = ft_env_new(key, value);
 					ft_env_add_back(env, tmp);
@@ -156,18 +196,7 @@ int	built_in_export(char **args, int argc, t_env **env)
 	env_arr = convert_to_array(*env);
 	sort_in_alpha_order(env_arr);
 	if (argc == 1)
-	{
-		i = 0;
-		while (env_arr[i])
-		{
-			env_value = if_env_value_exist(*env, env_arr[i]);
-			if (env_value)
-				printf("declare -x %s=\"%s\"\n", env_arr[i], env_value);
-			else
-				printf("declare -x %s\n", env_arr[i]);
-			i++;
-		}
-	}
+		print_export(env_arr, env);
 	ft_free(env_arr);
 	return (1);
 }
