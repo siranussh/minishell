@@ -52,22 +52,3 @@ char *replace_tilde(char *str)
     return (1);
 }
 
-int check_dollar_purpose(char *line)
-{
-    int i;
-    int is_double;
-
-    i = 0;
-    is_double = 1;
-    while(line[i])
-    {
-        if(line[i] == 39 && is_double == 1)
-            i = find_closing_quote(i + 1,line, line[i]);
-        if(line[i] == 34)
-            is_double *= -1;
-        if (line[i] == '$' && line[i + 1] && line[i + 1] != ' ')
-            return (1);
-        i++;
-    }
-    return (0);
-}

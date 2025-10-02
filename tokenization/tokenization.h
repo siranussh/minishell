@@ -21,6 +21,7 @@ typedef struct s_flags
 {
     int pipe;
     int quote;
+    int	has_special;
 } t_flags;
 
 typedef struct s_cmd
@@ -52,6 +53,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 
 int exit_error(char *str, int code);
 void print_error(char *name, char *file, char *err);
@@ -78,17 +80,15 @@ int is_other_op(char c);
 int find_next_redir(char *str);
 int	check_redir(char **arg, int i);
 
-char *extract_env_value(char *str);
 int find_next_char(char *str, char c, int j);
-char *expand_dollar(char *new_line, char *line, char *var, int c);
-char *expand_line(char *line, char*var);
 int skip_double_quotes(char *str, int i, int j);
 int skip_single_quotes(char *str, int i);
-int is_digit_or_special(int i);
-char *delete_invalid_dollar(char *str, int i, int j);
-int is_invalid_dollar(char *str);
-int check_dollar_purpose(char *line);
+int is_special(char c);
+char *extract_value_name(char *line);
+char *extract_after_special(char *line, int i, t_cmd *cmd);
+
 int is_tilde_path(char *str);
 char *replace_tilde(char *str);
-int is_special(char c);
+int is_invalid_dollar(char *str);
+int is_digit_or_special(int i);
 #endif
