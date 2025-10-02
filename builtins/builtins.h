@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 17:10:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/02 18:13:00 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/02 23:25:05 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
@@ -77,15 +77,22 @@ int		built_in_unset(char **args, t_env **env);
 // exit.c
 // int	built_in_exit(char **args);
 
+// export_utils.c
+void	key_existance(t_env **env, char *key, char *value);
+void	print_export(char **env_arr, t_env **env);
+
+// export_append.c
+void	giving_new_value(t_env **env, char *key, char *value);
+void	append_export(t_env **env, char *key, char *value);
+
+// export_sort.c
+char	**convert_to_array(t_env *env);
+void	sort_in_alpha_order(char **env_arr);
+
 // export.c
 char	*if_env_value_exist(t_env *env, char *key);
 int		return_key_size_export(char *arg);
 char	*return_key_export(char *arg);
 char	*return_value_export(char *arg);
-void	append_export(t_env **env, char *key, char *value);
 int		built_in_export(char **args, int argc, t_env **env);
-
-// export_utils.c
-void	print_export(char **env_arr, t_env **env);
-
 #endif
