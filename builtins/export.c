@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 12:23:25 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/02 23:23:55 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/03 17:32:18 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "builtins.h"
 
@@ -59,7 +59,7 @@ char	*return_value_export(char *arg)
 		return (NULL);
 	index = return_key_size(arg);
 	if (index < 0)
-	return (NULL);
+		return (NULL);
 	if (arg[index + 1] == '+')
 		return (ft_substr_ms(arg, index + 2, ft_strlen_ms(arg) - index - 1));
 	return (ft_substr_ms(arg, index + 1, ft_strlen_ms(arg) - index - 1));
@@ -68,9 +68,6 @@ char	*return_value_export(char *arg)
 int	built_in_export(char **args, int argc, t_env **env)
 {
 	int		i;
-	int		key_size;
-	char	*key;
-	char	*value;
 	char	**env_arr;
 
 	if (!env)
@@ -80,24 +77,9 @@ int	built_in_export(char **args, int argc, t_env **env)
 	{
 		while (i < argc)
 		{
-			if (!ft_isalpha(*args[i]) && *args[i] != '_')
-			{
-				printf("minishell: export: `%s': not a valid identifier\n", args[i]);
-				i++;
-			}
-			key_size = return_key_size_export(args[i]);
-			key = return_key_export(args[i]);
-			value = return_value_export(args[i]);
-			if (args[i][key_size] == '+')
-			{
-				append_export(env, key, value);
-				i++;
-			}
-			else
-			{
-				key_existance(env, key, value);
-				i++;
-			}
+			if (is_valid_identifier(args[i]))
+				handle_export_arg(env, args[i]);
+			i++;
 		}
 	}
 	env_arr = convert_to_array(*env);

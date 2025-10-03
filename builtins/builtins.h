@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/26 17:10:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/02 23:25:05 by anavagya         ###   ########.fr       */
+/*   Created: 2025/10/03 13:39:29 by anavagya          #+#    #+#             */
+/*   Updated: 2025/10/03 17:22:38 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
@@ -79,6 +79,8 @@ int		built_in_unset(char **args, t_env **env);
 
 // export_utils.c
 void	key_existance(t_env **env, char *key, char *value);
+int		is_valid_identifier(char *arg);
+void	handle_export_arg(t_env **env, char *arg);
 void	print_export(char **env_arr, t_env **env);
 
 // export_append.c
