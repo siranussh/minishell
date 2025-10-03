@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
@@ -6,36 +6,39 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:39:20 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/03 18:35:05 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/03 23:32:08 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "builtins.h"
+
+void	update_env_value(t_env **env, char *key, char *value)
+{
+	t_env	*tmp;
+
+	tmp = *env;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->key, key) == 0)
+		{
+			free(tmp->value);
+			tmp->value = value;
+		}
+		tmp = tmp->next;
+	}
+}
 
 void	key_existance(t_env **env, char *key, char *value)
 {
 	t_env	*tmp;
-	t_env	*head;
 
-	head = *env;
 	if (get_env_key_index(*env, key) == -1)
 	{
 		tmp = ft_env_new(key, value);
 		ft_env_add_back(env, tmp);
 	}
-	else if (get_env_key_index(*env, key) != -1
-		&& !if_env_value_exist(*env, key))
-	{
-		while (head)
-		{
-			if (ft_strcmp(head->key, key) == 0)
-			{
-				free(head->value);
-				head->value = value;
-			}
-			head = head->next;
-		}
-	}
+	else if (get_env_key_index(*env, key) != -1)
+		update_env_value(env, key, value);
 }
 
 void	handle_export_arg(t_env **env, char *arg)
@@ -46,6 +49,8 @@ void	handle_export_arg(t_env **env, char *arg)
 
 	key_size = return_key_size_export(arg);
 	key = return_key_export(arg);
+	if (ft_strcmp(key, "_") == 0)
+		return ;
 	value = return_value_export(arg);
 	if (arg[key_size] == '+')
 		append_export(env, key, value);
@@ -60,7 +65,7 @@ int	is_valid_identifier(char *arg)
 	i = 0;
 	while (arg[i])
 	{
-		if (arg[i] == '+' && arg[i + 1] == '+')
+		if (arg[i] == '+' && arg[i + 1] != '=')
 		{
 			printf("minishell: export: `%s': not a valid identifier\n",
 				arg);

@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   export_append.c                                    :+:      :+:    :+:   */
@@ -6,35 +6,25 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:44:54 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/03 13:44:54 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/03 23:32:04 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "builtins.h"
 
 void	giving_new_value(t_env **env, char *key, char *value)
 {
 	char	*new_value;
-	t_env	*head;
 
-	head = *env;
 	new_value = ft_strjoin(if_env_value_exist(*env, key), value);
-	while (head)
-	{
-		if (ft_strcmp(head->key, key) == 0)
-		{
-			free(head->value);
-			head->value = new_value;
-			break ;
-		}
-		head = head->next;
-	}
+	update_env_value(env, key, new_value);
 }
 
 void	append_export(t_env **env, char *key, char *value)
 {
 	int		key_exists_before;
 	int		had_value_before;
+	t_env	*tmp;
 
 	if (get_env_key_index(*env, key) != -1)
 		key_exists_before = 1;
@@ -44,7 +34,14 @@ void	append_export(t_env **env, char *key, char *value)
 		had_value_before = 1;
 	else
 		had_value_before = 0;
-	key_existance(env, key, value);
-	if (key_exists_before && had_value_before)
+	if (get_env_key_index(*env, key) == -1)
+	{
+		tmp = ft_env_new(key, value);
+		ft_env_add_back(env, tmp);
+	}
+	else if (get_env_key_index(*env, key) != -1
+		&& !if_env_value_exist(*env, key))
+		update_env_value(env, key, value);
+	else if (key_exists_before && had_value_before)
 		giving_new_value(env, key, value);
 }

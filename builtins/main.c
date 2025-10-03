@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:45:45 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/03 17:24:57 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/03 23:28:09 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "builtins.h"
 
@@ -19,19 +19,24 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	// char *str[] = {"echo", "-n", "-nn", "barev", "aziz", "-n", "jan", NULL};
-	char *str[] = {"export", "2zibil=barev", "AN+++=asd", NULL};
-	// char *str1[] = {"export", "_AN", NULL};
-	// char *str_unset[] = {"unset", "_", NULL};
+	char *str[] = {"export", "zibil=foo", "ANfgh+=asd", NULL};
+	char *str1[] = {"export", "zibil=bar", NULL};
+	char *str_unset[] = {"unset", "_", NULL};
 	env = env_parse(envp);
+	built_in_env(env);
+	printf("\n--------------------------------------------------------\n");
+	
 	built_in_export(str, 3, &env);
+	printf("\n--------------------------------------------------------\n");
 	built_in_env(env);
 	printf("\n\n\n");
 	built_in_export(str, 1, &env);
-	// built_in_export(str1, 2, &env);
-	// built_in_unset(str_unset, &env);
-	// built_in_export(str, 1, &env);
 	printf("\n\n\n");
-	// built_in_env(env);
-
+	
+	built_in_export(str1, 2, &env);
+	built_in_export(str, 1, &env);
+	printf("\n\n\n");
+	built_in_unset(str_unset, &env);
+	built_in_env(env);
 	return (0);
 }
