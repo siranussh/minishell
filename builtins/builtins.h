@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 13:39:29 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/03 23:32:14 by anavagya         ###   ########.fr       */
+/*   Created: 2025/10/04 11:37:14 by anavagya          #+#    #+#             */
+/*   Updated: 2025/10/04 13:57:45 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
@@ -37,7 +37,7 @@ void	free_env_list(t_env *head);
 int		ft_strlen_ms(const char *s);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_substr_ms(char const *s, int start, int len);
-char	*ft_strcpy(char *dest, char *src);
+// char	*ft_strcpy(char *dest, char *src);
 
 // free.c
 void	ft_free(char **str);
@@ -53,8 +53,6 @@ int		built_in_pwd(void);
 
 // env_parsing.c
 int		return_key_size(char *arg);
-// char	*return_key(char *arg, int (*size_funct)(char *));
-// char	*return_value(char *arg, int (*size_funct)(char *));
 char	*return_key(char *arg);
 char	*return_value(char *arg);
 t_env	*env_parse(char **envp);
@@ -72,10 +70,8 @@ int		built_in_cd(int argc, char **args, t_env *env);
 int		get_env_key_index(t_env *env, char *key);
 int		built_in_unset(char **args, t_env **env);
 
-// unset -> exit -> export;
-//
 // exit.c
-// int	built_in_exit(char **args);
+int		built_in_exit(int argc, char **args);
 
 // export_utils.c
 void	update_env_value(t_env **env, char *key, char *value);

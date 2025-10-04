@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 17:27:56 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/29 18:09:49 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/04 13:52:21 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_built_in_type(int argc, char **args, char **envp)
 	else if (args[0] == "env")
 		return (built_in_env(env));
 	else if (args[0] == "exit")
-		return (built_in_exit(args));
+		return (built_in_exit(argc, args));
 	else
 		return (1);
 }

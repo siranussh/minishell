@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:52:31 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/30 16:25:44 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/04 12:20:36 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,6 @@ int	return_key_size(char *arg)
 	}
 	return (-1);
 }
-
-// char	*return_key(char *arg, int (*size_funct)(char *))
-// {
-// 	int	index;
-
-// 	if (!arg || !*arg)
-// 		return (NULL);
-// 	index = size_funct(arg);
-// 	if (index < 0)
-// 		return (NULL);
-// 	return (ft_substr_ms(arg, 0, index));
-// }
-
-// char	*return_value(char *arg, int (*size_funct)(char *))
-// {
-// 	int	index;
-
-// 	if (!arg || !*arg)
-// 		return (NULL);
-// 	index = size_funct(arg);
-// 	if (index < 0)
-// 		return (NULL);
-// 	return (ft_substr_ms(arg, index + 1, ft_strlen_ms(arg) - index - 1));
-// }
 
 char	*return_key(char *arg)
 {
