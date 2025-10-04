@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
@@ -6,18 +6,18 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 11:37:14 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/04 13:57:45 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/04 23:48:30 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
 # include "libft.h"
 # include <aio.h>
-# include <unistd.h> //getcwd() chdir()
+# include <unistd.h> // getcwd() chdir()
 # include <stdio.h>
-# include <stdlib.h>
+# include <stdlib.h> // exit()
 
 typedef struct s_env
 {
@@ -58,7 +58,7 @@ char	*return_value(char *arg);
 t_env	*env_parse(char **envp);
 
 // env.c
-int		built_in_env(t_env *env);
+int	built_in_env(int argc, char **args, t_env *env);
 
 // cd .c
 char	*get_env_values(t_env *env, char *key);
@@ -72,6 +72,9 @@ int		built_in_unset(char **args, t_env **env);
 
 // exit.c
 int		built_in_exit(int argc, char **args);
+
+// exit_utils.c
+long long	ft_atol(const char *str);
 
 // export_utils.c
 void	update_env_value(t_env **env, char *key, char *value);
