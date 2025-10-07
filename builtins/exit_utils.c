@@ -6,16 +6,16 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 22:32:43 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/04 23:48:17 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/07 20:59:14 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "builtins.h"
 
-long long	ft_atol(const char *str)
+long	ft_atol(const char *str)
 {
 	int			i;
-	long long	result;
+	long	result;
 	int			sign;
 
 	i = 0;
