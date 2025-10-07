@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 11:38:54 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/07 21:17:42 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/07 22:27:02 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -32,13 +32,15 @@ int	is_number(char *arg)
 
 int	built_in_exit(int argc, char **args)
 {
-	int	last_status;
+	// int	last_status;
 	long	status;
 
+	if (!args || !*args)
+		return (-1);
 	// last_status = 
 	printf("exit\n");
-	if (argc == 1)
-		exit(last_status);
+	// if (argc == 1)
+	// 	exit(last_status);
 	if (argc > 2)
 	{
 
@@ -51,5 +53,5 @@ int	built_in_exit(int argc, char **args)
 		exit(255);
 	}
 	status = ft_atol(args[1]);
-	exit(ft_atol(status % 256));
+	exit(status % 256);
 }

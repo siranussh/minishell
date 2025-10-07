@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 12:23:25 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/03 17:32:18 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/07 23:48:48 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "builtins.h"
 
@@ -71,7 +71,7 @@ int	built_in_export(char **args, int argc, t_env **env)
 	char	**env_arr;
 
 	if (!env)
-		return (0);
+		return (1);
 	i = 1;
 	if (argc > 1)
 	{
@@ -79,6 +79,8 @@ int	built_in_export(char **args, int argc, t_env **env)
 		{
 			if (is_valid_identifier(args[i]))
 				handle_export_arg(env, args[i]);
+			else
+				return (1);
 			i++;
 		}
 	}
@@ -87,5 +89,5 @@ int	built_in_export(char **args, int argc, t_env **env)
 	if (argc == 1)
 		print_export(env_arr, env);
 	ft_free(env_arr);
-	return (1);
+	return (0);
 }

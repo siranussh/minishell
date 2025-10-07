@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:51:25 by anavagya          #+#    #+#             */
-/*   Updated: 2025/09/22 12:51:25 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/07 23:32:41 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "builtins.h"
 
@@ -65,12 +65,12 @@ int	built_in_cd(int argc, char **args, t_env *env)
 	if (argc > 2)
 	{
 		printf("minishell: cd: too many arguments\n");
-		return (0);
+		return (1);
 	}
 	old_pwd = getcwd(NULL, 0);
 	home = get_env_values(env, "HOME");
 	if (!home)
-		return (0);
+		return (1);
 	if (argc == 1)
 	{
 		cd_helper(home, old_pwd, env);
@@ -79,5 +79,5 @@ int	built_in_cd(int argc, char **args, t_env *env)
 	{
 		cd_helper(args[1], old_pwd, env);
 	}
-	return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 11:37:14 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/04 23:48:30 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/07 22:25:31 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -74,7 +74,7 @@ int		built_in_unset(char **args, t_env **env);
 int		built_in_exit(int argc, char **args);
 
 // exit_utils.c
-long long	ft_atol(const char *str);
+long	ft_atol(const char *str);
 
 // export_utils.c
 void	update_env_value(t_env **env, char *key, char *value);
