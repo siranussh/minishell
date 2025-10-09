@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   find_cmd_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/07 23:29:14 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/08 00:07:11 by anavagya         ###   ########.fr       */
+/*   Created: 2025/10/09 19:30:01 by anavagya          #+#    #+#             */
+/*   Updated: 2025/10/10 00:14:55 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#include "builtins.h"
-#include "execution.h"
+#include "../includes/builtins.h"
+#include "../includes/execution.h"
 
 char	*find_cmd_path(char *cmd, t_env *env)
 {
@@ -25,10 +25,10 @@ char	*find_cmd_path(char *cmd, t_env *env)
 		return (NULL);
 	if (ft_strchr(cmd, '/'))
 		return (ft_strdup(cmd));
-	path = get_env_values(env, "PATH")
+	path = get_env_values(env, "PATH");
 	if (!path)
 	{
-		printf("minishell: %s: command not found\n");
+		printf("minishell: %s: command not found\n", cmd);
 		return (NULL);
 	}
 	cmd_paths = ft_split(path, ':');
@@ -47,4 +47,5 @@ char	*find_cmd_path(char *cmd, t_env *env)
 		i++;
 	}
 	ft_free(cmd_paths);
+	return (NULL);
 }

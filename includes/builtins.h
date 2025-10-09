@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/04 11:37:14 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/07 22:25:31 by anavagya         ###   ########.fr       */
+/*   Created: 2025/10/09 19:30:17 by anavagya          #+#    #+#             */
+/*   Updated: 2025/10/10 00:23:59 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-# include "libft.h"
+# include "../libft/libft.h"
 # include <aio.h>
-# include <unistd.h> // getcwd() chdir()
+# include <unistd.h> // getcwd() chdir() execve()
 # include <stdio.h>
 # include <stdlib.h> // exit()
 
@@ -43,7 +43,8 @@ char	*ft_substr_ms(char const *s, int start, int len);
 void	ft_free(char **str);
 
 // builtins.c
-int		check_built_in_type(int argc, char **args, char **envp);
+int		is_built_in(char **args);
+int		run_built_in(int argc, char **args, t_env *env);
 
 // echo.c
 int		built_in_echo(char **args);
@@ -58,7 +59,7 @@ char	*return_value(char *arg);
 t_env	*env_parse(char **envp);
 
 // env.c
-int	built_in_env(int argc, char **args, t_env *env);
+int		built_in_env(int argc, char **args, t_env *env);
 
 // cd .c
 char	*get_env_values(t_env *env, char *key);

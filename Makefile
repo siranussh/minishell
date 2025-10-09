@@ -1,14 +1,18 @@
 NAME = minishell
 
-SRC_FILES = utils.c list_utils.c free.c \
+BUILT_SRC = utils.c list_utils.c free.c \
 			echo.c pwd.c env.c env_parsing.c cd.c \
 			unset.c \
 			export_utils.c export_sort.c export_append.c export.c \
-			exit_utils.c exit.c main.c
+			exit_utils.c exit.c builtins.c
 
-SRCS = $(addprefix ./builtins/, $(SRC_FILES))
+EXEC_SRC = find_cmd_path.c execute.c main.c
 
-OBJS = $(SRCS:.c=.o)
+BUILT_SRCS = $(addprefix ./builtins/, $(BUILT_SRC))
+EXEC_SRCS = $(addprefix ./execution/, $(EXEC_SRC))
+
+BUILT_OBJS = $(BUILT_SRCS:.c=.o)
+EXEC_OBJS = $(EXEC_SRCS:.c=.o)
 
 CC = cc
 CFLAGS = -Werror -Wall -Wextra -g3 #-fsanitize=address
@@ -17,8 +21,8 @@ LIBFT = ./libft/libft.a
 
 all : $(NAME)
 
-$(NAME) : $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -I ./includes -I ./libft  $(OBJS) -L ./libft -lft -o $(NAME)
+$(NAME) : $(BUILT_OBJS) $(EXEC_OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) -I ./includes -I ./libft  $(BUILT_OBJS) $(EXEC_OBJS) -L ./libft -lft -o $(NAME)
 
 $(LIBFT) :
 	make -C ./libft all
@@ -28,7 +32,8 @@ $(LIBFT) :
 
 clean :
 	make -C ./libft clean
-	rm -f $(OBJS)
+	rm -f $(BUILT_OBJS) 
+	rm -f $(EXEC_OBJS)
 
 fclean : clean
 	make -C ./libft fclean

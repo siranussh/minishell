@@ -3,35 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/26 17:27:56 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/04 22:04:36 by anavagya         ###   ########.fr       */
+/*   Created: 2025/10/09 19:25:14 by anavagya          #+#    #+#             */
+/*   Updated: 2025/10/10 00:27:17 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "builtins.h"
 
-int	check_built_in_type(int argc, char **args, char **envp)
+int	is_built_in(char **args)
 {
-	t_env	*env;
+	char	**built_ins;
+	int		i;
 
-	if (!args || !*args || !envp || !*envp)
-		rturn (0);
-	env = env_parse(envp);
-	if (args[0] == "echo")
+	built_ins = (char *[8]){"echo", "cd", "pwd", "env", "unset", "export", "exit", NULL};
+	if (!args || !*args)
+		return (0);
+	i = 0;
+	while (built_ins[i])
+	{
+		if (ft_strcmp(args[0], built_ins[i]) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	run_built_in(int argc, char **args, t_env *env)
+{
+	if (!args || !*args || !env)
+		return (0);
+	if (ft_strcmp(args[0], "echo") == 0)
 		return (built_in_echo(args));
-	else if (args[0] == "cd")
+	else if (ft_strcmp(args[0], "cd") == 0)
 		return (built_in_cd(argc, args, env));
-	else if (args[0] == "pwd")
+	else if (ft_strcmp(args[0], "pwd") == 0)
 		return (built_in_pwd());
-	else if (args[0] == "export")
+	else if (ft_strcmp(args[0], "export") == 0)
 		return (built_in_export(args, argc, env));
-	else if (args[0] == "unset")
+	else if (ft_strcmp(args[0], "unset") == 0)
 		return (built_in_unset(args, env));
-	else if (args[0] == "env")
+	else if (ft_strcmp(args[0], "env") == 0)
 		return (built_in_env(argc, args, env));
-	else if (args[0] == "exit")
+	else if (ft_strcmp(args[0], "exit") == 0)
 		return (built_in_exit(argc, args));
 	else
 		return (1);

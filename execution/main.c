@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/04 11:37:55 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/07 22:27:41 by anavagya         ###   ########.fr       */
+/*   Created: 2025/10/09 19:26:02 by anavagya          #+#    #+#             */
+/*   Updated: 2025/10/10 00:22:31 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#include "builtins.h"
+#include "../includes/builtins.h"
+#include "../includes/execution.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -24,9 +25,9 @@ int	main(int argc, char **argv, char **envp)
 	// char *str[] = {"export", "zibil=foo", "ANfgh+=asd", NULL};
 	// char *str1[] = {"export", "zibil=bar", NULL};
 	// char *str_unset[] = {"unset", "_", NULL};
-	char *str_exit[] = {"exit", "42", NULL};
+	// char *str_exit[] = {"exit", "42", NULL};
 	
-	built_in_exit(2, str_exit);
+	// built_in_exit(2, str_exit);
 	// built_in_echo(str_echo);
 	// env = env_parse(envp);
 	// built_in_env(1, str_env, env);
@@ -44,5 +45,17 @@ int	main(int argc, char **argv, char **envp)
 	// printf("\n\n\n");
 	// built_in_unset(str_unset, &env);
 	// built_in_env(1, str_env, env);
+
+   	t_env *env = env_parse(envp);
+    char *cmd1[] = {"ls", "-l", NULL};
+    execute_single_command(cmd1, env);
+	
+	// while (1)
+	// {
+    // 	line = readline("minishell> ");
+    // 	cmds = parse_line(line);
+    // 	execute(cmds, env);
+    // 	free_all(cmds);
+	// }
 	return (0);
 }
