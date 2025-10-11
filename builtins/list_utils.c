@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:27:57 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/09 19:27:58 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/11 22:39:50 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -64,18 +64,4 @@ void	del_env_node(t_env *prew)
 	free(tmp->value);
 	prew->next = tmp->next;
 	free(tmp);
-}
-
-void	free_env_list(t_env *head)
-{
-	t_env	*tmp;
-
-	while (head)
-	{
-		tmp = head->next;
-		free(head->key);
-		free(head->value);
-		free(head);
-		head = tmp;
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:26:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/11 20:17:09 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/12 00:21:02 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	(void)envp;
+	// (void)envp;
 	// char *str_echo[] = {"echo", "-n", "-nn", "barev", "aziz", "-n", "jan", NULL};
 	// char *str_env[] = {"env", NULL};
 	// char *str[] = {"export", "zibil=foo", "ANfgh+=asd", NULL};
@@ -53,9 +53,11 @@ int	main(int argc, char **argv, char **envp)
 	// while (1)
 	// {
     // 	line = readline("minishell> ");
-    // 	cmds = parse_line(line);
+    // 	//cmds = parse_line(line);
     // 	execute(cmds, env);
     // 	free_all(cmds);
 	// }
+	// free_env_list(env);
+	
 	return (0);
 }
