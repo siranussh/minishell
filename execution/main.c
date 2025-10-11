@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:26:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/10 00:22:31 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/11 20:17:09 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -46,9 +46,9 @@ int	main(int argc, char **argv, char **envp)
 	// built_in_unset(str_unset, &env);
 	// built_in_env(1, str_env, env);
 
-   	t_env *env = env_parse(envp);
-    char *cmd1[] = {"ls", "-l", NULL};
-    execute_single_command(cmd1, env);
+	t_env *env = env_parse(envp);
+	char *cmd1[] = {"ls", "-l", NULL};
+	execute_single_command(cmd1, env);
 	
 	// while (1)
 	// {

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:30:17 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/10 00:23:59 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/11 20:05:33 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -33,7 +33,7 @@ int		ft_env_size(t_env *env);
 void	del_env_node(t_env *prew);
 void	free_env_list(t_env *head);
 
-// utils.c
+// builtin_utils.c
 int		ft_strlen_ms(const char *s);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_substr_ms(char const *s, int start, int len);

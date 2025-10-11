@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:25:14 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/10 00:27:17 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/11 20:10:30 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -41,9 +41,9 @@ int	run_built_in(int argc, char **args, t_env *env)
 	else if (ft_strcmp(args[0], "pwd") == 0)
 		return (built_in_pwd());
 	else if (ft_strcmp(args[0], "export") == 0)
-		return (built_in_export(args, argc, env));
+		return (built_in_export(args, argc, &env));
 	else if (ft_strcmp(args[0], "unset") == 0)
-		return (built_in_unset(args, env));
+		return (built_in_unset(args, &env));
 	else if (ft_strcmp(args[0], "env") == 0)
 		return (built_in_env(argc, args, env));
 	else if (ft_strcmp(args[0], "exit") == 0)

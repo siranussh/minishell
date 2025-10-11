@@ -1,6 +1,6 @@
 NAME = minishell
 
-BUILT_SRC = utils.c list_utils.c free.c \
+BUILT_SRC = builtin_utils.c list_utils.c free.c \
 			echo.c pwd.c env.c env_parsing.c cd.c \
 			unset.c \
 			export_utils.c export_sort.c export_append.c export.c \
