@@ -12,7 +12,6 @@ int skip_double_quotes(char *str, int i, int j)
     return (-1);
 }
 
-
 int skip_single_quotes(char *str, int i)
 {
     i++;
@@ -57,4 +56,24 @@ int is_special(char c)
     if(ft_strchr(specials, c))
         return (-1);
     return (0);
+}
+
+char *cmp_value_name(t_cmd *cmd, char *line, char *name)
+{
+    int i;
+    char *result;
+
+    i = 0;
+    while(i < cmd->env->num_env)
+    {
+        if (exp_strcmp(name, cmd->env->env[i]) == 0)
+        {
+            free(name);
+            result = extract_env_value(cmd->env->env[i]);
+            return (expand_line(line, result));
+        }
+        i++;
+    }
+  free(name);
+  return (expand_line(line, ft_strdup("")));
 }

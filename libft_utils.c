@@ -191,3 +191,98 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	}
 	return (NULL);
 }
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*new_str;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	new_str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!s1 || !s2 || !new_str)
+		return (NULL);
+	while (s1[i])
+	{
+		new_str[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+	{
+		new_str[i++] = s2[j++];
+	}
+	new_str[i] = '\0';
+	return (new_str);
+}
+
+static	int	count_chars(int n)
+{
+	int	count;
+
+	count = 0;
+	if (n < 0)
+	{
+		n *= -1;
+		count++;
+	}
+	while (n != 0)
+	{
+		n /= 10;
+		count++;
+	}
+	return (count);
+}
+
+char	*ft_itoa(int n)
+{
+	int		count;
+	char	*str;
+	long	num;
+
+	num = n;
+	if (num == -2147483648)
+		return (ft_strdup("-2147483648"));
+	if (num == 0)
+		return (ft_strdup("0"));
+	count = count_chars(n);
+	str = (char *)malloc(count + 1);
+	if (!str)
+		return (NULL);
+	if (num < 0)
+	{
+		str[0] = '-';
+		num = -num;
+	}
+	str[count--] = '\0';
+	while (num != 0)
+	{
+		str[count--] = num % 10 + '0';
+		num /= 10;
+	}
+	return (str);
+}
+
+int	ft_isalnum(int c)
+{
+	if (ft_isdigit(c) || ft_isalpha(c))
+		return (c);
+	return (0);
+}
+
+int	ft_isalpha(int c)
+{
+	if (c >= 'a' && c <= 'z')
+		return (c);
+	else if (c >= 'A' && c <= 'Z')
+		return (c);
+	else
+		return (0);
+}
+
+int	ft_isdigit(int n)
+{
+	if (n >= '0' && n <= '9')
+		return (n);
+	return (0);
+}

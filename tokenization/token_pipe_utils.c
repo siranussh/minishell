@@ -1,6 +1,6 @@
 #include "tokenization.h"
 
-int count_pipes(char *str)
+int count_pipes(char *str, t_data *data)
 {
     int i;
     int result;
@@ -14,10 +14,10 @@ int count_pipes(char *str)
         if(str[i] == 34 || str[i] == 39)
             i = find_closing_quote(i + 1, str, str[i]);
         if(i == -1)
-            return (quote_error());
+            return (quote_error(data));
         if((str[i] == '|' && (str[i + 1] == '|' || str[i + 1] == '\0')) || str[0] == '|')
         {
-            return (pipe_syntax_error());
+            return (pipe_syntax_error(data));
         }
         if(str[i] == '|')
             result ++;
@@ -70,13 +70,13 @@ int check_pipe_seg(char *str)
 }
 
 
-char **split_pipes(char *str)
+char **split_pipes(char *str, t_data *data)
 {
     char **result;
     int i;
 
     i = -1;
-    result = ft_calloc(sizeof(char *), (count_pipes(str) + 2));
+    result = ft_calloc(sizeof(char *), (count_pipes(str, data) + 2));
     if (!result)
         exit_error("minishell: malloc failed", 1);
     result = split_cmds_by_pipe(str, result);
@@ -84,7 +84,7 @@ char **split_pipes(char *str)
     {
         if (check_pipe_seg(result[i]) == -1 || check_redir(result, i) == -1)
         {
-            global_error= 258;
+            data->exit_status= 258;
             while (i >= 0)
                 free(result[i--]);
             free(result);
@@ -92,4 +92,24 @@ char **split_pipes(char *str)
         }
     }
     return (result);
+}
+
+void handle_pipelines(t_data *data, t_cmd **cmd, char **lines)
+{
+    int i;
+    t_cmd *temp;
+    t_cmd *last;
+
+    i = 1;
+    while(lines[i])
+    {
+        temp = build_cmd(data, lines[i]);
+        expand(&temp, data);
+
+        last = last_cmd(cmd);
+        if (last)
+            last->next = temp;
+
+        i++;
+    }
 }

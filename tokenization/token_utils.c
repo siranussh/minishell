@@ -51,13 +51,13 @@ int parse_line(t_data **data, char *line, char ***tokens_by_pipe)
         free(line);
         return (1);
     }
-    (*data)->flags->pipe = count_pipes(line);
+    (*data)->flags->pipe = count_pipes(line, *data);
     if((*data)->flags->pipe == -1)
     {
         free(line);
         return (1);
     }
-    *tokens_by_pipe = split_pipes(line);
+    *tokens_by_pipe = split_pipes(line, *data);
     if (!(*tokens_by_pipe))
     {
         free(line);
@@ -66,3 +66,11 @@ int parse_line(t_data **data, char *line, char ***tokens_by_pipe)
     return (0);
 }
 
+t_cmd *last_cmd(t_cmd **cmd)
+{
+    t_cmd *temp;
+    temp = *cmd;
+    while(temp->next)
+        temp = temp->next;
+    return (temp);
+}

@@ -1,16 +1,16 @@
 #include "tokenization.h"
 
-int pipe_syntax_error(void)
+int pipe_syntax_error(t_data *data)
 {
     print_error("minishell", NULL, "syntax error near unexpected token '|'");
-    global_error = 258;
+    data->exit_status = 258;
     return -1;
 }
 
-int quote_error(void)
+int quote_error(t_data *data)
 {
     print_error("minishell", NULL, "unexpected quote");
-            global_error = 258;
+    data->exit_status = 258;
             return -1;
 }
 
