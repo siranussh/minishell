@@ -1,33 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_utils.c                                       :+:      :+:    :+:   */
+/*   cmd_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/13 11:23:51 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/13 11:23:52 by anavagya         ###   ########.fr       */
+/*   Created: 2025/10/13 12:40:29 by anavagya          #+#    #+#             */
+/*   Updated: 2025/10/13 17:41:46 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../includes/builtins.h"
+#include "../includes/execution.h"
 
-t_env	*ft_env_new(char *key, char *value)
+t_cmd	*ft_cmd_new(char **args)
 {
-	t_env	*new_node;
+	t_cmd	*new_node;
 
-	new_node = (t_env *)malloc(sizeof(t_env));
+	new_node = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new_node)
 		return (NULL);
-	new_node->key = key;
-	new_node->value = value;
+	new_node->cmd_line = cpy_str_arr(args);
+	new_node->infile = NULL;
+	new_node->outfile = NULL;
+	new_node->append = 0;
+	new_node->heredoc = 0;
+	new_node->delimiter = NULL;
+	new_node->fd_in = -1;
+	new_node->fd_out = -1;
 	new_node->next = NULL;
 	return (new_node);
 }
 
-void	ft_env_add_back(t_env **lst, t_env *new)
+void	ft_env_add_back(t_cmd **lst, t_cmd *new)
 {
-	t_env	*current;
+	t_cmd	*current;
 
 	current = *lst;
 	if (!current)
@@ -40,28 +47,15 @@ void	ft_env_add_back(t_env **lst, t_env *new)
 	current->next = new;
 }
 
-int	ft_env_size(t_env *env)
-{
-	int	count;
+// int	ft_cmd_size(t_cmd *cmds)
+// {
+// 	int	count;
 
-	count = 0;
-	while (env != NULL)
-	{
-		count++;
-		env = env->next;
-	}
-	return (count);
-}
-
-void	del_env_node(t_env *prew)
-{
-	t_env	*tmp;
-
-	if (!prew)
-		return ;
-	tmp = prew->next;
-	free(tmp->key);
-	free(tmp->value);
-	prew->next = tmp->next;
-	free(tmp);
-}
+// 	count = 0;
+// 	while (cmds != NULL)
+// 	{
+// 		count++;
+// 		cmds = cmds->next;
+// 	}
+// 	return (count);
+// }

@@ -1,17 +1,17 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/09 19:30:21 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/12 00:25:17 by anavagya         ###   ########.fr       */
+/*   Created: 2025/10/13 11:38:05 by anavagya          #+#    #+#             */
+/*   Updated: 2025/10/13 11:38:05 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef EXECUTION_H
-# define EXECUTION_H 
+# define EXECUTION_H
 
 #include <sys/wait.h> // waitpid()
 //
@@ -21,15 +21,15 @@
 
 typedef struct s_cmd
 {
-	char		**cmds;
+	char		**cmd_line;
 	char		*infile;// <
 	char		*outfile;// > >>
-	int			append;
-	int			heredoc;
+	int			append;// 1 if > 2 if >>
+	int			heredoc;// <<
 	char		*delimiter;
 	int			fd_in;
 	int			fd_out;
-	struct scmd	*next;
+	struct s_cmd	*next;
 }	t_cmd;
 
 /******************************/
@@ -49,13 +49,27 @@ typedef struct s_cmd
 // }		t_data;
 /**************************** */
 
+// cmd_list_utils.c
+t_cmd	*ft_cmd_new(char **args);
+void	ft_env_add_back(t_cmd **lst, t_cmd *new);
+// int		ft_cmd_size(t_cmd *cmds);
+
+// pipeline_utils.c
+int	is__heredoc_redir_present(char *str);
+char	**cpy_str_arr(char **str);
+
+// storing_cmds.c
+t_cmd	*store_cmds(char **args);
+
 // find_cmd_path.c
 char	*find_cmd_path(char *cmd, t_env *env);
 
-// execute.c
+// execute_single_cmd.c
 int		args_count(char **args);
 char	**env_to_array(t_env *env);
 int		execute_single_command(char **args, t_env *env);
+
+// execute.c
 
 // pipexxxxxxxx
 void	free_str_or_arr_bonus(char *str, char **strs);

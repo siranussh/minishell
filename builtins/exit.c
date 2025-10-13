@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/09 19:28:44 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/09 19:28:45 by anavagya         ###   ########.fr       */
+/*   Created: 2025/10/13 11:23:15 by anavagya          #+#    #+#             */
+/*   Updated: 2025/10/13 11:43:52 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "builtins.h"
 
@@ -32,18 +32,17 @@ int	is_number(char *arg)
 
 int	built_in_exit(int argc, char **args)
 {
-	// int	last_status;
 	long	status;
+	// int	last_status;
 
 	if (!args || !*args)
 		return (-1);
-	// last_status = 
+	// last_status =
 	printf("exit\n");
 	// if (argc == 1)
 	// 	exit(last_status);
 	if (argc > 2)
 	{
-
 		printf("minishell: exit: too many arguments\n");
 		return (1);
 	}

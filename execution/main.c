@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/09 19:26:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/12 00:21:02 by anavagya         ###   ########.fr       */
+/*   Created: 2025/10/13 11:47:14 by anavagya          #+#    #+#             */
+/*   Updated: 2025/10/13 11:47:15 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/builtins.h"
 #include "../includes/execution.h"
@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	// char *str1[] = {"export", "zibil=bar", NULL};
 	// char *str_unset[] = {"unset", "_", NULL};
 	// char *str_exit[] = {"exit", "42", NULL};
-	
+
 	// built_in_exit(2, str_exit);
 	// built_in_echo(str_echo);
 	// env = env_parse(envp);
@@ -49,7 +49,7 @@ int	main(int argc, char **argv, char **envp)
 	t_env *env = env_parse(envp);
 	char *cmd1[] = {"ls", "-l", NULL};
 	execute_single_command(cmd1, env);
-	
+
 	// while (1)
 	// {
     // 	line = readline("minishell> ");
@@ -58,6 +58,6 @@ int	main(int argc, char **argv, char **envp)
     // 	free_all(cmds);
 	// }
 	// free_env_list(env);
-	
+
 	return (0);
 }

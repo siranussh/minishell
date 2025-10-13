@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute_single_cmd.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/11 22:41:30 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/11 22:41:31 by anavagya         ###   ########.fr       */
+/*   Created: 2025/10/13 11:44:39 by anavagya          #+#    #+#             */
+/*   Updated: 2025/10/13 11:44:39 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/builtins.h"
 #include "../includes/execution.h"
@@ -22,7 +22,7 @@ int	args_count(char **args)
 	count = 0;
 	while (args[count])
 		count++;
-	return (count);	
+	return (count);
 }
 
 char	**env_to_array(t_env *env)
