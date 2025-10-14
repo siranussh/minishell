@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:44:33 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/13 11:44:34 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:36:50 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ int	pipex_main(int ac, char **av, char **envp)
 {
 	t_data	d;
 	int		exit_code;
-
-	if (ac < 5)
+/// Es masy pet chiiiiiiiiiiiiiiiiii /////////////////
+	if (ac < 5)////////////
 	{
 		if (ac >= 2 && !ft_strncmp("here_doc", av[1], 9))
 			return (error_msg_bonus("Usage: ",
@@ -107,6 +107,7 @@ int	pipex_main(int ac, char **av, char **envp)
 		return (error_msg_bonus("Usage: ",
 				"./pipex file1 cmd1 cmd2 ... cmdn file2.", "", 1));
 	}
+///////////////////////////////
 	else if (ac < 6 && !ft_strncmp("here_doc", av[1], 9))
 		return (error_msg_bonus("Usage: ",
 				"./pipex here_doc LIMITER cmd1 cmd2 ... cmdn file2.", "", 1));

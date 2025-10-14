@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:44:10 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/13 11:44:11 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:34:12 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	get_output_file_bonus(t_data *d)
 		error_msg_bonus(strerror(errno), ": ", d->av[d->ac - 1], 1);
 }
 
+                 /***********************/
+/******************      Petq kga       ************************/
 static void	get_heredoc_check(int fd, int stdin_fd, t_data *d)
 {
 	char	*line;
@@ -61,6 +63,8 @@ static void	get_heredoc_check(int fd, int stdin_fd, t_data *d)
 		free(line);
 	}
 }
+/*******************************************************************/
+
 
 void	get_heredoc(t_data *d)
 {

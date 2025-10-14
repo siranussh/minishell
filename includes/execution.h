@@ -52,14 +52,17 @@ typedef struct s_cmd
 // cmd_list_utils.c
 t_cmd	*ft_cmd_new(char **args);
 void	ft_env_add_back(t_cmd **lst, t_cmd *new);
-// int		ft_cmd_size(t_cmd *cmds);
+int		ft_cmd_size(t_cmd *cmds);
 
 // pipeline_utils.c
-int	is__heredoc_redir_present(char *str);
+int		is_heredoc_redir_present(char *str);
 char	**cpy_str_arr(char **str);
+
+// execute_pipeline.c
 
 // storing_cmds.c
 t_cmd	*store_cmds(char **args);
+void	check_cmds(t_cmd *cmds);
 
 // find_cmd_path.c
 char	*find_cmd_path(char *cmd, t_env *env);
@@ -71,6 +74,10 @@ int		execute_single_command(char **args, t_env *env);
 
 // execute.c
 
+
+
+
+/********************************************************/
 // pipexxxxxxxx
 void	free_str_or_arr_bonus(char *str, char **strs);
 void	get_input_file_bonus(t_data *d);

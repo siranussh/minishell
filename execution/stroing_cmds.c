@@ -37,32 +37,32 @@ t_cmd	*store_cmds(char **args)
 void	check_cmds(t_cmd *cmds)
 {
 	int	i;
-	int	j;
+	int	n;
 
 	while (cmds)
 	{
 		i = 0;
 		while (cmds->cmd_line[i])
 		{
-			j = is_heredoc_redir_present(cmds->cmd_line[i]);
-			if (j = 1)// <<
+			n = is_heredoc_redir_present(cmds->cmd_line[i]);
+			if (n = 1)// <<
 			{
 				cmds->heredoc = 1;
 				i++;
 				cmds->delimiter = ft_strdup(cmds->cmd_line[i]);
 			}
-			else if (j = 2)// <
+			else if (n = 2)// <
 			{
 				i++;
 				cmds->infile = ft_strdup(cmds->cmd_line[i]);
 			}
-			else if (j = 3)// >
+			else if (n = 3)// >
 			{
 				i++;
 				cmds->append = 1;
 				cmds->outfile = ft_strdup(cmds->cmd_line[i]);
 			}
-			else if (j = 4)// >>
+			else if (n = 4)// >>
 			{
 				i++;
 				cmds->append = 2;
