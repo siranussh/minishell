@@ -42,6 +42,7 @@ typedef struct s_data
     int exit_status;
 } t_data;
 
+t_data *init(void);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s1);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
@@ -66,8 +67,8 @@ int pipe_syntax_error(t_data *data);
 int quote_error(t_data *data);
 int redir_error(void);
 
-int check_quotes_type(char *str);
-int find_closing_quote(int i, char *str, char c);
+int check_quotes_type(char *s);
+int find_closing_quote(int start, char *str, char c);
 char *skip_empty_quotes(char *str, t_cmd *cmd);
 char *delete_quotes(char *str, char c);
 int check_dquote(char *str, int is_double, int is_single, t_data *data);
@@ -77,7 +78,6 @@ char **split_cmds_by_pipe(char *str, char **result);
 int count_pipes(char *str, t_data *data);
 int check_pipe_seg(char *str);
 char **split_pipes(char *str, t_data *data);
-void handle_pipelines(t_data *data, t_cmd **cmd, char **lines);
 t_cmd *last_cmd(t_cmd **cmd);
 t_cmd *build_cmd(t_data *data, char *line);
 int tokenize(t_data *data, t_cmd **cmd, char *read_line);

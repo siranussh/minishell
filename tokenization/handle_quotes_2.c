@@ -4,14 +4,12 @@
 static char *remove_empty_quotes(char *str, int i)
 {
     char *new_str;
-    char *del;
 
     str[i] = 27;
     str[i + 1] = 27;
     new_str = ft_strdup(str);
     free(str);
-    del = delete_quotes(new_str, 27);
-    return (del);
+    return (delete_quotes(new_str, 27));
 }
 
 static char *remove_empty_quotes_arg(char *str, int i)

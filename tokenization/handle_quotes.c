@@ -4,31 +4,35 @@ int find_closing_quote(int i, char *str, char c)
 {
     while (str[i] && str[i] != c)
         i++;
-    if(!str[i])
-        return (-1);
     return (i);
 }
 
-int check_quotes_type(char *str)
+
+int check_quotes_type(char *s)
 {
     int i;
-    int is_in_single;
-    int is_in_double;
+    int single;
+    int is_double;
 
-    i = 0;
-    is_in_single = 0;
-    is_in_double = 0;
-    while (str[i])
+    i = -1;
+    single = 1;
+    is_double = 1;
+    
+    while (s[++i])
     {
-        if (str[i] == '"' && !is_in_single)
-            is_in_double = !is_in_double;
-        else if (str[i] == '\'' && !is_in_double)
-            is_in_single = !is_in_single;
-        if (str[i] == ' ' && (str[i + 1] == '"' || str[i + 1] == '\'') && str[i + 1] == str[i + 2] && str[i + 3] == ' ')
-            return (-1);
-        if ((str[i] == str[i + 1]) && ((str[i] == '"' && !is_in_single) || (str[i] == '\'' && !is_in_double)))
-            return (-1);
-        i++;
+        if (s[i] == '"')
+            is_double *= -1;
+        if (s[i] == '\'')
+            single *= -1;
+            if (s[i] == ' ' && s[i + 1] == 34 && s[i + 2] == 34 && s[i + 3] == ' ')
+			return (-1);
+		else if (s[i] == ' ' && s[i + 1] == 39
+			&& s[i + 2] == 39 && s[i + 3] == ' ')
+			return (-1);
+		else if ((s[i] == 34 && s[i + 1] == 34 && single != -1)
+			|| (s[i] == 39 && s[i + 1] == 39 && is_double != -1))
+			return (-1);
+
     }
     return (0);
 }

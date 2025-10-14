@@ -11,7 +11,7 @@ int count_tokens(char *str)
     {
         if((str[i] != 32 && str[i] != 34 && str[i] != 39)
         && (str[i + 1] == 32 || str[i + 1] == '\0' || str[i + 1] == 34 || str[i + 1] == 39))
-            result ++;
+            result++;
         if(str[i] == 34 || str[i] == 39)
         {
             result++;

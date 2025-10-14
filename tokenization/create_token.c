@@ -2,28 +2,28 @@
 
 static int split_tokens(char *str, char **token)
 {
-    int curr_pos;
+    int pos;
     int start;
     int i;
 
-    curr_pos = 0;
+    pos = 0;
     start = 0;
     i = -1;
     while (str[++i])
     {
         if ((str[i] == ' ' || (str[i] >= 9 && str[i] <= 13)) && str[i + 1] && str[i + 1] != ' ')
             start = i + 1;
-        if (str[i] == '"' || str[i] == '\'')
+        if (str[i] == 34 || str[i] == 39)
             i = find_closing_quote(i + 1, str, str[i]);
         if (str[i] != ' ' && !(str[i] >= 9 && str[i] <= 13) && (str[i + 1] == ' ' || str[i + 1] == '\0'))
         {
-            token[curr_pos] = ft_substr(str, start, i - start + 1);
-            if (!token[curr_pos])
+            token[pos] = ft_substr(str, start, i - start + 1);
+            if(token[pos] == NULL)
                 exit_error("minishell: malloc failed", 1);
-            curr_pos++;
+            pos++;
         }
     }
-    token[curr_pos] = NULL;
+    token[pos] = NULL;
     return (i);
 }
 
@@ -58,59 +58,67 @@ static char *extract_command(t_data *data, char *line)
     && !(line[i] >= 9 && line[i] <= 13)
     && !is_other_op(line[i]))
     {
-        if(line[i] == '"' || line[i] == '\'')
+        if(line[i] == 34 || line[i] == 39)
             i = find_closing_quote(i + 1, line, line[i]);
         i++;
     }
-    if (i == start || is_other_op(line[i]))
-        str = NULL;
+    if (i && !is_other_op(line[i]))
+        str = ft_substr(line, start, i);
     else
-        str = ft_substr(line, start, i - start);
-        data->total_chars += i;
-        return (str);
+        str = NULL;
+    data->total_chars += i;
+    return (str);
 }
 
  t_cmd *build_cmd(t_data *data, char *line)
 {
-    t_cmd *temp = calloc(1, sizeof(t_cmd));
+    t_cmd *temp;
+    temp = calloc(1, sizeof(t_cmd));
     if (!temp)
         exit_error("minishell: malloc failed", 1);
-
-    temp->env = data->env;
-    temp->flags = data->flags;
-    temp->next = NULL;
-    temp->cmd = extract_command(data, line);
-    if (!temp->cmd)
-    {
-        temp->num_tokens = 0;
-        temp->tokens = NULL;
-        return temp;
-    }
-    temp->num_tokens = count_tokens(line + data->total_chars);
-    if (temp->num_tokens > 0)
-        temp->tokens = get_token_arr(data, line, temp);
-    else
-        temp->tokens = NULL;
-
-    return temp;
+        temp->cmd = extract_command(data, line + data->total_chars);
+        temp->num_tokens= count_tokens(line + data->total_chars);
+        temp->next = NULL;
+        temp->flags = data->flags;
+        temp->env = data->env;
+        if (temp->num_tokens == 0)
+            return (temp);
+        temp->tokens = get_token_arr(data, line + data->total_chars, temp);
+        return (temp);
+    
 }
 
 int tokenize(t_data *data, t_cmd **cmd, char *read_line)
 {
-    if (!data || !cmd || !read_line)
-        return 0;
-    char **lines = NULL;
-    data->total_chars = 0;
-    if (parse_line(&data, read_line, &lines))
-        return 0;
+   int i;
+   t_cmd *temp;
+   char **lines;
 
-    if (!lines || !lines[0])
-        return 0;
+   i = 0;
+   lines = NULL;
+   data->total_chars = 0;
+   if(parse_line(&data, read_line, &lines))
+    return (0);
     *cmd = build_cmd(data, lines[0]);
+    // printf("Before expand:\n");
+// for (int j = 0; (*cmd)->tokens[j]; j++)
+//     printf("token[%d]: '%s'\n", j, (*cmd)->tokens[j]);
     expand(cmd, data);
-    handle_pipelines(data, cmd, lines);
+//     printf("After expand:\n");
+// for (int j = 0; (*cmd)->tokens[j]; j++)
+//     printf("token[%d]: '%s'\n", j, (*cmd)->tokens[j]);
+    while (++i <= data->flags->pipe)
+    {
+        data->total_chars = 0;
+        temp = build_cmd(data, lines[i]);
+        expand(&temp, data);
+        (last_cmd(cmd))->next = temp;
+        temp = temp->next;
+    }
+    while (i--)
+        free(lines[i]);
     free(lines);
     free(read_line);
-    return 1;
+    return (1);
 }
 

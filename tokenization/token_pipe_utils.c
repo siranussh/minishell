@@ -7,20 +7,22 @@ int count_pipes(char *str, t_data *data)
 
     if(!str)
         return (0);
+        if (str[0] == '|')
+        return (pipe_syntax_error(data));
     i = 0;
     result = 0;
     while(str[i])
     {
         if(str[i] == 34 || str[i] == 39)
-            i = find_closing_quote(i + 1, str, str[i]);
-        if(i == -1)
-            return (quote_error(data));
-        if((str[i] == '|' && (str[i + 1] == '|' || str[i + 1] == '\0')) || str[0] == '|')
         {
+            i = find_closing_quote(i + 1, str, str[i]);
+            if(i == -1)
+                return (quote_error(data));
+        }   
+        if((str[i] == '|' && (str[i + 1] == '|' || str[i + 1] == '\0')))
             return (pipe_syntax_error(data));
-        }
         if(str[i] == '|')
-            result ++;
+            result++;
         i++;
     }
     return (result);
@@ -42,11 +44,11 @@ char **split_cmds_by_pipe(char *str, char **result)
         if((str[i + 1] == '|' || str[i + 1] == '\0') && str[i] != '|')
         {
             result[pos] = ft_substr(str, start, i - start + 1);
-            if (!result[pos])
+            if (result[pos] == NULL)
                 exit_error("minishell: malloc failed", 1);
             pos++;
         }
-        if(str[i] == '|' && (str[i + 1] != '|' || str[i + 1] != '\0'))
+        if(str[i] == '|' && str[i + 1] != '|' && str[i + 1] != '\0')
             start = i + 1;
     }
     result[pos] = NULL;
@@ -92,24 +94,4 @@ char **split_pipes(char *str, t_data *data)
         }
     }
     return (result);
-}
-
-void handle_pipelines(t_data *data, t_cmd **cmd, char **lines)
-{
-    int i;
-    t_cmd *temp;
-    t_cmd *last;
-
-    i = 1;
-    while(lines[i])
-    {
-        temp = build_cmd(data, lines[i]);
-        expand(&temp, data);
-
-        last = last_cmd(cmd);
-        if (last)
-            last->next = temp;
-
-        i++;
-    }
 }
