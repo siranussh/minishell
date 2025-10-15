@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:44:33 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/14 13:36:50 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/15 12:39:11 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	execute_pipeline(t_data *d)
 			execute_child_command(d);
 		free_str_or_arr_bonus(d->cmd_path, d->cmd_options);
 		d->child++;
-	}
+	} 
 	exit_code = wait_for_children(d);
 	if (d->heredoc == 1)
 		unlink(".heredoc.tmp");

@@ -14,8 +14,8 @@
 # define EXECUTION_H
 
 #include <sys/wait.h> // waitpid()
-//
 # include <fcntl.h>
+//
 # include <string.h>
 # include <errno.h>
 
@@ -57,6 +57,9 @@ int		ft_cmd_size(t_cmd *cmds);
 // pipeline_utils.c
 int		is_heredoc_redir_present(char *str);
 char	**cpy_str_arr(char **str);
+
+// heredoc.c
+void	get_heredoc(t_cmd *cmds);
 
 // execute_pipeline.c
 

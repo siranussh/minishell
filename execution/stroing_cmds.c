@@ -34,6 +34,20 @@ t_cmd	*store_cmds(char **args)
 	return (head);
 }
 
+static void	handle_heredoc(t_cmd *cmds, int *i)
+{
+	(*i)++;
+	cmds->heredoc = 1;
+	cmds->delimiter = ft_strdup(cmds->cmd_line[*i]);
+}
+
+static void	handle_output_redir(t_cmd *cmds, int *i, int n)
+{
+	(*i)++;
+	cmds->append = n;
+	cmds->outfile = ft_strdup(cmds->cmd_line[*i]);
+}
+
 void	check_cmds(t_cmd *cmds)
 {
 	int	i;
@@ -46,28 +60,16 @@ void	check_cmds(t_cmd *cmds)
 		{
 			n = is_heredoc_redir_present(cmds->cmd_line[i]);
 			if (n = 1)// <<
-			{
-				cmds->heredoc = 1;
-				i++;
-				cmds->delimiter = ft_strdup(cmds->cmd_line[i]);
-			}
+				handle_heredoc(cmds, &i);
 			else if (n = 2)// <
 			{
 				i++;
 				cmds->infile = ft_strdup(cmds->cmd_line[i]);
 			}
 			else if (n = 3)// >
-			{
-				i++;
-				cmds->append = 1;
-				cmds->outfile = ft_strdup(cmds->cmd_line[i]);
-			}
+				handle_output_redir(cmds, &i, 1);
 			else if (n = 4)// >>
-			{
-				i++;
-				cmds->append = 2;
-				cmds->outfile = ft_strdup(cmds->cmd_line[i]);
-			}
+				handle_output_redir(cmds, &i, 2);
 			i++;
 		}
 		cmds = cmds->next;

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:44:10 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/14 13:34:12 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/15 14:55:57 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ static void	get_heredoc_check(int fd, int stdin_fd, t_data *d)
 		free(line);
 	}
 }
-/*******************************************************************/
-
 
 void	get_heredoc(t_data *d)
 {
@@ -74,7 +72,9 @@ void	get_heredoc(t_data *d)
 	tmp_fd = open(".heredoc.tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	stdin_fd = STDIN_FILENO;//ft_strdup(STDIN_FILENO);
 	if (tmp_fd == -1)
-		error_bonus(error_msg_bonus("here_doc", ": ", strerror(errno), 1), d);
+	error_bonus(error_msg_bonus("here_doc", ": ", strerror(errno), 1), d);
 	get_heredoc_check(tmp_fd, stdin_fd, d);
 	close(tmp_fd);
 }
+/*******************************************************************/
+
