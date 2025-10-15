@@ -1,20 +1,21 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:38:05 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/13 11:38:05 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/15 23:06:57 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
 
 #include <sys/wait.h> // waitpid()
 # include <fcntl.h>
+# include <readline/readline.h>
 //
 # include <string.h>
 # include <errno.h>
@@ -32,22 +33,22 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
-/******************************/
-// typedef struct s_data
-// {
-// 	char	**av;
-// 	int		ac;
-// 	int		heredoc;
-// 	int		fd_in;
-// 	int		fd_out;
-// 	int		*pipe;
-// 	int		nb_cmds;
-// 	int		child;
-// 	int		*pids;
-// 	char	**cmd_options;
-// 	char	*cmd_path;
-// }		t_data;
-/**************************** */
+
+typedef struct s_pipe
+{
+	// char	**av;
+	// int		ac;
+	// int		heredoc;
+	int		fd_in;
+	int		fd_out;
+	int		*pipe;
+	// int		nb_cmds;
+	int		child;
+	int		*pids;
+	// char	**cmd_options;
+	// char	*cmd_path;
+}		t_pipe;
+
 
 // cmd_list_utils.c
 t_cmd	*ft_cmd_new(char **args);

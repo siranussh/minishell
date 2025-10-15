@@ -1,21 +1,21 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:16:42 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/13 11:16:43 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/15 22:41:31 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
 # include "../libft/libft.h"
 # include <aio.h>
-# include <unistd.h> // getcwd() chdir() execve()
+# include <unistd.h> // getcwd() chdir() execve() access() unlink()
 # include <stdio.h>
 # include <stdlib.h> // exit()
 
