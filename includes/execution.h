@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:38:05 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/15 23:06:57 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/16 22:53:07 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -42,7 +42,7 @@ typedef struct s_pipe
 	int		fd_in;
 	int		fd_out;
 	int		pipe_fd[2];
-	int		nb_cmds;
+	int		cmds_count;
 	int		child;
 	int		*pids;
 	// char	**cmd_options;
@@ -63,6 +63,9 @@ char	**cpy_str_arr(char **str);
 void	get_heredoc(t_cmd *cmds);
 
 // execute_pipeline.c
+t_pipe	*init_pipe_struct(void);
+int		wait_for_children(t_pipe *p);
+int		execute_pipeline(t_cmd *cmds, t_env *env, t_pipe *p);
 
 // storing_cmds.c
 t_cmd	*store_cmds(char **args);
