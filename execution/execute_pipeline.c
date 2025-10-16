@@ -1,44 +1,62 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:24:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/15 23:19:00 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/16 15:11:59 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/builtins.h"
 #include "../includes/execution.h"
+
+static t_pipe	*init_pipe_struct(void)
+{
+	t_pipe	*p;
+
+	p = (t_pipe *)malloc(sizeof(t_pipe));
+	if (!p)
+		return (NULL);
+	p->fd_in = -1;
+	p->fd_out = -1;
+	p->pipe_fd = NULL;
+	// p->nb_cmds = -1;
+	// p->child = -1;
+	p->pids = NULL;
+	return (p);
+}
 
 static int	wait_for_children(t_cmd *cmds, t_pipe *p)
 {
 	int		status;
 	int		exit_code;
+	int		pipe_count;
 	pid_t	waited_pid;
 
 	if (cmds->fd_in != -1)
 		close(cmds->fd_in);
 	if (cmds->fd_out != -1)
 		close(cmds->fd_out);
-	while (cmds)
+	pipe_count = args_count(cmds->cmd_line);
+	while (pipe_count - 1 > 0)
 	{
-		waitpid(p->pids[p->child], &status, 0);
+		waitpid(p->pids[pipe_count], &status, 0);
 		if (waited_pid == p->pids[p->nb_cmds - 1])
 		{
-			if ((p->child == (p->nb_cmds - 1)) && WIFEXITED(status))
+			if ((pipe_count == (pipe_count - 1)) && WIFEXITED(status))
 				exit_code = WEXITSTATUS(status);
 		}
-		cmds = cmds->next;
+		pipe_count--;
 	}
 	free(p->pipe);
 	free(p->pids);
 	return (exit_code);
 }
 
-int	execute_pipeline(t_cmd *cmds, t_env *env)
+int	execute_pipeline(t_cmd *cmds, t_env *env, t_pipe *p)
 {
 	int		i;
 	int		pipe_fd[2];
@@ -72,7 +90,7 @@ int	execute_pipeline(t_cmd *cmds, t_env *env)
 			if (curr->heredoc)
 			{
 				curr->fd_in = open(".heredoc.tmp", O_RDONLY);
-				if (fd_in == -1)
+				if (curr->fd_in == -1)
 					perror("open heredoc");
 				dup2(curr->fd_in, STDIN_FILENO);
 				close(curr->fd_in);
@@ -103,7 +121,7 @@ int	execute_pipeline(t_cmd *cmds, t_env *env)
 			}
 			path = find_cmd_path(curr->cmd_line[0], env);
 			if (!path)
-				return (127);
+				exit(127);
 			env_arr = env_to_array(env);
 			execve(path, curr->cmd_line, env_arr);
 			perror("execve");
@@ -111,6 +129,7 @@ int	execute_pipeline(t_cmd *cmds, t_env *env)
 		}
 		else
 		{
+			p->pids[i] = pid;
 			if (prev_fd != -1)
 				close(prev_fd);
 			if (curr->next)
@@ -121,6 +140,7 @@ int	execute_pipeline(t_cmd *cmds, t_env *env)
 				prev_fd = -1;
 			// close unused ends of the pipe
 		}
+		i++;
 		curr = curr->next;
 	}
 	exit_code = wait_for_children(cmds, p);//// I will add a new structure

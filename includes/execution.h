@@ -41,13 +41,13 @@ typedef struct s_pipe
 	// int		heredoc;
 	int		fd_in;
 	int		fd_out;
-	int		*pipe;
-	// int		nb_cmds;
+	int		pipe_fd[2];
+	int		nb_cmds;
 	int		child;
 	int		*pids;
 	// char	**cmd_options;
 	// char	*cmd_path;
-}		t_pipe;
+}	t_pipe;
 
 
 // cmd_list_utils.c
