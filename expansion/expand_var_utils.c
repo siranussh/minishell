@@ -7,14 +7,16 @@ char *extract_value_name(char *line)
     char *name;
     i = find_closing_quote(0, line, '$') + 1;
     j = 0;
-    while (line[i + j] && (ft_isalnum(line[i + j]) || line[i + j] == '_'))
+    while (line[i + j] && line[i + j] != ' ' && line[i + j] != '"'
+		&& line[i + j] != 39 && is_special(line[i + j]) == 0)
         j++;
 
     name = ft_calloc(sizeof(char), j + 1);
     if (!name)
         exit_error("minishell: malloc failed", 1);
     j = 0;
-    while (line[i + j] && (ft_isalnum(line[i + j]) || line[i + j] == '_'))
+    while (line[i + j] && line[i + j] != ' ' && line[i + j] != '"'
+		&& line[i + j] != 39 && is_special(line[i + j]) == 0)
     {
         name[j] = line[i + j];
         j++;

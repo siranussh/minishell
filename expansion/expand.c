@@ -94,6 +94,8 @@ char *delete_invalid_dollar(char *str, int i, int j)
 
 void expand(t_cmd **cmd, t_data *data)
 {
+    printf("env[0] = %s\n", data->env->env ? data->env->env[0] : "NULL");
+
     int i;
 
     i = -1;

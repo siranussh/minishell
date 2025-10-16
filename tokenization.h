@@ -90,8 +90,7 @@ int find_next_redir(char *str);
 int	check_redir(char **arg, int i);
 
 int find_next_char(char *str, char c, int j);
-int skip_double_quotes(char *str, int i, int j);
-int skip_single_quotes(char *str, int i);
+int	skip_quote_and_find(char *s, int *i, char c, int j);
 int is_special(char c);
 char *extract_value_name(char *line);
 char *extract_after_special(char *line, int i, t_cmd *cmd);

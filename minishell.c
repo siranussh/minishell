@@ -35,12 +35,18 @@ static void	print_tokens(t_cmd *cmd)
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 	char	*line;
 
+    (void) argc;
+    (void) argv;
 	data = init();
+    data->env->env = envp;
+    data->env->num_env = 0;
+while (envp[data->env->num_env])
+    data->env->num_env++;
 
 	while (1)
 	{
@@ -53,6 +59,9 @@ int	main(void)
 			continue;
 		}
 		add_history(line);
+        data->flags->pipe = 0;
+		data->flags->quote = 0;
+		data->flags->has_special = 0;
 		if (!tokenize(data, &data->cmd, line))
 		{
 			printf("Tokenization failed.\n");
@@ -62,9 +71,11 @@ int	main(void)
 			print_tokens(data->cmd);
 		data->cmd = NULL;
 	}
+    free(data->env);
+	free(data->flags);
+	free(data);
 	return (0);
 }
-
 
 
 
