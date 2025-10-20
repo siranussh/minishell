@@ -60,6 +60,7 @@ char	*ft_itoa(int n);
 int	ft_isalpha(int c);
 int	ft_isdigit(int n);
 int	ft_isalnum(int c);
+int	ft_tolower(int c);
 
 int exit_error(char *str, int code);
 void print_error(char *name, char *file, char *err);
@@ -71,7 +72,9 @@ int check_quotes_type(char *s);
 int find_closing_quote(int start, char *str, char c);
 char *skip_empty_quotes(char *str, t_cmd *cmd);
 char *delete_quotes(char *str, char c);
+char *str_tolower(char *str);
 int check_dquote(char *str, int is_double, int is_single, t_data *data);
+char *unqoute_str(char *str);
 int count_tokens(char *str);
 int parse_line(t_data **data, char *line, char ***tokens_by_pipe);
 char **split_cmds_by_pipe(char *str, char **result);

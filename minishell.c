@@ -27,6 +27,9 @@ static void	print_tokens(t_cmd *cmd)
 			i = 0;
 			while (cmd->tokens[i])
 			{
+                char *unquoted = unqoute_str(cmd->tokens[i]);
+                free(cmd->tokens[i]);
+                cmd->tokens[i] = unquoted;
 				printf("  token[%d]: %s\n", i, cmd->tokens[i]);
 				i++;
 			}

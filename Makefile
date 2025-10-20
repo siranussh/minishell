@@ -21,6 +21,7 @@ SRC_OTHER = minishell.c \
             error_handling.c \
             error_wrappers.c \
             libft_utils.c \
+            utils.c \
 
 TOKEN_DIR = tokenization
 EXPAND_DIR = expansion
