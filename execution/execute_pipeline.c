@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:24:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/17 00:12:34 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/21 12:47:30 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/builtins.h"
 #include "../includes/execution.h"
@@ -22,14 +22,25 @@ t_pipe	*init_pipe_struct(t_cmd *cmds)
 		return (NULL);
 	p->fd_in = -1;
 	p->fd_out = -1;
-	p->pipe_fd = NULL;
 	// p->nb_cmds = -1;
 	// p->child = -1;
 	p->cmds_count = ft_cmd_size(cmds);
-	p->pids = (int *)malloc(sizeof(int) * p->cmds_count)
+	p->pids = (int *)malloc(sizeof(int) * p->cmds_count);
 	if (!p->pids)
 		return (NULL);//or smth else
 	return (p);
+}
+
+void	handle_heredocs(t_cmd *cmds)
+{
+	t_cmd *tmp = cmds;
+
+	while (tmp)
+	{
+		if (tmp->heredoc)
+			get_heredoc(tmp);
+		tmp = tmp->next;
+	}
 }
 
 int	wait_for_children(t_pipe *p)
@@ -56,106 +67,120 @@ int	wait_for_children(t_pipe *p)
 	return (exit_code);
 }
 
+void	setup_input(t_cmd *curr, int prev_fd)
+{
+	if (curr->heredoc)
+	{
+		curr->fd_in = open(".heredoc.tmp", O_RDONLY);
+		if (curr->fd_in == -1)
+			perror("open heredoc");
+		if (curr->fd_in != STDIN_FILENO)
+			dup2(curr->fd_in, STDIN_FILENO);
+		close(curr->fd_in);
+	}
+	else if (curr->infile)
+		curr->fd_in = open(curr->infile, O_RDONLY);
+	else if (prev_fd != -1)
+		curr->fd_in = prev_fd;
+	else
+		curr->fd_in = STDIN_FILENO;
+}
+
+void	setup_output(t_cmd *curr, int pipe_fd[])
+{
+	if (curr->outfile)
+	{
+		if (curr->append == 1)
+			curr->fd_out = open(curr->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		else if (curr->append == 2)
+			curr->fd_out = open(curr->outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	}
+	else if (curr->next)
+	{
+		curr->fd_out = pipe_fd[1];
+	}
+	else
+		curr->fd_out = STDOUT_FILENO;
+}
+
+void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
+{
+	char	*path;
+
+	setup_input(curr, p->prev_fd);
+	setup_output(curr, pipe_fd);
+	if (is_built_in(curr->cmd_line))
+	{
+		p->exit_code = run_built_in(args_count(curr->cmd_line), curr->cmd_line, env);
+		exit(p->exit_code);
+	}
+	path = find_cmd_path(curr->cmd_line[0], env);
+	if (!path)
+		exit(127);
+	p->env_arr = env_to_array(env);
+	execve(path, curr->cmd_line, p->env_arr);
+	perror("execve");
+	if (curr->fd_in != STDIN_FILENO)
+	{
+		dup2(curr->fd_in, STDIN_FILENO);
+		close(curr->fd_in);
+	}
+	if (curr->fd_out != STDOUT_FILENO)
+	{
+		dup2(curr->fd_out, STDOUT_FILENO);
+		close(curr->fd_out);
+	}
+	exit(1);
+}
+
+void	parent_process(t_pipe *p, t_cmd *curr, int pid, int pipe_fd[], int i)
+{
+	p->pids[i] = pid;
+	if (p->prev_fd != -1)
+		close(p->prev_fd);
+	if (curr->next)
+		close(pipe_fd[1]);
+	if (curr->next)
+		p->prev_fd = pipe_fd[0];
+	else
+		p->prev_fd = -1;
+	// close unused ends of the pipe
+}
+
+void	execute_one_command(t_cmd *curr, t_pipe *p, t_env *env, int i)
+{
+	int	pipe_fd[2];
+	int	pid;
+
+	if (curr->next && pipe(pipe_fd) == -1)
+	perror("pipe");
+	pid = fork();
+	if (pid == -1)
+	perror("fork");
+	else if (pid == 0)
+		child_process(curr, p, env, pipe_fd);
+	else
+		parent_process(p, curr, pid, pipe_fd, i);
+}
+
 int	execute_pipeline(t_cmd *cmds, t_env *env, t_pipe *p)
 {
 	int		i;
-	int		pipe_fd[2];
-	int		prev_fd;
-	int		pid;
 	int		exit_code;
-	char	*path;
-	char	**env_arr;
 	t_cmd	*curr;
-	t_cmd	*tmp;
 
 	i = 0;
-	exit_code = 0;
-	prev_fd = -1;
 	curr = cmds;
-	tmp = cmds;
-	while (tmp)
-	{
-		if (tmp->heredoc)
-			get_heredoc(tmp);
-		tmp = tmp->next;
-	}
+	p->prev_fd = -1;
+	p->exit_code = 0;
+	handle_heredocs(cmds);
 	while (curr)
 	{
-		if (curr->next && pipe(pipe_fd)== -1)
-			perror("pipe");
-		pid = fork();
-		if (pid == -1)
-			perror("fork");
-		else if (pid ==0)
-		{
-			if (curr->heredoc)
-			{
-				curr->fd_in = open(".heredoc.tmp", O_RDONLY);
-				if (curr->fd_in == -1)
-					perror("open heredoc");
-				if (curr->fd_in != STDIN_FILENO)
-					dup2(curr->fd_in, STDIN_FILENO);
-				close(curr->fd_in);
-			}
-			else if (curr->infile)
-				curr->fd_in = open(curr->infile, O_RDONLY);
-			else if (prev_fd != -1)
-				curr->fd_in = prev_fd;
-			else
-				curr->fd_in = STDIN_FILENO;
-			if (curr->outfile)
-			{
-				if (curr->append == 1)
-					curr->fd_out = open(curr->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-				else if (curr->append == 2)
-					curr->fd_out = open(curr->outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
-			}
-			else if (curr->next)
-			{
-				curr->fd_out = pipe_fd[1];
-			}
-			else
-				curr->fd_out = STDOUT_FILENO;
-			if (is_built_in(curr->cmd_line))
-			{
-				exit_code = run_built_in(args_count(curr->cmd_line), curr->cmd_line, env);
-				exit(exit_code);
-			}
-			path = find_cmd_path(curr->cmd_line[0], env);
-			if (!path)
-				exit(127);
-			env_arr = env_to_array(env);
-			execve(path, curr->cmd_line, env_arr);
-			perror("execve");
-			if (curr->fd_in != STDIN_FILENO)
-			{
-				dup2(curr->fd_in, STDIN_FILENO);
-				close(curr->fd_in);
-			}
-			if (curr->fd_out != STDOUT_FILENO)
-			{
-				dup2(curr->fd_out, STDOUT_FILENO);
-				close(curr->fd_out);
-			}
-			exit(1);
-		}
-		else
-		{
-			p->pids[i] = pid;
-			if (prev_fd != -1)
-				close(prev_fd);
-			if (curr->next)
-				close(pipe_fd[1]);
-			if (curr->next)
-				prev_fd = pipe_fd[0];
-			else
-				prev_fd = -1;
-			// close unused ends of the pipe
-		}
+		execute_one_command(curr, p, env, i);
 		i++;
 		curr = curr->next;
 	}
-	exit_code = wait_for_children(p);//// I will add a new structure
+	exit_code = wait_for_children(p);
 	if (access(".heredoc.tmp", F_OK) == 0)
 		unlink(".heredoc.tmp");
 	return (exit_code);

@@ -22,33 +22,35 @@
 
 typedef struct s_cmd
 {
-	char		**cmd_line;
-	char		*infile;// <
-	char		*outfile;// > >>
-	int			append;// 1 if > 2 if >>
-	int			heredoc;// <<
-	char		*delimiter;
-	int			fd_in;
-	int			fd_out;
+	char			**cmd_line;
+	char			*infile;// <
+	char			*outfile;// > >>
+	int				append;// 1 if > 2 if >>
+	int				heredoc;// <<
+	char			*delimiter;
+	int				fd_in;
+	int				fd_out;
+	int				cmd_index;
+	int				pid;
 	struct s_cmd	*next;
 }	t_cmd;
-
 
 typedef struct s_pipe
 {
 	// char	**av;
 	// int		ac;
-	// int		heredoc;
 	int		fd_in;
 	int		fd_out;
+	int		prev_fd;// = -1
 	int		pipe_fd[2];
 	int		cmds_count;
 	int		child;
 	int		*pids;
+	int		exit_code;// = 0
+	char	**env_arr;
 	// char	**cmd_options;
 	// char	*cmd_path;
 }	t_pipe;
-
 
 // cmd_list_utils.c
 t_cmd	*ft_cmd_new(char **args);
@@ -62,9 +64,13 @@ char	**cpy_str_arr(char **str);
 // heredoc.c
 void	get_heredoc(t_cmd *cmds);
 
-// execute_pipeline.c
-t_pipe	*init_pipe_struct(void);
+// execute_pipeline.c ......................
+t_pipe	*init_pipe_struct(t_cmd *cmds);
 int		wait_for_children(t_pipe *p);
+void	setup_input(t_cmd *curr, int prev_fd);
+void	setup_output(t_cmd *curr, int pipe_fd[]);
+void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[]);
+void	parent_process(t_pipe *p, t_cmd *curr, int pid, int pipe_fd[], int i);
 int		execute_pipeline(t_cmd *cmds, t_env *env, t_pipe *p);
 
 // storing_cmds.c
