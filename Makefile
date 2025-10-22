@@ -1,40 +1,58 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/10/22 12:09:56 by sihakoby          #+#    #+#              #
+#    Updated: 2025/10/22 15:05:39 by sihakoby         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell_test
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRC_TOKEN = create_token.c \
-            handle_quotes.c \
-            handle_quotes_2.c \
-            token_pipe_utils.c \
-            token_redir_utils.c \
-            token_utils.c \
+             handle_quotes.c \
+             handle_quotes_2.c \
+             token_pipe_utils.c \
+             token_redir_utils.c \
+             token_utils.c \
 
 SRC_EXPAND = expand_utils.c \
-             expand_symb_utils.c \
-             expand_var_utils.c \
-             expand_exit_code.c \
-             expand_libft_modifs.c \
-             expand.c \
+              expand_symb_utils.c \
+              expand_var_utils.c \
+              expand_exit_code.c \
+              expand_libft_modifs.c \
+              expand.c \
 
 SRC_OTHER = minishell.c \
-            error_handling.c \
-            error_wrappers.c \
-            libft_utils.c \
-            utils.c \
+             error_handling.c \
+             error_wrappers.c \
+             libft_utils.c \
+             utils.c \
+
 
 TOKEN_DIR = tokenization
 EXPAND_DIR = expansion
-
 OBJ_DIR = obj
+
+
 OBJ_TOKEN  = $(addprefix $(OBJ_DIR)/$(TOKEN_DIR)/,$(SRC_TOKEN:.c=.o))
 OBJ_EXPAND = $(addprefix $(OBJ_DIR)/$(EXPAND_DIR)/,$(SRC_EXPAND:.c=.o))
 OBJ_OTHER  = $(addprefix $(OBJ_DIR)/,$(SRC_OTHER:.c=.o))
 OBJ = $(OBJ_TOKEN) $(OBJ_EXPAND) $(OBJ_OTHER)
 
 INCLUDES = -I .
-READLINE_INC = -I /opt/homebrew/opt/readline/include
-READLINE_LIB = -L /opt/homebrew/opt/readline/lib -lreadline
+READLINE_INC = -I /usr/include
+READLINE_LIB = -lreadline -lncurses
+
+# INCLUDES = -I .
+# READLINE_INC = -I /opt/homebrew/opt/readline/include
+# READLINE_LIB = -L /opt/homebrew/opt/readline/lib -lreadline
 
 all: $(NAME)
 
@@ -68,5 +86,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-
 

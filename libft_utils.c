@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/22 14:43:11 by sihakoby          #+#    #+#             */
+/*   Updated: 2025/10/22 14:43:14 by sihakoby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "tokenization.h"
 
 size_t	ft_strlen(const char *s)
@@ -82,7 +94,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 char	*ft_strchr(const char *s, int c)
 {
-	size_t			i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])
@@ -91,7 +103,7 @@ char	*ft_strchr(const char *s, int c)
 			return ((char *)s + i);
 		i++;
 	}
-	if (s[i] == (char) c)
+	if (s[i] == (char)c)
 		return ((char *)s + i);
 	return (NULL);
 }
@@ -182,8 +194,8 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	while (i < len && haystack[i])
 	{
 		j = 0;
-		while (haystack[i + j] && needle[j] && i + j < len
-			&& haystack[i + j] == needle[j])
+		while (haystack[i + j] && needle[j] && i + j < len && haystack[i
+			+ j] == needle[j])
 			j++;
 		if (!needle[j])
 			return ((char *)haystack + i);
@@ -216,7 +228,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (new_str);
 }
 
-static	int	count_chars(int n)
+static int	count_chars(int n)
 {
 	int	count;
 
