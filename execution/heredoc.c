@@ -1,19 +1,19 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 15:07:21 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/15 22:46:44 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/22 18:17:41 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/builtins.h"
 #include "../includes/execution.h"
 
-static void	get_heredoc_check(int fd, char *delim)
+static void	get_heredoc_check(int write_end, char *delim)
 {
 	char	*line;
 
@@ -27,19 +27,21 @@ static void	get_heredoc_check(int fd, char *delim)
 			free(line);
 			break ;
 		}
-		ft_putendl_fd(line, fd);
+		ft_putendl_fd(line, write_end);
 		free(line);
 	}
 }
 
 void	get_heredoc(t_cmd *cmds)
 {
-	int	tmp_fd;
+	int	fd[2];
 
-	tmp_fd = open(".heredoc.tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (tmp_fd == -1)
-		perror("open");
-	get_heredoc_check(tmp_fd, cmds->delimiter);
-	close(tmp_fd);
+	if (pipe(fd) == -1)
+	{
+		perror("pipe");
+		return ;
+	}
+	get_heredoc_check(fd[1], cmds->delimiter);
+	close(fd[1]);
+	cmds->fd_in = fd[0];
 }
-

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:24:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/21 12:47:30 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/22 18:23:37 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,15 @@ t_pipe	*init_pipe_struct(t_cmd *cmds)
 	p->fd_out = -1;
 	// p->nb_cmds = -1;
 	// p->child = -1;
+	p->prev_fd = -1;
+	p->exit_code = 0;
 	p->cmds_count = ft_cmd_size(cmds);
 	p->pids = (int *)malloc(sizeof(int) * p->cmds_count);
 	if (!p->pids)
+	{
+		free(p);
 		return (NULL);//or smth else
+	}
 	return (p);
 }
 
@@ -69,21 +74,24 @@ int	wait_for_children(t_pipe *p)
 
 void	setup_input(t_cmd *curr, int prev_fd)
 {
-	if (curr->heredoc)
+	if (curr->heredoc && curr->fd_in != -1)
 	{
-		curr->fd_in = open(".heredoc.tmp", O_RDONLY);
-		if (curr->fd_in == -1)
-			perror("open heredoc");
-		if (curr->fd_in != STDIN_FILENO)
-			dup2(curr->fd_in, STDIN_FILENO);
+		dup2(curr->fd_in, STDIN_FILENO);
 		close(curr->fd_in);
 	}
 	else if (curr->infile)
+	{
 		curr->fd_in = open(curr->infile, O_RDONLY);
+		if (curr->fd_in == -1)
+			perror("open infile");
+		if (curr->fd_in != STDIN_FILENO)
+		{
+			dup2(curr->fd_in, STDIN_FILENO);
+			close(curr->fd_in);
+		}
+	}
 	else if (prev_fd != -1)
-		curr->fd_in = prev_fd;
-	else
-		curr->fd_in = STDIN_FILENO;
+		dup2(prev_fd, STDIN_FILENO);
 }
 
 void	setup_output(t_cmd *curr, int pipe_fd[])
@@ -94,13 +102,18 @@ void	setup_output(t_cmd *curr, int pipe_fd[])
 			curr->fd_out = open(curr->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (curr->append == 2)
 			curr->fd_out = open(curr->outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (curr->fd_out == -1)
+			perror("open outfile");
+		if (curr->fd_out != STDOUT_FILENO)
+		{
+			dup2(curr->fd_out, STDOUT_FILENO);
+			close(curr->fd_out);
+		}
 	}
 	else if (curr->next)
 	{
-		curr->fd_out = pipe_fd[1];
+		dup2(pipe_fd[1], STDOUT_FILENO);
 	}
-	else
-		curr->fd_out = STDOUT_FILENO;
 }
 
 void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
@@ -153,10 +166,10 @@ void	execute_one_command(t_cmd *curr, t_pipe *p, t_env *env, int i)
 	int	pid;
 
 	if (curr->next && pipe(pipe_fd) == -1)
-	perror("pipe");
+		perror("pipe");
 	pid = fork();
 	if (pid == -1)
-	perror("fork");
+		perror("fork");
 	else if (pid == 0)
 		child_process(curr, p, env, pipe_fd);
 	else
@@ -171,8 +184,6 @@ int	execute_pipeline(t_cmd *cmds, t_env *env, t_pipe *p)
 
 	i = 0;
 	curr = cmds;
-	p->prev_fd = -1;
-	p->exit_code = 0;
 	handle_heredocs(cmds);
 	while (curr)
 	{
