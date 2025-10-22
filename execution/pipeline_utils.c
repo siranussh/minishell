@@ -1,17 +1,58 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   pipeline_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:22:05 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/13 17:27:37 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/22 23:54:33 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/builtins.h"
 #include "../includes/execution.h"
+
+void	dup2_and_close(int fd1, int fd2)
+{
+	if (fd1 != fd2)
+	{
+		dup2(fd1, fd2);
+		close(fd1);
+	}
+}
+
+void	handle_heredocs(t_cmd *cmds)
+{
+	t_cmd *tmp = cmds;
+
+	while (tmp)
+	{
+		if (tmp->heredoc)
+			get_heredoc(tmp);
+		tmp = tmp->next;
+	}
+}
+
+int	wait_for_children(t_pipe *p)
+{
+	int		i;
+	int		status;
+	int		exit_code;
+	pid_t	waited_pid;
+
+	exit_code = 0;
+	i = 0;
+	while (i < p->cmds_count)
+	{
+		waitpid(p->pids[i], &status, 0);
+		if (i == (p->cmds_count - 1) && WIFEXITED(status))
+			exit_code = WEXITSTATUS(status);
+		i++;
+	}
+	free(p->pids);
+	return (exit_code);
+}
 
 int	is_heredoc_redir_present(char *str)
 {

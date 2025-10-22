@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:38:05 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/16 22:53:07 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/22 23:55:56 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -37,19 +37,15 @@ typedef struct s_cmd
 
 typedef struct s_pipe
 {
-	// char	**av;
-	// int		ac;
+	int		index;
 	int		fd_in;
 	int		fd_out;
-	int		prev_fd;// = -1
-	int		pipe_fd[2];
+	int		prev_fd;
 	int		cmds_count;
 	int		child;
 	int		*pids;
-	int		exit_code;// = 0
+	int		exit_code;
 	char	**env_arr;
-	// char	**cmd_options;
-	// char	*cmd_path;
 }	t_pipe;
 
 // cmd_list_utils.c
@@ -57,20 +53,29 @@ t_cmd	*ft_cmd_new(char **args);
 void	ft_env_add_back(t_cmd **lst, t_cmd *new);
 int		ft_cmd_size(t_cmd *cmds);
 
-// pipeline_utils.c
-int		is_heredoc_redir_present(char *str);
-char	**cpy_str_arr(char **str);
-
 // heredoc.c
 void	get_heredoc(t_cmd *cmds);
 
-// execute_pipeline.c ......................
+// init_struct.c
 t_pipe	*init_pipe_struct(t_cmd *cmds);
+
+// pipeline_utils.c
+void	dup2_and_close(int fd1, int fd2);
+void	handle_heredocs(t_cmd *cmds);
 int		wait_for_children(t_pipe *p);
+int		is_heredoc_redir_present(char *str);
+char	**cpy_str_arr(char **str);
+
+// setup_input_output.c
 void	setup_input(t_cmd *curr, int prev_fd);
 void	setup_output(t_cmd *curr, int pipe_fd[]);
+
+// child_parent_prcs.c
 void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[]);
-void	parent_process(t_pipe *p, t_cmd *curr, int pid, int pipe_fd[], int i);
+void	parent_process(t_pipe *p, t_cmd *curr, int pid, int pipe_fd[]);
+
+// execute_pipeline.c
+void	execute_one_command(t_cmd *curr, t_pipe *p, t_env *env);
 int		execute_pipeline(t_cmd *cmds, t_env *env, t_pipe *p);
 
 // storing_cmds.c
@@ -102,5 +107,6 @@ void	error_bonus(int error_status, t_data *data);
 int		error_msg_bonus(char *str1, char *str2, char *str3, int erno);
 void	close_fds_bonus(t_data *data);
 int	pipex_main(int ac, char **av, char **envp);
+/*********************************************************/
 
 # endif
