@@ -6,7 +6,7 @@
 #    By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/22 12:09:56 by sihakoby          #+#    #+#              #
-#    Updated: 2025/10/22 15:05:39 by sihakoby         ###   ########.fr        #
+#    Updated: 2025/10/22 16:55:27 by sihakoby         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC_OTHER = minishell.c \
              error_wrappers.c \
              libft_utils.c \
              utils.c \
-
+             signals.c \
 
 TOKEN_DIR = tokenization
 EXPAND_DIR = expansion

@@ -6,7 +6,7 @@
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:34 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/22 14:42:35 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:57:02 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ int	check_pipe_seg(char *str)
 	i = 0;
 	while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
 		i++;
-	if (!str[i])
-	{
-		print_error("minishell", NULL,
-			"syntax error near unexpected token '|'");
-		return (-1);
-	}
+	// if (!str[i])
+	// {
+	// 	print_error("minishell", NULL,
+	// 		"syntax error near unexpected token '|'");
+	// 	return (-1);
+	// }
 	return (0);
 }
 
