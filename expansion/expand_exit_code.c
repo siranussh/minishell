@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_exit_code.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:40:51 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/22 14:40:52 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/10/23 07:45:56 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenization.h"
 
-char	*replace_exit_code(char *str, int i, t_data *data)
+char	*replace_exit_code(char *str, int i)
 {
 	char	*before;
 	char	*after;
@@ -20,7 +20,7 @@ char	*replace_exit_code(char *str, int i, t_data *data)
 	char	*tmp;
 	char	*result;
 
-	err_str = ft_itoa(data->exit_status);
+	err_str = ft_itoa(g_exit_code);
 	if (!err_str)
 		return (NULL);
 	before = ft_substr(str, 0, i);
@@ -39,7 +39,7 @@ char	*replace_exit_code(char *str, int i, t_data *data)
 	return (result);
 }
 
-char	*replace_all_exit_code(char *str, t_data *data)
+char	*replace_all_exit_code(char *str)
 {
 	int	i;
 	int	j;
@@ -48,7 +48,7 @@ char	*replace_all_exit_code(char *str, t_data *data)
 	while (str[i])
 	{
 		if (str[i] == '$' && str[i + 1] && str[i + 1] == '?')
-			str = replace_exit_code(str, i, data);
+			str = replace_exit_code(str, i);
 		j = i;
 		i = find_closing_quote(0, str, '$');
 		if (j == i)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:47 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/22 14:42:50 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/10/23 08:15:12 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ int	parse_line(t_data **data, char *line, char ***tokens_by_pipe)
 		free(line);
 		return (1);
 	}
-	(*data)->flags->pipe = count_pipes(line, *data);
+	(*data)->flags->pipe = count_pipes(line);
 	if ((*data)->flags->pipe == -1)
 	{
 		free(line);
 		return (1);
 	}
-	*tokens_by_pipe = split_pipes(line, *data);
+	*tokens_by_pipe = split_pipes(line);
 	if (!(*tokens_by_pipe))
 	{
 		free(line);

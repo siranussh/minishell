@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/22 17:03:32 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/10/23 08:14:39 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_data
     t_cmd *cmd;
     t_env *env;
     t_flags *flags;
-    int exit_status;
 } t_data;
 
 t_data *init(void);
@@ -80,8 +79,8 @@ int	ft_tolower(int c);
 
 int exit_error(char *str, int code);
 void print_error(char *name, char *file, char *err);
-int pipe_syntax_error(t_data *data);
-int quote_error(t_data *data);
+int pipe_syntax_error(void);
+int quote_error(void);
 int redir_error(void);
 
 int check_quotes_type(char *s);
@@ -94,9 +93,9 @@ char *unqoute_str(char *str);
 int count_tokens(char *str);
 int parse_line(t_data **data, char *line, char ***tokens_by_pipe);
 char **split_cmds_by_pipe(char *str, char **result);
-int count_pipes(char *str, t_data *data);
+int count_pipes(char *str);
 int check_pipe_seg(char *str);
-char **split_pipes(char *str, t_data *data);
+char **split_pipes(char *str);
 t_cmd *last_cmd(t_cmd **cmd);
 t_cmd *build_cmd(t_data *data, char *line);
 int tokenize(t_data *data, t_cmd **cmd, char *read_line);
@@ -120,8 +119,8 @@ char *expand_line(char *line, char *var);
 char *delete_invalid_dollar(char *str, int i, int j);
 int	exp_strcmp(char *s1, char *s2);
 char *cmp_value_name(t_cmd *cmd, char *line, char *name);
-char *replace_val(t_cmd *cmd, char *line, char **rest_line, t_data *data);
-char *replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_data *data);
+char *replace_val(t_cmd *cmd, char *line, char **rest_line);
+char *replace_all_val(t_cmd *cmd, char *str, char *rest_line);
 char *exp_strjoin(char *s1, char *s2, size_t i, size_t j);
 
 int check_dollar_purpose(char *line);
@@ -129,7 +128,8 @@ int is_tilde_path(char *str);
 char *replace_tilde(char *str);
 int is_invalid_dollar(char *str);
 int is_digit_or_special(int i);
-char *replace_exit_code(char *str,int i, t_data *data);
-char *replace_all_exit_code(char *str, t_data *data);
-void expand(t_cmd **cmd, t_data *data);
+char *replace_exit_code(char *str,int i);
+char *replace_all_exit_code(char *str);
+void expand(t_cmd **cmd);
+int check_spaces(char *str);
 #endif

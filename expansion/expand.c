@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:52 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/22 14:41:59 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/10/23 08:00:24 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,13 @@ char	*delete_invalid_dollar(char *str, int i, int j)
 	return (str);
 }
 
-void	expand(t_cmd **cmd, t_data *data)
+void	expand(t_cmd **cmd)
 {
 	int i;
 
 	i = -1;
 	if (check_dollar_purpose((*cmd)->cmd) == 1)
-		(*cmd)->cmd = replace_all_val((*cmd), (*cmd)->cmd, NULL, data);
+		(*cmd)->cmd = replace_all_val((*cmd), (*cmd)->cmd, NULL);
 	if (is_tilde_path((*cmd)->cmd) == 1)
 		(*cmd)->cmd = replace_tilde((*cmd)->cmd);
 	if (!(*cmd)->tokens)
@@ -120,8 +120,7 @@ void	expand(t_cmd **cmd, t_data *data)
 	while ((*cmd)->tokens[++i])
 	{
 		if (check_dollar_purpose((*cmd)->tokens[i]) == 1)
-			(*cmd)->tokens[i] = replace_all_val((*cmd), (*cmd)->tokens[i], NULL,
-					data);
+			(*cmd)->tokens[i] = replace_all_val((*cmd), (*cmd)->tokens[i], NULL);
 		if (is_tilde_path((*cmd)->tokens[i]) == 1)
 			(*cmd)->tokens[i] = replace_tilde((*cmd)->tokens[i]);
 	}

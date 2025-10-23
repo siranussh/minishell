@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token_pipe_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:34 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/22 16:57:02 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/10/23 08:11:45 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenization.h"
 
-int	count_pipes(char *str, t_data *data)
+int	count_pipes(char *str)
 {
 	int	i;
 	int	result;
@@ -20,7 +20,7 @@ int	count_pipes(char *str, t_data *data)
 	if (!str)
 		return (0);
 	if (str[0] == '|')
-		return (pipe_syntax_error(data));
+		return (pipe_syntax_error());
 	i = 0;
 	result = 0;
 	while (str[i])
@@ -29,10 +29,10 @@ int	count_pipes(char *str, t_data *data)
 		{
 			i = find_closing_quote(i + 1, str, str[i]);
 			if (i == -1)
-				return (quote_error(data));
+				return (quote_error());
 		}
 		if ((str[i] == '|' && (str[i + 1] == '|' || str[i + 1] == '\0')))
-			return (pipe_syntax_error(data));
+			return (pipe_syntax_error());
 		if (str[i] == '|')
 			result++;
 		i++;
@@ -69,27 +69,28 @@ char	**split_cmds_by_pipe(char *str, char **result)
 
 int	check_pipe_seg(char *str)
 {
-	int	i;
+	int i;
+	int result;
 
-	i = 0;
-	while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
-		i++;
-	// if (!str[i])
-	// {
-	// 	print_error("minishell", NULL,
-	// 		"syntax error near unexpected token '|'");
-	// 	return (-1);
-	// }
-	return (0);
+	i = -1;
+	result = -1;
+	while (str[++i])
+	{
+		if(str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+			result = 0;
+	}
+	if (result == -1 )
+		print_error("bash", NULL, "syntax error near unexpected token '|'");
+	return (result);
 }
 
-char	**split_pipes(char *str, t_data *data)
+char	**split_pipes(char *str)
 {
 	char	**result;
 	int		i;
 
 	i = -1;
-	result = ft_calloc(sizeof(char *), (count_pipes(str, data) + 2));
+	result = ft_calloc(sizeof(char *), (count_pipes(str) + 2));
 	if (!result)
 		exit_error("minishell: malloc failed", 1);
 	result = split_cmds_by_pipe(str, result);
@@ -97,7 +98,7 @@ char	**split_pipes(char *str, t_data *data)
 	{
 		if (check_pipe_seg(result[i]) == -1 || check_redir(result, i) == -1)
 		{
-			data->exit_status = 258;
+			g_exit_code = 258;
 			while (i >= 0)
 				free(result[i--]);
 			free(result);

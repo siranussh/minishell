@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_symb_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:06 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/22 14:41:11 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/10/22 22:34:20 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	check_dollar_purpose(char *line)
 	int i;
 	int is_double;
 
+	if (!line)
+		return (0);
 	i = 0;
 	is_double = 1;
 	while (line[i])

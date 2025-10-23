@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_redir_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:43 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/22 14:42:44 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/10/22 22:26:55 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,17 @@ int	redir_type(char *str)
 	int	i;
 
 	i = 0;
+	if (!str || !*str)
+		return (0);
 	while (str[i])
 	{
 		if (str[i] == 34 || str[i] == 39)
+		{
 			i = find_closing_quote(i + 1, str, str[i]);
+			if (i == -1)
+				return (-1);
+		}
+			
 		if (str[i] == '>' && !is_other_op(str[i + 1]))
 			return (1);
 		if (str[i] == '>' && str[i + 1] == '>' && !is_other_op(str[i + 2]))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/22 14:43:32 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/10/23 08:18:28 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void	print_tokens(t_cmd *cmd)
 	}
 }
 
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
@@ -69,7 +70,7 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("minishell> ");
 		if (!line)
 			break ;
-		if (*line == '\0')
+		if (check_spaces(line) == -1 || line[0] == '\0')
 		{
 			free(line);
 			continue ;
@@ -83,10 +84,12 @@ int	main(int argc, char **argv, char **envp)
 			printf("Tokenization failed.\n");
 			continue ;
 		}
+		
 		if (data->cmd)
 			print_tokens(data->cmd);
 		data->cmd = NULL;
 	}
+	g_exit_code = 0;
 	free(data->env);
 	free(data->flags);
 	free(data);

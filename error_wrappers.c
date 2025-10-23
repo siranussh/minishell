@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   error_wrappers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:05 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/22 16:21:51 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/10/23 08:10:21 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenization.h"
 
-int	pipe_syntax_error(t_data *data)
+int	pipe_syntax_error(void)
 {
 	print_error("minishell", NULL, "syntax error near unexpected token '|'");
-	data->exit_status = 258;
+	g_exit_code = 258;
 	return (-1);
 }
 
-int	quote_error(t_data *data)
+int	quote_error(void)
 {
 	print_error("minishell", NULL, "unexpected quote");
-	data->exit_status = 258;
+	g_exit_code = 258;
 	return (-1);
 }
 

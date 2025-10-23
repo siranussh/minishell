@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+         #
+#    By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/22 12:09:56 by sihakoby          #+#    #+#              #
-#    Updated: 2025/10/22 16:55:27 by sihakoby         ###   ########.fr        #
+#    Updated: 2025/10/22 17:19:45 by sihakoby         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,13 +46,13 @@ OBJ_EXPAND = $(addprefix $(OBJ_DIR)/$(EXPAND_DIR)/,$(SRC_EXPAND:.c=.o))
 OBJ_OTHER  = $(addprefix $(OBJ_DIR)/,$(SRC_OTHER:.c=.o))
 OBJ = $(OBJ_TOKEN) $(OBJ_EXPAND) $(OBJ_OTHER)
 
-INCLUDES = -I .
-READLINE_INC = -I /usr/include
-READLINE_LIB = -lreadline -lncurses
-
 # INCLUDES = -I .
-# READLINE_INC = -I /opt/homebrew/opt/readline/include
-# READLINE_LIB = -L /opt/homebrew/opt/readline/lib -lreadline
+# READLINE_INC = -I /usr/include
+# READLINE_LIB = -lreadline -lncurses
+
+INCLUDES = -I .
+READLINE_INC = -I /opt/homebrew/opt/readline/include
+READLINE_LIB = -L /opt/homebrew/opt/readline/lib -lreadline
 
 all: $(NAME)
 

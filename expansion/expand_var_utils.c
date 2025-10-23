@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:24 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/22 14:41:33 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/10/23 07:49:33 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ char	*extract_after_special(char *line, int i, t_cmd *cmd)
 	return (rest);
 }
 
-char	*replace_val(t_cmd *cmd, char *line, char **rest_line, t_data *data)
+char	*replace_val(t_cmd *cmd, char *line, char **rest_line)
 {
 	char	*name;
 	int		i;
 
 	if (ft_strnstr(line, "$?", ft_strlen(line)) != 0)
-		return (replace_all_exit_code(line, data));
+		return (replace_all_exit_code(line));
 	name = extract_value_name(line);
 	if (!name)
 		return (NULL);
@@ -85,7 +85,7 @@ char	*replace_val(t_cmd *cmd, char *line, char **rest_line, t_data *data)
 	return (cmp_value_name(cmd, line, name));
 }
 
-char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_data *data)
+char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line)
 {
 	char	*temp;
 
@@ -96,7 +96,7 @@ char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_data *data)
 	if (!str || check_dollar_purpose(str) == 0)
 		return (str);
 	cmd->flags->has_special = 0;
-	str = replace_val(cmd, str, &rest_line, data);
+	str = replace_val(cmd, str, &rest_line);
 	if (!str)
 		return (NULL);
 	if (cmd->flags->has_special == 1)
@@ -109,7 +109,7 @@ char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_data *data)
 		cmd->flags->has_special = 0;
 	}
 	if (check_dollar_purpose(str) == 1)
-		str = replace_all_val(cmd, str, NULL, data);
+		str = replace_all_val(cmd, str, NULL);
 	if (rest_line)
 		free(rest_line);
 	return (str);

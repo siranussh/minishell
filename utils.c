@@ -46,3 +46,20 @@ char *unqoute_str(char *str)
     }
     return (temp);
 }
+
+int check_spaces(char *str)
+{
+    int i;
+    int j;
+
+    i = -1;
+    j = 0;
+    while (str[++i])
+    {
+        if (str[i] == '\t' || str[i] == '\n' || str[i] == '\v' || str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
+        j++;
+    }
+    if (j == i || i == 0)
+        return (-1);
+    return (0);
+}
