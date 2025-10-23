@@ -31,11 +31,11 @@ void	setup_output(t_cmd *curr, int pipe_fd[])
 	if (curr->outfile)
 	{
 		if (curr->append == 2)
-		curr->fd_out = open(curr->outfile,
-			O_WRONLY | O_CREAT | O_APPEND, 0644);
+			curr->fd_out = open(curr->outfile,
+					O_WRONLY | O_CREAT | O_APPEND, 0644);
 		else
 			curr->fd_out = open(curr->outfile,
-				O_WRONLY | O_CREAT | O_TRUNC, 0644);
+					O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (curr->fd_out == -1)
 			perror("open outfile");
 		if (curr->fd_out != STDOUT_FILENO)

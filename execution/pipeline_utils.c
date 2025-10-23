@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   pipeline_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:22:05 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/22 23:54:33 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/23 13:36:59 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/builtins.h"
 #include "../includes/execution.h"
@@ -24,8 +24,9 @@ void	dup2_and_close(int fd1, int fd2)
 
 void	handle_heredocs(t_cmd *cmds)
 {
-	t_cmd *tmp = cmds;
+	t_cmd	*tmp;
 
+	tmp = cmds;
 	while (tmp)
 	{
 		if (tmp->heredoc)

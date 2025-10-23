@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   child_parent_prcs.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/23 13:11:53 by anavagya          #+#    #+#             */
+/*   Updated: 2025/10/23 13:11:53 by anavagya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/builtins.h"
 #include "../includes/execution.h"
 
@@ -10,7 +22,7 @@ void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
 	if (is_built_in(curr->cmd_line))
 	{
 		p->exit_code = run_built_in(args_count(curr->cmd_line),
-			curr->cmd_line, env);
+				curr->cmd_line, env);
 		exit(p->exit_code);
 	}
 	path = find_cmd_path(curr->cmd_line[0], env);

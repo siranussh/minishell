@@ -13,20 +13,37 @@
 #include "../includes/builtins.h"
 #include "../includes/execution.h"
 
-int	execute(char **args, t_env *env)
+int	is_pipeline(char *line)
+{
+	int	i;
+
+	i = 0;
+	if (!line || !line)
+		return (0);
+	while (line[i])
+	{
+		if (line[i] == '|')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	execute(char **args, char *line, t_env *env)
 {
 	t_cmd	*cmds;
 	t_pipe	*p;
 
+	//tokenize()
 	init_pipe_struct(cmds);
 	if (!args || !*args)
 		return (0);
-	if (!is_pipeline)
+	if (!is_pipeline(line))
 		execute_single_command(args, env);
 	else
 	{
 		cmds = store_cmds(args);
-		p = init_pipe_struct(cmds);	
+		p = init_pipe_struct(cmds);
 		execute_pipeline(cmds, env, p);
 		free(p);
 	}
