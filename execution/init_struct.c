@@ -36,3 +36,4 @@ t_pipe	*init_pipe_struct(t_cmd *cmds)
 	}
 	return (p);
 }
+

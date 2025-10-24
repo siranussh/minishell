@@ -50,7 +50,7 @@ typedef struct s_pipe
 
 // cmd_list_utils.c
 t_cmd	*ft_cmd_new(char **args);
-void	ft_env_add_back(t_cmd **lst, t_cmd *new);
+void	ft_cmd_add_back(t_cmd **lst, t_cmd *new);
 int		ft_cmd_size(t_cmd *cmds);
 
 // heredoc.c
@@ -85,6 +85,9 @@ void	check_cmds(t_cmd *cmds);
 // find_cmd_path.c
 char	*find_cmd_path(char *cmd, t_env *env);
 
+// redir_utils.c
+char	*return_infile_redir(char **args, char *redir);
+
 // execute_single_cmd.c
 int		args_count(char **args);
 char	**env_to_array(t_env *env);
@@ -97,15 +100,15 @@ int		execute_single_command(char **args, t_env *env);
 
 /********************************************************/
 // pipexxxxxxxx
-void	free_str_or_arr_bonus(char *str, char **strs);
-void	get_input_file_bonus(t_data *d);
-void	get_output_file_bonus(t_data *d);
-void	get_heredoc(t_data *d);
-char	*get_cmd_bonus(char *cmd, t_data *data);
-t_data	init_bonus(int ac, char **av, char **envp);
-void	error_bonus(int error_status, t_data *data);
-int		error_msg_bonus(char *str1, char *str2, char *str3, int erno);
-void	close_fds_bonus(t_data *data);
+// void	free_str_or_arr_bonus(char *str, char **strs);
+// void	get_input_file_bonus(t_data *d);
+// void	get_output_file_bonus(t_data *d);
+// void	get_heredoc(t_data *d);
+// char	*get_cmd_bonus(char *cmd, t_data *data);
+// t_data	init_bonus(int ac, char **av, char **envp);
+// void	error_bonus(int error_status, t_data *data);
+// int		error_msg_bonus(char *str1, char *str2, char *str3, int erno);
+// void	close_fds_bonus(t_data *data);
 int	pipex_main(int ac, char **av, char **envp);
 /*********************************************************/
 

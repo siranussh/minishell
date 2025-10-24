@@ -6,7 +6,7 @@ BUILT_SRC = builtin_utils.c list_utils.c free.c \
 			export_utils.c export_sort.c export_append.c export.c \
 			exit_utils.c exit.c builtins.c
 
-EXEC_SRC = find_cmd_path.c execute.c main.c
+EXEC_SRC = find_cmd_path.c execute_single_cmd.c main.c
 
 BUILT_SRCS = $(addprefix ./builtins/, $(BUILT_SRC))
 EXEC_SRCS = $(addprefix ./execution/, $(EXEC_SRC))
@@ -32,7 +32,7 @@ $(LIBFT) :
 
 clean :
 	make -C ./libft clean
-	rm -f $(BUILT_OBJS) 
+	rm -f $(BUILT_OBJS)
 	rm -f $(EXEC_OBJS)
 
 fclean : clean

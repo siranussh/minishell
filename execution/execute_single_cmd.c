@@ -57,11 +57,13 @@ int	execute_single_command(char **args, t_env *env)
 	char	*path;
 	int		pid;
 	char	**env_arr;
+	int		redir_nb;
 
 	if (!args || !*args)
 		return (0);
 	if (is_built_in(args))
 		return (run_built_in(args_count(args), args, env));
+		redir_nb = which_redir(args);
 	path = find_cmd_path(args[0], env);
 	if (!path)
 		return (127);

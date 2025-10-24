@@ -25,12 +25,12 @@ void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
 				curr->cmd_line, env);
 		exit(p->exit_code);
 	}
-	path = find_cmd_path(curr->cmd_line[0], env);
-	if (!path)
-		exit(127);
-	p->env_arr = env_to_array(env);
-	execve(path, curr->cmd_line, p->env_arr);
-	perror("execve");
+	// path = find_cmd_path(curr->cmd_line[0], env);
+	// if (!path)
+	// 	exit(127);
+	// p->env_arr = env_to_array(env);
+	// execve(path, curr->cmd_line, p->env_arr);
+	// perror("execve");
 	dup2_and_close(curr->fd_in, STDIN_FILENO);
 	dup2_and_close(curr->fd_out, STDOUT_FILENO);
 	free(path);

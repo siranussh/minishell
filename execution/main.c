@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:47:14 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/13 11:47:15 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/24 14:08:55 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char **argv, char **envp)
 	// built_in_env(1, str_env, env);
 
 	t_env *env = env_parse(envp);
-	char *cmd1[] = {"ls", "-l", NULL};
+	char *cmd1[] = {"ll", NULL};
 	execute_single_command(cmd1, env);
 
 	// while (1)
