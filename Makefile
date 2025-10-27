@@ -6,7 +6,7 @@
 #    By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/22 12:09:56 by sihakoby          #+#    #+#              #
-#    Updated: 2025/10/22 17:19:45 by sihakoby         ###   ########.fr        #
+#    Updated: 2025/10/24 14:12:25 by sihakoby         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC_TOKEN = create_token.c \
              handle_quotes_2.c \
              token_pipe_utils.c \
              token_redir_utils.c \
+             token_redir.c \
              token_utils.c \
 
 SRC_EXPAND = expand_utils.c \

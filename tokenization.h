@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/23 08:14:39 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/10/24 16:22:09 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,11 @@ int redir_type(char *str);
 int is_other_op(char c);
 int find_next_redir(char *str);
 int	check_redir(char **arg, int i);
+char **remove_token(char **tokens, int index);
+char **add_token(char **tokens, char *new, int j);
+char **split_redirection_start(char **tokens, int j, char c);
+char **split_redirection_tokens(char **tokens, int j, char c, int k);
+void redir_tokens(t_cmd *cmd);
 
 int find_next_char(char *str, char c, int j);
 int	skip_quote_and_find(char *s, int *i, char c, int j);

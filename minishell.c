@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/23 08:18:28 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/10/24 16:27:18 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int	main(int argc, char **argv, char **envp)
 			printf("Tokenization failed.\n");
 			continue ;
 		}
-		
+		if (data->cmd)
+			redir_tokens(data->cmd);
 		if (data->cmd)
 			print_tokens(data->cmd);
 		data->cmd = NULL;

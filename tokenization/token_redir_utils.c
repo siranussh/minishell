@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:43 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/22 22:26:55 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/10/24 15:29:26 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ char	redir_smb(int c)
 
 int	find_next_redir(char *str)
 {
-	int	i;
-
+	int i;
 	i = 0;
 	while (str[i] && !is_other_op(str[i]))
 		i++;
