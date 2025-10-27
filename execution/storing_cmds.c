@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stroing_cmds.c                                     :+:      :+:    :+:   */
+/*   storing_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/13 13:15:38 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/13 13:15:38 by anavagya         ###   ########.fr       */
+/*   Created: 2025/10/27 17:10:05 by anavagya          #+#    #+#             */
+/*   Updated: 2025/10/27 17:10:05 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
 #include "../includes/execution.h"
 
-t_cmd	*store_cmds(char **args)
+t_cmd	*store_cmds(t_cmd1 *cmd1)
 {
 	int		i;
 	char	**split;
 	t_cmd	*head;
 	t_cmd	*tmp;
 
-	if (!args || !*args)
-		return (NULL);
 	i = 0;
-	while (args[i])
+	while (cmd1)
 	{
-		split = ft_split(args[i], ' ');
+		// split = ft_split(args[i], ' ');
+		split = join_cmd_tokens(cmd1);
 		tmp = ft_cmd_new(split);
 		ft_cmd_add_back(&head, tmp);
 		ft_free(split);
-		i++;
+		cmd1 = cmd1->next;
 	}
 	return (head);
 }
@@ -59,16 +58,16 @@ void	check_cmds(t_cmd *cmds)
 		while (cmds->cmd_line[i])
 		{
 			n = is_heredoc_redir_present(cmds->cmd_line[i]);
-			if (n = 1)// <<
+			if (n == 1)// <<
 				handle_heredoc(cmds, &i);
-			else if (n = 2)// <
+			else if (n == 2)// <
 			{
 				i++;
 				cmds->infile = ft_strdup(cmds->cmd_line[i]);
 			}
-			else if (n = 3)// >
+			else if (n == 3)// >
 				handle_output_redir(cmds, &i, 1);
-			else if (n = 4)// >>
+			else if (n == 4)// >>
 				handle_output_redir(cmds, &i, 2);
 			i++;
 		}

@@ -6,7 +6,10 @@ BUILT_SRC = builtin_utils.c list_utils.c free.c \
 			export_utils.c export_sort.c export_append.c export.c \
 			exit_utils.c exit.c builtins.c
 
-EXEC_SRC = find_cmd_path.c execute_single_cmd.c main.c
+EXEC_SRC = find_cmd_path.c heredoc.c execute_single_cmd.c join_cmd_tokens.c \
+			storing_cmds.c child_parent_prcs.c setup_input_output.c \
+			pipeline_utils.c execute_pipeline.c \
+			cmd_list_utils.c init_struct.c main.c
 
 BUILT_SRCS = $(addprefix ./builtins/, $(BUILT_SRC))
 EXEC_SRCS = $(addprefix ./execution/, $(EXEC_SRC))
@@ -22,7 +25,7 @@ LIBFT = ./libft/libft.a
 all : $(NAME)
 
 $(NAME) : $(BUILT_OBJS) $(EXEC_OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -I ./includes -I ./libft  $(BUILT_OBJS) $(EXEC_OBJS) -L ./libft -lft -o $(NAME)
+	$(CC) $(CFLAGS) -I ./includes -I ./libft  $(BUILT_OBJS) $(EXEC_OBJS) -L ./libft -lft -lreadline -o $(NAME)
 
 $(LIBFT) :
 	make -C ./libft all

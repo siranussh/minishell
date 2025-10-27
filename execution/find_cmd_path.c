@@ -2,9 +2,12 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   find_cmd_path.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                                                    +:+ +:+
+	+:+     */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+
+	+#+        */
+/*                                                +#+#+#+#+#+
+	+#+           */
 /*   Created: 2025/10/13 11:47:02 by anavagya          #+#    #+#             */
 /*   Updated: 2025/10/13 11:47:02 by anavagya         ###   ########.fr       */
 /*                                                                            */
@@ -15,11 +18,11 @@
 
 char	*find_cmd_path(char *cmd, t_env *env)
 {
-	char	**cmd_paths;
-	char	*path;
-	char	*full_cmd;
-	char	*tmp;
-	int		i;
+	char **cmd_paths;
+	char *path;
+	char *full_cmd;
+	char *tmp;
+	int i;
 
 	if (!cmd)
 		return (NULL);

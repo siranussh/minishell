@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:22:05 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/23 13:36:59 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/27 17:13:02 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	wait_for_children(t_pipe *p)
 	int		i;
 	int		status;
 	int		exit_code;
-	pid_t	waited_pid;
 
 	exit_code = 0;
 	i = 0;

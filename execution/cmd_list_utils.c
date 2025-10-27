@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:40:29 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/14 13:41:39 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/27 17:28:03 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_cmd	*ft_cmd_new(char **args)
 	return (new_node);
 }
 
-void	ft_env_add_back(t_cmd **lst, t_cmd *new)
+void	ft_cmd_add_back(t_cmd **lst, t_cmd *new)
 {
 	t_cmd	*current;
 

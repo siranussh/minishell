@@ -35,6 +35,14 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
+typedef struct s_cmd1
+{
+	struct s_cmd1	*next;
+	char			*cmd;
+	char			**tokens;
+	int				num_tokens;
+}	t_cmd1;
+
 typedef struct s_pipe
 {
 	int		index;
@@ -59,6 +67,9 @@ void	get_heredoc(t_cmd *cmds);
 // init_struct.c
 t_pipe	*init_pipe_struct(t_cmd *cmds);
 
+// join_cmd_tokenc.c
+char	**join_cmd_tokens(t_cmd1 *cmd1);
+
 // pipeline_utils.c
 void	dup2_and_close(int fd1, int fd2);
 void	handle_heredocs(t_cmd *cmds);
@@ -79,7 +90,7 @@ void	execute_one_command(t_cmd *curr, t_pipe *p, t_env *env);
 int		execute_pipeline(t_cmd *cmds, t_env *env, t_pipe *p);
 
 // storing_cmds.c
-t_cmd	*store_cmds(char **args);
+t_cmd	*store_cmds(t_cmd1 *cmd1);
 void	check_cmds(t_cmd *cmds);
 
 // find_cmd_path.c

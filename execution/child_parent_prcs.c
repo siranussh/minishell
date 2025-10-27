@@ -15,7 +15,7 @@
 
 void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
 {
-	char	*path;
+	// char	*path;
 
 	setup_input(curr, p->prev_fd);
 	setup_output(curr, pipe_fd);
@@ -25,6 +25,7 @@ void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
 				curr->cmd_line, env);
 		exit(p->exit_code);
 	}
+	execute_single_command(curr->cmd_line, env);
 	// path = find_cmd_path(curr->cmd_line[0], env);
 	// if (!path)
 	// 	exit(127);
@@ -33,7 +34,7 @@ void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
 	// perror("execve");
 	dup2_and_close(curr->fd_in, STDIN_FILENO);
 	dup2_and_close(curr->fd_out, STDOUT_FILENO);
-	free(path);
+	// free(path);
 	ft_free(p->env_arr);
 	exit(1);
 }
