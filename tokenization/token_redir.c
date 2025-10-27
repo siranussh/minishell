@@ -2,31 +2,31 @@
 
 char **remove_token(char **tokens, int index)
 {
-    char **result;
-    int count;
-    int res_idx;
+    int     count;
+    int     i;
+    int     j;
+    char    **result;
 
+    if (!tokens)
+        return (NULL);
     count = 0;
     while (tokens[count])
         count++;
-
-    result = ft_calloc(sizeof(char *), count);
+    result = ft_calloc(sizeof(char *), count); // one less element
     if (!result)
         exit_error("malloc failed", 1);
-
-    res_idx = count - 2;
-    while (--count >= 0)
+    i = 0;
+    j = 0;
+    while (i < count)
     {
-        if (count != index)
-        {
-            result[res_idx] = ft_strdup(tokens[count]);
-            res_idx--;
-        }
-        free(tokens[count]);
+        if (i != index)
+            result[j++] = ft_strdup(tokens[i]);
+        free(tokens[i++]);
     }
     free(tokens);
-    return result;
+    return (result);
 }
+
 
 char **add_token(char **tokens, char *new, int j)
 {
@@ -35,23 +35,22 @@ char **add_token(char **tokens, char *new, int j)
     int k;
 
     i = 0;
+    k = 0;
     while (tokens[i])
         i++;
     result = ft_calloc(sizeof(char *), i + 1);
     if (!result)
         return (NULL);
     i = 0;
-    k = 0;
     while (tokens[k])
     {
-        result[i++] = ft_strdup(tokens[k]);
+        result[i] = ft_strdup(tokens[k]);
         free(tokens[k]);
-        if (k++ == j)
+        i++;
+        k++;
+        if(k == j)
             result[i++] = new;
     }
-    if (k == j)
-        result[i++] = new;
-    result[i] = NULL;
     free(tokens);
     return (result);
 }
@@ -94,31 +93,34 @@ char **split_redirection_tokens(char **tokens, int j, char c, int k)
 
 void redir_tokens(t_cmd *cmd)
 {
-    int i;
-    int idx;
-    int count;
+    int i = 0;
 
-    i = 0;
-    while (cmd->tokens && cmd->tokens[i])
+    if (!cmd || !cmd->tokens)
+        return;
+
+    while (cmd->tokens[i])
     {
-        idx = is_redir(cmd->tokens + i);
-        if (idx == -1)
-            break;
-        i += idx;
-        if (!cmd->tokens[i])
-            break;
-        cmd->tokens = split_redirection_tokens(cmd->tokens, i,
-                    redir_smb(redir_type(cmd->tokens[i])), 1);
-        if (!redir_type(cmd->tokens[i]))
-            i++;
-        if (cmd->tokens[i + 1] && redir_type(cmd->tokens[i + 1]))
-            cmd->tokens = split_redirection_tokens(cmd->tokens, i + 1,
-                        redir_smb(redir_type(cmd->tokens[i + 1])), 1);
-        count = 0;
-        while (count++ < 2 && cmd->tokens[i])
-            cmd->tokens = remove_token(cmd->tokens, i);
+        int type = redir_type(cmd->tokens[i]);
+
+        if (type) // token is a redirection
+        {
+            // Skip actual redirection handling for now
+
+            // Remove redirection symbol and filename
+            if (cmd->tokens[i + 1])
+                cmd->tokens = remove_token(cmd->tokens, i + 1); // remove filename
+            cmd->tokens = remove_token(cmd->tokens, i);         // remove redir symbol
+
+            // Do not increment i because tokens shifted left
+            continue;
+        }
+        i++;
     }
+
+    // Optional: leave cmd->cmd untouched if not needed yet
 }
+
+
 
 
 
