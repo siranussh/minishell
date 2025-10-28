@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 16:27:01 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/27 17:42:04 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/28 14:51:11 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,10 @@ int	main(int argc, char **argv, char **envp)
 	cmd1_ls->tokens = malloc(sizeof(char *) * 3);
 	if (!cmd1_ls->tokens)
 		return (1);
-    cmd1_ls->tokens[0] = ft_strdup("-l");
-    cmd1_ls->tokens[1] = NULL;
+    cmd1_ls->tokens[0] = ft_strdup("<<");
+	cmd1_ls->tokens[1] = ft_strdup("barev");
+    cmd1_ls->tokens[2] = NULL;
+	cmd1_ls->num_tokens = 2;
 
     // 3. Allocate second command: wc -l
     cmd1_wc = malloc(sizeof(t_cmd1));
@@ -83,8 +85,9 @@ int	main(int argc, char **argv, char **envp)
 	cmd1_wc->tokens = malloc(sizeof(char *) * 3);
 	if (!cmd1_wc->tokens)
 		return (1);
-    cmd1_wc->tokens[0] = ft_strdup("-l");
-    cmd1_wc->tokens[1] = NULL;
+	cmd1_wc->tokens[0] = ft_strdup("-l");
+	cmd1_wc->tokens[1] = NULL;
+	cmd1_wc->num_tokens = 1;
 
     // 4. Link commands
     cmd1_ls->next = cmd1_wc;
@@ -94,6 +97,12 @@ int	main(int argc, char **argv, char **envp)
     // 5. Convert linked list (t_cmd1) to final command structure (t_cmd)
     cmd = store_cmds(head);
 
+	// int i = 0;
+	// while (cmd->cmd_line[i])
+	// {
+	// 	printf ("%s\n", cmd->cmd_line[i]);
+	// 	i++;
+	// }
     // 6. Initialize pipe structure
     p = init_pipe_struct(cmd);
 

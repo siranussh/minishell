@@ -21,6 +21,8 @@ t_cmd	*store_cmds(t_cmd1 *cmd1)
 	t_cmd	*tmp;
 
 	i = 0;
+	head = NULL;
+	tmp = NULL;
 	while (cmd1)
 	{
 		// split = ft_split(args[i], ' ');

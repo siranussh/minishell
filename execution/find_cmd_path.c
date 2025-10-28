@@ -16,7 +16,7 @@
 #include "../includes/builtins.h"
 #include "../includes/execution.h"
 
-char	*find_cmd_path(char *cmd, t_env *env)
+char	*find_cmd_p ath(char *cmd, t_env *env)
 {
 	char **cmd_paths;
 	char *path;

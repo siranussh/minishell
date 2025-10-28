@@ -35,7 +35,7 @@ void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
 	dup2_and_close(curr->fd_in, STDIN_FILENO);
 	dup2_and_close(curr->fd_out, STDOUT_FILENO);
 	// free(path);
-	ft_free(p->env_arr);
+	// ft_free(p->env_arr);
 	exit(1);
 }
 

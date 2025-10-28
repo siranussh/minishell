@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:22:05 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/27 17:13:02 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/28 14:08:14 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,12 @@ char	**cpy_str_arr(char **str)
 	while (str[i])
 	{
 		str_cpy[i] = ft_strdup(str[i]);
+		if (!str_cpy[i])
+		{
+			while (i-- < 0)
+				free(str_cpy[i]);
+			return (free(str_cpy), NULL);
+		}
 		i++;
 	}
 	str_cpy[i] = NULL;
