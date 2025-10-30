@@ -91,13 +91,15 @@ int		execute_pipeline(t_cmd *cmds, t_env *env, t_pipe *p);
 
 // storing_cmds.c
 t_cmd	*store_cmds(t_cmd1 *cmd1);
-void	check_cmds(t_cmd *cmds);
+void	check_cmds(t_cmd *cmds);// chgitem te xi em grel
 
 // find_cmd_path.c
 char	*find_cmd_path(char *cmd, t_env *env);
 
 // redir_utils.c
+int		which_redir(char **args);
 char	*return_infile_redir(char **args, char *redir);
+char	*return_infile(char **args);
 
 // execute_single_cmd.c
 int		args_count(char **args);

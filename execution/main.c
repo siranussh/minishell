@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 16:27:01 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/28 14:51:11 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/10/30 14:22:59 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 	// execute pipeline
     t_env   *env;
     t_cmd1  *cmd1_ls;
-    t_cmd1  *cmd1_wc;
+    // t_cmd1  *cmd1_wc;
     t_cmd1  *head;
     t_cmd   *cmd;
     t_pipe  *p;
@@ -67,31 +67,32 @@ int	main(int argc, char **argv, char **envp)
     if (!cmd1_ls)
         return (1);
     memset(cmd1_ls, 0, sizeof(t_cmd1));
-    cmd1_ls->cmd = ft_strdup("ls");
+    cmd1_ls->cmd = ft_strdup("..");
 	cmd1_ls->tokens = malloc(sizeof(char *) * 3);
 	if (!cmd1_ls->tokens)
 		return (1);
-    cmd1_ls->tokens[0] = ft_strdup("<<");
-	cmd1_ls->tokens[1] = ft_strdup("barev");
-    cmd1_ls->tokens[2] = NULL;
-	cmd1_ls->num_tokens = 2;
+    // cmd1_ls->tokens[0] = ft_strdup("..");
+	// // cmd1_ls->tokens[1] = ft_strdup("barev");
+    // cmd1_ls->tokens[1] = NULL;
+	// cmd1_ls->num_tokens = 1;
 
     // 3. Allocate second command: wc -l
-    cmd1_wc = malloc(sizeof(t_cmd1));
-    if (!cmd1_wc)
-        return (1);
-    memset(cmd1_wc, 0, sizeof(t_cmd1));
-    cmd1_wc->cmd = ft_strdup("wc");
-	cmd1_wc->tokens = malloc(sizeof(char *) * 3);
-	if (!cmd1_wc->tokens)
-		return (1);
-	cmd1_wc->tokens[0] = ft_strdup("-l");
-	cmd1_wc->tokens[1] = NULL;
-	cmd1_wc->num_tokens = 1;
+    // cmd1_wc = malloc(sizeof(t_cmd1));
+    // if (!cmd1_wc)
+    //     return (1);
+    // memset(cmd1_wc, 0, sizeof(t_cmd1));
+    // cmd1_wc->cmd = ft_strdup("wc");
+	// cmd1_wc->tokens = malloc(sizeof(char *) * 3);
+	// if (!cmd1_wc->tokens)
+	// 	return (1);
+	// cmd1_wc->tokens[0] = ft_strdup("-l");
+	// cmd1_wc->tokens[1] = NULL;
+	// cmd1_wc->num_tokens = 1;
 
     // 4. Link commands
-    cmd1_ls->next = cmd1_wc;
-    cmd1_wc->next = NULL;
+	cmd1_ls->next = NULL;
+    // cmd1_ls->next = cmd1_wc;
+    // cmd1_wc->next = NULL;
     head = cmd1_ls;
 
     // 5. Convert linked list (t_cmd1) to final command structure (t_cmd)
