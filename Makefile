@@ -1,0 +1,78 @@
+NAME = minishell
+
+BUILT_SRC = builtin_utils.c list_utils.c free.c \
+			echo.c pwd.c env.c env_parsing.c cd.c \
+			unset.c \
+			export_utils.c export_sort.c export_append.c export.c \
+			exit_utils.c exit.c builtins.c
+
+EXEC_SRC = find_cmd_path.c heredoc.c execute_single_cmd.c join_cmd_tokens.c \
+			storing_cmds.c child_parent_prcs.c setup_input_output.c \
+			pipeline_utils.c execute_pipeline.c \
+			cmd_list_utils.c init_struct.c
+
+SRC_TOKEN = create_token.c \
+             handle_quotes.c \
+             handle_quotes_2.c \
+             token_pipe_utils.c \
+             token_redir_utils.c \
+             token_redir.c \
+             token_utils.c \
+
+SRC_EXPAND = expand_utils.c \
+              expand_symb_utils.c \
+              expand_var_utils.c \
+              expand_exit_code.c \
+              expand_libft_modifs.c \
+              expand.c \
+
+SRC_OTHER = minishell.c \
+             error_handling.c \
+             error_wrappers.c \
+             utils.c \
+             signals.c \
+
+TOKEN_DIR = tokenization
+EXPAND_DIR = expansion
+OBJ_DIR = obj
+
+BUILT_DIR = builtins
+EXEC_DIR = execution
+
+OBJ_TOKEN  = $(addprefix $(OBJ_DIR)/$(TOKEN_DIR)/,$(SRC_TOKEN:.c=.o))
+OBJ_EXPAND = $(addprefix $(OBJ_DIR)/$(EXPAND_DIR)/,$(SRC_EXPAND:.c=.o))
+OBJ_OTHER  = $(addprefix $(OBJ_DIR)/,$(SRC_OTHER:.c=.o))
+
+OBJ_EXEC = $(addprefix $(OBJ_DIR)/$(EXEC_DIR)/,$(EXEC_SRC:.c=.o))
+OBJ_BUILT = $(addprefix $(OBJ_DIR)/$(BUILT_DIR)/,$(BUILT_SRC:.c=.o))
+
+OBJ = $(OBJ_TOKEN) $(OBJ_EXPAND) $(OBJ_OTHER) $(OBJ_BUILT) $(OBJ_EXEC)
+
+CC = cc
+CFLAGS = -Werror -Wall -Wextra -g3 #-fsanitize=address
+
+LIBFT = ./libft/libft.a
+
+all: $(NAME)
+
+$(NAME): $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) -I ./includes -I ./libft $(OBJ) -L ./libft -lft -lreadline -o $(NAME)
+
+$(LIBFT):
+	make -C ./libft all
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -I ./includes -I ./libft -c $< -o $@
+
+clean:
+	make -C ./libft clean
+	rm -rf $(OBJ_DIR)
+
+fclean: clean
+	make -C ./libft fclean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re

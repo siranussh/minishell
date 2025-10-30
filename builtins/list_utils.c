@@ -1,0 +1,67 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/13 11:23:51 by anavagya          #+#    #+#             */
+/*   Updated: 2025/10/30 16:29:31 by sihakoby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/minishell.h"
+
+t_env	*ft_env_new(char *key, char *value)
+{
+	t_env	*new_node;
+
+	new_node = (t_env *)malloc(sizeof(t_env));
+	if (!new_node)
+		return (NULL);
+	new_node->key = key;
+	new_node->value = value;
+	new_node->next = NULL;
+	return (new_node);
+}
+
+void	ft_env_add_back(t_env **lst, t_env *new)
+{
+	t_env	*current;
+
+	current = *lst;
+	if (!current)
+	{
+		*lst = new;
+		return ;
+	}
+	while (current->next)
+		current = current->next;
+	current->next = new;
+}
+
+int	ft_env_size(t_env *env)
+{
+	int	count;
+
+	count = 0;
+	while (env != NULL)
+	{
+		count++;
+		env = env->next;
+	}
+	return (count);
+}
+
+void	del_env_node(t_env *prew)
+{
+	t_env	*tmp;
+
+	if (!prew)
+		return ;
+	tmp = prew->next;
+	free(tmp->key);
+	free(tmp->value);
+	prew->next = tmp->next;
+	free(tmp);
+}
