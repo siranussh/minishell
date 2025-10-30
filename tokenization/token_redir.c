@@ -102,22 +102,16 @@ void redir_tokens(t_cmd *cmd)
     {
         int type = redir_type(cmd->tokens[i]);
 
-        if (type) // token is a redirection
+        if (type)
         {
-            // Skip actual redirection handling for now
 
-            // Remove redirection symbol and filename
             if (cmd->tokens[i + 1])
-                cmd->tokens = remove_token(cmd->tokens, i + 1); // remove filename
-            cmd->tokens = remove_token(cmd->tokens, i);         // remove redir symbol
-
-            // Do not increment i because tokens shifted left
+                cmd->tokens = remove_token(cmd->tokens, i + 1);
+            cmd->tokens = remove_token(cmd->tokens, i);         
             continue;
         }
         i++;
     }
-
-    // Optional: leave cmd->cmd untouched if not needed yet
 }
 
 

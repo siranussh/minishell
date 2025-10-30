@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/27 19:12:00 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/10/30 15:25:09 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ static void	print_tokens(t_cmd *cmd)
 	{
 		if (cmd->cmd)
     printf("Command: %s\n", cmd->cmd);
-        else
-    printf("Command: (none, only redirections)\n");
+   
 
 		if (cmd->tokens)
 		{
