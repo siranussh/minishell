@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/01 18:17:08 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/02 00:22:37 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ t_cmd	*build_cmd(t_data *data, char *line)
 		temp->tokens = get_token_arr(data, line + data->total_chars, temp);
 	else
 		temp->tokens = NULL;
-	temp->cmd_line = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);//ani
+	temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);//ani
 	return (temp);
 }
 

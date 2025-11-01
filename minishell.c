@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/01 17:22:45 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/02 00:25:52 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,30 @@ t_data	*init(void)
 // 		cmd = cmd->next;
 // 	}
 // }
+
+
+void unquote_all_tokens(t_cmd *cmd)
+{
+    int i;
+    char *tmp;
+
+    while (cmd)
+    {
+        if (cmd->tokens)
+        {
+            i = 0;
+            while (cmd->tokens[i])
+            {
+                tmp = unqoute_str(cmd->tokens[i]); // remove quotes from this token
+                free(cmd->tokens[i]);              // free old token
+                cmd->tokens[i] = tmp;              // replace with unquoted token
+                i++;
+            }
+        }
+        cmd = cmd->next;
+    }
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
@@ -85,6 +109,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			redir_tokens(data->cmd);
 			expand(&data->cmd);
+			unquote_all_tokens(data->cmd);
 		}
 		p = init_pipe_struct(data->cmd);
 		execute_pipeline(data->cmd, env, p);

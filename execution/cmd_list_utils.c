@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:40:29 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/30 16:28:39 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/02 00:22:19 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_cmd	*ft_cmd_new(char **args)
 	new_node = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new_node)
 		return (NULL);
-	new_node->cmd_line = cpy_str_arr(args);
+	new_node->tokens = cpy_str_arr(args);
 	new_node->infile = NULL;
 	new_node->outfile = NULL;
 	new_node->append = 0;

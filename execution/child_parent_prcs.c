@@ -18,18 +18,18 @@ void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
 
 	setup_input(curr, p->prev_fd);
 	setup_output(curr, pipe_fd);
-	if (is_built_in(curr->cmd_line))
+	if (is_built_in(curr->tokens))
 	{
-		p->exit_code = run_built_in(args_count(curr->cmd_line),
-				curr->cmd_line, env);
+		p->exit_code = run_built_in(args_count(curr->tokens),
+				curr->tokens, env);
 		exit(p->exit_code);
 	}
-	execute_single_command(curr->cmd_line, env);
-	// path = find_cmd_path(curr->cmd_line[0], env);
+	execute_single_command(curr->tokens, env);
+	// path = find_cmd_path(curr->tokens[0], env);
 	// if (!path)
 	// 	exit(127);
 	// p->env_arr = env_to_array(env);
-	// execve(path, curr->cmd_line, p->env_arr);
+	// execve(path, curr->tokens, p->env_arr);
 	// perror("execve");
 	dup2_and_close(curr->fd_in, STDIN_FILENO);
 	dup2_and_close(curr->fd_out, STDOUT_FILENO);
