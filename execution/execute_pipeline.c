@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:24:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/01 17:38:48 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/02 01:09:39 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void	execute_one_command(t_cmd *curr, t_pipe *p, t_env *env)
 	if (pid == -1)
 		perror("fork");
 	else if (pid == 0)
+	{
+		setup_signals(0);
 		child_process(curr, p, env, pipe_fd);
+	}	
 	else
 		parent_process(p, curr, pid, pipe_fd);
 }

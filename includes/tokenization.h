@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/02 00:24:11 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/02 00:52:34 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ typedef struct s_cmd
 typedef struct s_data
 {
 	int				total_chars;
+	// int				heredoc;
+	// int				fd_in;
+	// int				fd_out;
+	// int				nb_cmds;
+	// char			*pipe;
+	// char 			*pids;
+	// char			*cmd_options;
+	// char			*cmd_path;
 	t_cmd			*cmd;
 	t_flags			*flags;
 	t_env_exp		*env;
