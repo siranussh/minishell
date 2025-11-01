@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/02 01:09:17 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/02 01:37:41 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	main(int argc, char **argv, char **envp)
 	p = NULL;
 	data = init();
 	env = env_parse(envp);
+	disable_ctrl_echo();
 	setup_signals(1);
 	while (1)
 	{

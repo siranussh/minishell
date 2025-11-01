@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/02 00:52:34 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/02 01:40:11 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void	print_error(char *name, char *file, char *err);
 int		pipe_syntax_error(void);
 int		quote_error(void);
 int		redir_error(void);
-
+void	disable_ctrl_echo(void);
+void	enable_ctrl_echo(void);
 void unquote_all_tokens(t_cmd *cmd);
 int		check_quotes_type(char *s);
 int		find_closing_quote(int start, char *str, char c);

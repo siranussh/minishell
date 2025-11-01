@@ -4,15 +4,33 @@
 
 int g_exit_code = 0;
 
+void	disable_ctrl_echo(void)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+}
+
+void	enable_ctrl_echo(void)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag |= ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+}
+
 static void signal_handler(int sig)
 {
     if (sig == SIGINT)
     {
         g_exit_code = 1;
-        write(1, "\n", 1);       // just newline
-        rl_on_new_line();         // tell readline you are on a new line
-        rl_replace_line("", 0);   // clear the input buffer
-        rl_redisplay();           // redraw the prompt
+        write(1, "\n", 1);
+        rl_on_new_line();      
+        rl_replace_line("", 0);
+        rl_redisplay();           
     }
     else if (sig == SIGQUIT)
     {

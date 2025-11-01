@@ -50,12 +50,14 @@ OBJ = $(OBJ_TOKEN) $(OBJ_EXPAND) $(OBJ_OTHER) $(OBJ_BUILT) $(OBJ_EXEC)
 
 CC = cc
 CFLAGS = -Werror -Wall -Wextra -g3 #-fsanitize=address
+
 LIBFT = ./libft/libft.a
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(CFLAGS) -I ./includes -I ./libft $(OBJ) -L ./libft -lft -lreadline -o $(NAME)
+
 
 $(LIBFT):
 	make -C ./libft all

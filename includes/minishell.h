@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:18:46 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/01 12:06:33 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/02 01:36:47 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+#include <termios.h>
 
 # include "../libft/libft.h"
 
