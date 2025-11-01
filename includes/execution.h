@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/13 11:38:05 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/22 23:55:56 by anavagya         ###   ########.fr       */
+/*   Created: 2025/11/01 12:04:35 by anavagya          #+#    #+#             */
+/*   Updated: 2025/11/01 12:04:35 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
@@ -98,22 +98,5 @@ char	**env_to_array(t_env *env);
 int		execute_single_command(char **args, t_env *env);
 
 // execute.c
-
-
-
-
-/********************************************************/
-// pipexxxxxxxx
-// void	free_str_or_arr_bonus(char *str, char **strs);
-// void	get_input_file_bonus(t_data *d);
-// void	get_output_file_bonus(t_data *d);
-// void	get_heredoc(t_data *d);
-// char	*get_cmd_bonus(char *cmd, t_data *data);
-// t_data	init_bonus(int ac, char **av, char **envp);
-// void	error_bonus(int error_status, t_data *data);
-// int		error_msg_bonus(char *str1, char *str2, char *str3, int erno);
-// void	close_fds_bonus(t_data *data);
-int	pipex_main(int ac, char **av, char **envp);
-/*********************************************************/
 
 # endif

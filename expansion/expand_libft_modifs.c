@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_libft_modifs.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:02 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/30 16:32:05 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/01 11:51:31 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	exp_strcmp(char *s1, char *s2)
 
 char	*exp_strjoin(char *s1, char *s2, size_t i, size_t j)
 {
-	char *new;
-	size_t size1;
+	char	*new;
+	size_t	size1;
 
 	size1 = ft_strlen(s1);
 	if (s1[size1 - 1] == 34 || s1[size1 - 1] == 39)

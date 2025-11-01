@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_redir_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:43 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/30 16:32:05 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/01 12:35:55 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	redir_type(char *str)
 			if (i == -1)
 				return (-1);
 		}
-			
 		if (str[i] == '>' && !is_other_op(str[i + 1]))
 			return (1);
 		if (str[i] == '>' && str[i + 1] == '>' && !is_other_op(str[i + 2]))
@@ -79,7 +78,8 @@ char	redir_smb(int c)
 
 int	find_next_redir(char *str)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	while (str[i] && !is_other_op(str[i]))
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:13 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/30 18:02:40 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/01 12:02:38 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	is_special(char c)
 
 char	*cmp_value_name(t_cmd *cmd, char *line, char *name)
 {
-	int i;
-	char *result;
+	int		i;
+	char	*result;
 
 	i = -1;
 	while (++i < cmd->env->num_env)

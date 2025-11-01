@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/30 18:05:35 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/01 17:22:45 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,21 @@ t_data	*init(void)
 	if (!data->flags)
 		exit_error("minishell: malloc failed", 1);
 	return (data);
-}///////////////////////////es karanq hanenq///////////////////////
+	data->flags->pipe = 0;
+	data->flags->quote = 0;
+	data->flags->has_special = 0;
+	data->cmd = NULL;
+	data->total_chars = 0;
+}
 
 // static void	print_tokens(t_cmd *cmd)
 // {
 // 	int		i;
 // 	char	*unquoted;
-
 // 	while (cmd)
 // 	{
 // 		if (cmd->cmd)
 //     printf("Command: %s\n", cmd->cmd);
-   
-
 // 		if (cmd->tokens)
 // 		{
 // 			i = 0;
@@ -51,18 +53,17 @@ t_data	*init(void)
 // 		cmd = cmd->next;
 // 	}
 // }
-
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 	t_env	*env;
 	t_pipe	*p;
 	char	*line;
-	
+
 	(void)argc;
 	(void)argv;
-	data = NULL;
+	p = NULL;
+	data = init();
 	env = env_parse(envp);
 	while (1)
 	{
@@ -75,12 +76,6 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		add_history(line);
-		data->flags->pipe = 0;
-		data->flags->quote = 0;
-		data->flags->has_special = 0;
-		p = init_pipe_struct(data->cmd);
-		execute_pipeline(data->cmd, env, p);
-		///////////////////////////
 		if (!tokenize(data, &data->cmd, line))
 		{
 			printf("Tokenization failed.\n");
@@ -91,6 +86,7 @@ int	main(int argc, char **argv, char **envp)
 			redir_tokens(data->cmd);
 			expand(&data->cmd);
 		}
+		p = init_pipe_struct(data->cmd);
 		execute_pipeline(data->cmd, env, p);
 	}
 }
@@ -131,7 +127,7 @@ int	main(int argc, char **argv, char **envp)
 // 			redir_tokens(data->cmd);
 // 			expand(&data->cmd);
 // 		}
-			
+
 // 		if (data->cmd)
 // 			print_tokens(data->cmd);
 // 		data->cmd = NULL;

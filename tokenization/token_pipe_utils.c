@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_pipe_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:34 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/30 16:32:05 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/01 12:14:05 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,17 @@ char	**split_cmds_by_pipe(char *str, char **result)
 
 int	check_pipe_seg(char *str)
 {
-	int i;
-	int result;
+	int	i;
+	int	result;
 
 	i = -1;
 	result = -1;
 	while (str[++i])
 	{
-		if(str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
 			result = 0;
 	}
-	if (result == -1 )
+	if (result == -1)
 		print_error("bash", NULL, "syntax error near unexpected token '|'");
 	return (result);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:47 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/30 16:32:05 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/01 12:38:38 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	check_redir(char **tk, int i)
 		while (temp[j] && (temp[j] == 32 || is_other_op(temp[j])))
 			j++;
 		if ((redir_type(tk[i]) && !temp[j]) || is_other_op(temp[ft_strlen(temp)
-				- 1]))
+					- 1]))
 			return (redir_error());
 		temp = ft_strchr(temp + j, redir_smb(redir_type(temp + j)));
 	}
@@ -80,7 +80,8 @@ int	parse_line(t_data **data, char *line, char ***tokens_by_pipe)
 
 t_cmd	*last_cmd(t_cmd **cmd)
 {
-	t_cmd *temp;
+	t_cmd	*temp;
+
 	temp = *cmd;
 	while (temp->next)
 		temp = temp->next;

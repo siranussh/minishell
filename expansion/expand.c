@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:52 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/30 16:32:05 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/01 11:52:08 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*expand_line(char *line, char *var)
 		return (ft_strdup(line));
 	j = 0;
 	while (line[i + j] && line[i + j] != ' ' && line[i + j] != 34 && line[i
-		+ j] != 39)
+			+ j] != 39)
 		j++;
 	new_line = malloc(ft_strlen(line) - j + ft_strlen(var) + 1);
 	if (!new_line)
@@ -84,7 +84,7 @@ char	*delete_invalid_dollar(char *str, int i, int j)
 	while (str[++i])
 	{
 		if (str[i] && str[i] == '$' && str[i + 1] && is_digit_or_special(str[i
-				+ 1]) == 1)
+					+ 1]) == 1)
 		{
 			j = -1;
 			new_str = malloc(sizeof(char) * ft_strlen(str) - 1);
@@ -108,7 +108,7 @@ char	*delete_invalid_dollar(char *str, int i, int j)
 
 void	expand(t_cmd **cmd)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (check_dollar_purpose((*cmd)->cmd) == 1)
@@ -120,7 +120,8 @@ void	expand(t_cmd **cmd)
 	while ((*cmd)->tokens[++i])
 	{
 		if (check_dollar_purpose((*cmd)->tokens[i]) == 1)
-			(*cmd)->tokens[i] = replace_all_val((*cmd), (*cmd)->tokens[i], NULL);
+			(*cmd)->tokens[i] = replace_all_val((*cmd),
+					(*cmd)->tokens[i], NULL);
 		if (is_tilde_path((*cmd)->tokens[i]) == 1)
 			(*cmd)->tokens[i] = replace_tilde((*cmd)->tokens[i]);
 	}

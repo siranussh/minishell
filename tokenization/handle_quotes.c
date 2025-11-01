@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:28:16 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/30 16:32:05 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/01 17:07:35 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_quotes_type(char *s)
 		if (s[i] == ' ' && s[i + 1] == 34 && s[i + 2] == 34 && s[i + 3] == ' ')
 			return (-1);
 		else if (s[i] == ' ' && s[i + 1] == 39 && s[i + 2] == 39 && s[i
-			+ 3] == ' ')
+				+ 3] == ' ')
 			return (-1);
 		else if ((s[i] == 34 && s[i + 1] == 34 && single != -1) || (s[i] == 39
 				&& s[i + 1] == 39 && is_double != -1))

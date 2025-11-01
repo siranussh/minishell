@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/30 17:58:18 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/01 12:10:47 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKENAZIATION_H
-# define TOKENAZIATION_H
+#ifndef TOKENIZATION_H
+# define TOKENIZATION_H
 
 # include <aio.h>
 
-void				setup_signals(int parent_mode);
+void	setup_signals(int parent_mode);
 
 typedef struct s_env_exp
 {
-    char **env;
-    char *path;
-    int num_env;
-} t_env_exp;
+	char	**env;
+	char	*path;
+	int		num_env;
+}	t_env_exp;
 
 typedef struct s_flags
 {
@@ -34,13 +34,13 @@ typedef struct s_flags
 typedef struct s_cmd
 {
 	char			*cmd;// siran
-	char			**tokens;  // siran
+	char			**tokens;// siran
 	int				num_tokens; // siran
 	char			**cmd_line;
-	char			*infile;  // <
-	char			*outfile; // > >>
-	int				append;    // 1 if > 2 if >>
-	int				heredoc;   // <<
+	char			*infile;// <
+	char			*outfile;// > >>
+	int				append;// 1 if > 2 if >>
+	int				heredoc;// <<
 	char			*delimiter;
 	int				fd_in;
 	int				fd_out;
@@ -96,7 +96,7 @@ char	**remove_token(char **tokens, int index);
 char	**add_token(char **tokens, char *new, int j);
 char	**split_redirection_start(char **tokens, int j, char c);
 char	**split_redirection_tokens(char **tokens, int j, char c,
-						int k);
+			int k);
 void	redir_tokens(t_cmd *cmd);
 
 int		find_next_char(char *str, char c, int j);
@@ -107,7 +107,7 @@ char	*extract_after_special(char *line, int i, t_cmd *cmd);
 
 char	*extract_env_value(char *str);
 char	*expand_dollar(char *new_line, char *line, char *var,
-						int c);
+			int c);
 char	*expand_line(char *line, char *var);
 char	*delete_invalid_dollar(char *str, int i, int j);
 int		exp_strcmp(char *s1, char *s2);
@@ -125,4 +125,5 @@ char	*replace_exit_code(char *str, int i);
 char	*replace_all_exit_code(char *str);
 void	expand(t_cmd **cmd);
 int		check_spaces(char *str);
+
 #endif

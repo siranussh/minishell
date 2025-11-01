@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quotes_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:27:50 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/30 16:32:05 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/01 12:12:53 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ char	*skip_empty_quotes(char *s, t_cmd *cmd)
 			i = 0;
 			continue ;
 		}
-		else if (s[i] == ' ' && ((s[i + 1] == '"' && s[i + 2] == '"') || (s[i
-					+ 1] == '\'' && s[i + 2] == '\'')) && (s[i + 3] == ' '
+		else if (s[i] == ' ' && ((s[i + 1] == '"' && s[i + 2] == '"')
+				|| (s[i + 1] == '\'' && s[i + 2] == '\'')) && (s[i + 3] == ' '
 				|| s[i + 3] == '\0'))
 		{
 			s = remove_empty_quotes_arg(s, i + 1);

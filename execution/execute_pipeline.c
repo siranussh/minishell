@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:24:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/30 16:30:18 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/01 17:38:48 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

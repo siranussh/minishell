@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/30 17:49:05 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/01 18:17:08 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,21 @@ t_cmd	*build_cmd(t_data *data, char *line)
 	temp->num_tokens = count_tokens(line + data->total_chars);
 	temp->next = NULL;
 	temp->flags = data->flags;
-	if (temp->num_tokens == 0)
-		return (temp);
-	temp->tokens = get_token_arr(data, line + data->total_chars, temp);
-	temp->cmd_line = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);
+	// if (temp->num_tokens == 0)
+	// 	return (temp);
+	temp->infile = NULL;//aniiiiiiiiiiiiiiiiii
+	temp->outfile = NULL;
+	temp->append = 0;
+	temp->heredoc = 0;
+	temp->delimiter = NULL;
+	temp->fd_in = -1;
+	temp->fd_out = -1;
+	temp->next = NULL;//aniiiiiiiiii
+	if (temp->num_tokens > 0)
+		temp->tokens = get_token_arr(data, line + data->total_chars, temp);
+	else
+		temp->tokens = NULL;
+	temp->cmd_line = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);//ani
 	return (temp);
 }
 
