@@ -16,10 +16,10 @@ void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
 {
 	setup_input(curr, p->prev_fd);
 	setup_output(curr, pipe_fd);
-	if (is_built_in(curr->tokens))
+	if (is_built_in(curr->cmd_line))
 	{
-		p->exit_code = run_built_in(args_count(curr->tokens),
-				curr->tokens, env);
+		p->exit_code = run_built_in(args_count(curr->cmd_line),
+				curr->cmd_line, env);
 		exit(p->exit_code);
 	}
 	execute_single_command(curr->tokens, env);

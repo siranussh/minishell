@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:24:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/02 16:59:02 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/02 23:49:15 by sihakoby         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -22,9 +22,9 @@ void	execute_one_command(t_cmd *curr, t_pipe *p, t_env *env)
 	if (curr->next && pipe(pipe_fd) == -1)
 		perror("pipe");
 	///////////////////newwwwwwwwwwww//////////////////
-	if (!curr->next && is_built_in(curr->tokens))
+	if (!curr->next && is_built_in(curr->cmd_line))
 	{
-		p->exit_code = run_built_in(args_count(curr->tokens), curr->tokens, env);
+		p->exit_code = run_built_in(args_count(curr->cmd_line), curr->cmd_line, env);
 		return ;
 	}///////////////////////////////////
 	pid = fork();
