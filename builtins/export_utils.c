@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:35 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/30 16:29:19 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/02 20:39:56 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -62,22 +62,25 @@ int	is_valid_identifier(char *arg)
 {
 	int	i;
 
-	i = 0;
-	while (arg[i])
+	if (!ft_isalpha(*arg) && *arg != '_')
+		return (printf("minishell: export: `%s': not a valid identifier\n",
+			arg), 0);
+	i = 1;
+	while (arg[i] && arg[i] != '=')
 	{
-		if (arg[i] == '+' && arg[i + 1] != '=')
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
 		{
-			printf("minishell: export: `%s': not a valid identifier\n",
-				arg);
-			return (0);
+			
+			if (arg[i] == '+' && arg[i + 1] == '=')
+				i++;
+			else
+			{
+				printf("minishell: export: `%s': not a valid identifier\n",
+					arg);
+				return (0);
+			}
 		}
 		i++;
-	}
-	if (!ft_isalpha(*arg) && *arg != '_')
-	{
-		printf("minishell: export: `%s': not a valid identifier\n",
-			arg);
-		return (0);
 	}
 	return (1);
 }
