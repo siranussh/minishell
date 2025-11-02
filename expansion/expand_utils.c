@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:13 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/01 12:02:38 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/02 20:20:24 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,21 @@ int	is_special(char c)
 	return (0);
 }
 
-char	*cmp_value_name(t_cmd *cmd, char *line, char *name)
+char	*cmp_value_name(char *line, char *name, t_env_exp *env)
 {
 	int		i;
 	char	*result;
 
 	i = -1;
-	while (++i < cmd->env->num_env)
+	while (++i < env->num_env)
 	{
-		if (exp_strcmp(name, cmd->env->env[i]) == 0)
+		if (exp_strcmp(name, env->env[i]) == 0)
 		{
 			free(name);
-			result = extract_env_value(cmd->env->env[i]);
+			result = extract_env_value(env->env[i]);
 			return (expand_line(line, result));
 		}
-		else if (i + 1 == cmd->env->num_env)
+		else if (i + 1 == env->num_env)
 		{
 			free(name);
 			return (expand_line(line, ft_strdup("")));

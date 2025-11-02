@@ -76,6 +76,7 @@ int	built_in_cd(int argc, char **args, t_env *env)
 	char	*home;
 	int		status;
 
+	status = 0;
 	if (argc > 2)
 		return (printf("minishell: cd: too many arguments\n"), 1);
 	old_pwd = getcwd(NULL, 0);

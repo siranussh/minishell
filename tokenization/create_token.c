@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/02 00:22:37 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/02 19:55:42 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,12 @@ int	tokenize(t_data *data, t_cmd **cmd, char *read_line)
 	if (parse_line(&data, read_line, &lines))
 		return (0);
 	*cmd = build_cmd(data, lines[0]);
-	expand(cmd);
+	expand(cmd, data);
 	while (++i <= data->flags->pipe)
 	{
 		data->total_chars = 0;
 		temp = build_cmd(data, lines[i]);
-		expand(&temp);
+		expand(&temp, data);
 		(last_cmd(cmd))->next = temp;
 		temp = temp->next;
 	}
