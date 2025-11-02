@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/02 20:35:05 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/02 20:46:40 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -146,6 +146,11 @@ int	main(int argc, char **argv, char **envp)
 		p = init_pipe_struct(data->cmd);
 		execute_pipeline(data->cmd, env, p);
 	}
+	free(data->cmd);
+	free(data->env);
+	free(data->flags);
+	free(data);
+	return (0);
 }
 
 // int	main(int argc, char **argv, char **envp)
