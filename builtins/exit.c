@@ -33,17 +33,16 @@ int	is_number(char *arg)
 int	built_in_exit(int argc, char **args)
 {
 	long	status;
-	// int	last_status;
 
 	if (!args || !*args)
 		return (-1);
-	// last_status =
 	printf("exit\n");
-	// if (argc == 1)
-	// 	exit(last_status);
+	if (argc == 1)
+		exit(g_exit_code);
 	if (argc > 2)
 	{
 		printf("minishell: exit: too many arguments\n");
+		g_exit_code = 1;
 		return (1);
 	}
 	if (!is_number(args[1]))
