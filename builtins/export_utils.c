@@ -63,21 +63,24 @@ int	is_valid_identifier(char *arg)
 	int	i;
 
 	i = 0;
-	while (arg[i])
+	if (!ft_isalpha(*arg) && *arg != '_')
+		return (printf("minishell: export: `%s': not a valid identifier\n",
+			arg), 0);
+	while (arg[i] && arg[i] != '=')
 	{
-		if (arg[i] == '+' && arg[i + 1] != '=')
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
 		{
-			printf("minishell: export: `%s': not a valid identifier\n",
-				arg);
-			return (0);
+			
+			if (arg[i] == '+' && arg[i + 1] == '=')
+				i++;
+			else
+			{
+				printf("minishell: export: `%s': not a valid identifier\n",
+					arg);
+				return (0);
+			}
 		}
 		i++;
-	}
-	if (!ft_isalpha(*arg) && *arg != '_')
-	{
-		printf("minishell: export: `%s': not a valid identifier\n",
-			arg);
-		return (0);
 	}
 	return (1);
 }
