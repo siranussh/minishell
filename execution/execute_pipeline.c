@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:24:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/02 01:09:39 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/02 16:59:02 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -21,6 +21,12 @@ void	execute_one_command(t_cmd *curr, t_pipe *p, t_env *env)
 	pipe_fd[1] = -1;
 	if (curr->next && pipe(pipe_fd) == -1)
 		perror("pipe");
+	///////////////////newwwwwwwwwwww//////////////////
+	if (!curr->next && is_built_in(curr->tokens))
+	{
+		p->exit_code = run_built_in(args_count(curr->tokens), curr->tokens, env);
+		return ;
+	}///////////////////////////////////
 	pid = fork();
 	if (pid == -1)
 		perror("fork");
@@ -28,6 +34,7 @@ void	execute_one_command(t_cmd *curr, t_pipe *p, t_env *env)
 	{
 		setup_signals(0);
 		child_process(curr, p, env, pipe_fd);
+		exit(1);//new ani
 	}	
 	else
 		parent_process(p, curr, pid, pipe_fd);
@@ -40,6 +47,8 @@ int	execute_pipeline(t_cmd *cmds, t_env *env, t_pipe *p)
 
 	curr = cmds;
 	handle_heredocs(cmds);
+	p->index = 0;//new ani
+	p->prev_fd = -1;//new ani
 	while (curr)
 	{
 		execute_one_command(curr, p, env);

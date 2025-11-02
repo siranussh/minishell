@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute_single_cmd.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:44:39 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/13 11:44:39 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/02 17:11:21 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -54,7 +54,6 @@ char	**env_to_array(t_env *env)
 int	execute_single_command(char **args, t_env *env)
 {
 	char	*path;
-	int		pid;
 	char	**env_arr;
 
 	if (!args || !*args)
@@ -63,21 +62,12 @@ int	execute_single_command(char **args, t_env *env)
 		return (run_built_in(args_count(args), args, env));
 	path = find_cmd_path(args[0], env);
 	if (!path)
+	{
+		perror(args[0]);
 		return (127);
-	pid = fork();
-	if (pid == 0)
-	{
-		env_arr = env_to_array(env);
-		execve(path, args, env_arr);
-		perror("execve");
-		exit(1);
 	}
-	else if (pid > 0)
-	{
-		waitpid(pid, NULL, 0);
-		free(path);
-	}
-	else
-		perror("fork");
-	return (0);
+	env_arr = env_to_array(env);
+	execve(path, args, env_arr);
+	perror("execve");
+	exit(1);
 }

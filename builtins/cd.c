@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:22:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/13 11:22:26 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/02 17:11:49 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -46,10 +46,13 @@ int	cd_helper(char *path, char *old_pwd, t_env *env)
 	if (chdir(path) == -1)
 	{
 		perror("minishell");
-		return (0);
+		return (free(old_pwd), 0);
 	}
+	printf("Changed directory to: %s\n", path);//////
 	change_env_value(env, "OLDPWD", old_pwd);
 	cwd = getcwd(NULL, 0);
+	// printf("cwd = %s\n", cwd);
+	// printf("old_pwd = %s\n", old_pwd);
 	change_env_value(env, "PWD", cwd);
 	free(old_pwd);
 	free(cwd);
@@ -60,24 +63,35 @@ int	built_in_cd(int argc, char **args, t_env *env)
 {
 	char	*old_pwd;
 	char	*home;
+	int		status;
 
-	(void)args;
 	if (argc > 2)
 	{
 		printf("minishell: cd: too many arguments\n");
 		return (1);
 	}
 	old_pwd = getcwd(NULL, 0);
-	home = get_env_values(env, "HOME");
-	if (!home)
+	if (!old_pwd)
 		return (1);
+	home = get_env_values(env, "HOME");
 	if (argc == 1)
 	{
-		cd_helper(home, old_pwd, env);
+		if (!home)
+		{
+			printf("minishell: cd: HOME not set\n");
+			return (free(old_pwd), 1);
+		}
+		if (cd_helper(home, old_pwd, env))
+			status = 0;
+		else
+			status = 1;
 	}
 	if (argc == 2)
 	{
-		cd_helper(args[1], old_pwd, env);
+		if (cd_helper(args[1], old_pwd, env))
+			status = 0;
+		else
+			status = 1; 
 	}
-	return (0);
+	return (status);
 }

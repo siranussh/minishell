@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 13:12:11 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/23 13:12:11 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/02 14:48:11 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -25,6 +25,8 @@ t_pipe	*init_pipe_struct(t_cmd *cmds)
 	p->prev_fd = -1;
 	p->exit_code = 0;
 	p->cmds_count = ft_cmd_size(cmds);
+	if (p->cmds_count > 1024)
+		printf("minishell: syntax error near unexpected token `|'\n");
 	if (p->cmds_count <= 0)
 		return (free(p), NULL);
 	p->pids = (int *)malloc(sizeof(int) * p->cmds_count);

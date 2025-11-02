@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/02 01:37:41 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/02 14:46:39 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -54,27 +54,26 @@ t_data	*init(void)
 // 	}
 // }
 
-
-void unquote_all_tokens(t_cmd *cmd)
+void	unquote_all_tokens(t_cmd *cmd)
 {
-    int i;
-    char *tmp;
+	int		i;
+	char	*tmp;
 
-    while (cmd)
-    {
-        if (cmd->tokens)
-        {
-            i = 0;
-            while (cmd->tokens[i])
-            {
-                tmp = unqoute_str(cmd->tokens[i]); // remove quotes from this token
-                free(cmd->tokens[i]);              // free old token
-                cmd->tokens[i] = tmp;              // replace with unquoted token
-                i++;
-            }
-        }
-        cmd = cmd->next;
-    }
+	while (cmd)
+	{
+		if (cmd->tokens)
+		{
+			i = 0;
+			while (cmd->tokens[i])
+			{
+				tmp = unqoute_str(cmd->tokens[i]); // remove quotes from this token
+				free(cmd->tokens[i]);              // free old token
+				cmd->tokens[i] = tmp;              // replace with unquoted token
+				i++;
+			}
+		}
+		cmd = cmd->next;
+	}
 }
 
 int	main(int argc, char **argv, char **envp)

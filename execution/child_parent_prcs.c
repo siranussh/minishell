@@ -1,21 +1,19 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   child_parent_prcs.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 13:11:53 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/23 13:11:53 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/02 17:11:32 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
 void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
 {
-	// char	*path;
-
 	setup_input(curr, p->prev_fd);
 	setup_output(curr, pipe_fd);
 	if (is_built_in(curr->tokens))
@@ -25,17 +23,6 @@ void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
 		exit(p->exit_code);
 	}
 	execute_single_command(curr->tokens, env);
-	// path = find_cmd_path(curr->tokens[0], env);
-	// if (!path)
-	// 	exit(127);
-	// p->env_arr = env_to_array(env);
-	// execve(path, curr->tokens, p->env_arr);
-	// perror("execve");
-	dup2_and_close(curr->fd_in, STDIN_FILENO);
-	dup2_and_close(curr->fd_out, STDOUT_FILENO);
-	// free(path);
-	// ft_free(p->env_arr);
-	exit(1);
 }
 
 void	parent_process(t_pipe *p, t_cmd *curr, int pid, int pipe_fd[])
