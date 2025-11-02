@@ -1,10 +1,10 @@
 NAME = minishell
 
 BUILT_SRC = builtin_utils.c list_utils.c free.c \
-			echo.c pwd.c env.c env_parsing.c cd.c \
-			unset.c \
+			echo.c pwd.c env.c env_parsing.c cd_utils.c cd.c \
+			unset.c exit_utils.c exit.c \
 			export_utils.c export_sort.c export_append.c export.c \
-			exit_utils.c exit.c builtins.c
+			builtins.c
 
 EXEC_SRC = find_cmd_path.c heredoc.c execute_single_cmd.c join_cmd_tokens.c \
 			storing_cmds.c child_parent_prcs.c setup_input_output.c \
@@ -57,7 +57,6 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(CFLAGS) -I ./includes -I ./libft $(OBJ) -L ./libft -lft -lreadline -o $(NAME)
-
 
 $(LIBFT):
 	make -C ./libft all

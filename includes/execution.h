@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 12:04:35 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/01 12:04:35 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/02 19:00:46 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
@@ -89,14 +89,9 @@ void	check_cmds(t_cmd *cmds);
 // find_cmd_path.c
 char	*find_cmd_path(char *cmd, t_env *env);
 
-// redir_utils.c
-char	*return_infile_redir(char **args, char *redir);
-
 // execute_single_cmd.c
 int		args_count(char **args);
 char	**env_to_array(t_env *env);
 int		execute_single_command(char **args, t_env *env);
-
-// execute.c
 
 # endif

@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:16:42 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/30 16:36:07 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/02 18:49:56 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
@@ -55,10 +55,14 @@ t_env	*env_parse(char **envp);
 // env.c
 int		built_in_env(int argc, char **args, t_env *env);
 
-// cd .c
+// cd_utils.c
 char	*get_env_values(t_env *env, char *key);
 int		change_env_value(t_env *env, char *key, char *value);
+
+// cd.c
 int		cd_helper(char *path, char *old_pwd, t_env *env);
+void	cd_minus(char *old_pwd, int *status, t_env *env);
+void	cd_with_argument(char **args, char *old_pwd, int *status, t_env *env);
 int		built_in_cd(int argc, char **args, t_env *env);
 
 // unset.c
