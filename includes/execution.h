@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 12:04:35 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/02 19:00:46 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/03 23:48:51 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -59,6 +59,7 @@ void	get_heredoc(t_cmd *cmds);
 
 // init_struct.c
 t_pipe	*init_pipe_struct(t_cmd *cmds);
+t_redir	*new_redir(int type, char *filename);
 
 // join_cmd_tokenc.c
 char	**join_cmd_tokens(char *cmd, char **tokens, int num_tokens);
@@ -69,6 +70,9 @@ void	handle_heredocs(t_cmd *cmds);
 int		wait_for_children(t_pipe *p);
 int		is_heredoc_redir_present(char *str);
 char	**cpy_str_arr(char **str);
+
+// redir_utils.c
+int	get_redir_type(const char *token);
 
 // setup_input_output.c
 void	setup_input(t_cmd *curr, int prev_fd);
@@ -83,8 +87,8 @@ void	execute_one_command(t_cmd *curr, t_pipe *p, t_env *env);
 int		execute_pipeline(t_cmd *cmds, t_env *env, t_pipe *p);
 
 // storing_cmds.c
-t_cmd	*store_cmds(char **tokens);
-void	check_cmds(t_cmd *cmds);
+t_cmd	*store_cmds(char **tokens);//not using
+void	check_cmds(t_cmd *cmds);//not using
 
 // find_cmd_path.c
 char	*find_cmd_path(char *cmd, t_env *env);

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 13:12:11 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/02 14:48:11 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/03 23:50:15 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -36,4 +36,17 @@ t_pipe	*init_pipe_struct(t_cmd *cmds)
 		return (NULL);
 	}
 	return (p);
+}
+
+t_redir	*new_redir(int type, char *filename)
+{
+    t_redir	*r;
+	
+	r = malloc(sizeof(t_redir));
+    if (!r)
+        return (NULL);
+    r->type = type;
+    r->filename = ft_strdup(filename);
+    r->next = NULL;
+    return (r);
 }

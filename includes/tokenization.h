@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/02 20:20:31 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/03 23:40:53 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef TOKENIZATION_H
 # define TOKENIZATION_H
@@ -31,6 +31,12 @@ typedef struct s_flags
 	int		has_special;
 }	t_flags;
 
+typedef struct s_redir
+{
+	int		typy;//1 < 2 << 3 > 4 >>
+	char	*filename;
+}	t_redir;
+
 typedef struct s_cmd
 {
 	char			*cmd;// siran
@@ -47,6 +53,7 @@ typedef struct s_cmd
 	int				cmd_index;
 	int				pid;
 	struct s_cmd	*next;
+	t_redir			*redirs;
 	t_flags			*flags;
 	t_env_exp		*env;
 }	t_cmd;
