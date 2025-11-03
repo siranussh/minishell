@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/03 23:40:53 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/03 23:53:48 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -33,8 +33,9 @@ typedef struct s_flags
 
 typedef struct s_redir
 {
-	int		typy;//1 < 2 << 3 > 4 >>
-	char	*filename;
+	int				type;//1 < 2 << 3 > 4 >>
+	char			*filename;
+	struct s_redir	*next;
 }	t_redir;
 
 typedef struct s_cmd
