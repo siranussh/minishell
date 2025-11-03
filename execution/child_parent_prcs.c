@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 13:11:53 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/02 17:11:32 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/03 23:20:40 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -22,7 +22,7 @@ void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
 				curr->cmd_line, env);
 		exit(p->exit_code);
 	}
-	execute_single_command(curr->tokens, env);
+	execute_single_command(curr->cmd_line, env);
 }
 
 void	parent_process(t_pipe *p, t_cmd *curr, int pid, int pipe_fd[])

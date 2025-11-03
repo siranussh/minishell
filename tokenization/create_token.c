@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/02 23:51:50 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/03 23:24:04 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -108,7 +108,7 @@ t_cmd	*build_cmd(t_data *data, char *line)
 		temp->tokens = get_token_arr(data, line + data->total_chars, temp);
 	else
 		temp->tokens = NULL;
-	temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);//ani
+	temp->cmd_line = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);//ani
 	return (temp);
 }
 
