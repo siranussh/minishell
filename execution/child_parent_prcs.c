@@ -16,13 +16,13 @@ void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
 {
 	setup_input(curr, p->prev_fd);
 	setup_output(curr, pipe_fd);
-	if (is_built_in(curr->cmd_line))
+	if (is_built_in(curr->tokens))
 	{
-		p->exit_code = run_built_in(args_count(curr->cmd_line),
-				curr->cmd_line, env);
+		p->exit_code = run_built_in(args_count(curr->tokens),
+				curr->tokens, env);
 		exit(p->exit_code);
 	}
-	execute_single_command(curr->cmd_line, env);
+	execute_single_command(curr->tokens, env);
 }
 
 void	parent_process(t_pipe *p, t_cmd *curr, int pid, int pipe_fd[])

@@ -15,7 +15,7 @@
 
 // typedef struct s_cmd
 // {
-// 	char			**cmd_line;
+// 	char			**tokens;
 // 	char			*infile;// <
 // 	char			*outfile;// > >>
 // 	int				append;// 1 if > 2 if >>

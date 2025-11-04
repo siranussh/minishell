@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cmd_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:40:29 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/03 23:22:57 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/04 13:02:16 by sihakoby         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -19,7 +19,7 @@ t_cmd	*ft_cmd_new(char **args)
 	new_node = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new_node)
 		return (NULL);
-	new_node->cmd_line = cpy_str_arr(args);
+	new_node->tokens = cpy_str_arr(args);
 	new_node->infile = NULL;
 	new_node->outfile = NULL;
 	new_node->append = 0;
