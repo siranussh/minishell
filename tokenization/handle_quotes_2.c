@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quotes_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:27:50 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/08 18:31:39 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/08 21:48:49 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,22 @@ static char	*remove_empty_quotes(char *str, int i)
 static char	*remove_empty_quotes_arg(char *str, int i)
 {
 	int		j;
-	int		k;
 	char	*new_str;
 
-	str[i] = 27;
-	str[i + 1] = 27;
-	j = 0;
-	k = 0;
-	new_str = malloc(sizeof(char) * ft_strlen(str) + 1);
+	str[i] = 48;
+	str[i + 1] = ';';
+	j = -1;
+	new_str = malloc(sizeof(char) * ft_strlen(str));
 	if (!new_str)
 		exit_error("minishell: malloc failed", 1);
-	while (str[j])
+	while (++j < i)
+		new_str[j] = str[j];
+	while (str[j + 1])
 	{
-		if (str[j] != 27)
-		{
-			new_str[k] = str[j];
-			k++;
-		}
+		new_str[j] = str[j + 1];
 		j++;
 	}
-	new_str[k] = '\0';
+	new_str[j] = '\0';
 	free(str);
 	return (new_str);
 }
@@ -54,27 +50,26 @@ char	*skip_empty_quotes(char *s, t_cmd *cmd)
 {
 	int	i;
 
-	i = 0;
-	while (s[i])
+	i = -1;
+	while (s[++i])
 	{
-		if ((s[i] == '"' || s[i] == '\'') && s[i + 1] == s[i])
+		if ((s[i] == 34 && s[i + 1] && s[i + 1] != 34)
+			|| (s[i] == 39 && s[i + 1] && s[i + 1] != 39))
+				i = find_closing_quote(i + 1, s, s[i]);
+		if (s[i] == 32 && (s[i + 1] == 34 || s[i + 1] == 39) && (s[i + 2] == 34
+				|| s[i + 2] == 39) && (s[i + 3] == 32 || !s[i + 3]))
+		{
+			i++;
+			s = remove_empty_quotes_arg(s, i);
+			s = skip_empty_quotes(s, cmd);
+		}
+		else if ((s[i] == 34 && s[i + 1]
+				&& s[i + 1] == 34) || (s[i] == 39 && s[i + 1] == 39))
 		{
 			s = remove_empty_quotes(s, i);
 			cmd->num_tokens--;
-			i = 0;
-			continue ;
+			return (skip_empty_quotes(s, cmd));
 		}
-		else if (s[i] == ' ' && ((s[i + 1] == '"' && s[i + 2] == '"')
-				|| (s[i + 1] == '\'' && s[i + 2] == '\'')) && (s[i + 3] == ' '
-				|| s[i + 3] == '\0'))
-		{
-			s = remove_empty_quotes_arg(s, i + 1);
-			i = 0;
-			continue ;
-		}
-		else if ((s[i] == '"' || s[i] == '\'') && s[i + 1] && s[i + 1] != s[i])
-			i = find_closing_quote(i + 1, s, s[i]);
-		i++;
 	}
 	return (s);
 }
@@ -82,26 +77,27 @@ char	*skip_empty_quotes(char *s, t_cmd *cmd)
 char	*delete_quotes(char *str, char c)
 {
 	int		i;
-	int		j;
 	int		len;
 	char	*temp;
 
-	i = 0;
-	j = 0;
+	i = -1;
 	len = 0;
-	while (str[len])
-		if (str[len++] != c)
-			return (NULL);
-	temp = malloc(sizeof(char) * (len - (len - j) + 1));
-	if (!temp)
-		exit_error("minishell: malloc failed", 1);
-	while (str[i])
+	while (str[++i])
 	{
 		if (str[i] != c)
-			temp[j++] = str[i];
-		i++;
+		len++;
 	}
-	temp[j] = '\0';
+	temp = malloc(sizeof(char) * len + 1);
+	if (!temp)
+		exit_error("minishell: malloc failed", 1);
+	while (--i >= 0)
+	{
+		if (str[i] != c)
+		{
+			temp[len] = str[i];
+			len--;
+		}
+	}
 	free(str);
 	return (temp);
 }
