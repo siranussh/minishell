@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/08 14:21:58 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/08 22:31:10 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,9 @@ char	*expand_dollar(char *new_line, char *line, char *var,
 char	*expand_line(char *line, char *var);
 char	*delete_invalid_dollar(char *str, int i, int j);
 int		exp_strcmp(char *s1, char *s2);
-char	*cmp_value_name(char *line, char *name, t_env_exp *env);
-char	*replace_val(t_cmd *cmd, char *line, char **rest_line, t_env_exp *env);
-char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env);
+char	*cmp_value_name(t_cmd *cmd, char *line, char *name);
+char	*replace_val(t_cmd *cmd, char *line, char **rest_line);
+char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line);
 char	*exp_strjoin(char *s1, char *s2, size_t i, size_t j);
 
 int		check_dollar_purpose(char *line);
@@ -141,7 +141,7 @@ int		is_invalid_dollar(char *str);
 int		is_digit_or_special(int i);
 char	*replace_exit_code(char *str, int i);
 char	*replace_all_exit_code(char *str);
-void	expand(t_cmd **cmd, t_data *data);
+void	expand(t_cmd **cmd);
 int		check_spaces(char *str);
 int	skip_spaces(char *str, int i);
 #endif

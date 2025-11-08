@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:52 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/02 20:09:28 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/08 22:31:02 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ char	*expand_line(char *line, char *var)
 	int		j;
 	char	*new_line;
 
-	i = find_next_char(line, '$', -1);
-	if (i < 0)
-		return (ft_strdup(line));
 	j = 0;
+	i = find_next_char(line, '$', -1);
 	while (line[i + j] && line[i + j] != ' ' && line[i + j] != 34 && line[i
 			+ j] != 39)
 		j++;
-	new_line = malloc(ft_strlen(line) - j + ft_strlen(var) + 1);
+	while (line[i + j])
+		i++;
+	new_line = malloc(sizeof(char) * i + ft_strlen(var));
 	if (!new_line)
 		exit_error("minishell: malloc failed", 1);
 	new_line = expand_dollar(new_line, line, var, j);
@@ -106,13 +106,13 @@ char	*delete_invalid_dollar(char *str, int i, int j)
 	return (str);
 }
 
-void	expand(t_cmd **cmd, t_data *data)
+void	expand(t_cmd **cmd)
 {
 	int	i;
 
 	i = -1;
 	if (check_dollar_purpose((*cmd)->cmd) == 1)
-		(*cmd)->cmd = replace_all_val((*cmd), (*cmd)->cmd, NULL, data->env);
+		(*cmd)->cmd = replace_all_val((*cmd), (*cmd)->cmd, NULL);
 	if (is_tilde_path((*cmd)->cmd) == 1)
 		(*cmd)->cmd = replace_tilde((*cmd)->cmd);
 	if (!(*cmd)->tokens)
@@ -121,7 +121,7 @@ void	expand(t_cmd **cmd, t_data *data)
 	{
 		if (check_dollar_purpose((*cmd)->tokens[i]) == 1)
 			(*cmd)->tokens[i] = replace_all_val((*cmd),
-					(*cmd)->tokens[i], NULL, data->env);
+					(*cmd)->tokens[i], NULL);
 		if (is_tilde_path((*cmd)->tokens[i]) == 1)
 			(*cmd)->tokens[i] = replace_tilde((*cmd)->tokens[i]);
 	}
