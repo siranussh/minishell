@@ -72,7 +72,9 @@ int		is_heredoc_redir_present(char *str);
 char	**cpy_str_arr(char **str);
 
 // redir_utils.c
-int	get_redir_type(const char *token);
+int		get_redir_type(const char *token);
+void	add_redir_back(t_redir **list, t_redir *new);
+void	setup_redirections(t_cmd *cmd);
 
 // setup_input_output.c
 void	setup_input(t_cmd *curr, int prev_fd);

@@ -40,13 +40,13 @@ t_pipe	*init_pipe_struct(t_cmd *cmds)
 
 t_redir	*new_redir(int type, char *filename)
 {
-    t_redir	*r;
-	
+	t_redir	*r;
+
 	r = malloc(sizeof(t_redir));
-    if (!r)
-        return (NULL);
-    r->type = type;
-    r->filename = ft_strdup(filename);
-    r->next = NULL;
-    return (r);
+	if (!r)
+		return (NULL);
+	r->type = type;
+	r->filename = ft_strdup(filename);
+	r->next = NULL;
+	return (r);
 }

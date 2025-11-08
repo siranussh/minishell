@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/08 13:44:59 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/08 13:47:20 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_cmd
 	char			*cmd;// siran
 	char			**tokens;// siran
 	int				num_tokens; // siran
-	char			**cmd_line;
+	// char			**cmd_line;
 	char			*infile;// <
 	char			*outfile;// > >>
 	int				append;// 1 if > 2 if >>
