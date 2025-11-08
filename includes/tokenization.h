@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/04 13:03:23 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/08 13:44:59 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,5 @@ char	*replace_exit_code(char *str, int i);
 char	*replace_all_exit_code(char *str);
 void	expand(t_cmd **cmd, t_data *data);
 int		check_spaces(char *str);
-
+int	skip_spaces(char *str, int i);
 #endif

@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/04 13:02:16 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/08 13:45:35 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,19 @@ static char	**get_token_arr(t_data *data, char *str, t_cmd *cmd)
 {
 	char	**token;
 	char	*temp;
+	char	*trimmed;
 
 	temp = str;
 	if (check_quotes_type(temp) == -1)
-		temp = skip_empty_quotes(ft_strtrim(temp, " "), cmd);
+	{
+		trimmed = ft_strtrim(temp, " ");
+		temp = skip_empty_quotes(trimmed, cmd);
+		free(trimmed);
+	}
 	token = malloc(sizeof(char *) * (cmd->num_tokens + 1));
 	if (!token)
 		exit_error("minishell: malloc failed", 1);
-	data->total_chars += split_tokens(str, token);
+	data->total_chars += split_tokens(temp, token);
 	if (check_quotes_type(str) == -1)
 		free(temp);
 	return (token);
@@ -64,11 +69,9 @@ static char	*extract_command(t_data *data, char *line)
 	int		start;
 	char	*str;
 
-	i = 0;
-	while (line[i] == 32 || (line[i] >= 9 && line[i] <= 13))
-		i++;
+	i = skip_spaces(line, 0);
 	start = i;
-	while (line[i] && line[i] != 32 && !(line[i] >= 9 && line[i] <= 13)
+	while (line[i] && line[i] != ' ' && !(line[i] >= 9 && line[i] <= 13)
 		&& !is_other_op(line[i]))
 	{
 		if (line[i] == 34 || line[i] == 39)
@@ -76,12 +79,13 @@ static char	*extract_command(t_data *data, char *line)
 		i++;
 	}
 	if (i && !is_other_op(line[i]))
-		str = ft_substr(line, start, i);
+		str = ft_substr(line, start, i - start);
 	else
 		str = NULL;
 	data->total_chars += i;
 	return (str);
 }
+
 
 t_cmd	*build_cmd(t_data *data, char *line)
 {
