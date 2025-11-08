@@ -1,6 +1,6 @@
 NAME = minishell
 
-BUILT_SRC = builtin_utils.c list_utils.c free.c \
+BUILT_SRC = builtin_utils.c list_utils.c \
 			echo.c pwd.c env.c env_parsing.c cd_utils.c cd.c \
 			unset.c exit_utils.c exit.c \
 			export_utils.c export_sort.c export_append.c export.c \
@@ -8,6 +8,7 @@ BUILT_SRC = builtin_utils.c list_utils.c free.c \
 
 EXEC_SRC = find_cmd_path.c heredoc.c execute_single_cmd.c join_cmd_tokens.c \
 			storing_cmds.c child_parent_prcs.c setup_input_output.c \
+			redir_utils.c \
 			pipeline_utils.c execute_pipeline.c \
 			cmd_list_utils.c init_struct.c
 
@@ -30,6 +31,7 @@ SRC_OTHER = minishell.c \
              error_handling.c \
              error_wrappers.c \
              utils.c \
+             free.c \
              signals.c \
 
 TOKEN_DIR = tokenization

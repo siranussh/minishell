@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:46 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/30 16:29:27 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/08 14:18:21 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@ void	ft_free(char **str)
 		i++;
 	}
 	free(str);
+}
+
+void	free_redirs(t_redir *r)
+{
+	t_redir	*tmp;
+
+	while (r)
+	{
+		tmp = r->next;
+		free(r->filename);
+		free(r);
+		r = tmp;
+	}
 }
 
 void	free_env_list(t_env *head)

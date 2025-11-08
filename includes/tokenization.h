@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/08 13:47:20 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/08 14:21:58 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		quote_error(void);
 int		redir_error(void);
 void	disable_ctrl_echo(void);
 void	enable_ctrl_echo(void);
-void unquote_all_tokens(t_cmd *cmd);
+void	unquote_all_tokens(t_cmd *cmd);
 int		check_quotes_type(char *s);
 int		find_closing_quote(int start, char *str, char c);
 char	*skip_empty_quotes(char *str, t_cmd *cmd);

@@ -38,7 +38,7 @@ t_pipe	*init_pipe_struct(t_cmd *cmds)
 	return (p);
 }
 
-t_redir	*new_redir(int type, char *filename)
+t_redir	*init_redir(int type, char *filename)
 {
 	t_redir	*r;
 

@@ -59,7 +59,7 @@ void	get_heredoc(t_cmd *cmds);
 
 // init_struct.c
 t_pipe	*init_pipe_struct(t_cmd *cmds);
-t_redir	*new_redir(int type, char *filename);
+t_redir	*init_redir(int type, char *filename);
 
 // join_cmd_tokenc.c
 char	**join_cmd_tokens(char *cmd, char **tokens, int num_tokens);
@@ -72,9 +72,10 @@ int		is_heredoc_redir_present(char *str);
 char	**cpy_str_arr(char **str);
 
 // redir_utils.c
-int		get_redir_type(const char *token);
+int		get_redir_type(char *token);
 void	add_redir_back(t_redir **list, t_redir *new);
 void	setup_redirections(t_cmd *cmd);
+void	build_redir_list(t_cmd *cmd);
 
 // setup_input_output.c
 void	setup_input(t_cmd *curr, int prev_fd);

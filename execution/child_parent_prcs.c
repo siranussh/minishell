@@ -16,6 +16,7 @@ void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
 {
 	setup_input(curr, p->prev_fd);
 	setup_output(curr, pipe_fd);
+	setup_redirections(curr);
 	if (is_built_in(curr->tokens))
 	{
 		p->exit_code = run_built_in(args_count(curr->tokens),

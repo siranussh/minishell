@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int	get_redir_type(const char *token)
+int	get_redir_type(char *token)
 {
 	if (!token)
 		return (-1);
@@ -53,13 +53,10 @@ void	setup_redirections(t_cmd *cmd)
 		if (r->type == 1)
 		{
 			fd = open(r->filename, O_RDONLY);
-			if (fd == -1)
+			if (fd < 0)
 				perror(r->filename);
-			else
-			{
-				dup2(fd, STDIN_FILENO);
-				close(fd);
-			}
+			dup2(fd, STDIN_FILENO);
+			close(fd);
 		}
 		else if (r->type == 2)
 		{
@@ -73,26 +70,35 @@ void	setup_redirections(t_cmd *cmd)
 		{
 			fd = open(r->filename,
 					O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (fd == -1)
+			if (fd < 0)
 				perror(r->filename);
-			else
-			{
-				dup2(fd, STDOUT_FILENO);
-				clode (fd);
-			}
+			dup2(fd, STDOUT_FILENO);
+			close (fd);
 		}
 		else if (r->type == 4)
 		{
 			fd = open(r->filename,
 					O_WRONLY | O_CREAT | O_APPEND, 0644);
-			if (fd == -1)
+			if (fd < 0)
 				perror(r->filename);
-			else
-			{
-				dup2(fd, STDOUT_FILENO);
-				clode (fd);
-			}
+			dup2(fd, STDOUT_FILENO);
+			close (fd);
 		}
 		r = r->next;
+	}
+}
+
+void	build_redir_list(t_cmd *cmd)
+{
+	if (cmd->infile)
+		add_redir_back(&cmd->redirs, init_redir(1, cmd->infile));
+	if (cmd->heredoc && cmd->delimiter)
+		add_redir_back(&cmd->redirs, init_redir(2, cmd->delimiter));
+	if (cmd->outfile)
+	{
+		if (cmd->append == 2)
+			add_redir_back(&cmd->redirs, init_redir(4, cmd->outfile));
+		else
+			add_redir_back(&cmd->redirs, init_redir(3, cmd->outfile));
 	}
 }

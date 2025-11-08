@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:24:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/04 13:02:16 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/08 15:08:49 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	execute_one_command(t_cmd *curr, t_pipe *p, t_env *env)
 		setup_signals(0);
 		child_process(curr, p, env, pipe_fd);
 		exit(1);
-	}	
+	}
 	else
 		parent_process(p, curr, pid, pipe_fd);
 }
@@ -46,10 +46,12 @@ int	execute_pipeline(t_cmd *cmds, t_env *env, t_pipe *p)
 
 	curr = cmds;
 	handle_heredocs(cmds);
-	p->index = 0;//new ani
-	p->prev_fd = -1;//new ani
+	p->index = 0;
+	p->prev_fd = -1;
 	while (curr)
 	{
+		if (!curr->redirs)
+			build_redir_list(curr);
 		execute_one_command(curr, p, env);
 		p->index++;
 		curr = curr->next;
