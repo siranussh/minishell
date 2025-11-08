@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/08 22:32:00 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/08 18:22:11 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int	main(int argc, char **argv, char **envp)
 		if (data->cmd)
 		{
 			redir_tokens(data->cmd);
-			expand(&data->cmd);
+			expand(&data->cmd, data);
 			unquote_all_tokens(data->cmd);
 		}
 		p = init_pipe_struct(data->cmd);

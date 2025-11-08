@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:24 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/08 22:30:03 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/02 20:21:07 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*extract_after_special(char *line, int i, t_cmd *cmd)
 	return (rest);
 }
 
-char	*replace_val(t_cmd *cmd, char *line, char **rest_line)
+char	*replace_val(t_cmd *cmd, char *line, char **rest_line, t_env_exp *env)
 {
 	char	*name;
 	int		i;
@@ -67,6 +67,10 @@ char	*replace_val(t_cmd *cmd, char *line, char **rest_line)
 	if (ft_strnstr(line, "$?", ft_strlen(line)) != 0)
 		return (replace_all_exit_code(line));
 	name = extract_value_name(line);
+	if (!name)
+		return (NULL);
+	if (!name[0])
+		return (ft_strdup(ft_strchr(line, '$') + 1));
 	i = find_next_char(line, '$', -1);
 	while (line[++i] && line[i] != ' ')
 	{
@@ -78,23 +82,23 @@ char	*replace_val(t_cmd *cmd, char *line, char **rest_line)
 			break ;
 		}
 	}
-	if (!name)
-		return (NULL);
-	if (!name[0])
-		return (ft_strchr(line, '$') + 1);
-	return (cmp_value_name(cmd, line, name));
+	return (cmp_value_name(line, name, env));
 }
 
-char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line)
+char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env)
 {
 	char	*temp;
 
+	if (!str)
+		return (NULL);
 	if (is_invalid_dollar(str) == 0)
 		str = delete_invalid_dollar(str, -1, -1);
 	if (!str || check_dollar_purpose(str) == 0)
 		return (str);
 	cmd->flags->has_special = 0;
-	str = replace_val(cmd, str, &rest_line);
+	str = replace_val(cmd, str, &rest_line, env);
+	if (!str)
+		return (NULL);
 	if (cmd->flags->has_special == 1)
 	{
 		temp = exp_strjoin(str, rest_line, 0, 0);
@@ -105,7 +109,7 @@ char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line)
 		cmd->flags->has_special = 0;
 	}
 	if (check_dollar_purpose(str) == 1)
-		str = replace_all_val(cmd, str, NULL);
+		str = replace_all_val(cmd, str, NULL, env);
 	if (rest_line)
 		free(rest_line);
 	return (str);
