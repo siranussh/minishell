@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   join_cmd_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 15:57:04 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/30 17:46:03 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/14 22:10:34 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -17,7 +17,6 @@ char	**join_cmd_tokens(char *cmd, char **tokens, int num_tokens)
 	int		i;
 	char	**args;
 
-	
 	args = (char **)malloc(sizeof(char *) * (num_tokens + 2));
 	if (!args)
 		return (NULL);

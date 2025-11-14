@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:22:17 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/14 12:27:35 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/14 22:18:44 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -33,24 +33,22 @@ int	is_built_in(char **args)
 
 int run_built_in(int argc, char **args, t_data *data)
 {
-    if (!args || !*args || !data || !data->env)
-        return (0);
-
-    if (ft_strcmp(args[0], "echo") == 0)
-        return built_in_echo(args);
-    else if (ft_strcmp(args[0], "cd") == 0)
-        return built_in_cd(argc, args, data->env);
-    else if (ft_strcmp(args[0], "pwd") == 0)
-        return built_in_pwd();
-    else if (ft_strcmp(args[0], "export") == 0)
-        return built_in_export_wrapper(args, argc, data);
-    else if (ft_strcmp(args[0], "unset") == 0)
-        return built_in_unset_wrapper(args, data);
-    else if (ft_strcmp(args[0], "env") == 0)
-        return built_in_env(argc, args, data->env);
-    else if (ft_strcmp(args[0], "exit") == 0)
-        return built_in_exit(argc, args);
-    else
-        return 0;
+	if (!args || !*args || !data || !data->env)
+		return (0);
+	if (ft_strcmp(args[0], "echo") == 0)
+		return (built_in_echo(args));
+	else if (ft_strcmp(args[0], "cd") == 0)
+		return (built_in_cd(argc, args, data->env));
+	else if (ft_strcmp(args[0], "pwd") == 0)
+		return (built_in_pwd());
+	else if (ft_strcmp(args[0], "export") == 0)
+		return (built_in_export_wrapper(args, argc, data));
+	else if (ft_strcmp(args[0], "unset") == 0)
+		return (built_in_unset_wrapper(args, data));
+	else if (ft_strcmp(args[0], "env") == 0)
+		return (built_in_env(argc, args, data->env));
+	else if (ft_strcmp(args[0], "exit") == 0)
+		return (built_in_exit(argc, args));
+	else
+		return (0);
 }
-

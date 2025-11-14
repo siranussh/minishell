@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/14 12:41:13 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/14 22:20:54 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef TOKENIZATION_H
 # define TOKENIZATION_H
@@ -16,6 +16,7 @@
 # include <aio.h>
 
 void	setup_signals(int parent_mode);
+
 typedef struct s_env t_env;
 
 typedef struct s_env_exp
@@ -41,10 +42,9 @@ typedef struct s_redir
 
 typedef struct s_cmd
 {
-	char			*cmd;// siran
-	char			**tokens;// siran
-	int				num_tokens; // siran
-	// char			**cmd_line;
+	char			*cmd;
+	char			**tokens;
+	int				num_tokens;
 	char			*infile;// <
 	char			*outfile;// > >>
 	int				append;// 1 if > 2 if >>
@@ -149,4 +149,5 @@ int		built_in_export_wrapper(char **args, int argc, t_data *data);
 char	*expand_var(t_data *data, char *key);
 void	free_env_exp(t_env_exp **env_exp_ptr);
 int		built_in_unset_wrapper(char **args, t_data *data);
+
 #endif

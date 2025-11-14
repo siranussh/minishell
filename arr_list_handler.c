@@ -62,73 +62,70 @@ t_env_exp *env_exp_from_list(t_env *env_list)
 
 void free_env_exp(t_env_exp **env_exp_ptr)
 {
-    t_env_exp *e;
-    int i;
+	t_env_exp	*e;
+	int			i;
 
-    if (!env_exp_ptr || !*env_exp_ptr)
-        return;
-
-    e = *env_exp_ptr;
-
-    if (e->env)
-    {
-        for (i = 0; i < e->num_env; ++i)
-        {
-            if (e->env[i])
-            {
-                free(e->env[i]);
-                e->env[i] = NULL;
-            }
-        }
-        free(e->env);
-        e->env = NULL;
-    }
-
-    if (e->path)
-    {
-        free(e->path);
-        e->path = NULL;
-    }
-
-    free(e);
-    *env_exp_ptr = NULL;
+	if (!env_exp_ptr || !*env_exp_ptr)
+		return ;
+	e = *env_exp_ptr;
+	if (e->env)
+	{
+		for (i = 0; i < e->num_env; ++i)
+		{
+			if (e->env[i])
+			{
+				free(e->env[i]);
+				e->env[i] = NULL;
+			}
+		}
+		free(e->env);
+		e->env = NULL;
+	}
+	if (e->path)
+	{
+		free(e->path);
+		e->path = NULL;
+	}
+	free(e);
+	*env_exp_ptr = NULL;
 }
 
-void refresh_env_exp(t_data *data)
+void	refresh_env_exp(t_data *data)
 {
-    if (data->env_exp)
-        free_env_exp(&data->env_exp);
-    data->env_exp = env_exp_from_list(data->env);
-    if (!data->env_exp)
-        exit_error("minishell: malloc failed", 1);
+	if (data->env_exp)
+		free_env_exp(&data->env_exp);
+	data->env_exp = env_exp_from_list(data->env);
+	if (!data->env_exp)
+		exit_error("minishell: malloc failed", 1);
 }
 
-int built_in_export_wrapper(char **args, int argc, t_data *data)
+int	built_in_export_wrapper(char **args, int argc, t_data *data)
 {
-    int res;
+	int	res;
 
-    free_env_exp(&data->env_exp);
-
-    res = built_in_export(args, argc, &data->env);
-    data->env_exp = env_exp_from_list(data->env);
-    if (!data->env_exp)
-        exit_error("minishell: malloc failed", 1);
-    return res;
+	free_env_exp(&data->env_exp);
+	res = built_in_export(args, argc, &data->env);
+	data->env_exp = env_exp_from_list(data->env);
+	if (!data->env_exp)
+		exit_error("minishell: malloc failed", 1);
+	return (res);
 }
 
-int built_in_unset_wrapper(char **args, t_data *data)
+int	built_in_unset_wrapper(char **args, t_data *data)
 {
-    int res;
+	int	res;
 
-    res = built_in_unset(args, &data->env);
-    refresh_env_exp(data);
-    return (res);
+	res = built_in_unset(args, &data->env);
+	refresh_env_exp(data);
+	return (res);
 }
 
-char *expand_var(t_data *data, char *key)
+char	*expand_var(t_data *data, char *key)
 {
-    char *value = get_env_values(data->env, key);
-    if (value)
-        return ft_strdup(value);
-    return ft_strdup("");
+	char	*value;
+
+	value = get_env_values(data->env, key);
+	if (value)
+		return (ft_strdup(value));
+	return (ft_strdup(""));
 }

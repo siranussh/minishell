@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/13 16:15:07 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/14 22:36:10 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -144,18 +144,18 @@ int main(int argc, char **argv, char **envp)
         }
         if (data->cmd)
         {
-            redir_tokens(data->cmd);
+            // redir_tokens(data->cmd);
             expand(&data->cmd, data);
             unquote_all_tokens(data->cmd);
         }
         p = init_pipe_struct(data->cmd);
-        execute_pipeline(data->cmd, data, p);
+        execute(data->cmd, data, p);
         free(line);
     }
     free(data->cmd);
     free_env_list(data->env);
     if (data->env_exp)
-    free_env_exp(&data->env_exp);
+    	free_env_exp(&data->env_exp);
     return (0);
 }
 

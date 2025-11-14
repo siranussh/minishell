@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   pipeline_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:22:05 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/30 16:31:04 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/14 22:11:08 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -18,19 +18,6 @@ void	dup2_and_close(int fd1, int fd2)
 	{
 		dup2(fd1, fd2);
 		close(fd1);
-	}
-}
-
-void	handle_heredocs(t_cmd *cmds)
-{
-	t_cmd	*tmp;
-
-	tmp = cmds;
-	while (tmp)
-	{
-		if (tmp->heredoc)
-			get_heredoc(tmp);
-		tmp = tmp->next;
 	}
 }
 
@@ -51,28 +38,6 @@ int	wait_for_children(t_pipe *p)
 	}
 	free(p->pids);
 	return (exit_code);
-}
-
-int	is_heredoc_redir_present(char *str)
-{
-	int	i;
-
-	if (!str || !*str)
-		return (0);
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '<' && str[i + 1] == '<')
-			return (1);
-		else if (str[i] == '<' && str[i + 1] != '<')
-			return (2);
-		else if (str[i] == '>' && str[i + 1] != '>')
-			return (3);
-		else if (str[i] == '>' && str[i + 1] == '>')
-			return (4);
-		i++;
-	}
-	return (0);
 }
 
 char	**cpy_str_arr(char **str)

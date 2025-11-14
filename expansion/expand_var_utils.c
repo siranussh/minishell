@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   expand_var_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:24 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/12 14:21:50 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/14 21:45:05 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -91,8 +91,8 @@ char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env)
 	
 	if (!str)
 		return (NULL);
-		if (!env || !env->env)
-    return ft_strdup(""); 
+	if (!env || !env->env)
+		return ft_strdup(""); 
 	if (is_invalid_dollar(str) == 0)
 		str = delete_invalid_dollar(str, -1, -1);
 	if (!str || check_dollar_purpose(str) == 0)

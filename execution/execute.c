@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_pipeline.c                                 :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:24:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/12 13:39:48 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/14 22:05:09 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -39,19 +39,26 @@ void	execute_one_command(t_cmd *curr, t_pipe *p, t_data *data)
 		parent_process(p, curr, pid, pipe_fd);
 }
 
-int	execute_pipeline(t_cmd *cmds, t_data *data, t_pipe *p)
+int	execute(t_cmd *cmds, t_data *data, t_pipe *p)
 {
 	int		exit_code;
 	t_cmd	*curr;
 
-	curr = cmds;
-	handle_heredocs(cmds);
+	// curr = cmds;
+	// while (curr)
+	// {
+	// 	parse_redirections(curr);
+	// 	curr = curr->next;
+	// }
+	// handle_heredocs(cmds);
 	p->index = 0;
 	p->prev_fd = -1;
+	curr = cmds;
 	while (curr)
 	{
-		if (!curr->redirs)
-			build_redir_list(curr);
+		parse_redirections(curr);
+		build_redir_list(curr);
+		handle_heredocs(curr);
 		execute_one_command(curr, p, data);
 		p->index++;
 		curr = curr->next;

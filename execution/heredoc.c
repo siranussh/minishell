@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 15:07:21 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/30 16:30:37 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/14 22:10:13 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -43,4 +43,22 @@ void	get_heredoc(t_cmd *cmds)
 	get_heredoc_check(fd[1], cmds->delimiter);
 	close(fd[1]);
 	cmds->fd_in = fd[0];
+}
+
+void	handle_heredocs(t_cmd *cmds)
+{
+	t_cmd	*curr = cmds;
+	t_redir	*r;
+
+	while (curr)
+	{
+		r = curr->redirs;
+		while (r)
+		{
+			if (r->type == 2)
+				get_heredoc(curr);
+			r = r->next;
+		}
+		curr = curr->next;
+	}
 }

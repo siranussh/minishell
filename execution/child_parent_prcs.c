@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 13:11:53 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/03 23:20:40 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/14 22:00:14 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -14,9 +14,13 @@
 
 void	child_process(t_cmd *curr, t_pipe *p, t_data *data, int pipe_fd[])
 {
+	setup_redirections(curr);
 	setup_input(curr, p->prev_fd);
 	setup_output(curr, pipe_fd);
-	setup_redirections(curr);
+	if (pipe_fd[0] != -1)
+		close(pipe_fd[0]);
+	if (pipe_fd[1] != -1)
+		close(pipe_fd[1]);
 	if (is_built_in(curr->tokens))
 	{
 		p->exit_code = run_built_in(args_count(curr->tokens),
