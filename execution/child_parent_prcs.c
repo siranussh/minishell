@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
+void	child_process(t_cmd *curr, t_pipe *p, t_data *data, int pipe_fd[])
 {
 	setup_input(curr, p->prev_fd);
 	setup_output(curr, pipe_fd);
@@ -20,10 +20,10 @@ void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[])
 	if (is_built_in(curr->tokens))
 	{
 		p->exit_code = run_built_in(args_count(curr->tokens),
-				curr->tokens, env);
+				curr->tokens, data);
 		exit(p->exit_code);
 	}
-	execute_single_command(curr->tokens, env);
+	execute_single_command(curr->tokens, data);
 }
 
 void	parent_process(t_pipe *p, t_cmd *curr, int pid, int pipe_fd[])

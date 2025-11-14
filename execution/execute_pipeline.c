@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:24:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/08 15:08:49 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/12 13:39:48 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	execute_one_command(t_cmd *curr, t_pipe *p, t_env *env)
+void	execute_one_command(t_cmd *curr, t_pipe *p, t_data *data)
 {
 	int	pipe_fd[2];
 	int	pid;
@@ -23,7 +23,7 @@ void	execute_one_command(t_cmd *curr, t_pipe *p, t_env *env)
 		perror("pipe");
 	if (!curr->next && is_built_in(curr->tokens))
 	{
-		p->exit_code = run_built_in(args_count(curr->tokens), curr->tokens, env);
+		p->exit_code = run_built_in(args_count(curr->tokens), curr->tokens, data);
 		return ;
 	}
 	pid = fork();
@@ -32,14 +32,14 @@ void	execute_one_command(t_cmd *curr, t_pipe *p, t_env *env)
 	else if (pid == 0)
 	{
 		setup_signals(0);
-		child_process(curr, p, env, pipe_fd);
+		child_process(curr, p, data, pipe_fd);
 		exit(1);
 	}
 	else
 		parent_process(p, curr, pid, pipe_fd);
 }
 
-int	execute_pipeline(t_cmd *cmds, t_env *env, t_pipe *p)
+int	execute_pipeline(t_cmd *cmds, t_data *data, t_pipe *p)
 {
 	int		exit_code;
 	t_cmd	*curr;
@@ -52,7 +52,7 @@ int	execute_pipeline(t_cmd *cmds, t_env *env, t_pipe *p)
 	{
 		if (!curr->redirs)
 			build_redir_list(curr);
-		execute_one_command(curr, p, env);
+		execute_one_command(curr, p, data);
 		p->index++;
 		curr = curr->next;
 	}

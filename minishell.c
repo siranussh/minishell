@@ -3,53 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/08 18:22:11 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/13 16:15:07 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void create_env_exp(t_env_exp *env_exp, char **ev)
-{
-    int i = 0;
+// static void create_env_exp(t_env_exp *env_exp, char **ev)
+// {
+//     int i = 0;
 
-    while (ev[i])
-        i++;
-    env_exp->num_env = i;
-    env_exp->env = ft_calloc(i + 1, sizeof(char *));
-    if (!env_exp->env)
-        exit_error("minishell: malloc failed", 1);
-    env_exp->path = NULL;
-    while (--i >= 0)
-    {
-        env_exp->env[i] = ft_strdup(ev[i]);
-        if (!env_exp->path && ft_strncmp(ev[i], "PATH=", 5) == 0 && ft_strlen(ev[i]) > 5)
-            env_exp->path = ft_substr(ev[i], 5, ft_strlen(ev[i]) - 5);
-        if (ft_strncmp(ev[i], "SHLVL=", 6) == 0)
-        {
-            free(env_exp->env[i]);
-            env_exp->env[i] = ft_strjoin("SHLVL=", ft_itoa(ft_atoi(ev[i] + 6) + 1));
-        }
-    }
-    env_exp->env[env_exp->num_env] = NULL;
+//     while (ev[i])
+//         i++;
+//     env_exp->num_env = i;
+//     env_exp->env = ft_calloc(i + 1, sizeof(char *));
+//     if (!env_exp->env)
+//         exit_error("minishell: malloc failed", 1);
+//     env_exp->path = NULL;
+//     while (--i >= 0)
+//     {
+//         env_exp->env[i] = ft_strdup(ev[i]);
+//         if (!env_exp->path && ft_strncmp(ev[i], "PATH=", 5) == 0 && ft_strlen(ev[i]) > 5)
+//             env_exp->path = ft_substr(ev[i], 5, ft_strlen(ev[i]) - 5);
+//         if (ft_strncmp(ev[i], "SHLVL=", 6) == 0)
+//         {
+//             free(env_exp->env[i]);
+//             env_exp->env[i] = ft_strjoin("SHLVL=", ft_itoa(ft_atoi(ev[i] + 6) + 1));
+//         }
+//     }
+//     env_exp->env[env_exp->num_env] = NULL;
 
-    if (!env_exp->path)
-        env_exp->path = ft_strdup("./");
-}
+//     if (!env_exp->path)
+//         env_exp->path = ft_strdup("./");
+// }
 
-t_data *init(char **envp)
+t_data *init(void)
 {
     t_data *data = ft_calloc(1, sizeof(t_data));
     if (!data)
         exit_error("minishell: malloc failed", 1);
 
-    data->env = ft_calloc(1, sizeof(t_env_exp));
-    create_env_exp(data->env, envp);
-    if (!data->env)
-        exit_error("minishell: malloc failed", 1);
+    data->env = NULL;
     data->flags = ft_calloc(1, sizeof(t_flags));
     if (!data->flags)
         exit_error("minishell: malloc failed", 1);
@@ -107,51 +104,62 @@ void	unquote_all_tokens(t_cmd *cmd)
 	}
 }
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_data	*data;
-	t_env	*env;
-	t_pipe	*p;
-	char	*line;
 
-	(void)argc;
-	(void)argv;
-	p = NULL;
-	data = init(envp);
-	env = env_parse(envp);
-	disable_ctrl_echo();
-	setup_signals(1);
-	while (1)
-	{
-		line = readline("minishell> ");
-		if (!line)
-			break ;
-		if (check_spaces(line) == -1 || line[0] == '\0')
-		{
-			free(line);
-			continue ;
-		}
-		add_history(line);
-		if (!tokenize(data, &data->cmd, line))
-		{
-			printf("Tokenization failed.\n");
-			continue ;
-		}
-		if (data->cmd)
-		{
-			redir_tokens(data->cmd);
-			expand(&data->cmd, data);
-			unquote_all_tokens(data->cmd);
-		}
-		p = init_pipe_struct(data->cmd);
-		execute_pipeline(data->cmd, env, p);
-	}
-	free(data->cmd);
-	free(data->env);
-	free(data->flags);
-	free(data);
-	return (0);
+int main(int argc, char **argv, char **envp)
+{
+    t_data  *data;
+    t_env   *env;
+    t_pipe  *p;
+    char    *line;
+
+    (void)argc;
+    (void)argv;
+    p = NULL;
+    data = init();
+    if (!data)
+        exit_error("minishell: malloc failed", 1);
+    env = env_parse(envp);
+    data->env = env;
+    data->env_exp = env_exp_from_list(env);
+    if (!data->env_exp)
+        exit_error("minishell: malloc failed", 1);
+    disable_ctrl_echo();
+    setup_signals(1);
+    while (1)
+    {
+        line = readline("minishell> ");
+        if (!line)
+            break ;
+        if (check_spaces(line) == -1 || line[0] == '\0')
+        {
+            free(line);
+            continue ;
+        }
+        add_history(line);
+        if (!tokenize(data, &data->cmd, line))
+        {
+            printf("Tokenization failed.\n");
+            free(line);
+            continue ;
+        }
+        if (data->cmd)
+        {
+            redir_tokens(data->cmd);
+            expand(&data->cmd, data);
+            unquote_all_tokens(data->cmd);
+        }
+        p = init_pipe_struct(data->cmd);
+        execute_pipeline(data->cmd, data, p);
+        free(line);
+    }
+    free(data->cmd);
+    free_env_list(data->env);
+    if (data->env_exp)
+    free_env_exp(&data->env_exp);
+    return (0);
 }
+
+
 
 // int	main(int argc, char **argv, char **envp)
 // {

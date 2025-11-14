@@ -51,7 +51,7 @@ char	**env_to_array(t_env *env)
 	return (env_arr);
 }
 
-int	execute_single_command(char **args, t_env *env)
+int	execute_single_command(char **args, t_data *data)
 {
 	char	*path;
 	char	**env_arr;
@@ -59,14 +59,14 @@ int	execute_single_command(char **args, t_env *env)
 	if (!args || !*args)
 		return (0);
 	if (is_built_in(args))
-		return (run_built_in(args_count(args), args, env));
-	path = find_cmd_path(args[0], env);
+		return (run_built_in(args_count(args), args, data));
+	path = find_cmd_path(args[0], data->env);
 	if (!path)
 	{
 		perror(args[0]);
 		return (127);
 	}
-	env_arr = env_to_array(env);
+	env_arr = env_to_array(data->env);
 	execve(path, args, env_arr);
 	perror("execve");
 	exit(1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:16:42 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/08 14:19:03 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/12 13:29:21 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	free_env_list(t_env *head);
 
 // builtins.c
 int		is_built_in(char **args);
-int		run_built_in(int argc, char **args, t_env *env);
+int run_built_in(int argc, char **args, t_data *data);
 
 // echo.c
 int		built_in_echo(char **args);

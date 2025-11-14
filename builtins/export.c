@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:41 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/30 16:29:25 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/12 13:19:14 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,3 +91,4 @@ int	built_in_export(char **args, int argc, t_env **env)
 	ft_free(env_arr);
 	return (0);
 }
+

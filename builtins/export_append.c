@@ -15,7 +15,6 @@
 void	giving_new_value(t_env **env, char *key, char *value)
 {
 	char	*new_value;
-
 	new_value = ft_strjoin(if_env_value_exist(*env, key), value);
 	update_env_value(env, key, new_value);
 }

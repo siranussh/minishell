@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/08 14:21:58 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/14 12:41:13 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <aio.h>
 
 void	setup_signals(int parent_mode);
+typedef struct s_env t_env;
 
 typedef struct s_env_exp
 {
@@ -72,10 +73,11 @@ typedef struct s_data
 	// char			*cmd_path;
 	t_cmd			*cmd;
 	t_flags			*flags;
-	t_env_exp		*env;
+	t_env_exp		*env_exp;
+	t_env			*env;
 }	t_data;
 
-t_data	*init(char **env);
+t_data	*init(void);
 
 int		exit_error(char *str, int code);
 void	print_error(char *name, char *file, char *err);
@@ -103,7 +105,6 @@ char	**split_pipes(char *str);
 t_cmd	*last_cmd(t_cmd **cmd);
 t_cmd	*build_cmd(t_data *data, char *line);
 int		tokenize(t_data *data, t_cmd **cmd, char *read_line);
-
 char	redir_smb(int c);
 int		is_redir(char **token);
 int		redir_type(char *str);
@@ -116,13 +117,11 @@ char	**split_redirection_start(char **tokens, int j, char c);
 char	**split_redirection_tokens(char **tokens, int j, char c,
 			int k);
 void	redir_tokens(t_cmd *cmd);
-
 int		find_next_char(char *str, char c, int j);
 int		skip_quote_and_find(char *s, int *i, char c, int j);
 int		is_special(char c);
 char	*extract_value_name(char *line);
 char	*extract_after_special(char *line, int i, t_cmd *cmd);
-
 char	*extract_env_value(char *str);
 char	*expand_dollar(char *new_line, char *line, char *var,
 			int c);
@@ -133,7 +132,6 @@ char	*cmp_value_name(char *line, char *name, t_env_exp *env);
 char	*replace_val(t_cmd *cmd, char *line, char **rest_line, t_env_exp *env);
 char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env);
 char	*exp_strjoin(char *s1, char *s2, size_t i, size_t j);
-
 int		check_dollar_purpose(char *line);
 int		is_tilde_path(char *str);
 char	*replace_tilde(char *str);
@@ -143,5 +141,12 @@ char	*replace_exit_code(char *str, int i);
 char	*replace_all_exit_code(char *str);
 void	expand(t_cmd **cmd, t_data *data);
 int		check_spaces(char *str);
-int	skip_spaces(char *str, int i);
+int		skip_spaces(char *str, int i);
+t_env_exp	*env_exp_from_list(t_env *env_list);
+char	*ft_strjoin_three(char *s1, char *s2, char *s3);
+void	refresh_env_exp(t_data *data);
+int		built_in_export_wrapper(char **args, int argc, t_data *data);
+char	*expand_var(t_data *data, char *key);
+void	free_env_exp(t_env_exp **env_exp_ptr);
+int		built_in_unset_wrapper(char **args, t_data *data);
 #endif

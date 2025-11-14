@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/08 22:04:15 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/14 12:03:11 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,5 @@ int	tokenize(t_data *data, t_cmd **cmd, char *read_line)
 	while (i--)
 		free(lines[i]);
 	free(lines);
-	free(read_line);
 	return (1);
 }

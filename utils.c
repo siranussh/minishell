@@ -64,3 +64,4 @@ int	check_spaces(char *str)
 		return (-1);
 	return (0);
 }
+

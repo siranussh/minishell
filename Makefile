@@ -33,6 +33,7 @@ SRC_OTHER = minishell.c \
              utils.c \
              free.c \
              signals.c \
+			 arr_list_handler.c \
 
 TOKEN_DIR = tokenization
 EXPAND_DIR = expansion

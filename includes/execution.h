@@ -82,12 +82,12 @@ void	setup_input(t_cmd *curr, int prev_fd);
 void	setup_output(t_cmd *curr, int pipe_fd[]);
 
 // child_parent_prcs.c
-void	child_process(t_cmd *curr, t_pipe *p, t_env *env, int pipe_fd[]);
+void	child_process(t_cmd *curr, t_pipe *p, t_data *data, int pipe_fd[]);
 void	parent_process(t_pipe *p, t_cmd *curr, int pid, int pipe_fd[]);
 
 // execute_pipeline.c
-void	execute_one_command(t_cmd *curr, t_pipe *p, t_env *env);
-int		execute_pipeline(t_cmd *cmds, t_env *env, t_pipe *p);
+void	execute_one_command(t_cmd *curr, t_pipe *p, t_data *data);
+int	execute_pipeline(t_cmd *cmds, t_data *data, t_pipe *p);
 
 // storing_cmds.c
 t_cmd	*store_cmds(char **tokens);//not using
@@ -99,6 +99,6 @@ char	*find_cmd_path(char *cmd, t_env *env);
 // execute_single_cmd.c
 int		args_count(char **args);
 char	**env_to_array(t_env *env);
-int		execute_single_command(char **args, t_env *env);
+int		execute_single_command(char **args, t_data *data);
 
 # endif
