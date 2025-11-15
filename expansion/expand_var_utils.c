@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   expand_var_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:24 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/14 21:45:05 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/15 18:18:03 by sihakoby         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -70,7 +70,7 @@ char	*replace_val(t_cmd *cmd, char *line, char **rest_line, t_env_exp *env)
 	if (!name)
 		return (NULL);
 	if (!name[0])
-		return (ft_strdup(ft_strchr(line, '$') + 1));
+		return (ft_strdup("$"));
 	i = find_next_char(line, '$', -1);
 	while (line[++i] && line[i] != ' ')
 	{
