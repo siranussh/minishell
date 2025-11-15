@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/14 22:36:10 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/15 17:52:26 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -107,56 +107,56 @@ void	unquote_all_tokens(t_cmd *cmd)
 
 int main(int argc, char **argv, char **envp)
 {
-    t_data  *data;
-    t_env   *env;
-    t_pipe  *p;
-    char    *line;
+	t_data	*data;
+	t_env	*env;
+	t_pipe	*p;
+	char	*line;
 
-    (void)argc;
-    (void)argv;
-    p = NULL;
-    data = init();
-    if (!data)
-        exit_error("minishell: malloc failed", 1);
-    env = env_parse(envp);
-    data->env = env;
-    data->env_exp = env_exp_from_list(env);
-    if (!data->env_exp)
-        exit_error("minishell: malloc failed", 1);
-    disable_ctrl_echo();
-    setup_signals(1);
-    while (1)
-    {
-        line = readline("minishell> ");
-        if (!line)
-            break ;
-        if (check_spaces(line) == -1 || line[0] == '\0')
-        {
-            free(line);
-            continue ;
-        }
-        add_history(line);
-        if (!tokenize(data, &data->cmd, line))
-        {
-            printf("Tokenization failed.\n");
-            free(line);
-            continue ;
-        }
-        if (data->cmd)
-        {
-            // redir_tokens(data->cmd);
-            expand(&data->cmd, data);
-            unquote_all_tokens(data->cmd);
-        }
-        p = init_pipe_struct(data->cmd);
-        execute(data->cmd, data, p);
-        free(line);
-    }
-    free(data->cmd);
-    free_env_list(data->env);
-    if (data->env_exp)
-    	free_env_exp(&data->env_exp);
-    return (0);
+	(void)argc;
+	(void)argv;
+	p = NULL;
+	data = init();
+	if (!data)
+		exit_error("minishell: malloc failed", 1);
+	env = env_parse(envp);
+	data->env = env;
+	data->env_exp = env_exp_from_list(env);
+	if (!data->env_exp)
+		exit_error("minishell: malloc failed", 1);
+	disable_ctrl_echo();
+	setup_signals(1);
+	while (1)
+	{
+		line = readline("minishell> ");
+		if (!line)
+			break ;
+		if (check_spaces(line) == -1 || line[0] == '\0')
+		{
+			free(line);
+			continue ;
+		}
+		add_history(line);
+		if (!tokenize(data, &data->cmd, line))
+		{
+			printf("Tokenization failed.\n");
+			free(line);
+			continue ;
+		}
+		if (data->cmd)
+		{
+			// redir_tokens(data->cmd);
+			expand(&data->cmd, data);
+			unquote_all_tokens(data->cmd);
+		}
+		p = init_pipe_struct(data->cmd);
+		execute(data->cmd, data, p);
+		free(line);
+	}
+	free(data->cmd);
+	free_env_list(data->env);
+	if (data->env_exp)
+		free_env_exp(&data->env_exp);
+	return (0);
 }
 
 
