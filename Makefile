@@ -25,6 +25,8 @@ SRC_EXPAND = expand_utils.c \
               expand_var_utils.c \
               expand_exit_code.c \
               expand_libft_modifs.c \
+			  expand_dollar_handler.c \
+			  expand_dollar_handler2.c \
               expand.c \
 
 SRC_OTHER = minishell.c \

@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:13 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/02 20:20:24 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/16 00:38:39 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,3 +83,4 @@ char	*cmp_value_name(char *line, char *name, t_env_exp *env)
 	}
 	return (0);
 }
+

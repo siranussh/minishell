@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/14 22:20:54 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/16 00:45:05 by sihakoby         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef TOKENIZATION_H
 # define TOKENIZATION_H
@@ -149,5 +149,16 @@ int		built_in_export_wrapper(char **args, int argc, t_data *data);
 char	*expand_var(t_data *data, char *key);
 void	free_env_exp(t_env_exp **env_exp_ptr);
 int		built_in_unset_wrapper(char **args, t_data *data);
+char *simple_expand(char *s, t_env_exp *env);
+char *exp_strjoin_free(char *old, char *add);
 
+int  count_dollars(char *s, int i);
+int is_var_char(char c);
+int get_var_len(char *s, int i);
+char *get_env_var(t_env_exp *env, char *s, int i, int *len);
+char *expand_variable(char *s, int *i, t_env_exp *env, int next);
+char *expand_invalid_dollars(int count, int *i);
+char *handle_dollar(char *s, int *i, t_env_exp *env);
+char *append_char(char *res, char c);
+char *simple_expand(char *s, t_env_exp *env);
 #endif

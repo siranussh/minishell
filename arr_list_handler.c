@@ -30,7 +30,6 @@ t_env_exp *env_exp_from_list(t_env *env_list)
         count++;
         tmp = tmp->next;
     }
-
     exp = ft_calloc(1, sizeof(t_env_exp));
     if (!exp)
         exit_error("malloc failed", 1);
@@ -49,10 +48,8 @@ t_env_exp *env_exp_from_list(t_env *env_list)
 
         if (!exp->env[i])
             exit_error("malloc failed", 1);
-
         tmp = tmp->next;
     }
-
     exp->env[count] = NULL;
     exp->num_env = count;
     exp->path = NULL;
