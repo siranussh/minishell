@@ -36,6 +36,8 @@ SRC_OTHER = minishell.c \
              free.c \
              signals.c \
 			 arr_list_handler.c \
+			 arr_list_handler2.c \
+			 free_env_exp.c \
 
 TOKEN_DIR = tokenization
 EXPAND_DIR = expansion

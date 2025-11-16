@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:52 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/16 00:08:45 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/16 18:11:26 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ void expand(t_cmd **cmd, t_data *data)
             free((*cmd)->tokens[i]);
             (*cmd)->tokens[i] = tmp;
         }
-
         if (is_tilde_path((*cmd)->tokens[i]) == 1)
             (*cmd)->tokens[i] = replace_tilde((*cmd)->tokens[i]);
     }
