@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/15 17:52:26 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/17 21:42:20 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -139,7 +139,7 @@ int main(int argc, char **argv, char **envp)
 		if (!tokenize(data, &data->cmd, line))
 		{
 			printf("Tokenization failed.\n");
-			free(line);
+			// free(line); // double free er talis
 			continue ;
 		}
 		if (data->cmd)
@@ -158,8 +158,6 @@ int main(int argc, char **argv, char **envp)
 		free_env_exp(&data->env_exp);
 	return (0);
 }
-
-
 
 // int	main(int argc, char **argv, char **envp)
 // {
