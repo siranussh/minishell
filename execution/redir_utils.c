@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 13:49:17 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/14 22:12:58 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/17 21:57:45 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -58,10 +58,12 @@ void	setup_redirections(t_cmd *cmd)
 	{
 		if (r->type == 1)
 		{
-	
 			fd = open(r->filename, O_RDONLY);
 			if (fd < 0)
+			{
 				perror(r->filename);
+				exit(1);
+			}
 			else
 			{
 				dup2(fd, STDIN_FILENO);
@@ -81,7 +83,10 @@ void	setup_redirections(t_cmd *cmd)
 			fd = open(r->filename,
 					O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (fd < 0)
+			{
 				perror(r->filename);
+				exit(1);
+			}
 			else
 			{
 				dup2(fd, STDOUT_FILENO);
@@ -93,7 +98,10 @@ void	setup_redirections(t_cmd *cmd)
 			fd = open(r->filename,
 					O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (fd < 0)
+			{
 				perror(r->filename);
+				exit(1);
+			}
 			else
 			{	
 				dup2(fd, STDOUT_FILENO);
