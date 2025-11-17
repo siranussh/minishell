@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:22:33 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/30 16:28:53 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/17 23:00:37 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -62,16 +62,16 @@ int	built_in_echo(char **args)
 	n_flag = check_n_flag(args);
 	index = n_flag;
 	if (!args[index])
-		return (printf("\n"), 0);
+		return (write(STDOUT_FILENO, "\n", 1), 0);
 	index++;
 	while (args[index])
 	{
-		printf("%s", args[index]);
+		write(STDOUT_FILENO, args[index], strlen(args[index]));
 		if (args[index + 1])
-			printf(" ");
+			write(STDOUT_FILENO, " ", 1);
 		index++;
 	}
 	if (n_flag == 0)
-		printf("\n");
+		write(STDOUT_FILENO, "\n", 1);
 	return (0);
 }
