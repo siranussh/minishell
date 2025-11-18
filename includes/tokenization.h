@@ -1,19 +1,24 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/16 00:45:05 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/18 22:52:13 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef TOKENIZATION_H
 # define TOKENIZATION_H
 
 # include <aio.h>
+
+# define REDIR_IN 1
+# define REDIR_HEREDOC 2
+# define REDIR_OUT 3
+# define REDIR_APPEND 4
 
 void	setup_signals(int parent_mode);
 

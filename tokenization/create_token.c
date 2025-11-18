@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/14 12:03:11 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/18 23:12:23 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -97,6 +97,7 @@ t_cmd	*build_cmd(t_data *data, char *line)
 	temp->flags = data->flags;
 	// if (temp->num_tokens == 0)
 	// 	return (temp);
+	temp->redirs = NULL;//aniiiiiiii newwwwwwwwww
 	temp->infile = NULL;//aniiiiiiiiiiiiiiiiii
 	temp->outfile = NULL;
 	temp->append = 0;

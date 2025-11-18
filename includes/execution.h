@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 12:04:35 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/14 22:08:53 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/18 22:57:10 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -25,6 +25,20 @@ typedef struct s_pipe
 	int		exit_code;
 	char	**env_arr;
 }	t_pipe;
+
+
+/*******************************************/
+// get_status.c
+void	set_status(int status);
+int	get_status(void);
+
+// execute_built_in.c
+int	only_builtin(t_cmd *cmd, t_data *data);
+
+// execute_new.c
+int	execute_new(t_cmd *cmds, t_data *data, t_pipe *p);
+
+/*******************************************/
 
 // cmd_list_utils.c
 int		ft_cmd_size(t_cmd *cmds);

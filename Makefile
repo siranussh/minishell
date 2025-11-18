@@ -10,7 +10,8 @@ EXEC_SRC = find_cmd_path.c heredoc.c execute_single_cmd.c join_cmd_tokens.c \
 			child_parent_prcs.c setup_input_output.c \
 			redir_utils.c \
 			pipeline_utils.c execute.c \
-			cmd_list_utils.c init_struct.c
+			cmd_list_utils.c init_struct.c \
+			execute_built_in.c get_status.c execute_new.c
 
 SRC_TOKEN = create_token.c \
              handle_quotes.c \
