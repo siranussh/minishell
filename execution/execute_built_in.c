@@ -6,69 +6,84 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 21:04:00 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/19 00:08:31 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/19 22:09:30 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../includes/minishell.h"
 
-/************ */
-/*    NEW     */
-/************ */
+//************ *//
+//*    NEW     *//
+//************ *//
 
-static void read_heredoc(t_cmd *cmd, char *delimiter, int count)
+static void	read_heredoc_child(int write_end, char *delimiter)
 {
-	int fd[2];
-	char *line;
-	int i = 0;
+	char	*line;
+
+	while (1)
+	{
+		line = readline("> ");
+		if (!line)
+			exit(0);
+		if (ft_strcmp(line, delimiter) == 0)
+		{
+			free(line);
+			exit(0);
+		}
+		ft_putendl_fd(line, write_end);
+		free(line);
+	}
+}
+
+static void read_heredoc(t_cmd *cmd, char *delimiter)
+{
+	int	fd[2];
+	int	pid;
+	int	status;
 
 	if (pipe(fd) == -1)
 	{
-		perror("pipe");
+		perror("minishell: pipe");
 		return ;
 	}
-	while (i < count)
+	pid = fork();
+	if (pid == -1)
 	{
-		while (1)
-		{
-			line = readline("> ");
-			if (!line)
-				break;
-			if (ft_strcmp(line, delimiter) == 0)
-			{
-				free(line);
-				break;
-			}
-			ft_putendl_fd(line, fd[1]);
-			free(line);
-		}
-		i++;
+		perror("minishell: fork");
+		close(fd[0]);
+		close(fd[1]);
+		return ;
+	}
+	if (pid == 0)
+	{
+		setup_signals(0);
+		close(fd[0]);
+		read_heredoc_child(fd[1], delimiter);
+		close(fd[1]);
+		exit(0);
 	}
 	close(fd[1]);
+	waitpid(pid, &status, 0);
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+	{
+		close(fd[0]);
+		cmd->fd_in = -1;
+		return ;
+	}
 	if (cmd->fd_in != -1)
 		close(cmd->fd_in);
 	cmd->fd_in = fd[0];
-}///////////////////////////////////////
+}
 
 void	process_all_heredocs(t_cmd *cmds)
 {
-	// t_cmd	*curr;
 	t_redir	*r;
-	t_redir	*tmp;
-	int		count;
-	// curr = cmds;
+
 	r = cmds->redirs;
-	tmp = r;
-	while (tmp)
-	{
-		if (tmp->type == REDIR_HEREDOC)
-			count++;
-		tmp = tmp->next;
-	}
 	while (r)
 	{
 		if (r->type == REDIR_HEREDOC && r->filename)
-			read_heredoc(cmds, r->filename, count);
+			read_heredoc(cmds, r->filename);
 		r = r->next;
 	}
 }
@@ -84,24 +99,25 @@ void	parse_redirs_builtin(t_cmd *cmd)
 	{
 		if (strcmp(cmd->tokens[i], "<") == 0 && cmd->tokens[i + 1])
 		{
-			add_redir_back(&cmd->redirs, init_redir(REDIR_IN, ft_strdup(cmd->tokens[i+1])));
+			add_redir_back(&cmd->redirs, init_redir(REDIR_IN, cmd->tokens[i+1]));
 			cmd->tokens = remove_tokens_from_array(cmd->tokens, i, 2);
 			continue ;
 		}
 		else if (strcmp(cmd->tokens[i], "<<") == 0 && cmd->tokens[i + 1])
 		{
-			add_redir_back(&cmd->redirs, init_redir(REDIR_HEREDOC, ft_strdup(cmd->tokens[i+1])));
+			add_redir_back(&cmd->redirs, init_redir(REDIR_HEREDOC, cmd->tokens[i+1]));
 			cmd->tokens = remove_tokens_from_array(cmd->tokens, i, 2);
+			continue ;
 		}
 		else if (strcmp(cmd->tokens[i], ">") == 0 && cmd->tokens[i + 1])
 		{
-			add_redir_back(&cmd->redirs, init_redir(REDIR_OUT, ft_strdup(cmd->tokens[i+1])));
+			add_redir_back(&cmd->redirs, init_redir(REDIR_OUT, cmd->tokens[i+1]));
 			cmd->tokens = remove_tokens_from_array(cmd->tokens, i, 2);
 			continue ;
 		}
 		else if (strcmp(cmd->tokens[i], ">>") == 0 && cmd->tokens[i + 1])
 		{
-			add_redir_back(&cmd->redirs, init_redir(REDIR_APPEND, ft_strdup(cmd->tokens[i+1])));
+			add_redir_back(&cmd->redirs, init_redir(REDIR_APPEND, cmd->tokens[i+1]));
 			cmd->tokens = remove_tokens_from_array(cmd->tokens, i, 2);
 			continue ;
 		}
@@ -122,7 +138,7 @@ void	setup_redirs_builtin(t_cmd *cmd)
 			fd = open(r->filename, O_RDONLY);
 			if (fd < 0)
 			{
-				perror(r->filename);
+				printf("minishell: %s: No such file or directory\n", r->filename);
 				exit(1);
 			}
 			dup2(fd, STDIN_FILENO);
@@ -142,7 +158,7 @@ void	setup_redirs_builtin(t_cmd *cmd)
 					O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (fd < 0)
 			{
-				perror(r->filename);
+				printf("minishell: %s: No such file or directory\n", r->filename);
 				exit(1);
 			}
 			dup2(fd, STDOUT_FILENO);
@@ -154,7 +170,7 @@ void	setup_redirs_builtin(t_cmd *cmd)
 					O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (fd < 0)
 			{
-				perror(r->filename);
+				printf("minishell: %s: No such file or directory\n", r->filename);
 				exit(1);
 			}
 			dup2(fd, STDOUT_FILENO);
@@ -173,17 +189,12 @@ int	only_builtin(t_cmd *cmd, t_data *data)
 	if (!is_built_in(cmd->tokens) || ft_cmd_size(cmd) != 1)
 		return (-1);
 	saved_stdin = dup(STDIN_FILENO);
-    saved_stdout = dup(STDOUT_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
 	parse_redirs_builtin(cmd);
 	process_all_heredocs(cmd);
 	setup_redirs_builtin(cmd);
 	exit_code = run_built_in(args_count(cmd->tokens),
 			cmd->tokens, data);
-	// if (cmd->next == NULL)
-	// {
-	// 	dup2(cmd->fd_in, STDIN_FILENO);
-	// 	dup2(cmd->fd_out, STDOUT_FILENO);
-	// }
 	dup2(saved_stdin, STDIN_FILENO);
 	dup2(saved_stdout, STDOUT_FILENO);
 	close(saved_stdin);

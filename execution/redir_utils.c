@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 13:49:17 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/17 21:57:45 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/19 22:09:56 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -134,6 +134,7 @@ void	parse_redirections(t_cmd *cmd)
 			free(cmd->delimiter);
 			cmd->delimiter = ft_strdup(cmd->tokens[i + 1]);
 			cmd->tokens = remove_tokens_from_array(cmd->tokens, i, 2);
+			continue ;
 		}
 		else if (strcmp(cmd->tokens[i], ">") == 0 && cmd->tokens[i + 1])
 		{
