@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 12:04:35 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/18 22:57:10 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/20 22:27:01 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -27,16 +27,25 @@ typedef struct s_pipe
 }	t_pipe;
 
 
-/*******************************************/
+/************** NEW EXECUTION **************/
 // get_status.c
 void	set_status(int status);
-int	get_status(void);
+int		get_status(void);
 
 // execute_built_in.c
-int	only_builtin(t_cmd *cmd, t_data *data);
+void	parse_redirs_builtin(t_cmd *cmd);
+void	setup_redirs_builtin(t_cmd *cmd);
+void	process_all_heredocs(t_cmd *cmds);
+int		only_builtin(t_cmd *cmd, t_data *data);
+
+// redir_utils_new.c
+void	parse_redirs_new(t_cmd *cmd, int i);
+
+// execute_pipeline.c
+void		execute_pipeline(t_cmd *cmds, t_data * data, t_pipe *p);
 
 // execute_new.c
-int	execute_new(t_cmd *cmds, t_data *data, t_pipe *p);
+void	execute_new(t_cmd *cmds, t_data *data, t_pipe *p);
 
 /*******************************************/
 

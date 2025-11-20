@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 21:04:00 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/19 22:09:30 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/20 22:27:44 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -191,7 +191,7 @@ int	only_builtin(t_cmd *cmd, t_data *data)
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
 	parse_redirs_builtin(cmd);
-	process_all_heredocs(cmd);
+	// process_all_heredocs(cmd);
 	setup_redirs_builtin(cmd);
 	exit_code = run_built_in(args_count(cmd->tokens),
 			cmd->tokens, data);

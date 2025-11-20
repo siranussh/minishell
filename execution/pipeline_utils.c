@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:22:05 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/14 22:11:08 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/20 22:17:39 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -36,7 +36,7 @@ int	wait_for_children(t_pipe *p)
 			exit_code = WEXITSTATUS(status);
 		i++;
 	}
-	free(p->pids);
+	// free(p->pids);// double free
 	return (exit_code);
 }
 

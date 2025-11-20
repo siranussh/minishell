@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/19 22:09:01 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/20 23:14:55 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -40,22 +40,23 @@
 //         env_exp->path = ft_strdup("./");
 // }
 
-t_data *init(void)
+t_data	*init(void)
 {
-    t_data *data = ft_calloc(1, sizeof(t_data));
-    if (!data)
-        exit_error("minishell: malloc failed", 1);
-
-    data->env = NULL;
-    data->flags = ft_calloc(1, sizeof(t_flags));
-    if (!data->flags)
-        exit_error("minishell: malloc failed", 1);
-    data->flags->pipe = 0;
-    data->flags->quote = 0;
-    data->flags->has_special = 0;
-    data->cmd = NULL;
-    data->total_chars = 0;
-    return data;
+	t_data *data;
+	
+	data = ft_calloc(1, sizeof(t_data));
+	if (!data)
+		exit_error("minishell: malloc failed", 1);
+	data->env = NULL;
+	data->flags = ft_calloc(1, sizeof(t_flags));
+	if (!data->flags)
+		exit_error("minishell: malloc failed", 1);
+	data->flags->pipe = 0;
+	data->flags->quote = 0;
+	data->flags->has_special = 0;
+	data->cmd = NULL;
+	data->total_chars = 0;
+	return (data);
 }
 
 // static void	print_tokens(t_cmd *cmd)
@@ -104,7 +105,6 @@ void	unquote_all_tokens(t_cmd *cmd)
 	}
 }
 
-
 int main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
@@ -149,10 +149,11 @@ int main(int argc, char **argv, char **envp)
 			unquote_all_tokens(data->cmd);
 		}
 		p = init_pipe_struct(data->cmd);
-		execute(data->cmd, data, p);
-		// execute_new(data->cmd, data, p);////new execution////
+		// execute(data->cmd, data, p);
+		execute_new(data->cmd, data, p);////new execution////
 		free(line);
 	}
+	free(p);
 	free(data->cmd);
 	free_env_list(data->env);
 	if (data->env_exp)

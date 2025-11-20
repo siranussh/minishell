@@ -1,0 +1,108 @@
+/******************************************************************************/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_pipeline.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/20 20:23:57 by anavagya          #+#    #+#             */
+/*   Updated: 2025/11/20 23:16:24 by anavagya         ###   ########.fr       */
+/*                                                                            */
+/******************************************************************************/
+
+#include "../includes/minishell.h"
+
+//************ *//
+//*    NEW     *//
+//************ *//
+
+static void setup_child_pipes_and_redirs(t_cmd *cmd, int prev_fd, int pipe_fd[2])
+{
+	setup_signals(0);
+	if (prev_fd != -1)
+	{
+		dup2(prev_fd, STDIN_FILENO);
+		close(prev_fd);
+	}
+	else if (cmd->fd_in != -1)
+	{
+		dup2(cmd->fd_in, STDIN_FILENO);
+		close(cmd->fd_in);
+	}	
+	if (pipe_fd[1] != -1)
+	{
+		dup2(pipe_fd[1], STDOUT_FILENO);
+		close(pipe_fd[1]);
+	}
+	if (pipe_fd[0] != -1)
+		close(pipe_fd[0]);
+	setup_redirs_builtin(cmd);
+}
+
+static int child_process_new(t_cmd *cmd, t_pipe *p,  t_data *data, int pipe_fd[])
+{
+	int pid;
+	
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		return (-1);
+	}
+	if (pid == 0)
+	{
+		setup_child_pipes_and_redirs(cmd, p->prev_fd, pipe_fd);
+		if (pipe_fd[0] != -1)
+			close(pipe_fd[0]);
+		if (pipe_fd[1] != -1)
+			close(pipe_fd[1]);
+		if (is_built_in(cmd->tokens))
+		{
+			p->exit_code = run_built_in(args_count(cmd->tokens),
+					cmd->tokens, data);
+			exit(p->exit_code);
+		}
+		execute_single_command(cmd->tokens, data);
+		perror("minishell: execve");
+		exit(127);
+	}
+	return (pid);
+}
+
+void	execute_pipeline(t_cmd *cmds, t_data * data, t_pipe *p)
+{
+	t_cmd	*curr;
+	int		pipe_fd[2];
+	int		i;
+	
+	pipe_fd[0] = -1;
+	pipe_fd[1] = -1;
+	p->prev_fd = -1;
+	curr = cmds;
+	i = 0;
+	while (curr)
+	{
+		if (curr->next)
+		{
+			if (pipe(pipe_fd) == -1)
+			{
+				perror("pipe");
+				break ;
+			}
+		}
+		else
+			pipe_fd[0] = pipe_fd[1] = -1;
+		p->pids[i] = child_process_new(curr, p, data, pipe_fd);
+		if (pipe_fd[1] != -1)
+			close(pipe_fd[1]);
+		if (p->prev_fd != -1)
+			close(p->prev_fd);
+		p->prev_fd = pipe_fd[0];		
+		curr = curr->next;
+		i++;
+	}
+	if (p->prev_fd != -1)
+		close(p->prev_fd);
+	wait_for_children(p);
+	free(p->pids);
+}

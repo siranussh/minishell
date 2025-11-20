@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:16:42 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/12 13:29:21 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/20 23:08:54 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
@@ -34,8 +34,10 @@ char	*ft_substr_ms(char const *s, int start, int len);
 
 // free.c
 void	ft_free(char **str);
-void	free_redirs(t_redir *r);
+void	free_redirs(t_redir *redir);
 void	free_env_list(t_env *head);
+void	free_flags(t_flags *flags);
+void	free_data(t_data *data);
 
 // builtins.c
 int		is_built_in(char **args);
