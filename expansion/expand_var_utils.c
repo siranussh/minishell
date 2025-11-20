@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:24 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/15 18:18:03 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/20 19:56:00 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,19 +88,27 @@ char	*replace_val(t_cmd *cmd, char *line, char **rest_line, t_env_exp *env)
 char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env)
 {
 	char	*temp;
-	
+	int		pos;
+
 	if (!str)
 		return (NULL);
 	if (!env || !env->env)
-		return ft_strdup(""); 
+		return (ft_strdup(""));
+
 	if (is_invalid_dollar(str) == 0)
 		str = delete_invalid_dollar(str, -1, -1);
 	if (!str || check_dollar_purpose(str) == 0)
 		return (str);
+
+	pos = find_next_char(str, '$', -1);
+	if (pos >= 0 && count_dollars(str, pos) > 1)
+		return expand_dollars_simple(str, pos, env);
+
 	cmd->flags->has_special = 0;
 	str = replace_val(cmd, str, &rest_line, env);
 	if (!str)
 		return (NULL);
+
 	if (cmd->flags->has_special == 1)
 	{
 		temp = exp_strjoin(str, rest_line, 0, 0);
@@ -110,9 +118,13 @@ char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env)
 		rest_line = NULL;
 		cmd->flags->has_special = 0;
 	}
+
 	if (check_dollar_purpose(str) == 1)
 		str = replace_all_val(cmd, str, NULL, env);
+
 	if (rest_line)
 		free(rest_line);
+
 	return (str);
 }
+

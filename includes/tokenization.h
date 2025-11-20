@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/18 22:52:13 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/20 19:23:01 by sihakoby         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef TOKENIZATION_H
 # define TOKENIZATION_H
@@ -154,16 +154,19 @@ int		built_in_export_wrapper(char **args, int argc, t_data *data);
 char	*expand_var(t_data *data, char *key);
 void	free_env_exp(t_env_exp **env_exp_ptr);
 int		built_in_unset_wrapper(char **args, t_data *data);
-char *simple_expand(char *s, t_env_exp *env);
-char *exp_strjoin_free(char *old, char *add);
 
-int  count_dollars(char *s, int i);
+int	has_only_dollars_or_dollars_before_var(char *s);
+char *collapse_dollars(char *s);
 int is_var_char(char c);
 int get_var_len(char *s, int i);
 char *get_env_var(t_env_exp *env, char *s, int i, int *len);
-char *expand_variable(char *s, int *i, t_env_exp *env, int next);
-char *expand_invalid_dollars(int count, int *i);
-char *handle_dollar(char *s, int *i, t_env_exp *env);
-char *append_char(char *res, char c);
-char *simple_expand(char *s, t_env_exp *env);
+int count_dollars(char *line, int pos);
+char	*expand_only_dollars(char *line, int pos, int dollar_count);
+char	*expand_dollars_simple(char *line, int pos, t_env_exp *env);
+char	*make_prefix(int prefix_len);
+char	*build_insert(char *line, int pos, int dollar_count, int var_len, t_env_exp *env);
+char	*build_new_line(char *line, char *insert, int pos, int remove_len);
+char	*expand_var_with_prefix(char *line, int pos, int dollar_count, int var_len, t_env_exp *env);
+
+
 #endif

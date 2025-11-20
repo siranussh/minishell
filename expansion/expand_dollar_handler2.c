@@ -1,72 +1,96 @@
 #include "../includes/minishell.h"
 
-char *expand_variable(char *s, int *i, t_env_exp *env, int next)
+int	has_only_dollars_or_dollars_before_var(char *s)
 {
-    int len;
-    char *val;
-
-    val = get_env_var(env, s, next, &len);
-    *i = next + len - 1;
-    return (val);
-}
-
-char *expand_invalid_dollars(int count, int *i)
-{
-    char *res;
-    int start_i;
-
-    start_i = *i;
-    res = ft_calloc(1, 1);
-    while (count--)
-        res = exp_strjoin_free(res, "$");
-    *i = start_i + count_dollars(res, 0) - 1; // move i to the last $ appended
-    return (res);
-}
-
-
-char *handle_dollar(char *s, int *i, t_env_exp *env)
-{
-    int count;
-    int next;
-    char *result;
-
-    count = count_dollars(s, *i);
-    next = *i + count;
-    if (s[next] == '\0' || !(is_var_char(s[next]) && !(s[next] >= '0' && s[next] <= '9')))
-        result = expand_invalid_dollars(count, i);
-    else
-        result = expand_variable(s, i, env, next);
-    return (result);
-}
-
-char *append_char(char *res, char c)
-{
-    char buf[2];
+	int i;
     
-    buf[0] = c;
-    buf[1] = '\0';
-    return (exp_strjoin_free(res, buf));
-}
-
-char *simple_expand(char *s, t_env_exp *env)
-{
-    int i;
-    char *result;
-    char *tmp;
     i = 0;
-    result  = ft_calloc(1, 1);
-    while (s[i])
-    {
-        if (s[i] == '$')
-        {
-            tmp = handle_dollar(s, &i, env);
-            result = exp_strjoin_free(result, tmp);
-            free(tmp);
-        }
-        else
-            result = append_char(result, s[i]);
-        i++;
-    }
-    
-    return (result);
+	while (s[i] == '$')
+		i++;
+	if (s[i] == '\0')
+		return (1);
+	if (ft_isalpha(s[i]) || s[i] == '_')
+		return (1);
+	return (0);
 }
+
+char	*make_prefix(int prefix_len)
+{
+	char	*prefix;
+	int		i;
+
+	prefix = ft_calloc(prefix_len + 1, 1);
+	if (!prefix)
+		return (NULL);
+	i = 0;
+	while (i < prefix_len)
+	{
+		prefix[i] = '$';
+		i++;
+	}
+	return (prefix);
+}
+
+
+char	*build_insert(char *line, int pos, int dollar_count,
+    int var_len, t_env_exp *env)
+{
+char	*prefix;
+char	*var;
+char	*val;
+char	*insert;
+
+prefix = make_prefix(dollar_count - 1);
+var = ft_substr(line, pos + dollar_count, var_len);
+val = get_env_var(env, var, 0, &var_len);
+free(var);
+insert = exp_strjoin(prefix, val, 0, 0);
+free(prefix);
+free(val);
+return (insert);
+}
+
+char	*build_new_line(char *line, char *insert,
+    int pos, int remove_len)
+{
+char	*new_line;
+int		new_len;
+int		j;
+int		k;
+int		rest;
+
+new_len = ft_strlen(line) - remove_len + ft_strlen(insert) + 1;
+new_line = malloc(new_len);
+if (!new_line)
+return (NULL);
+j = 0;
+k = 0;
+while (k < pos)
+new_line[j++] = line[k++];
+k = 0;
+while (insert[k])
+new_line[j++] = insert[k++];
+rest = pos + remove_len;
+while (line[rest])
+new_line[j++] = line[rest++];
+new_line[j] = '\0';
+return (new_line);
+}
+
+char	*expand_var_with_prefix(char *line, int pos,
+    int dollar_count, int var_len, t_env_exp *env)
+{
+char	*insert;
+char	*new_line;
+int		remove_len;
+
+insert = build_insert(line, pos, dollar_count, var_len, env);
+if (!insert)
+return (NULL);
+remove_len = dollar_count + var_len;
+new_line = build_new_line(line, insert, pos, remove_len);
+free(insert);
+free(line);
+return (new_line);
+}
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:28:16 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/01 17:07:35 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/20 14:14:51 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	check_dquote(char *str, int is_double, int is_single, t_data *data)
 		if (is_double % 2 != 0 || is_single % 2 != 0)
 		{
 			data->flags->quote = 1;
-			printf("dquote>\n");
+			printf(">\n");
 			return (0);
 		}
 		i++;

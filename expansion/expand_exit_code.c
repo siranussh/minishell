@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_exit_code.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:40:51 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/10/30 16:31:28 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/20 20:08:50 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,22 @@ char	*replace_all_exit_code(char *str)
 			break ;
 	}
 	return (str);
+}
+
+int is_var_char(char c)
+{
+    return ((c >= 'A' && c <= 'Z') ||
+            (c >= 'a' && c <= 'z') ||
+            (c >= '0' && c <= '9') ||
+             c == '_');
+}
+
+int get_var_len(char *s, int i)
+{
+    int len;
+
+    len = 0;
+    while (s[i + len] && is_var_char(s[i + len]))
+        len++;
+    return (len);
 }
