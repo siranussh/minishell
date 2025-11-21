@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 21:28:16 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/20 23:01:49 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/21 20:30:17 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -20,10 +20,11 @@ static void prepare_all_commands(t_cmd *cmds)
 {
 	while (cmds)
 	{
-		if (!cmds->cmd)
-			parse_redirs_new(cmds, 1);
-		else
-			parse_redirs_new(cmds, 0);
+		parse_redirs_new(cmd, 0);
+		// if (!cmds->cmd)
+		// 	parse_redirs_new(cmds, 1);
+		// else
+		// 	parse_redirs_new(cmds, 0);
 		cmds = cmds->next;
 	}
 }

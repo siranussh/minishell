@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/18 23:12:23 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/21 20:35:34 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -110,7 +110,8 @@ t_cmd	*build_cmd(t_data *data, char *line)
 		temp->tokens = get_token_arr(data, line + data->total_chars, temp);
 	else
 		temp->tokens = NULL;
-	temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);//ani
+	if (temp->cmd != NULL)///////////ani
+		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);//ani
 	return (temp);
 }
 
