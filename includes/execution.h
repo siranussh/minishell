@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 12:04:35 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/20 22:27:01 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/22 21:39:35 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -39,7 +39,7 @@ void	process_all_heredocs(t_cmd *cmds);
 int		only_builtin(t_cmd *cmd, t_data *data);
 
 // redir_utils_new.c
-void	parse_redirs_new(t_cmd *cmd, int i);
+void	parse_redirs_new(t_cmd *cmd);
 
 // execute_pipeline.c
 void		execute_pipeline(t_cmd *cmds, t_data * data, t_pipe *p);

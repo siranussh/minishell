@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 20:40:53 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/20 21:15:49 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/22 21:37:59 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -16,8 +16,11 @@
 //*    NEW    *//
 //*************//
 
-void	parse_redirs_new(t_cmd *cmd, int i)
+void	parse_redirs_new(t_cmd *cmd)
 {
+	int	i;
+
+	i = 0;
 	if (!cmd || !cmd->tokens)
 		return ;
 	while (cmd->tokens[i])
