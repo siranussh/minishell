@@ -65,6 +65,7 @@ char	*expand_only_dollars(char *line, int pos, int dollar_count)
 		new_line[j++] = line[k];
 		k++;
 	}
+	for (int i = 0; i < dollar_count; i++)
 	new_line[j++] = '$';
 	rest = pos + dollar_count;
 	while (line[rest])
