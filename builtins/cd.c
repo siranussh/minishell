@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:22:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/02 18:49:35 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/22 23:18:06 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -43,7 +43,7 @@ void	cd_minus(char *old_pwd, int *status, t_env *env)
 	old = get_env_values(env, "OLDPWD");
 	if (!old)
 	{
-		printf("minishell: cd: OLDPWD not set\n");
+		print_error("minishell", "cd", "OLDPWD not set");
 		free(old_pwd);
 		*status = 1;
 		return ;
@@ -78,7 +78,7 @@ int	built_in_cd(int argc, char **args, t_env *env)
 
 	status = 0;
 	if (argc > 2)
-		return (printf("minishell: cd: too many arguments\n"), 1);
+		return (print_error("minishell", "cd", "too many arguments"), 1);
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
 		return (1);
@@ -86,7 +86,8 @@ int	built_in_cd(int argc, char **args, t_env *env)
 	{
 		home = get_env_values(env, "HOME");
 		if (!home)
-			return (printf("minishell: cd: HOME not set\n"), free(old_pwd), 1);
+			return (print_error("minishell", "cd", "HOME not set"),
+				free(old_pwd), 1);
 		if (cd_helper(home, old_pwd, env))
 			status = 0;
 		else

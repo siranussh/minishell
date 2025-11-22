@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:15 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/02 20:45:55 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/22 23:33:47 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -41,14 +41,14 @@ int	built_in_exit(int argc, char **args)
 		exit(g_exit_code);
 	if (argc > 2)
 	{
-		printf("minishell: exit: too many arguments\n");
+		print_error("minishell", "exit", "too many arguments");
 		g_exit_code = 1;
 		return (1);
 	}
 	if (!is_number(args[1]))
 	{
-		printf("minishell: exit: %s: numeric argument required\n", args[1]);
-		exit(255);
+		print_error("minishell: exit", args[1], "numeric argument required");
+		exit(2);
 	}
 	status = ft_atol(args[1]);
 	exit(status % 256);

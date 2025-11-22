@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   error_wrappers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:05 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/13 16:15:16 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/22 23:49:10 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -29,5 +29,18 @@ int	quote_error(void)
 int	redir_error(void)
 {
 	print_error("minishell", NULL, "syntax error near unexpected token '>'");
+	return (-1);
+}
+
+int	export_error(char *arg)
+{
+	ft_putstr_fd("minishell: export: `", 2);
+	if (arg)
+	{
+		ft_putstr_fd(arg, 2);
+		ft_putstr_fd("': ", 2);
+	}
+	ft_putstr_fd("not a valid identifier", 2);
+	ft_putstr_fd("\n", 2);
 	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/22 22:59:09 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/22 23:48:01 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -88,6 +88,7 @@ void	print_error(char *name, char *file, char *err);
 int		pipe_syntax_error(void);
 int		quote_error(void);
 int		redir_error(void);
+int		export_error(char *arg);
 void	disable_ctrl_echo(void);
 void	enable_ctrl_echo(void);
 void	unquote_all_tokens(t_cmd *cmd);

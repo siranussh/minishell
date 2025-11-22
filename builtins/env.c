@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:22:49 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/01 17:57:11 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/22 23:22:31 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -16,8 +16,9 @@ int	built_in_env(int argc, char **args, t_env *env)
 {
 	if (argc > 1)
 	{
-		printf("minishell: env: '%s': No such file or directory\n", args[1]);
-		return (1);
+		print_error("env", args[1], "No such file or directory");
+		set_status(127);
+		return (get_status());
 	}
 	while (env)
 	{

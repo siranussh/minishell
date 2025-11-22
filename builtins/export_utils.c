@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:35 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/13 14:26:52 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/22 23:50:25 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -63,8 +63,7 @@ int	is_valid_identifier(char *arg)
 	int	i;
 
 	if (!ft_isalpha(*arg) && *arg != '_')
-		return (printf("minishell: export: `%s': not a valid identifier\n",
-			arg), 0);
+		export_error(arg);
 	i = 1;
 	while (arg[i] && arg[i] != '=')
 	{
@@ -75,8 +74,7 @@ int	is_valid_identifier(char *arg)
 				i++;
 			else
 			{
-				printf("minishell: export: `%s': not a valid identifier\n",
-					arg);
+				export_error(arg);
 				return (0);
 			}
 		}
