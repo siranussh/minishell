@@ -1,18 +1,18 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 15:07:21 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/15 17:21:27 by anavagya         ###   ########.fr       */
+/*   Created: 2025/11/22 22:33:53 by anavagya          #+#    #+#             */
+/*   Updated: 2025/11/22 22:50:51 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
-static void	get_heredoc_check(int write_end, char *delim)
+static void	read_heredoc_child(int write_end, char *delimiter)
 {
 	char	*line;
 
@@ -20,65 +20,66 @@ static void	get_heredoc_check(int write_end, char *delim)
 	{
 		line = readline("> ");
 		if (!line)
-			break ;
-		if (ft_strcmp(delim, line) == 0)
+			exit(0);
+		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
-			break ;
+			exit(0);
 		}
 		ft_putendl_fd(line, write_end);
 		free(line);
 	}
 }
 
-void	get_heredoc(t_cmd *cmds)
+static void	read_heredoc(t_cmd *cmd, char *delimiter)
 {
 	int	fd[2];
 	int	pid;
+	int	status;
 
 	if (pipe(fd) == -1)
 	{
-		perror("pipe");
+		perror("minishell: pipe");
 		return ;
 	}
-	pid	= fork();
+	pid = fork();
 	if (pid == -1)
 	{
-		perror("fork");
+		perror("minishell: fork");
+		close(fd[0]);
+		close(fd[1]);
+		return ;
 	}
 	if (pid == 0)
 	{
 		setup_signals(0);
 		close(fd[0]);
-		get_heredoc_check(fd[1], cmds->delimiter);
+		read_heredoc_child(fd[1], delimiter);
 		close(fd[1]);
 		exit(0);
 	}
-	else
-	{
-		setup_signals(1);
-		close(fd[1]);
-		cmds->fd_in = fd[0];
-		waitpid(pid, NULL, 0);
-	}
 	close(fd[1]);
-	cmds->fd_in = fd[0];
+	waitpid(pid, &status, 0);
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+	{
+		close(fd[0]);
+		cmd->fd_in = -1;
+		return ;
+	}
+	if (cmd->fd_in != -1)
+		close(cmd->fd_in);
+	cmd->fd_in = fd[0];
 }
 
-void	handle_heredocs(t_cmd *cmds)
+void	process_all_heredocs(t_cmd *cmds)
 {
-	t_cmd	*curr = cmds;
 	t_redir	*r;
 
-	while (curr)
+	r = cmds->redirs;
+	while (r)
 	{
-		r = curr->redirs;
-		while (r)
-		{
-			if (r->type == 2)
-				get_heredoc(curr);
-			r = r->next;
-		}
-		curr = curr->next;
+		if (r->type == REDIR_HEREDOC && r->filename)
+			read_heredoc(cmds, r->filename);
+		r = r->next;
 	}
 }

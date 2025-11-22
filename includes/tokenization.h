@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/20 19:23:01 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/22 22:59:09 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef TOKENIZATION_H
 # define TOKENIZATION_H
@@ -57,8 +57,7 @@ typedef struct s_cmd
 	char			*delimiter;
 	int				fd_in;
 	int				fd_out;
-	int				cmd_index;
-	int				pid;
+	// int				pid;
 	struct s_cmd	*next;
 	t_redir			*redirs;
 	t_flags			*flags;
@@ -167,6 +166,5 @@ char	*make_prefix(int prefix_len);
 char	*build_insert(char *line, int pos, int dollar_count, int var_len, t_env_exp *env);
 char	*build_new_line(char *line, char *insert, int pos, int remove_len);
 char	*expand_var_with_prefix(char *line, int pos, int dollar_count, int var_len, t_env_exp *env);
-
 
 #endif

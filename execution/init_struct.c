@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 13:12:11 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/22 22:01:20 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/22 22:55:00 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,9 +19,6 @@ t_pipe	*init_pipe_struct(t_cmd *cmds)
 	p = (t_pipe *)malloc(sizeof(t_pipe));
 	if (!p)
 		return (NULL);
-	p->fd_in = -1;
-	p->fd_out = -1;
-	p->index = 0;
 	p->prev_fd = -1;
 	p->exit_code = 0;
 	p->cmds_count = ft_cmd_size(cmds);

@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:18:46 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/02 01:36:47 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/22 22:11:32 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -35,5 +35,16 @@
 # include <fcntl.h>
 
 extern int	g_exit_code;
+
+// get_status.c
+void	set_status(int status);
+int		get_status(void);
+
+// free.c
+void	ft_free(char **str);
+void	free_redirs(t_redir *redir);
+void	free_env_list(t_env *head);
+void	free_flags(t_flags *flags);
+void	free_data(t_data *data);
 
 #endif

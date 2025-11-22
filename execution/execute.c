@@ -5,64 +5,58 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/14 13:24:02 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/20 21:14:50 by anavagya         ###   ########.fr       */
+/*   Created: 2025/11/22 22:30:37 by anavagya          #+#    #+#             */
+/*   Updated: 2025/11/22 22:41:17 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../includes/minishell.h"
 
-void	execute_one_command(t_cmd *curr, t_pipe *p, t_data *data)
+static void	prepare_all_commands(t_cmd *cmds)
 {
-	int	pipe_fd[2];
-	int	pid;
-
-	pipe_fd[0] = -1;
-	pipe_fd[1] = -1;
-	if (curr->next && pipe(pipe_fd) == -1)
-		perror("minishell: pipe");
-	// if (!curr->next && is_built_in(curr->tokens))
-	// {
-	// 	p->exit_code = run_built_in(args_count(curr->tokens), curr->tokens, data);
-	// 	return ;
-	// }
-	pid = fork();
-	if (pid == -1)
-		perror("minishell: fork");
-	else if (pid == 0)
+	while (cmds)
 	{
-		setup_signals(0);
-		child_process(curr, p, data, pipe_fd);
-		exit(1);
+		parse_redirs(cmds);
+		cmds = cmds->next;
 	}
-	else
-		parent_process(p, curr, pid, pipe_fd);
 }
 
-int	execute(t_cmd *cmds, t_data *data, t_pipe *p)
+static void handle_all_heredocs(t_cmd *cmds)
 {
-	int		exit_code;
-	t_cmd	*curr;
-
-	// curr = cmds;
-	// while (curr)
-	// {
-	// 	parse_redirections(curr);
-	// 	curr = curr->next;
-	// }
-	// handle_heredocs(cmds);
-	p->index = 0;
-	p->prev_fd = -1;
-	curr = cmds;
-	while (curr)
+	while (cmds)
 	{
-		parse_redirections(curr);
-		build_redir_list(curr);
-		handle_heredocs(curr);
-		execute_one_command(curr, p, data);
-		p->index++;
-		curr = curr->next;
+		process_all_heredocs(cmds);
+		cmds = cmds->next;
 	}
-	exit_code = wait_for_children(p);
-	return (exit_code);
+}
+
+void	execute(t_cmd *cmds, t_data *data, t_pipe *p)
+{
+	// int		exit_code;
+	// t_cmd	*curr;
+	// curr = cmds;
+	// p->pids = NULL;
+	if (p->cmds_count > 1024)
+	{
+		printf("minishell: syntax error near unexpected token `|'\n");
+		set_status(2);
+		return ;
+	}
+	prepare_all_commands(cmds);
+	handle_all_heredocs(cmds);
+	// p->pids = malloc(sizeof(int) * curr->num_tokens);
+	// if (!p->pids)
+		// return ;
+	if (only_builtin(cmds, data) != -1)
+	{
+		free(p->pids);
+		// return (get_status());
+		return ;
+	}
+	execute_pipeline(cmds, data, p);
+	// if (p->prev_fd != -1)
+	// 	close(p->prev_fd);
+	// wait_for_children(p);
+	// free(p->pids);
+	// return (get_status());
 }

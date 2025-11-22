@@ -6,17 +6,13 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 20:23:57 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/20 23:16:24 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/22 22:48:41 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../includes/minishell.h"
 
-//************ *//
-//*    NEW     *//
-//************ *//
-
-static void setup_child_pipes_and_redirs(t_cmd *cmd, int prev_fd, int pipe_fd[2])
+void	setup_child_pipes_and_redirs(t_cmd *cmd, int prev_fd, int pipe_fd[2])
 {
 	setup_signals(0);
 	if (prev_fd != -1)
@@ -36,10 +32,10 @@ static void setup_child_pipes_and_redirs(t_cmd *cmd, int prev_fd, int pipe_fd[2]
 	}
 	if (pipe_fd[0] != -1)
 		close(pipe_fd[0]);
-	setup_redirs_builtin(cmd);
+	setup_redirs(cmd);
 }
 
-static int child_process_new(t_cmd *cmd, t_pipe *p,  t_data *data, int pipe_fd[])
+int child_process(t_cmd *cmd, t_pipe *p,  t_data *data, int pipe_fd[])
 {
 	int pid;
 	
@@ -92,7 +88,7 @@ void	execute_pipeline(t_cmd *cmds, t_data * data, t_pipe *p)
 		}
 		else
 			pipe_fd[0] = pipe_fd[1] = -1;
-		p->pids[i] = child_process_new(curr, p, data, pipe_fd);
+		p->pids[i] = child_process(curr, p, data, pipe_fd);
 		if (pipe_fd[1] != -1)
 			close(pipe_fd[1]);
 		if (p->prev_fd != -1)

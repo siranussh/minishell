@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:16:42 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/20 23:08:54 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/22 22:11:26 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -31,13 +31,6 @@ int		ft_strlen_ms(const char *s);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_substr_ms(char const *s, int start, int len);
 // char	*ft_strcpy(char *dest, char *src);
-
-// free.c
-void	ft_free(char **str);
-void	free_redirs(t_redir *redir);
-void	free_env_list(t_env *head);
-void	free_flags(t_flags *flags);
-void	free_data(t_data *data);
 
 // builtins.c
 int		is_built_in(char **args);

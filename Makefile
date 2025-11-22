@@ -6,12 +6,12 @@ BUILT_SRC = builtin_utils.c list_utils.c \
 			export_utils.c export_sort.c export_append.c export.c \
 			builtins.c
 
-EXEC_SRC = find_cmd_path.c heredoc.c execute_single_cmd.c join_cmd_tokens.c \
-			child_parent_prcs.c setup_input_output.c \
+EXEC_SRC = find_cmd_path.c execute_single_cmd.c join_cmd_tokens.c \
 			redir_utils.c \
-			pipeline_utils.c execute.c \
+			pipeline_utils.c \
 			cmd_list_utils.c init_struct.c \
-			execute_built_in.c get_status.c redir_utils_new.c execute_pipeline.c execute_new.c
+			heredoc.c \
+			execute_built_in.c parse_redirs.c execute_pipeline.c execute.c
 
 SRC_TOKEN = create_token.c \
              handle_quotes.c \
@@ -36,6 +36,7 @@ SRC_OTHER = minishell.c \
              utils.c \
              free.c \
              signals.c \
+			 get_status.c \
 			 arr_list_handler.c \
 			 arr_list_handler2.c \
 			 free_env_exp.c \
