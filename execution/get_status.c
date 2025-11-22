@@ -6,17 +6,13 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 21:20:29 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/18 22:19:26 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/22 22:01:33 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../includes/minishell.h"
 
 extern int	g_exit_code;
-
-/************ */
-/*    NEW     */
-/************ */
 
 void	set_status(int status)
 {
