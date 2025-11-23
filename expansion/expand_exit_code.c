@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:40:51 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/20 20:08:50 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/23 14:46:32 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*replace_exit_code(char *str, int i)
 		return (NULL);
 	before = ft_substr(str, 0, i);
 	after = ft_strdup(str + i + 2);
-	if (!before || !after)
+	if (!before || !after || !err_str)
 		return (free(before), free(after), free(err_str), NULL);
 	tmp = ft_strjoin(before, err_str);
 	free(before);
@@ -41,20 +41,31 @@ char	*replace_exit_code(char *str, int i)
 
 char	*replace_all_exit_code(char *str)
 {
-	int	i;
-	int	j;
-
-	i = find_closing_quote(0, str, '?') - 1;
+	int i;
+	
+	i = 0;
+    if (!str)
+        return NULL;
 	while (str[i])
 	{
-		if (str[i] == '$' && str[i + 1] && str[i + 1] == '?')
+		if (str[i] == '\'')
+		{
+			i++;
+			while (str[i] && str[i] != '\'')
+				i++;
+		}
+		else if (str[i] == '$' && str[i + 1] == '?')
+		{
 			str = replace_exit_code(str, i);
-		j = i;
-		i = find_closing_quote(0, str, '$');
-		if (j == i)
-			break ;
+			i = 0;
+			if (!str)
+				return NULL;
+		}
+		else
+			i++;
 	}
-	return (str);
+	
+    return (str);
 }
 
 int is_var_char(char c)

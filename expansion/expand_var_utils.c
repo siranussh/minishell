@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:24 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/23 14:11:05 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/23 15:13:47 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char *replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env)
             i++;
             continue;
         }
-        else if (str[i] == '\"' && !in_single)
+        if (str[i] == '\"' && !in_single)
         {
             in_double = !in_double;
             i++;
@@ -110,6 +110,16 @@ char *replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env)
         }
         if (str[i] == '$' && !in_single)
         {
+            if (str[i + 1] && str[i + 1] == '?')
+            {
+                char *val = ft_itoa(g_exit_code);
+                char *new_str = build_new_line(str, val, i, 2); // $?
+                free(val);
+                free(str);
+                str = new_str;
+                i += ft_strlen(new_str) - i;
+                continue;
+            }
             int dollar_count = 0;
             while (str[i + dollar_count] == '$')
                 dollar_count++;
@@ -129,10 +139,13 @@ char *replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env)
             i += ft_strlen(val);
             continue;
         }
+
         i++;
     }
+
     return str;
 }
+
 
 
 
