@@ -65,10 +65,3 @@ int	check_spaces(char *str)
 	return (0);
 }
 
-
-char *exp_strjoin_free(char *old, char *add)
-{
-    char *new = exp_strjoin(old, add, 0, 0);
-    free(old);
-    return new;
-}

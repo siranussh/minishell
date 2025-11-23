@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:24 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/20 19:56:00 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/23 14:11:05 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,46 +85,55 @@ char	*replace_val(t_cmd *cmd, char *line, char **rest_line, t_env_exp *env)
 	return (cmp_value_name(line, name, env));
 }
 
-char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env)
+char *replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env)
 {
-	char	*temp;
-	int		pos;
+    int i = 0;
+    int in_single = 0;
+    int in_double = 0;
 
-	if (!str)
-		return (NULL);
-	if (!env || !env->env)
-		return (ft_strdup(""));
+    (void)cmd;
+    (void)rest_line;
 
-	if (is_invalid_dollar(str) == 0)
-		str = delete_invalid_dollar(str, -1, -1);
-	if (!str || check_dollar_purpose(str) == 0)
-		return (str);
-
-	pos = find_next_char(str, '$', -1);
-	if (pos >= 0 && count_dollars(str, pos) > 1)
-		return expand_dollars_simple(str, pos, env);
-
-	cmd->flags->has_special = 0;
-	str = replace_val(cmd, str, &rest_line, env);
-	if (!str)
-		return (NULL);
-
-	if (cmd->flags->has_special == 1)
-	{
-		temp = exp_strjoin(str, rest_line, 0, 0);
-		free(str);
-		str = temp;
-		free(rest_line);
-		rest_line = NULL;
-		cmd->flags->has_special = 0;
-	}
-
-	if (check_dollar_purpose(str) == 1)
-		str = replace_all_val(cmd, str, NULL, env);
-
-	if (rest_line)
-		free(rest_line);
-
-	return (str);
+    while (str[i])
+    {
+        if (str[i] == '\'' && !in_double)
+        {
+            in_single = !in_single;
+            i++;
+            continue;
+        }
+        else if (str[i] == '\"' && !in_single)
+        {
+            in_double = !in_double;
+            i++;
+            continue;
+        }
+        if (str[i] == '$' && !in_single)
+        {
+            int dollar_count = 0;
+            while (str[i + dollar_count] == '$')
+                dollar_count++;
+            int var_len = get_var_len(str, i + dollar_count);
+            if (var_len == 0)
+            {
+                i += dollar_count;
+                continue;
+            }
+            char *var = ft_substr(str, i + dollar_count, var_len);
+            char *val = get_env_var(env, var, 0, &var_len);
+            free(var);
+            char *new_str = build_new_line(str, val, i, dollar_count + var_len);
+            free(val);
+            free(str);
+            str = new_str;
+            i += ft_strlen(val);
+            continue;
+        }
+        i++;
+    }
+    return str;
 }
+
+
+
 
