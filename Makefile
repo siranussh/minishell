@@ -11,7 +11,8 @@ EXEC_SRC = find_cmd_path.c execute_single_cmd.c join_cmd_tokens.c \
 			pipeline_utils.c \
 			cmd_list_utils.c init_struct.c \
 			heredoc.c \
-			execute_built_in.c parse_redirs.c execute_pipeline.c execute.c
+			parse_redirs.c setup_redirs.c \
+			execute_built_in.c execute_pipeline.c execute.c
 
 SRC_TOKEN = create_token.c \
              handle_quotes.c \

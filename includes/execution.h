@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 12:04:35 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/22 22:57:10 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/24 22:22:03 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -44,6 +44,8 @@ int		only_builtin(t_cmd *cmd, t_data *data);
 
 // parse_redirs.c
 void	parse_redirs(t_cmd *cmd);
+
+// setup_redirs.c
 void	setup_redirs(t_cmd *cmd);
 
 // pipeline_utils.c
