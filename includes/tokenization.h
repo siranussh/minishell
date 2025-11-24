@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/24 12:28:18 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/24 16:57:24 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ char	*make_prefix(int prefix_len);
 char	*build_insert(char *line, int pos, int dollar_count, int var_len, t_env_exp *env);
 char	*build_new_line(char *line, char *insert, int pos, int remove_len);
 char	*expand_var_with_prefix(char *line, int pos, int dollar_count, int var_len, t_env_exp *env);
+char **split_var_value(char *str);
+char **expand_var_for_execution(char *expanded_value);
 
 char	redir_smb(int c);
 int		is_redir(char **token);
