@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/21 20:35:34 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/24 10:39:23 by sihakoby         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -112,6 +112,7 @@ t_cmd	*build_cmd(t_data *data, char *line)
 		temp->tokens = NULL;
 	if (temp->cmd != NULL)///////////ani
 		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);//ani
+	normalize_redirections(temp);
 	return (temp);
 }
 

@@ -1,0 +1,86 @@
+#include "../includes/minishell.h"
+
+void	redir_tokens(t_cmd *cmd)
+{
+	int	i;
+	int	type;
+
+	i = 0;
+	if (!cmd || !cmd->tokens)
+		return ;
+	while (cmd->tokens[i])
+	{
+		type = redir_type(cmd->tokens[i]);
+		if (type)
+		{
+			if (cmd->tokens[i + 1])
+				cmd->tokens = remove_token(cmd->tokens, i + 1);
+			cmd->tokens = remove_token(cmd->tokens, i);
+			continue ;
+		}
+		i++;
+	}
+}
+
+static void	add_substr(char **res, char *tok, int start, int len, int *idx)
+{
+	res[*idx] = ft_substr(tok, start, len);
+	(*idx)++;
+}
+
+
+static void	handle_redir(char **res, char *tok, int *i, int *idx)
+{
+	if (tok[*i + 1] && tok[*i + 1] == tok[*i])
+	{
+		add_substr(res, tok, *i, 2, idx);
+		*i += 2;
+	}
+	else
+	{
+		add_substr(res, tok, *i, 1, idx);
+		(*i)++;
+	}
+}
+
+static void	process_redir_segment(char **res, char *tok, int *i, int *idx)
+{
+	int	start;
+
+	start = *i;
+	while (tok[*i] && tok[*i] != '<' && tok[*i] != '>')
+		(*i)++;
+	if (*i > start)
+		add_substr(res, tok, start, *i - start, idx);
+	if (tok[*i] == '<' || tok[*i] == '>')
+		handle_redir(res, tok, i, idx);
+}
+
+
+char	**split_redirs_token(char *tok, int *count)
+{
+	char	**res;
+	int		cap;
+	int		idx;
+	int		i;
+
+	cap = 4;
+	idx = 0;
+	i = 0;
+	res = malloc(sizeof(char *) * cap);
+	if (!res)
+		return (NULL);
+	while (tok[i])
+	{
+		if (idx + 3 >= cap)
+		{
+			cap *= 2;
+			res = realloc(res, sizeof(char *) * cap);
+		}
+		process_redir_segment(res, tok, &i, &idx);
+	}
+	res[idx] = NULL;
+	*count = idx;
+	return (res);
+}
+

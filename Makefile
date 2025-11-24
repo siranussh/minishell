@@ -19,6 +19,8 @@ SRC_TOKEN = create_token.c \
              token_pipe_utils.c \
              token_redir_utils.c \
              token_redir.c \
+			 token_redir2.c \
+			  token_redir3.c \
              token_utils.c \
 
 SRC_EXPAND = expand_utils.c \

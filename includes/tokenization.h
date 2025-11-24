@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/22 23:48:01 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/24 12:28:18 by sihakoby         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef TOKENIZATION_H
 # define TOKENIZATION_H
@@ -110,18 +110,7 @@ char	**split_pipes(char *str);
 t_cmd	*last_cmd(t_cmd **cmd);
 t_cmd	*build_cmd(t_data *data, char *line);
 int		tokenize(t_data *data, t_cmd **cmd, char *read_line);
-char	redir_smb(int c);
-int		is_redir(char **token);
-int		redir_type(char *str);
-int		is_other_op(char c);
-int		find_next_redir(char *str);
-int		check_redir(char **arg, int i);
-char	**remove_token(char **tokens, int index);
-char	**add_token(char **tokens, char *new, int j);
-char	**split_redirection_start(char **tokens, int j, char c);
-char	**split_redirection_tokens(char **tokens, int j, char c,
-			int k);
-void	redir_tokens(t_cmd *cmd);
+
 int		find_next_char(char *str, char c, int j);
 int		skip_quote_and_find(char *s, int *i, char c, int j);
 int		is_special(char c);
@@ -168,4 +157,19 @@ char	*build_insert(char *line, int pos, int dollar_count, int var_len, t_env_exp
 char	*build_new_line(char *line, char *insert, int pos, int remove_len);
 char	*expand_var_with_prefix(char *line, int pos, int dollar_count, int var_len, t_env_exp *env);
 
+char	redir_smb(int c);
+int		is_redir(char **token);
+int		redir_type(char *str);
+int		is_other_op(char c);
+int		find_next_redir(char *str);
+int		check_redir(char **arg, int i);
+char	**remove_token(char **tokens, int index);
+char	**add_token(char **tokens, char *new, int j);
+char	**split_redirection_start(char **tokens, int j, char c);
+void	redir_tokens(t_cmd *cmd);
+char	**split_redirection_tokens(char **tokens, int j, char c, int k);
+char	**split_redirection_parts(char **tokens, int j, int i, int k);
+void	replace_token_with_array(char ***tokens, int pos, char **arr, int arr_count);
+void	normalize_redirections(t_cmd *cmd);
+char	**split_redirs_token(char *tok, int *count);
 #endif

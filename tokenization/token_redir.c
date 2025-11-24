@@ -69,6 +69,7 @@ char	**split_redirection_start(char **tokens, int j, char c)
 	return (split_redirection_tokens(tokens, j, c, 2));
 }
 
+
 char	**split_redirection_tokens(char **tokens, int j, char c, int k)
 {
 	int	i;
@@ -82,35 +83,33 @@ char	**split_redirection_tokens(char **tokens, int j, char c, int k)
 		return (tokens);
 	if (i == 0)
 		return (split_redirection_start(tokens, j, c));
-	tokens = add_token(tokens, ft_substr(tokens[j], 0, i), j + k++);
-	tokens = add_token(tokens, ft_substr(tokens[j], i,
-				find_next_redir(tokens[j]) - i), j + k++);
-	i = find_next_redir(tokens[j]);
-	if (tokens[j][i])
-		tokens = add_token(tokens, ft_substr(tokens[j],
-					i, ft_strlen(tokens[j]) - i), j + k++);
+	return (split_redirection_parts(tokens, j, i, k));
+}
+
+char	**split_redirection_parts(char **tokens, int j, int i, int k)
+{
+	int		next;
+	char	*part1;
+	char	*part2;
+	char	*part3;
+
+	part1 = ft_substr(tokens[j], 0, i);
+	tokens = add_token(tokens, part1, j + k);
+	k++;
+	next = find_next_redir(tokens[j]);
+	part2 = ft_substr(tokens[j], i, next - i);
+	tokens = add_token(tokens, part2, j + k);
+	k++;
+	if (tokens[j][next])
+	{
+		part3 = ft_substr(tokens[j], next, ft_strlen(tokens[j]) - next);
+		tokens = add_token(tokens, part3, j + k);
+	}
 	tokens = remove_token(tokens, j);
 	return (tokens);
 }
 
-void	redir_tokens(t_cmd *cmd)
-{
-	int	i;
-	int	type;
 
-	i = 0;
-	if (!cmd || !cmd->tokens)
-		return ;
-	while (cmd->tokens[i])
-	{
-		type = redir_type(cmd->tokens[i]);
-		if (type)
-		{
-			if (cmd->tokens[i + 1])
-				cmd->tokens = remove_token(cmd->tokens, i + 1);
-			cmd->tokens = remove_token(cmd->tokens, i);
-			continue ;
-		}
-		i++;
-	}
-}
+
+
+
