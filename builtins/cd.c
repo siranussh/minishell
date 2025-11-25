@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:22:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/22 23:18:06 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/25 23:09:56 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,7 +19,7 @@ int	cd_helper(char *path, char *old_pwd, t_env *env)
 
 	if (chdir(path) == -1)
 	{
-		perror("minishell");
+		print_error("minishell: cd", path, "No such file or directory");
 		return (free(old_pwd), 0);
 	}
 	if (!get_env_values(env, "OLDPWD"))

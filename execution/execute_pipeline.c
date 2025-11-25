@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 20:23:57 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/22 22:48:41 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/25 23:50:34 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -35,23 +35,49 @@ void	setup_child_pipes_and_redirs(t_cmd *cmd, int prev_fd, int pipe_fd[2])
 	setup_redirs(cmd);
 }
 
+static void	close_pipe_fds(int pipe_fd[2])
+{
+	if (pipe_fd[0] != -1)
+	{
+		close(pipe_fd[0]);
+		pipe_fd[0] = -1;
+	}
+	if (pipe_fd[1] != -1)
+	{
+		close(pipe_fd[1]);
+		pipe_fd[1] = -1;
+	}
+}
+
+int	is_directory(char *path)
+{
+	DIR	*dir;
+	
+	dir = opendir(path);
+	if (dir)
+	{
+		closedir(dir);
+		return (1);
+	}
+	return (0);
+}
+
 int child_process(t_cmd *cmd, t_pipe *p,  t_data *data, int pipe_fd[])
 {
 	int pid;
 	
 	pid = fork();
 	if (pid == -1)
-	{
-		perror("fork");
-		return (-1);
-	}
+		return (perror("fork"), -1);
 	if (pid == 0)
 	{
 		setup_child_pipes_and_redirs(cmd, p->prev_fd, pipe_fd);
-		if (pipe_fd[0] != -1)
-			close(pipe_fd[0]);
-		if (pipe_fd[1] != -1)
-			close(pipe_fd[1]);
+		close_pipe_fds(pipe_fd);
+		if (is_directory(cmd->tokens[0]))
+		{
+			print_error("minishell", cmd->tokens[0], "Is a directory");
+			exit(126);
+		}
 		if (is_built_in(cmd->tokens))
 		{
 			p->exit_code = run_built_in(args_count(cmd->tokens),
@@ -59,7 +85,6 @@ int child_process(t_cmd *cmd, t_pipe *p,  t_data *data, int pipe_fd[])
 			exit(p->exit_code);
 		}
 		execute_single_command(cmd->tokens, data);
-		perror("minishell: execve");
 		exit(127);
 	}
 	return (pid);
@@ -73,27 +98,13 @@ void	execute_pipeline(t_cmd *cmds, t_data * data, t_pipe *p)
 	
 	pipe_fd[0] = -1;
 	pipe_fd[1] = -1;
-	p->prev_fd = -1;
 	curr = cmds;
 	i = 0;
 	while (curr)
 	{
-		if (curr->next)
-		{
-			if (pipe(pipe_fd) == -1)
-			{
-				perror("pipe");
-				break ;
-			}
-		}
-		else
-			pipe_fd[0] = pipe_fd[1] = -1;
+		setup_pipe(curr, pipe_fd);
 		p->pids[i] = child_process(curr, p, data, pipe_fd);
-		if (pipe_fd[1] != -1)
-			close(pipe_fd[1]);
-		if (p->prev_fd != -1)
-			close(p->prev_fd);
-		p->prev_fd = pipe_fd[0];		
+		close_fds(p, pipe_fd);
 		curr = curr->next;
 		i++;
 	}

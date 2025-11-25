@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 13:49:17 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/22 22:27:51 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/25 22:02:30 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -27,36 +27,36 @@ void	add_redir_back(t_redir **list, t_redir *new)
 	tmp->next = new;
 }
 
-// void	build_redir_list(t_cmd *cmd)
-// {
-// 	if (cmd->infile)
-// 		add_redir_back(&cmd->redirs, init_redir(1, cmd->infile));
-// 	if (cmd->heredoc && cmd->delimiter)
-// 		add_redir_back(&cmd->redirs, init_redir(2, cmd->delimiter));
-// 	if (cmd->outfile)
-// 	{
-// 		if (cmd->append == 2)
-// 			add_redir_back(&cmd->redirs, init_redir(4, cmd->outfile));
-// 		else
-// 			add_redir_back(&cmd->redirs, init_redir(3, cmd->outfile));
-// 	}
-// }
+static void	cpy_new_tokens(char **tokens, char **new_tokens,
+		int start, int count)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (tokens[i])
+	{
+		if (i >= start && i < start + count)
+		{
+			free(tokens[i]);
+			i++;
+			continue ;
+		}
+		new_tokens[j++] = tokens[i++];
+	}
+	new_tokens[j] = NULL;
+}
 
 char	**remove_tokens_from_array(char **tokens, int start, int count)
 {
-	int		i;
-	int		j;
 	int		old_len;
 	int		new_len;
 	char	**new_tokens;
 
-	i = 0;
-	j = 0;
-	old_len = 0;
 	if (!tokens)
 		return (NULL);
-	while (tokens[old_len])
-		old_len++;
+	old_len = args_count(tokens);
 	new_len = old_len - count;
 	if (new_len <= 0)
 	{
@@ -67,19 +67,7 @@ char	**remove_tokens_from_array(char **tokens, int start, int count)
 	new_tokens = malloc(sizeof(char *) * (new_len + 1));
 	if (!new_tokens)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (i < old_len)
-	{
-		if (i >= start && i < start + count)
-		{
-			free(tokens[i]);
-			i++;
-			continue;
-		}
-		new_tokens[j++] = tokens[i++];
-	}
-	new_tokens[j] = NULL;
+	cpy_new_tokens(tokens, new_tokens, start, count);
 	free(tokens);
 	return (new_tokens);
 }

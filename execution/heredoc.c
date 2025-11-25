@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 22:33:53 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/22 22:50:51 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/25 21:24:08 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -31,17 +31,37 @@ static void	read_heredoc_child(int write_end, char *delimiter)
 	}
 }
 
+static void	handle_heredoc_child(int fd[2], char *delimiter)
+{
+	setup_signals(0);
+	close(fd[0]);
+	read_heredoc_child(fd[1], delimiter);
+	close(fd[1]);
+	exit(0);
+}
+
+static int	handle_heredoc_parent(t_cmd *cmd, int fd[2], int pid)
+{
+	int	status;
+
+	close(fd[1]);
+	waitpid(pid, &status, 0);
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+	{
+		close(fd[0]);
+		cmd->fd_in = -1;
+		return (0);
+	}
+	return (1);
+}
+
 static void	read_heredoc(t_cmd *cmd, char *delimiter)
 {
 	int	fd[2];
 	int	pid;
-	int	status;
 
 	if (pipe(fd) == -1)
-	{
-		perror("minishell: pipe");
-		return ;
-	}
+		return (perror("minishell: pipe"));
 	pid = fork();
 	if (pid == -1)
 	{
@@ -51,21 +71,9 @@ static void	read_heredoc(t_cmd *cmd, char *delimiter)
 		return ;
 	}
 	if (pid == 0)
-	{
-		setup_signals(0);
-		close(fd[0]);
-		read_heredoc_child(fd[1], delimiter);
-		close(fd[1]);
-		exit(0);
-	}
-	close(fd[1]);
-	waitpid(pid, &status, 0);
-	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-	{
-		close(fd[0]);
-		cmd->fd_in = -1;
+		handle_heredoc_child(fd, delimiter);
+	if (!handle_heredoc_parent(cmd, fd, pid))
 		return ;
-	}
 	if (cmd->fd_in != -1)
 		close(cmd->fd_in);
 	cmd->fd_in = fd[0];

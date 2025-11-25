@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:44:39 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/20 22:32:09 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/25 22:57:18 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -63,11 +63,11 @@ int	execute_single_command(char **args, t_data *data)
 	path = find_cmd_path(args[0], data->env);
 	if (!path)
 	{
-		perror(args[0]);
+		print_error("minishell", args[0], "command not found");
 		return (127);
 	}
 	env_arr = env_to_array(data->env);
 	execve(path, args, env_arr);
-	perror("execve");
-	exit(1);
+	print_error("minishell", args[0], "command not found");
+	exit(127);
 }

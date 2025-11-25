@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 12:04:35 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/24 22:22:03 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/25 23:44:43 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -51,7 +51,8 @@ void	setup_redirs(t_cmd *cmd);
 // pipeline_utils.c
 void	dup2_and_close(int fd1, int fd2);
 int		wait_for_children(t_pipe *p);
-char	**cpy_str_arr(char **str);
+void	close_fds(t_pipe *p, int pipe_fd[2]);
+void	setup_pipe(t_cmd *curr, int pipe_fd[2]);
 
 // find_cmd_path.c
 char	*find_cmd_path(char *cmd, t_env *env);
@@ -64,6 +65,7 @@ int		execute_single_command(char **args, t_data *data);
 // execute_pipeline.c
 void	setup_child_pipes_and_redirs(t_cmd *cmd, int prev_fd, int pipe_fd[2]);
 int		child_process(t_cmd *cmd, t_pipe *p,  t_data *data, int pipe_fd[]);
+int		is_directory(char *path);
 void	execute_pipeline(t_cmd *cmds, t_data * data, t_pipe *p);
 
 // execute.c

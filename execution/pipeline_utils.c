@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:22:05 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/20 22:17:39 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/25 20:54:02 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -36,34 +36,32 @@ int	wait_for_children(t_pipe *p)
 			exit_code = WEXITSTATUS(status);
 		i++;
 	}
-	// free(p->pids);// double free
 	return (exit_code);
 }
 
-char	**cpy_str_arr(char **str)
+void	close_fds(t_pipe *p, int pipe_fd[2])
 {
-	int		i;
-	int		size;
-	char	**str_cpy;
+	if (pipe_fd[1] != -1)
+		close(pipe_fd[1]);
+	if (p->prev_fd != -1)
+		close(p->prev_fd);
+	p->prev_fd = pipe_fd[0];
+}
 
-	if (!str || !*str)
-		return (NULL);
-	i = 0;
-	size = args_count(str);
-	str_cpy = (char **)malloc(sizeof(char *) * (size + 1));
-	if (!str_cpy)
-		return (NULL);
-	while (str[i])
+void	setup_pipe(t_cmd *curr, int pipe_fd[2])
+{
+	if (curr->next)
 	{
-		str_cpy[i] = ft_strdup(str[i]);
-		if (!str_cpy[i])
+		if (pipe(pipe_fd) == -1)
 		{
-			while (i-- < 0)
-				free(str_cpy[i]);
-			return (free(str_cpy), NULL);
+			perror("pipe");
+			pipe_fd[0] = -1;
+			pipe_fd[1] = -1;
 		}
-		i++;
 	}
-	str_cpy[i] = NULL;
-	return (str_cpy);
+	else
+	{
+		pipe_fd[0] = -1;
+		pipe_fd[1] = -1;
+	}
 }

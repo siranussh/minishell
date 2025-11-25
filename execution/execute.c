@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 22:30:37 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/22 22:41:17 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/25 20:44:33 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -33,20 +33,14 @@ static void handle_all_heredocs(t_cmd *cmds)
 void	execute(t_cmd *cmds, t_data *data, t_pipe *p)
 {
 	// int		exit_code;
-	// t_cmd	*curr;
-	// curr = cmds;
-	// p->pids = NULL;
 	if (p->cmds_count > 1024)
 	{
-		printf("minishell: syntax error near unexpected token `|'\n");
+		print_error("minishell", NULL, "syntax error near unexpected token `|'");
 		set_status(2);
 		return ;
 	}
 	prepare_all_commands(cmds);
 	handle_all_heredocs(cmds);
-	// p->pids = malloc(sizeof(int) * curr->num_tokens);
-	// if (!p->pids)
-		// return ;
 	if (only_builtin(cmds, data) != -1)
 	{
 		free(p->pids);
