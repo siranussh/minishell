@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:41 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/14 21:53:55 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/26 20:54:18 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -60,8 +60,8 @@ char	*return_value_export(char *arg)
 	index = return_key_size(arg);
 	if (index < 0)
 		return (NULL);
-	if (arg[index + 1] == '+')
-		return (ft_substr_ms(arg, index + 2, ft_strlen_ms(arg) - index - 1));
+	// if (arg[index + 1] == '+')
+	// 	return (ft_substr_ms(arg, index + 2, ft_strlen_ms(arg) - index - 1));
 	return (ft_substr_ms(arg, index + 1, ft_strlen_ms(arg) - index - 1));
 }
 
