@@ -3,34 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:47 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/01 12:38:38 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/26 16:06:07 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	count_tokens(char *str)
+int count_tokens(char *str)
 {
-	int	i;
-	int	result;
+    int i = 0;
+    int count = 0;
 
-	i = -1;
-	result = 0;
-	while (str[++i])
-	{
-		if ((str[i] != 32 && str[i] != 34 && str[i] != 39) && (str[i + 1] == 32
-				|| str[i + 1] == '\0' || str[i + 1] == 34 || str[i + 1] == 39))
-			result++;
-		if (str[i] == 34 || str[i] == 39)
-		{
-			result++;
-			i = find_closing_quote(i + 1, str, str[i]);
-		}
-	}
-	return (result);
+    while (str[i])
+    {
+        while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+            i++;
+        if (!str[i])
+            break;
+        count++;
+        while (str[i] && str[i] != ' ' && !(str[i] >= 9 && str[i] <= 13))
+        {
+            if (str[i] == '"' || str[i] == '\'')
+                i = find_closing_quote(i + 1, str, str[i]) + 1;
+            else
+                i++;
+        }
+    }
+    return count;
 }
 
 int	check_redir(char **tk, int i)

@@ -33,7 +33,6 @@ static void	read_heredoc_child(int write_end, char *delimiter)
 
 static void	handle_heredoc_child(int fd[2], char *delimiter)
 {
-	setup_signals(0);
 	close(fd[0]);
 	read_heredoc_child(fd[1], delimiter);
 	close(fd[1]);
@@ -59,6 +58,7 @@ static void	read_heredoc(t_cmd *cmd, char *delimiter)
 {
 	int	fd[2];
 	int	pid;
+	int	status;
 
 	if (pipe(fd) == -1)
 		return (perror("minishell: pipe"));
@@ -71,7 +71,10 @@ static void	read_heredoc(t_cmd *cmd, char *delimiter)
 		return ;
 	}
 	if (pid == 0)
+	{
+		setup_signals();
 		handle_heredoc_child(fd, delimiter);
+	}
 	if (!handle_heredoc_parent(cmd, fd, pid))
 		return ;
 	if (cmd->fd_in != -1)

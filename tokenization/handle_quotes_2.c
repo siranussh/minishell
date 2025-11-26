@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quotes_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:27:50 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/23 01:05:58 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/26 11:46:12 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,58 +46,80 @@ static char	*remove_empty_quotes_arg(char *str, int i)
 	return (new_str);
 }
 
-char	*skip_empty_quotes(char *s, t_cmd *cmd)
+char *skip_empty_quotes(char *s, t_cmd *cmd)
 {
-	int	i;
+    int i;
 
-	i = -1;
-	while (s[++i])
-	{
-		if ((s[i] == 34 && s[i + 1] && s[i + 1] != 34)
-			|| (s[i] == 39 && s[i + 1] && s[i + 1] != 39))
-				i = find_closing_quote(i + 1, s, s[i]);
-		if (s[i] == 32 && (s[i + 1] == 34 || s[i + 1] == 39) && (s[i + 2] == 34
-				|| s[i + 2] == 39) && (s[i + 3] == 32 || !s[i + 3]))
-		{
-			i++;
-			s = remove_empty_quotes_arg(s, i);
-			s = skip_empty_quotes(s, cmd);
-		}
-		else if ((s[i] == 34 && s[i + 1]
-				&& s[i + 1] == 34) || (s[i] == 39 && s[i + 1] == 39))
-		{
-			s = remove_empty_quotes(s, i);
-			cmd->num_tokens--;
-			return (skip_empty_quotes(s, cmd));
-		}
-	}
-	return (s);
+    if (!s)
+        return (s);
+
+    i = 0;
+    while (s[i])
+    {
+        if (s[i] == '"' || s[i] == '\'')
+        {
+            if (s[i + 1] && s[i + 1] != s[i])
+            {
+                int new_i = find_closing_quote(i + 1, s, s[i]);
+                if (new_i == -1)
+                    break;
+                i = new_i;
+                i++;
+                continue;
+            }
+        }
+        if (s[i] == ' ')
+        {
+            if (s[i + 1] && (s[i + 1] == '"' || s[i + 1] == '\''))
+            {
+                if (s[i + 2] && s[i + 2] == s[i + 1])
+                {
+                    if (s[i + 3] == ' ' || s[i + 3] == '\0')
+                    {
+                        s = remove_empty_quotes_arg(s, i + 1);
+                        if (!s)
+                            return (NULL);
+                        i = 0;
+                        continue;
+                    }
+                }
+            }
+        }
+        if ((s[i] == '"' || s[i] == '\'') && s[i + 1] && s[i + 1] == s[i])
+        {
+            s = remove_empty_quotes(s, i);
+            if (!s)
+                return (NULL);
+            if (cmd && cmd->num_tokens > 0)
+                cmd->num_tokens--;
+            i = 0;
+            continue;
+        }
+        i++;
+    }
+
+    return (s);
 }
 
-char	*delete_quotes(char *str, char c)
-{
-	int		i;
-	int		len;
-	char	*temp;
 
-	i = -1;
-	len = 0;
-	while (str[++i])
-	{
-		if (str[i] != c)
-		len++;
-	}
-	temp = malloc(sizeof(char) * len + 1);
-	if (!temp)
-		exit_error("minishell: malloc failed", 1);
-	while (--i >= 0)
-	{
-		if (str[i] != c)
-		{
-			temp[len] = str[i];
-			len--;
-		}
-	}
-	free(str);
-	return (temp);
+char *delete_quotes(char *str, char c)
+{
+    int len = 0, i = 0, j = 0;
+    while (str[i])
+        if (str[i++] != c)
+            len++;
+    char *temp = malloc(len + 1);
+    if (!temp)
+        exit_error("malloc failed", 1);
+
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] != c)
+            temp[j++] = str[i];
+        i++;
+    }
+    temp[j] = '\0';
+    free(str);
+    return temp;
 }

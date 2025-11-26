@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/24 16:57:24 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/26 16:53:13 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define REDIR_OUT 3
 # define REDIR_APPEND 4
 
-void	setup_signals(int parent_mode);
+void	setup_signals(void);
 
 typedef struct s_env t_env;
 
@@ -59,6 +59,7 @@ typedef struct s_cmd
 	int				fd_out;
 	// int				pid;
 	struct s_cmd	*next;
+
 	t_redir			*redirs;
 	t_flags			*flags;
 	t_env_exp		*env;
@@ -112,7 +113,7 @@ t_cmd	*build_cmd(t_data *data, char *line);
 int		tokenize(t_data *data, t_cmd **cmd, char *read_line);
 
 int		find_next_char(char *str, char c, int j);
-int		skip_quote_and_find(char *s, int *i, char c, int j);
+int 	skip_quote_and_find(char *s, int *i, char quote);
 int		is_special(char c);
 char	*extract_value_name(char *line);
 char	*extract_after_special(char *line, int i, t_cmd *cmd);
@@ -174,4 +175,8 @@ char	**split_redirection_parts(char **tokens, int j, int i, int k);
 void	replace_token_with_array(char ***tokens, int pos, char **arr, int arr_count);
 void	normalize_redirections(t_cmd *cmd);
 char	**split_redirs_token(char *tok, int *count);
+
+void	setup_signals_parent_exec(void);
+void	sigint_handler(int signo);
+
 #endif

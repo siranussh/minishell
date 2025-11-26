@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:52 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/24 17:31:39 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/26 14:11:52 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*expand_line(char *line, char *var)
 		return (ft_strdup(line));
 	j = 0;
 	while (line[i + j] && line[i + j] != ' ' && line[i + j] != 34 && line[i
-			+ j] != 39)
+		+ j] != 39)
 		j++;
 	new_line = malloc(ft_strlen(line) - j + ft_strlen(var) + 1);
 	if (!new_line)
@@ -84,7 +84,7 @@ char	*delete_invalid_dollar(char *str, int i, int j)
 	while (str[++i])
 	{
 		if (str[i] && str[i] == '$' && str[i + 1] && is_digit_or_special(str[i
-					+ 1]) == 1)
+				+ 1]) == 1)
 		{
 			j = -1;
 			new_str = malloc(sizeof(char) * ft_strlen(str) - 1);
@@ -108,7 +108,7 @@ char	*delete_invalid_dollar(char *str, int i, int j)
 
 // void expand(t_cmd **cmd, t_data *data)
 // {
-//     int i = -1;
+//     int i = -1;https://github.com/RubBarkhudaryan/42-Minishell.git
 //     if ((*cmd)->cmd && check_dollar_purpose((*cmd)->cmd) == 1)
 //     {
 //         char *tmp = simple_expand((*cmd)->cmd, data->env_exp);
@@ -118,10 +118,11 @@ char	*delete_invalid_dollar(char *str, int i, int j)
 //     if (is_tilde_path((*cmd)->cmd) == 1)
 //         (*cmd)->cmd = replace_tilde((*cmd)->cmd);
 //     if (!(*cmd)->tokens)
-//         return;
+//         return ;
 //     while ((*cmd)->tokens[++i])
 //     {
-//         if ((*cmd)->tokens[i] && check_dollar_purpose((*cmd)->tokens[i]) == 1)
+//         if ((*cmd)->tokens[i]
+	// && check_dollar_purpose((*cmd)->tokens[i]) == 1)
 //         {
 //             char *tmp = simple_expand((*cmd)->tokens[i], data->env_exp);
 //             free((*cmd)->tokens[i]);
@@ -132,25 +133,23 @@ char	*delete_invalid_dollar(char *str, int i, int j)
 //     }
 // }
 
-void expand(t_cmd **cmd, t_data *data)
+void	expand(t_cmd **cmd, t_data *data)
 {
-    int i = -1;
+	int	i;
 
-    if (check_dollar_purpose((*cmd)->cmd) == 1)
-        (*cmd)->cmd = replace_all_val(*cmd, (*cmd)->cmd, NULL, data->env_exp);
-    if (is_tilde_path((*cmd)->cmd) == 1)
-        (*cmd)->cmd = replace_tilde((*cmd)->cmd);
-
-    if (!(*cmd)->tokens)
-        return;
-
-    while ((*cmd)->tokens[++i])
-    {
-        if (check_dollar_purpose((*cmd)->tokens[i]) == 1)
-            (*cmd)->tokens[i] = replace_all_val(*cmd, (*cmd)->tokens[i], NULL, data->env_exp);
-        if (is_tilde_path((*cmd)->tokens[i]) == 1)
-            (*cmd)->tokens[i] = replace_tilde((*cmd)->tokens[i]);
-    }
-} 
-
-
+	i = -1;
+	if (check_dollar_purpose((*cmd)->cmd) == 1)
+		(*cmd)->cmd = replace_all_val(*cmd, (*cmd)->cmd, NULL, data->env_exp);
+	if (is_tilde_path((*cmd)->cmd) == 1)
+		(*cmd)->cmd = replace_tilde((*cmd)->cmd);
+	if (!(*cmd)->tokens)
+		return ;
+	while ((*cmd)->tokens[++i])
+	{
+		if (check_dollar_purpose((*cmd)->tokens[i]) == 1)
+			(*cmd)->tokens[i] = replace_all_val(*cmd, (*cmd)->tokens[i], NULL,
+					data->env_exp);
+		if (is_tilde_path((*cmd)->tokens[i]) == 1)
+			(*cmd)->tokens[i] = replace_tilde((*cmd)->tokens[i]);
+	}
+}

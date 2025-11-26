@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/24 10:39:23 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/26 14:37:55 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	**get_token_arr(t_data *data, char *str, t_cmd *cmd)
 	token = malloc(sizeof(char *) * (cmd->num_tokens + 1));
 	if (!token)
 		exit_error("minishell: malloc failed", 1);
-	data->total_chars += split_tokens(str, token);
+	data->total_chars += split_tokens(temp, token);
 	if (check_quotes_type(str) == -1)
 		free(temp);
 	return (token);

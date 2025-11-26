@@ -3,54 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:13 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/16 00:38:39 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/26 11:01:48 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	skip_quote_and_find(char *s, int *i, char c, int j)
+int skip_quote_and_find(char *s, int *i, char quote)
 {
-	if (c == '"')
-	{
-		while (s[++(*i)] && s[*i] != '"')
-			if (s[*i] == '$' && *i > j)
-				return (*i);
-	}
-	else
-	{
-		(*i)++;
-		*i = find_closing_quote(*i, s, 39);
-		if (*i == -1)
-			return (-1);
-	}
-	return (0);
+int start;
+
+start = *i;
+(*i)++;
+while (s[*i] && s[*i] != quote)
+    (*i)++;
+if (!s[*i])
+    return (-1);
+return (0);
 }
 
-int	find_next_char(char *s, char c, int j)
-{
-	int	i;
-	int	r;
 
-	if (!s)
-		return (-1);
-	i = -1;
-	while (s[++i])
-	{
-		if (s[i] == '"' || s[i] == 39)
-		{
-			r = skip_quote_and_find(s, &i, s[i], j);
-			if (r)
-				return (r);
-		}
-		else if (s[i] == c && i > j)
-			return (i);
-	}
-	return (-1);
+int find_next_char(char *s, char target, int j)
+{
+int i;
+
+if (!s)
+    return (-1);
+
+i = -1;
+while (s[++i])
+{
+    if (s[i] == '"' || s[i] == '\'')
+    {
+        if (skip_quote_and_find(s, &i, s[i]) == -1)
+            return (-1);
+    }
+    else if (s[i] == target && i > j)
+        return (i);
 }
+
+return (-1);
+}
+
+
 
 int	is_special(char c)
 {

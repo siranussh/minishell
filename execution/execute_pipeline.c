@@ -14,7 +14,6 @@
 
 void	setup_child_pipes_and_redirs(t_cmd *cmd, int prev_fd, int pipe_fd[2])
 {
-	setup_signals(0);
 	if (prev_fd != -1)
 	{
 		dup2(prev_fd, STDIN_FILENO);
@@ -65,12 +64,14 @@ int	is_directory(char *path)
 int child_process(t_cmd *cmd, t_pipe *p,  t_data *data, int pipe_fd[])
 {
 	int pid;
+	int	status;
 	
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), -1);
 	if (pid == 0)
 	{
+		setup_signals();
 		setup_child_pipes_and_redirs(cmd, p->prev_fd, pipe_fd);
 		close_pipe_fds(pipe_fd);
 		if (is_directory(cmd->tokens[0]))
@@ -84,6 +85,8 @@ int child_process(t_cmd *cmd, t_pipe *p,  t_data *data, int pipe_fd[])
 					cmd->tokens, data);
 			exit(p->exit_code);
 		}
+		// signal(SIGINT, SIG_DFL);
+		// signal(SIGQUIT, SIG_DFL);
 		execute_single_command(cmd->tokens, data);
 		exit(127);
 	}

@@ -67,6 +67,8 @@ int	execute_single_command(char **args, t_data *data)
 		return (127);
 	}
 	env_arr = env_to_array(data->env);
+	// signal(SIGINT, SIG_DFL);
+	// signal(SIGQUIT, SIG_DFL);
 	execve(path, args, env_arr);
 	print_error("minishell", args[0], "command not found");
 	exit(127);

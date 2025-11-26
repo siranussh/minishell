@@ -1,51 +1,51 @@
 #include "../includes/minishell.h"
 
-char *collapse_dollars(char *s)
+char	*collapse_dollars(char *s)
 {
-	int i;
-    
-    i = 0;
+	int	i;
+
+	i = 0;
 	while (s[i] == '$')
 		i++;
 	if (s[i] == '\0')
-		return ft_strdup("$");
-	return ft_strdup("$");
+		return (ft_strdup("$"));
+	return (ft_strdup("$"));
 }
 
-char *get_env_var(t_env_exp *env, char *s, int i, int *len)
+char	*get_env_var(t_env_exp *env, char *s, int i, int *len)
 {
-    char *name;
-    char *val;
-    *len = get_var_len(s, i);
-    int j;
+	char	*name;
+	char	*val;
+	int		j;
 
-    j = 0;
-    name = ft_substr(s, i, *len);
-    val = NULL;
-    while (j < env->num_env)
-    {
-        if (ft_strncmp(env->env[j], name, ft_strlen(name)) == 0
-    && env->env[j][ft_strlen(name)] == '=')
-    {
-        val = extract_env_value(env->env[j]);
-        break;
-    }
-    j++;
-    }
-    free(name);
-    if (!val)
-        val = ft_strdup("");
-    return (val);
+	*len = get_var_len(s, i);
+	j = 0;
+	name = ft_substr(s, i, *len);
+	val = NULL;
+	while (j < env->num_env)
+	{
+		if (ft_strncmp(env->env[j], name, ft_strlen(name)) == 0
+			&& env->env[j][ft_strlen(name)] == '=')
+		{
+			val = extract_env_value(env->env[j]);
+			break ;
+		}
+		j++;
+	}
+	free(name);
+	if (!val)
+		val = ft_strdup("");
+	return (val);
 }
 
-int count_dollars(char *line, int pos)
+int	count_dollars(char *line, int pos)
 {
-    int n;
-    
-    n = 0;
-    while (line[pos + n] == '$')
-        n++;
-    return (n);
+	int	n;
+
+	n = 0;
+	while (line[pos + n] == '$')
+		n++;
+	return (n);
 }
 
 char	*expand_only_dollars(char *line, int pos, int dollar_count)
@@ -66,7 +66,7 @@ char	*expand_only_dollars(char *line, int pos, int dollar_count)
 		k++;
 	}
 	for (int i = 0; i < dollar_count; i++)
-	new_line[j++] = '$';
+		new_line[j++] = '$';
 	rest = pos + dollar_count;
 	while (line[rest])
 		new_line[j++] = line[rest++];
@@ -99,6 +99,3 @@ char	*expand_dollars_simple(char *line, int pos, t_env_exp *env)
 	free(line);
 	return (new_line);
 }
-
-
-

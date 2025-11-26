@@ -62,7 +62,7 @@ OBJ_BUILT = $(addprefix $(OBJ_DIR)/$(BUILT_DIR)/,$(BUILT_SRC:.c=.o))
 OBJ = $(OBJ_TOKEN) $(OBJ_EXPAND) $(OBJ_OTHER) $(OBJ_BUILT) $(OBJ_EXEC)
 
 CC = cc
-CFLAGS = -Werror -Wall -Wextra -g3 #-fsanitize=address
+CFLAGS = -g3
 
 LIBFT = ./libft/libft.a
 

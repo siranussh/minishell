@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/22 22:32:16 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/26 16:53:36 by sihakoby         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -123,10 +123,9 @@ int main(int argc, char **argv, char **envp)
 	data->env_exp = env_exp_from_list(env);
 	if (!data->env_exp)
 		exit_error("minishell: malloc failed", 1);
-	disable_ctrl_echo();
-	setup_signals(1);
 	while (1)
 	{
+		setup_signals();
 		line = readline("minishell> ");
 		if (!line)
 			break ;

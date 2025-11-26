@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:29:39 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/08 13:59:31 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/26 12:22:43 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 char	*ft_strdup(const char *s1)
 {
@@ -20,6 +21,7 @@ char	*ft_strdup(const char *s1)
 
 	len = 0;
 	i = 0;
+
 	if (!s1)
 		return (NULL);
 	while (s1[len] != '\0')

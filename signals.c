@@ -1,66 +1,48 @@
 #include "../includes/minishell.h"
-# include <readline/readline.h>
-# include <readline/history.h>
+#include <readline/history.h>
+#include <readline/readline.h>
 
-int g_exit_code = 0;
+int			g_exit_code = 0;
 
-void	disable_ctrl_echo(void)
+static void	signal_handler(int sig)
 {
-	struct termios	term;
-
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	g_exit_code = sig;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
-void	enable_ctrl_echo(void)
+void	sigint_handler(int signo)
 {
-	struct termios	term;
-
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag |= ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	(void)signo;
+	g_exit_code = SIGINT;
+	rl_replace_line("", 0);
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
-static void signal_handler(int sig)
+void	setup_signals(void)
 {
-	if (sig == SIGINT)
-	{
-		g_exit_code = 1;
-		write(1, "\n", 1);
-		rl_on_new_line();
-		// rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	else if (sig == SIGQUIT)
-	{
-		rl_on_new_line();
-		// rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
 
-static void	child_handler(int sig)
+void	setup_signals_parent_exec(void)
 {
-	if (sig == SIGINT)
-		g_exit_code = 130;
-	else if (sig == SIGQUIT)
-	{
-		write(1, "Quit: 3\n", 8);
-		g_exit_code = 131;
-	}
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 }
 
-void	setup_signals(int parent_mode)
+// void	setup_heredoc_signals(void)
+// {
+// 	signal(SIGINT, sigint_heredoc_handler);
+// 	signal(SIGQUIT, SIG_IGN);
+// }
+
+void	restore_signals(void)
 {
-	if (parent_mode)
-	{
-		signal(SIGINT, signal_handler);
-		signal(SIGQUIT, signal_handler);
-	}
-	else
-	{
-		signal(SIGINT, child_handler);
-		signal(SIGQUIT, child_handler);
-	}
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
