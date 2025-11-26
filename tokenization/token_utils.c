@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:47 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/26 16:06:07 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/26 20:43:47 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int count_tokens(char *str)
                 i++;
         }
     }
+	printf("count tokens %d\n", count);
     return count;
 }
 
@@ -88,4 +89,17 @@ t_cmd	*last_cmd(t_cmd **cmd)
 	while (temp->next)
 		temp = temp->next;
 	return (temp);
+}
+
+int count_tokens_array(char **tokens)
+{
+int count = 0;
+
+if (!tokens)
+    return 0;
+
+while (tokens[count])
+    count++;
+
+return count;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quotes_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:27:50 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/26 11:46:12 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/26 20:46:14 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ char *skip_empty_quotes(char *s, t_cmd *cmd)
         }
         i++;
     }
-
     return (s);
 }
 

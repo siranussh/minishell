@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/26 16:53:13 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/26 20:44:39 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ int		pipe_syntax_error(void);
 int		quote_error(void);
 int		redir_error(void);
 int		export_error(char *arg);
-void	disable_ctrl_echo(void);
-void	enable_ctrl_echo(void);
 void	unquote_all_tokens(t_cmd *cmd);
 int		check_quotes_type(char *s);
 int		find_closing_quote(int start, char *str, char c);
@@ -109,6 +107,7 @@ int		count_pipes(char *str);
 int		check_pipe_seg(char *str);
 char	**split_pipes(char *str);
 t_cmd	*last_cmd(t_cmd **cmd);
+int count_tokens_array(char **tokens);
 t_cmd	*build_cmd(t_data *data, char *line);
 int		tokenize(t_data *data, t_cmd **cmd, char *read_line);
 

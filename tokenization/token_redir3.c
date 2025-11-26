@@ -1,42 +1,31 @@
 #include "../includes/minishell.h"
 
-static int	count_tokens_array(char **tokens)
+static char **build_new_tokens(char **tokens, char **arr, int pos, int arr_count)
 {
-	int	count;
+    char    **new;
+    int     old_count;
+    int     i;
+    int     j;
+    int     k;
 
-	count = 0;
-	while (tokens[count])
-		count++;
-	return (count);
+    old_count = count_tokens_array(tokens);
+    new = malloc(sizeof(char *) * (old_count - 1 + arr_count + 1));
+    if (!new)
+        return (NULL);
+    i = 0;
+    while (i < pos)
+        new[i++] = tokens[i];
+    k = 0;
+    while (k < arr_count)
+        new[i++] = ft_strdup(arr[k++]);
+    j = pos + 1;
+    while (j < old_count)
+        new[i++] = tokens[j++];
+
+    new[i] = NULL;
+    return (new);
 }
 
-static char	**build_new_tokens(char **tokens, char **arr, int pos, int arr_count)
-{
-	char	**new;
-	int		old_count;
-	int		i;
-	int		j;
-	int		k;
-
-	old_count = count_tokens_array(tokens);
-	new = malloc(sizeof(char *) * (old_count - 1 + arr_count + 1));
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (i < pos)
-	{
-		new[i] = tokens[i];
-		i++;
-	}
-	k = 0;
-	while (k < arr_count)
-		new[i++] = arr[k++];
-	j = pos + 1;
-	while (j < old_count)
-		new[i++] = tokens[j++];
-	new[i] = NULL;
-	return (new);
-}
 
 void	replace_token_with_array(char ***tokens, int pos, char **arr, int arr_count)
 {
@@ -65,10 +54,10 @@ static int	process_redir_token(t_cmd *cmd, int i)
 	{
 		replace_token_with_array(&cmd->tokens, i, parts, new_count);
 		free(parts);
-		return (1); // token replaced
+		return (1);
 	}
 	free(parts);
-	return (0); // token not replaced
+	return (0);
 }
 
 void	normalize_redirections(t_cmd *cmd)
