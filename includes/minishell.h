@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:18:46 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/25 23:28:18 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/26 22:13:02 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,6 +19,7 @@
 
 # include <stdio.h>
 # include <stdlib.h> // exit()
+# include <limits.h>
 # include <stddef.h>
 # include <unistd.h> // getcwd() chdir() execve() access() unlink()
 # include <dirent.h> // opendir() closedir()

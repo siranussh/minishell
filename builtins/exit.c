@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:15 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/26 22:24:44 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/26 22:30:00 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -32,7 +32,7 @@ int	is_number(char *arg)
 
 int	built_in_exit(int argc, char **args)
 {
-	long long	status;
+	long	status;
 
 	if (!args || !*args)
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 20:23:57 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/25 23:50:34 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/26 21:55:41 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -113,6 +113,6 @@ void	execute_pipeline(t_cmd *cmds, t_data * data, t_pipe *p)
 	}
 	if (p->prev_fd != -1)
 		close(p->prev_fd);
-	wait_for_children(p);
+	set_status(wait_for_children(p));
 	free(p->pids);
 }
