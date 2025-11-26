@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:47 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/26 20:43:47 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/26 23:02:27 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int count_tokens(char *str)
                 i++;
         }
     }
-	printf("count tokens %d\n", count);
     return count;
 }
 

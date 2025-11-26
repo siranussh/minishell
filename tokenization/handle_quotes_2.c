@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:27:50 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/26 20:46:14 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/26 22:59:33 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,59 +46,35 @@ static char	*remove_empty_quotes_arg(char *str, int i)
 	return (new_str);
 }
 
-char *skip_empty_quotes(char *s, t_cmd *cmd)
+char *skip_empty_quotes(char *str, t_cmd *cmd)
 {
-    int i;
+(void)cmd;
+if (!str)
+return NULL;
+int len = strlen(str);
+char *res = malloc(len + 1);
+if (!res)
+    exit_error("malloc failed", 1);
 
-    if (!s)
-        return (s);
-
-    i = 0;
-    while (s[i])
+int i = 0, j = 0;
+while (str[i])
+{
+    if (str[i] == '"' && str[i + 1] == '"')
     {
-        if (s[i] == '"' || s[i] == '\'')
-        {
-            if (s[i + 1] && s[i + 1] != s[i])
-            {
-                int new_i = find_closing_quote(i + 1, s, s[i]);
-                if (new_i == -1)
-                    break;
-                i = new_i;
-                i++;
-                continue;
-            }
-        }
-        if (s[i] == ' ')
-        {
-            if (s[i + 1] && (s[i + 1] == '"' || s[i + 1] == '\''))
-            {
-                if (s[i + 2] && s[i + 2] == s[i + 1])
-                {
-                    if (s[i + 3] == ' ' || s[i + 3] == '\0')
-                    {
-                        s = remove_empty_quotes_arg(s, i + 1);
-                        if (!s)
-                            return (NULL);
-                        i = 0;
-                        continue;
-                    }
-                }
-            }
-        }
-        if ((s[i] == '"' || s[i] == '\'') && s[i + 1] && s[i + 1] == s[i])
-        {
-            s = remove_empty_quotes(s, i);
-            if (!s)
-                return (NULL);
-            if (cmd && cmd->num_tokens > 0)
-                cmd->num_tokens--;
-            i = 0;
-            continue;
-        }
-        i++;
+        i += 2;
+        continue;
     }
-    return (s);
+    if (str[i] == '\'' && str[i + 1] == '\'')
+    {
+        i += 2;
+        continue;
+    }
+    res[j++] = str[i++];
 }
+res[j] = '\0';
+return res;
+}
+
 
 
 char *delete_quotes(char *str, char c)
