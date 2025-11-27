@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:16:42 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/26 22:24:57 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/27 20:53:57 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -69,6 +69,8 @@ int		built_in_unset(char **args, t_env **env);
 int		built_in_exit(int argc, char **args);
 
 // exit_utils.c
+int		is_number(char *arg);
+int		is_long_overflow(char *s);
 long	ft_atol(const char *str);
 
 // export_utils.c
@@ -92,4 +94,5 @@ int		return_key_size_export(char *arg);
 char	*return_key_export(char *arg);
 char	*return_value_export(char *arg);
 int		built_in_export(char **args, int argc, t_env **env);
+
 #endif
