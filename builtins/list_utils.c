@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:51 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/30 16:29:31 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/28 22:08:39 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -19,8 +19,8 @@ t_env	*ft_env_new(char *key, char *value)
 	new_node = (t_env *)malloc(sizeof(t_env));
 	if (!new_node)
 		return (NULL);
-	new_node->key = key;
-	new_node->value = value;
+	new_node->key = ft_strdup(key);
+	new_node->value = ft_strdup(value);
 	new_node->next = NULL;
 	return (new_node);
 }

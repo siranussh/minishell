@@ -4,7 +4,8 @@ BUILT_SRC = builtin_utils.c list_utils.c \
 			echo.c pwd.c env.c env_parsing.c cd_utils.c cd.c \
 			unset.c exit_utils.c exit.c \
 			export_utils.c export_sort.c export_append.c export.c \
-			builtins.c
+			builtins.c \
+			shlvl.c
 
 EXEC_SRC = find_cmd_path.c execute_single_cmd.c join_cmd_tokens.c \
 			redir_utils.c \

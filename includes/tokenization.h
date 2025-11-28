@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/28 15:53:59 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/28 22:25:28 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef TOKENIZATION_H
 # define TOKENIZATION_H
@@ -40,7 +40,7 @@ typedef struct s_flags
 
 typedef struct s_redir
 {
-	int				type;//1 < 2 << 3 > 4 >>
+	int				type;
 	char			*filename;
 	struct s_redir	*next;
 }	t_redir;
@@ -50,14 +50,13 @@ typedef struct s_cmd
 	char			*cmd;
 	char			**tokens;
 	int				num_tokens;
-	char			*infile;// <
-	char			*outfile;// > >>
-	int				append;// 1 if > 2 if >>
-	int				heredoc;// <<
+	char			*infile;
+	char			*outfile;
+	int				append;
+	int				heredoc;
 	char			*delimiter;
 	int				fd_in;
 	int				fd_out;
-	// int				pid;
 	struct s_cmd	*next;
 
 	t_redir			*redirs;
@@ -94,7 +93,7 @@ void	unquote_all_tokens(t_cmd *cmd);
 int		check_quotes_type(char *s);
 int		find_closing_quote(int start, char *str, char c);
 char	*skip_empty_quotes(char *str, t_cmd *cmd);
-int	handle_quote_pair(char *str, char *res, int i, int *j);
+int		handle_quote_pair(char *str, char *res, int i, int *j);
 int		is_empty_quotes_skippable(char *str, int i);
 char	*delete_quotes(char *str, char c);
 char	*str_tolower(char *str);
@@ -109,7 +108,7 @@ int		count_pipes(char *str);
 int		check_pipe_seg(char *str);
 char	**split_pipes(char *str);
 t_cmd	*last_cmd(t_cmd **cmd);
-int count_tokens_array(char **tokens);
+int		count_tokens_array(char **tokens);
 t_cmd	*build_cmd(t_data *data, char *line);
 int		tokenize(t_data *data, t_cmd **cmd, char *read_line);
 int		find_next_char(char *str, char c, int j);

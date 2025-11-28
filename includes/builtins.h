@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:16:42 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/27 20:53:57 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/28 22:13:28 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -34,7 +34,7 @@ char	*ft_substr_ms(char const *s, int start, int len);
 
 // builtins.c
 int		is_built_in(char **args);
-int run_built_in(int argc, char **args, t_data *data);
+int 	run_built_in(int argc, char **args, t_data *data);
 
 // echo.c
 int		built_in_echo(char **args);
@@ -94,5 +94,9 @@ int		return_key_size_export(char *arg);
 char	*return_key_export(char *arg);
 char	*return_value_export(char *arg);
 int		built_in_export(char **args, int argc, t_env **env);
+
+// shlvl.c
+char	*get_new_shlvl(char	*old);
+int		change_shlvl_value(t_env *env);
 
 #endif

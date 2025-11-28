@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/28 16:30:06 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/28 22:52:12 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -105,7 +105,6 @@ void	unquote_all_tokens(t_cmd *cmd)
 	}
 }
 
-
 //before cut 28.11.25
 // int main(int argc, char **argv, char **envp)
 // {
@@ -181,6 +180,7 @@ static t_data	*init_shell(char **envp)
 
 	return (data);
 }
+
 static void	cleanup_shell(t_data *data)
 {
 	free(data->cmd);
@@ -234,10 +234,12 @@ static void	exec_and_free(t_data *data, char *line)
 	free(p);
 	free(line);
 }
+
 static void	process_input_loop(t_data *data)
 {
 	char	*line;
 
+	change_shlvl_value(data->env);
 	while (1)
 	{
 		setup_signals();
@@ -249,6 +251,7 @@ static void	process_input_loop(t_data *data)
 		exec_and_free(data, line);
 	}
 }
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
@@ -258,7 +261,7 @@ int	main(int argc, char **argv, char **envp)
 	data = init_shell(envp);
 	process_input_loop(data);
 	cleanup_shell(data);
-	// rl_clear_history();     
+	// rl_clear_history();    
 	// clear_history();  macOS version
 	return (0);
 }
