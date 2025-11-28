@@ -50,6 +50,9 @@ char	*build_new_line(char *line, char *insert, int pos, int remove_len);
 char	*expand_var_with_prefix(char *line, int pos, int dollar_count, int var_len, t_env_exp *env);
 char **split_var_value(char *str);
 char **expand_var_for_execution(char *expanded_value);
-
+int	handle_quotes(char c, int *in_single, int *in_double);
+char	*handle_dollar(char *str, int *i, t_env_exp *env);
+char	*expand_exit_status(char *str, int *i);
+char	*replace_with_value(char *str, int *i, char *val, int skip_len);
 
 #endif 

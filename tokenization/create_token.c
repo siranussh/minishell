@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/26 22:34:18 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/28 16:04:23 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static char	*extract_command(t_data *data, char *line)
 	return (str);
 }
 
-t_cmd	*build_cmd(t_data *data, char *line)
+t_cmd	*init_cmd(t_data *data, char *line)
 {
 	t_cmd	*temp;
 
@@ -94,83 +94,67 @@ t_cmd	*build_cmd(t_data *data, char *line)
 	temp->num_tokens = count_tokens(line + data->total_chars);
 	temp->next = NULL;
 	temp->flags = data->flags;
-	// if (temp->num_tokens == 0)
-	// 	return (temp);
-	temp->redirs = NULL;//aniiiiiiii newwwwwwwwww
-	temp->infile = NULL;//aniiiiiiiiiiiiiiiiii
+	temp->redirs = NULL;
+	temp->infile = NULL;
 	temp->outfile = NULL;
 	temp->append = 0;
 	temp->heredoc = 0;
 	temp->delimiter = NULL;
 	temp->fd_in = -1;
 	temp->fd_out = -1;
-	temp->next = NULL;//aniiiiiiiiii
+	return (temp);
+}
+
+//after cutting
+t_cmd	*build_cmd(t_data *data, char *line)
+{
+	t_cmd	*temp;
+
+	temp = init_cmd(data, line);
+
 	if (temp->num_tokens > 0)
 		temp->tokens = get_token_arr(data, line + data->total_chars, temp);
 	else
 		temp->tokens = NULL;
-	if (temp->cmd != NULL)///////////ani
-		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);//ani
+
+	if (temp->cmd != NULL)
+		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);
+
 	normalize_redirections(temp);
+
 	return (temp);
 }
 
-// t_cmd *build_cmd(t_data *data, char *line)
+
+//best version 28.11.25
+// t_cmd	*build_cmd(t_data *data, char *line)
 // {
-// t_cmd *temp;
+// 	t_cmd	*temp;
 
-// temp = calloc(1, sizeof(t_cmd));
-// if (!temp)
-//     exit_error("minishell: malloc failed", 1);
-// temp->cmd = extract_command(data, line + data->total_chars);
-// temp->next = NULL;
-// temp->flags = data->flags;
-// temp->redirs = NULL;
-// temp->infile = NULL;
-// temp->outfile = NULL;
-// temp->append = 0;
-// temp->heredoc = 0;
-// temp->delimiter = NULL;
-// temp->fd_in = -1;
-// temp->fd_out = -1;
-// if (line + data->total_chars)
-//     temp->tokens = get_token_arr(data, line + data->total_chars, temp);
-// else
-//     temp->tokens = NULL;
-// if (temp->tokens)
-//     temp->num_tokens = count_tokens_array(temp->tokens);
-// else
-//     temp->num_tokens = 0;
-// if (temp->cmd != NULL && temp->tokens != NULL)
-//     temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);
-// normalize_redirections(temp);
-// return temp;
+// 	temp = calloc(1, sizeof(t_cmd));
+// 	if (!temp)
+// 		exit_error("minishell: malloc failed", 1);
+// 	temp->cmd = extract_command(data, line + data->total_chars);
+// 	temp->num_tokens = count_tokens(line + data->total_chars);
+// 	temp->next = NULL;
+// 	temp->flags = data->flags;
+// 	// if (temp->num_tokens == 0)
+// 	// 	return (temp);
+// 	temp->redirs = NULL;//aniiiiiiii newwwwwwwwww
+// 	temp->infile = NULL;//aniiiiiiiiiiiiiiiiii
+// 	temp->outfile = NULL;
+// 	temp->append = 0;
+// 	temp->heredoc = 0;
+// 	temp->delimiter = NULL;
+// 	temp->fd_in = -1;
+// 	temp->fd_out = -1;
+// 	temp->next = NULL;//aniiiiiiiiii
+// 	if (temp->num_tokens > 0)
+// 		temp->tokens = get_token_arr(data, line + data->total_chars, temp);
+// 	else
+// 		temp->tokens = NULL;
+// 	if (temp->cmd != NULL)///////////ani
+// 		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);//ani
+// 	normalize_redirections(temp);
+// 	return (temp);
 // }
-
-
-int	tokenize(t_data *data, t_cmd **cmd, char *read_line)
-{
-	int		i;
-	t_cmd	*temp;
-	char	**lines;
-
-	i = 0;
-	lines = NULL;
-	data->total_chars = 0;
-	if (parse_line(&data, read_line, &lines))
-		return (0);
-	*cmd = build_cmd(data, lines[0]);
-	expand(cmd, data);
-	while (++i <= data->flags->pipe)
-	{
-		data->total_chars = 0;
-		temp = build_cmd(data, lines[i]);
-		expand(&temp, data);
-		(last_cmd(cmd))->next = temp;
-		temp = temp->next;
-	}
-	while (i--)
-		free(lines[i]);
-	free(lines);
-	return (1);
-}

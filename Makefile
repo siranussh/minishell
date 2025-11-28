@@ -23,9 +23,11 @@ SRC_TOKEN = create_token.c \
 			 token_redir2.c \
 			  token_redir3.c \
              token_utils.c \
+			 tokenize.c \
 
 SRC_EXPAND = expand_utils.c \
               expand_symb_utils.c \
+			  expand_var.c \
               expand_var_utils.c \
               expand_exit_code.c \
               expand_libft_modifs.c \

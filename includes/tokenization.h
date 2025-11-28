@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/28 13:39:32 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/28 15:53:59 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct s_data
 }	t_data;
 
 t_data	*init(void);
-
+t_cmd	*init_cmd(t_data *data, char *line);
 int		exit_error(char *str, int code);
 void	print_error(char *name, char *file, char *err);
 int		pipe_syntax_error(void);
@@ -94,6 +94,8 @@ void	unquote_all_tokens(t_cmd *cmd);
 int		check_quotes_type(char *s);
 int		find_closing_quote(int start, char *str, char c);
 char	*skip_empty_quotes(char *str, t_cmd *cmd);
+int	handle_quote_pair(char *str, char *res, int i, int *j);
+int		is_empty_quotes_skippable(char *str, int i);
 char	*delete_quotes(char *str, char c);
 char	*str_tolower(char *str);
 int		check_dquote(char *str, int is_double, int is_single,
@@ -127,5 +129,5 @@ char	**split_redirection_parts(char **tokens, int j, int i, int k);
 void	replace_token_with_array(char ***tokens, int pos, char **arr, int arr_count);
 void	normalize_redirections(t_cmd *cmd);
 char	**split_redirs_token(char *tok, int *count);
-
+int		check_redir_at(char *str, int i);
 #endif

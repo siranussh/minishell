@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/26 22:54:43 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/28 16:30:06 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,77 +105,30 @@ void	unquote_all_tokens(t_cmd *cmd)
 	}
 }
 
-int main(int argc, char **argv, char **envp)
-{
-	t_data	*data;
-	t_env	*env;
-	t_pipe	*p;
-	char	*line;
-	char *processed_line;
 
-	(void)argc;
-	(void)argv;
-	p = NULL;
-	data = init();
-	if (!data)
-		exit_error("minishell: malloc failed", 1);
-	env = env_parse(envp);
-	data->env = env;
-	data->env_exp = env_exp_from_list(env);
-	if (!data->env_exp)
-		exit_error("minishell: malloc failed", 1);
-	while (1)
-	{
-		setup_signals();
-		line = readline("minishell> ");
-		if (!line)
-			break ;
-		if (check_spaces(line) == -1 || line[0] == '\0')
-		{
-			free(line);
-			continue ;
-		}
-		add_history(line);
-		processed_line = skip_empty_quotes(line, data->cmd);
-		if (!tokenize(data, &data->cmd, line))
-		{
-			free(processed_line); 
-			// free(line); // double free er talis
-			continue ;
-		}
-		free(processed_line);
-		if (data->cmd)
-		{
-			// redir_tokens(data->cmd);
-			expand(&data->cmd, data);
-			unquote_all_tokens(data->cmd);
-		}
-		p = init_pipe_struct(data->cmd);
-		execute(data->cmd, data, p);////new execution////
-		free(line);
-	}
-	free(p);
-	free(data->cmd);
-	free_env_list(data->env);
-	if (data->env_exp)
-		free_env_exp(&data->env_exp);
-	return (0);
-}
-
-// int	main(int argc, char **argv, char **envp)
+//before cut 28.11.25
+// int main(int argc, char **argv, char **envp)
 // {
 // 	t_data	*data;
+// 	t_env	*env;
+// 	t_pipe	*p;
 // 	char	*line;
+// 	char *processed_line;
 
 // 	(void)argc;
 // 	(void)argv;
+// 	p = NULL;
 // 	data = init();
-// 	data->env->env = envp;
-// 	data->env->num_env = 0;
-// 	while (envp[data->env->num_env])
-// 		data->env->num_env++;
+// 	if (!data)
+// 		exit_error("minishell: malloc failed", 1);
+// 	env = env_parse(envp);
+// 	data->env = env;
+// 	data->env_exp = env_exp_from_list(env);
+// 	if (!data->env_exp)
+// 		exit_error("minishell: malloc failed", 1);
 // 	while (1)
 // 	{
+// 		setup_signals();
 // 		line = readline("minishell> ");
 // 		if (!line)
 // 			break ;
@@ -185,26 +138,127 @@ int main(int argc, char **argv, char **envp)
 // 			continue ;
 // 		}
 // 		add_history(line);
-// 		data->flags->pipe = 0;
-// 		data->flags->quote = 0;
-// 		data->flags->has_special = 0;
+// 		processed_line = skip_empty_quotes(line, data->cmd);
 // 		if (!tokenize(data, &data->cmd, line))
 // 		{
-// 			printf("Tokenization failed.\n");
+// 			free(processed_line); 
+// 			// free(line); // double free er talis
 // 			continue ;
 // 		}
+// 		free(processed_line);
 // 		if (data->cmd)
 // 		{
-// 			redir_tokens(data->cmd);
-// 			expand(&data->cmd);
+// 			// redir_tokens(data->cmd);
+// 			expand(&data->cmd, data);
+// 			unquote_all_tokens(data->cmd);
 // 		}
-
-// 		if (data->cmd)
-// 			print_tokens(data->cmd);
-// 		data->cmd = NULL;
+// 		p = init_pipe_struct(data->cmd);
+// 		execute(data->cmd, data, p);////new execution////
+// 		free(line);
 // 	}
-// 	g_exit_code = 0;
-// 	free(data->flags);
-// 	free(data);
+// 	free(p);
+// 	free(data->cmd);
+// 	free_env_list(data->env);
+// 	if (data->env_exp)
+// 		free_env_exp(&data->env_exp);
 // 	return (0);
 // }
+
+static t_data	*init_shell(char **envp)
+{
+	t_data	*data;
+	t_env	*env;
+
+	data = init();
+	if (!data)
+		exit_error("minishell: malloc failed", 1);
+
+	env = env_parse(envp);
+	data->env = env;
+	data->env_exp = env_exp_from_list(env);
+	if (!data->env_exp)
+		exit_error("minishell: malloc failed", 1);
+
+	return (data);
+}
+static void	cleanup_shell(t_data *data)
+{
+	free(data->cmd);
+	free_env_list(data->env);
+	if (data->env_exp)
+		free_env_exp(&data->env_exp);
+}
+
+static char	*read_shell_line(void)
+{
+	char	*line;
+
+	line = readline("minishell> ");
+	if (!line)
+		return (NULL);
+	if (check_spaces(line) == -1 || line[0] == '\0')
+	{
+		free(line);
+		return (NULL);
+	}
+	add_history(line);
+	return (line);
+}
+
+static int	process_line(t_data *data, char *line)
+{
+	char	*processed_line;
+
+	processed_line = skip_empty_quotes(line, data->cmd);
+	if (!tokenize(data, &data->cmd, line))
+	{
+		free(processed_line);
+		return (0);
+	}
+	free(processed_line);
+
+	if (data->cmd)
+	{
+		expand(&data->cmd, data);
+		unquote_all_tokens(data->cmd);
+	}
+	return (1);
+}
+
+static void	exec_and_free(t_data *data, char *line)
+{
+	t_pipe	*p;
+
+	p = init_pipe_struct(data->cmd);
+	execute(data->cmd, data, p);
+	free(p);
+	free(line);
+}
+static void	process_input_loop(t_data *data)
+{
+	char	*line;
+
+	while (1)
+	{
+		setup_signals();
+		line = read_shell_line();
+		if (!line)
+			break ;
+		if (!process_line(data, line))
+			continue ;
+		exec_and_free(data, line);
+	}
+}
+int	main(int argc, char **argv, char **envp)
+{
+	t_data	*data;
+
+	(void)argc;
+	(void)argv;
+	data = init_shell(envp);
+	process_input_loop(data);
+	cleanup_shell(data);
+	// rl_clear_history();     
+	// clear_history();  macOS version
+	return (0);
+}

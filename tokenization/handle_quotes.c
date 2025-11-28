@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:28:16 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/28 13:35:42 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/28 15:53:17 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,3 +80,12 @@ int	check_dquote(char *str, int is_double, int is_single, t_data *data)
 	}
 	return (1);
 }
+ int	handle_quote_pair(char *str, char *res, int i, int *j)
+{
+	if (is_empty_quotes_skippable(str, i))
+		return (i + 2);
+	res[(*j)++] = str[i];
+	return (i + 1);
+}
+
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:24 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/26 10:41:42 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/28 14:14:09 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,65 +85,93 @@ char	*replace_val(t_cmd *cmd, char *line, char **rest_line, t_env_exp *env)
 	return (cmp_value_name(line, name, env));
 }
 
+// char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env)
+// {
+// 	int		i;
+// 	int		in_single;
+// 	int		in_double;
+// 	int		dollar_count;
+// 	int		var_len;
+// 	char	*var;
+// 	char	*val;
+// 	char	*new_str;
+
+// 	i = 0;
+// 	in_single = 0;
+// 	in_double = 0;
+// 	(void)cmd;
+// 	(void)rest_line;
+// 	while (str[i])
+// 	{
+// 		if (str[i] == '\'' && !in_double)
+// 		{
+// 			in_single = !in_single;
+// 			i++;
+// 			continue ;
+// 		}
+// 		if (str[i] == '\"' && !in_single)
+// 		{
+// 			in_double = !in_double;
+// 			i++;
+// 			continue ;
+// 		}
+// 		if (str[i] == '$' && !in_single)
+// 		{
+// 			if (str[i + 1] && str[i + 1] == '?')
+// 			{
+// 				val = ft_itoa(g_exit_code);
+// 				char *new_str = build_new_line(str, val, i, 2); // $?
+// 				free(val);
+// 				free(str);
+// 				str = new_str;
+// 				i += ft_strlen(new_str) - i;
+// 				continue ;
+// 			}
+// 			dollar_count = 0;
+// 			while (str[i + dollar_count] == '$')
+// 				dollar_count++;
+// 			var_len = get_var_len(str, i + dollar_count);
+// 			if (var_len == 0)
+// 			{
+// 				i += dollar_count;
+// 				continue ;
+// 			}
+// 			var = ft_substr(str, i + dollar_count, var_len);
+// 			val = get_env_var(env, var, 0, &var_len);
+// 			free(var);
+// 			new_str = build_new_line(str, val, i, dollar_count + var_len);
+// 			free(val);
+// 			free(str);
+// 			str = new_str;
+// 			i += ft_strlen(val);
+// 			continue ;
+// 		}
+// 		i++;
+// 	}
+// 	return (str);
+// }
+
 char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env)
 {
 	int		i;
 	int		in_single;
 	int		in_double;
-	int		dollar_count;
-	int		var_len;
-	char	*var;
-	char	*val;
-	char	*new_str;
 
+	(void)cmd;
+	(void)rest_line;
 	i = 0;
 	in_single = 0;
 	in_double = 0;
-	(void)cmd;
-	(void)rest_line;
 	while (str[i])
 	{
-		if (str[i] == '\'' && !in_double)
+		if (handle_quotes(str[i], &in_single, &in_double))
 		{
-			in_single = !in_single;
-			i++;
-			continue ;
-		}
-		if (str[i] == '\"' && !in_single)
-		{
-			in_double = !in_double;
 			i++;
 			continue ;
 		}
 		if (str[i] == '$' && !in_single)
 		{
-			if (str[i + 1] && str[i + 1] == '?')
-			{
-				val = ft_itoa(g_exit_code);
-				char *new_str = build_new_line(str, val, i, 2); // $?
-				free(val);
-				free(str);
-				str = new_str;
-				i += ft_strlen(new_str) - i;
-				continue ;
-			}
-			dollar_count = 0;
-			while (str[i + dollar_count] == '$')
-				dollar_count++;
-			var_len = get_var_len(str, i + dollar_count);
-			if (var_len == 0)
-			{
-				i += dollar_count;
-				continue ;
-			}
-			var = ft_substr(str, i + dollar_count, var_len);
-			val = get_env_var(env, var, 0, &var_len);
-			free(var);
-			new_str = build_new_line(str, val, i, dollar_count + var_len);
-			free(val);
-			free(str);
-			str = new_str;
-			i += ft_strlen(val);
+			str = handle_dollar(str, &i, env);
 			continue ;
 		}
 		i++;
