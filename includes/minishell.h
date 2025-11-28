@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:18:46 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/26 22:13:02 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/28 13:39:49 by sihakoby         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -16,6 +16,7 @@
 # include "tokenization.h"
 # include "builtins.h"
 # include "execution.h"
+# include "expansion.h"
 
 # include <stdio.h>
 # include <stdlib.h> // exit()
@@ -49,4 +50,7 @@ void	free_env_list(t_env *head);
 void	free_flags(t_flags *flags);
 void	free_data(t_data *data);
 
+//signal.c
+void    setup_signals_parent_exec(void);
+void    sigint_handler(int signo);
 #endif

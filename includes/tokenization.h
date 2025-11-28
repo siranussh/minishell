@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/26 20:44:39 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/28 13:39:32 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,55 +110,8 @@ t_cmd	*last_cmd(t_cmd **cmd);
 int count_tokens_array(char **tokens);
 t_cmd	*build_cmd(t_data *data, char *line);
 int		tokenize(t_data *data, t_cmd **cmd, char *read_line);
-
 int		find_next_char(char *str, char c, int j);
 int 	skip_quote_and_find(char *s, int *i, char quote);
-int		is_special(char c);
-char	*extract_value_name(char *line);
-char	*extract_after_special(char *line, int i, t_cmd *cmd);
-char	*extract_env_value(char *str);
-char	*expand_dollar(char *new_line, char *line, char *var,
-			int c);
-char	*expand_line(char *line, char *var);
-char	*delete_invalid_dollar(char *str, int i, int j);
-int		exp_strcmp(char *s1, char *s2);
-char	*cmp_value_name(char *line, char *name, t_env_exp *env);
-char	*replace_val(t_cmd *cmd, char *line, char **rest_line, t_env_exp *env);
-char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env);
-char	*exp_strjoin(char *s1, char *s2, size_t i, size_t j);
-int		check_dollar_purpose(char *line);
-int		is_tilde_path(char *str);
-char	*replace_tilde(char *str);
-int		is_invalid_dollar(char *str);
-int		is_digit_or_special(int i);
-char	*replace_exit_code(char *str, int i);
-char	*replace_all_exit_code(char *str);
-void	expand(t_cmd **cmd, t_data *data);
-int		check_spaces(char *str);
-int		skip_spaces(char *str, int i);
-t_env_exp	*env_exp_from_list(t_env *env_list);
-char	*ft_strjoin_three(char *s1, char *s2, char *s3);
-void	refresh_env_exp(t_data *data);
-int		built_in_export_wrapper(char **args, int argc, t_data *data);
-char	*expand_var(t_data *data, char *key);
-void	free_env_exp(t_env_exp **env_exp_ptr);
-int		built_in_unset_wrapper(char **args, t_data *data);
-
-int	has_only_dollars_or_dollars_before_var(char *s);
-char *collapse_dollars(char *s);
-int is_var_char(char c);
-int get_var_len(char *s, int i);
-char *get_env_var(t_env_exp *env, char *s, int i, int *len);
-int count_dollars(char *line, int pos);
-char	*expand_only_dollars(char *line, int pos, int dollar_count);
-char	*expand_dollars_simple(char *line, int pos, t_env_exp *env);
-char	*make_prefix(int prefix_len);
-char	*build_insert(char *line, int pos, int dollar_count, int var_len, t_env_exp *env);
-char	*build_new_line(char *line, char *insert, int pos, int remove_len);
-char	*expand_var_with_prefix(char *line, int pos, int dollar_count, int var_len, t_env_exp *env);
-char **split_var_value(char *str);
-char **expand_var_for_execution(char *expanded_value);
-
 char	redir_smb(int c);
 int		is_redir(char **token);
 int		redir_type(char *str);
@@ -174,8 +127,5 @@ char	**split_redirection_parts(char **tokens, int j, int i, int k);
 void	replace_token_with_array(char ***tokens, int pos, char **arr, int arr_count);
 void	normalize_redirections(t_cmd *cmd);
 char	**split_redirs_token(char *tok, int *count);
-
-void	setup_signals_parent_exec(void);
-void	sigint_handler(int signo);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:52 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/26 14:11:52 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/28 13:05:05 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	*delete_invalid_dollar(char *str, int i, int j)
 
 // void expand(t_cmd **cmd, t_data *data)
 // {
-//     int i = -1;https://github.com/RubBarkhudaryan/42-Minishell.git
+//     int i = -1;
 //     if ((*cmd)->cmd && check_dollar_purpose((*cmd)->cmd) == 1)
 //     {
 //         char *tmp = simple_expand((*cmd)->cmd, data->env_exp);

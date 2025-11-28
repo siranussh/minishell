@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:28:16 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/20 14:14:51 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/28 13:35:42 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	check_dquote(char *str, int is_double, int is_single, t_data *data)
 		if (is_double % 2 != 0 || is_single % 2 != 0)
 		{
 			data->flags->quote = 1;
-			printf(">\n");
+			printf("minishell: syntax error: unclosed quote\n");
 			return (0);
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:27:50 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/26 22:59:33 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/28 13:33:49 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,36 +45,71 @@ static char	*remove_empty_quotes_arg(char *str, int i)
 	free(str);
 	return (new_str);
 }
+//before 28.11
+// char *skip_empty_quotes(char *str, t_cmd *cmd)
+// {
+// (void)cmd;
+// if (!str)
+// return NULL;
+// int len = strlen(str);
+// char *res = malloc(len + 1);
+// if (!res)
+//     exit_error("malloc failed", 1);
 
+// int i = 0, j = 0;
+// while (str[i])
+// {
+//     if (str[i] == '"' && str[i + 1] == '"')
+//     {
+//         i += 2;
+//         continue;
+//     }
+//     if (str[i] == '\'' && str[i + 1] == '\'')
+//     {
+//         i += 2;
+//         continue;
+//     }
+//     res[j++] = str[i++];
+// }
+// res[j] = '\0';
+// return res;
+// }
+
+//after changes """"+smth ->working
 char *skip_empty_quotes(char *str, t_cmd *cmd)
 {
-(void)cmd;
-if (!str)
-return NULL;
-int len = strlen(str);
-char *res = malloc(len + 1);
-if (!res)
-    exit_error("malloc failed", 1);
+    (void)cmd;
+    if (!str)
+        return NULL;
 
-int i = 0, j = 0;
-while (str[i])
-{
-    if (str[i] == '"' && str[i + 1] == '"')
-    {
-        i += 2;
-        continue;
-    }
-    if (str[i] == '\'' && str[i + 1] == '\'')
-    {
-        i += 2;
-        continue;
-    }
-    res[j++] = str[i++];
-}
-res[j] = '\0';
-return res;
-}
+    int len = strlen(str);
+    char *res = malloc(len + 1);
+    if (!res)
+        exit_error("malloc failed", 1);
 
+    int i = 0, j = 0;
+    while (str[i])
+    {
+        if ((str[i] == '"' && str[i + 1] == '"') ||
+            (str[i] == '\'' && str[i + 1] == '\''))
+        {
+            char prev = (i == 0) ? ' ' : str[i - 1];
+            char next = (str[i + 2] == '\0') ? ' ' : str[i + 2];
+            int prev_is_space = (prev == ' ' || prev == '\t' || prev == '\n' || prev == '|' || prev == '<' || prev == '>' );
+            int next_is_space = (next == ' ' || next == '\t' || next == '\n' || next == '|' || next == '<' || next == '>' );
+            if (prev_is_space && next_is_space)
+            {
+                i += 2;
+                continue;
+            }
+            res[j++] = str[i++];
+            continue;
+        }
+        res[j++] = str[i++];
+    }
+    res[j] = '\0';
+    return res;
+}
 
 
 char *delete_quotes(char *str, char c)
