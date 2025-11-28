@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 22:30:37 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/25 20:44:33 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/29 00:07:30 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -37,6 +37,7 @@ void	execute(t_cmd *cmds, t_data *data, t_pipe *p)
 	{
 		print_error("minishell", NULL, "syntax error near unexpected token `|'");
 		set_status(2);
+		free_data(data);////freeee
 		return ;
 	}
 	prepare_all_commands(cmds);

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/28 22:52:12 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/28 23:48:55 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -187,6 +187,7 @@ static void	cleanup_shell(t_data *data)
 	free_env_list(data->env);
 	if (data->env_exp)
 		free_env_exp(&data->env_exp);
+	free(data);/////
 }
 
 static char	*read_shell_line(void)
@@ -261,7 +262,7 @@ int	main(int argc, char **argv, char **envp)
 	data = init_shell(envp);
 	process_input_loop(data);
 	cleanup_shell(data);
-	// rl_clear_history();    
+	// rl_clear_history();
 	// clear_history();  macOS version
 	return (0);
 }

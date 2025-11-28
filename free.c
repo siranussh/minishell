@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:46 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/20 23:12:47 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/29 00:00:57 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -111,6 +111,8 @@ void	free_data(t_data *data)
 		free_cmd_list(data->cmd);
 	if (data->flags)
 		free_flags(data->flags);
+	if (data->env)
+		free_env_list(data->env);
 	if (data->env_exp)
 		free_env_exp(&data->env_exp);
 	free(data);

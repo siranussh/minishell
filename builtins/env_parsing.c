@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:22:43 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/28 22:51:51 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/28 22:57:13 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -66,6 +66,8 @@ t_env	*env_parse(char **envp)
 		value = return_value(*envp);
 		tmp = ft_env_new(key, value);
 		ft_env_add_back(&head, tmp);
+		free(key);
+		free(value);
 		envp++;
 	}
 	return (head);
