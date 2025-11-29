@@ -6,7 +6,7 @@
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:04:27 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 13:54:04 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/29 14:54:07 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,30 @@ static void	handle_redir(char **res, char *tok, int *i, int *idx)
 	}
 }
 
-static void	process_redir_segment(char **res, char *tok, int *i, int *idx)
+static void process_redir_segment(char **res, char *tok, int *i, int *idx)
 {
-	int	start;
+    int start = *i;
+    char quote = 0;
 
-	start = *i;
-	while (tok[*i] && tok[*i] != '<' && tok[*i] != '>')
-		(*i)++;
-	if (*i > start)
-		add_substr(res, tok, start, *i - start, idx);
-	if (tok[*i] == '<' || tok[*i] == '>')
-		handle_redir(res, tok, i, idx);
+    while (tok[*i])
+    {
+        if (!quote && (tok[*i] == '\'' || tok[*i] == '"'))
+            quote = tok[*i];
+        else if (tok[*i] == quote)
+            quote = 0;
+
+        if (!quote && (tok[*i] == '<' || tok[*i] == '>'))
+            break;
+        (*i)++;
+    }
+
+    if (*i > start)
+        add_substr(res, tok, start, *i - start, idx);
+
+    if (tok[*i] && !quote && (tok[*i] == '<' || tok[*i] == '>'))
+        handle_redir(res, tok, i, idx);
 }
+
 
 char	**split_redirs_token(char *tok, int *count)
 {

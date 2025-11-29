@@ -6,7 +6,7 @@
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:11:12 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 13:11:18 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/29 14:59:55 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ static char	**build_new_tokens(char **tokens, char **arr, int pos,
 		return (NULL);
 	i = 0;
 	while (i < pos)
-		new[i++] = tokens[i];
+	{
+		new[i] = tokens[i];
+		i++;
+	}
 	k = 0;
 	while (k < arr_count)
 		new[i++] = ft_strdup(arr[k++]);
