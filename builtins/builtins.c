@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/13 11:22:17 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/14 22:18:44 by anavagya         ###   ########.fr       */
+/*   Created: 2025/11/29 14:44:42 by anavagya          #+#    #+#             */
+/*   Updated: 2025/11/29 14:44:49 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -31,7 +31,7 @@ int	is_built_in(char **args)
 	return (0);
 }
 
-int run_built_in(int argc, char **args, t_data *data)
+int	run_built_in(int argc, char **args, t_data *data)
 {
 	if (!args || !*args || !data || !data->env)
 		return (0);

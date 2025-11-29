@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   shlvl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/28 21:42:14 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/28 22:15:14 by anavagya         ###   ########.fr       */
+/*   Created: 2025/11/29 14:43:32 by anavagya          #+#    #+#             */
+/*   Updated: 2025/11/29 14:43:32 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -24,7 +24,11 @@ char	*get_new_shlvl(char	*old)
 		return (ft_strdup("1"));
 	level++;
 	if (level >= 1000)
+	{
+		print_error("minishell", "warning",
+			"shell level too high, resetting to 1");
 		return (ft_strdup("1"));
+	}
 	return (ft_itoa(level));
 }
 

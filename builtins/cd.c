@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/13 11:22:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/25 23:09:56 by anavagya         ###   ########.fr       */
+/*   Created: 2025/11/29 14:45:12 by anavagya          #+#    #+#             */
+/*   Updated: 2025/11/29 14:45:12 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -38,7 +38,7 @@ int	cd_helper(char *path, char *old_pwd, t_env *env)
 void	cd_minus(char *old_pwd, int *status, t_env *env)
 {
 	char	*old;
-	char 	*old_copy;
+	char	*old_copy;
 
 	old = get_env_values(env, "OLDPWD");
 	if (!old)
@@ -54,7 +54,7 @@ void	cd_minus(char *old_pwd, int *status, t_env *env)
 	else
 		*status = 1;
 	printf("%s\n", old_copy);
-	free(old_copy);	
+	free(old_copy);
 }
 
 void	cd_with_argument(char **args, char *old_pwd, int *status, t_env *env)
@@ -66,7 +66,7 @@ void	cd_with_argument(char **args, char *old_pwd, int *status, t_env *env)
 		if (cd_helper(args[1], old_pwd, env))
 			*status = 0;
 		else
-			*status = 1; 
+			*status = 1;
 	}
 }
 

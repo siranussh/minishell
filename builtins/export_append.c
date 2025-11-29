@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/13 11:23:22 by anavagya          #+#    #+#             */
-/*   Updated: 2025/10/13 11:23:22 by anavagya         ###   ########.fr       */
+/*   Created: 2025/11/29 14:46:11 by anavagya          #+#    #+#             */
+/*   Updated: 2025/11/29 14:46:11 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	giving_new_value(t_env **env, char *key, char *value)
 {
 	char	*new_value;
+
 	new_value = ft_strjoin(if_env_value_exist(*env, key), value);
 	update_env_value(env, key, new_value);
 }

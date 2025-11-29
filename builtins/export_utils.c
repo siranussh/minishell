@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/13 11:23:35 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/26 21:27:35 by anavagya         ###   ########.fr       */
+/*   Created: 2025/11/29 14:46:22 by anavagya          #+#    #+#             */
+/*   Updated: 2025/11/29 14:48:10 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -37,11 +37,11 @@ void	key_existance(t_env **env, char *key, char *value)
 		tmp = ft_env_new(key, value);
 		ft_env_add_back(env, tmp);
 	}
-	else if (get_env_key_index(*env, key) != -1 &&
-			!if_env_value_exist(*env, key))
+	else if (get_env_key_index(*env, key) != -1
+		&& !if_env_value_exist(*env, key))
 		update_env_value(env, key, value);
-	else if (get_env_key_index(*env, key) != -1 &&
-			if_env_value_exist(*env, key))
+	else if (get_env_key_index(*env, key) != -1
+		&& if_env_value_exist(*env, key))
 		return ;
 }
 
@@ -73,7 +73,6 @@ int	is_valid_identifier(char *arg)
 	{
 		if (!ft_isalnum(arg[i]) && arg[i] != '_')
 		{
-			
 			if (arg[i] == '+' && arg[i + 1] == '=')
 				return (1);
 			else
