@@ -6,7 +6,7 @@
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 14:11:06 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 14:11:26 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/29 17:46:35 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,30 @@ char	*replace_with_value(char *str, int *i, char *val, int skip_len)
 	free(str);
 	*i += ft_strlen(val);
 	return (new_str);
+}
+
+char	*build_new_line(char *line, char *insert, int pos, int remove_len)
+{
+	char	*new_line;
+	int		new_len;
+	int		j;
+	int		k;
+	int		rest;
+
+	new_len = ft_strlen(line) - remove_len + ft_strlen(insert) + 1;
+	new_line = malloc(new_len);
+	if (!new_line)
+		return (NULL);
+	j = 0;
+	k = 0;
+	while (k < pos)
+		new_line[j++] = line[k++];
+	k = 0;
+	while (insert[k])
+		new_line[j++] = insert[k++];
+	rest = pos + remove_len;
+	while (line[rest])
+		new_line[j++] = line[rest++];
+	new_line[j] = '\0';
+	return (new_line);
 }

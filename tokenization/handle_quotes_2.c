@@ -6,7 +6,7 @@
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:27:50 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 12:59:02 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/29 17:47:45 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char	*skip_empty_quotes(char *str, t_cmd *cmd)
 	j = 0;
 	while (str[i])
 	{
-		if ((str[i] == '"' && str[i + 1] == '"') || (str[i] == '\'' 
+		if ((str[i] == '"' && str[i + 1] == '"') || (str[i] == '\''
 				&& str[i + 1] == '\''))
 			i = handle_quote_pair(str, res, i, &j);
 		else
