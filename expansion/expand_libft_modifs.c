@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_libft_modifs.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:02 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/01 11:51:31 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/29 15:50:18 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,13 @@ char	*exp_strjoin(char *s1, char *s2, size_t i, size_t j)
 	}
 	new[i + j] = '\0';
 	return (new);
+}
+int	count_dollars(char *line, int pos)
+{
+	int	n;
+
+	n = 0;
+	while (line[pos + n] == '$')
+		n++;
+	return (n);
 }
