@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/28 23:48:55 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/29 15:16:49 by sihakoby         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -190,34 +190,35 @@ static void	cleanup_shell(t_data *data)
 	free(data);/////
 }
 
-static char	*read_shell_line(void)
-{
-	char	*line;
+// static char	*read_shell_line(void)
+// {
+// 	char	*line;
 
-	line = readline("minishell> ");
-	if (!line)
-		return (NULL);
-	if (check_spaces(line) == -1 || line[0] == '\0')
-	{
-		free(line);
-		return (NULL);
-	}
-	add_history(line);
-	return (line);
-}
+// 	line = readline("minishell> ");
+// 	if (!line)
+// 		return (NULL);
+// 	if (check_spaces(line) == -1 || line[0] == '\0')
+// 	{
+// 		free(line);
+// 		return (NULL);
+// 	}
+// 	add_history(line);
+// 	return (line);
+// }
 
 static int	process_line(t_data *data, char *line)
 {
 	char	*processed_line;
 
 	processed_line = skip_empty_quotes(line, data->cmd);
+	if (!line)
+		return 0;
 	if (!tokenize(data, &data->cmd, line))
 	{
 		free(processed_line);
 		return (0);
 	}
 	free(processed_line);
-
 	if (data->cmd)
 	{
 		expand(&data->cmd, data);
@@ -244,9 +245,15 @@ static void	process_input_loop(t_data *data)
 	while (1)
 	{
 		setup_signals();
-		line = read_shell_line();
+			line = readline("minishell> ");
 		if (!line)
 			break ;
+		if (check_spaces(line) == -1 || line[0] == '\0')
+		{
+			free(line);
+			continue ;
+		}
+		add_history(line);
 		if (!process_line(data, line))
 			continue ;
 		exec_and_free(data, line);
