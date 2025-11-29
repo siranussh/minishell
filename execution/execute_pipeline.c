@@ -23,7 +23,7 @@ void	setup_child_pipes_and_redirs(t_cmd *cmd, int prev_fd, int pipe_fd[2])
 	{
 		dup2(cmd->fd_in, STDIN_FILENO);
 		close(cmd->fd_in);
-	}	
+	}
 	if (pipe_fd[1] != -1)
 	{
 		dup2(pipe_fd[1], STDOUT_FILENO);
@@ -51,7 +51,7 @@ static void	close_pipe_fds(int pipe_fd[2])
 int	is_directory(char *path)
 {
 	DIR	*dir;
-	
+
 	dir = opendir(path);
 	if (dir)
 	{
@@ -65,13 +65,17 @@ int child_process(t_cmd *cmd, t_pipe *p,  t_data *data, int pipe_fd[])
 {
 	int pid;
 	int	status;
-	
+
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), -1);
 	if (pid == 0)
 	{
-		setup_signals();
+		// signal(SIGINT, nonin_ctrl);
+		// signal(SIGQUIT, SIG_IGN);
+		// // signal(SIGINT, SIG_DFL);
+		// // signal(SIGQUIT, SIG_DFL);
+		setup_signals(NINTERACTIVE);
 		setup_child_pipes_and_redirs(cmd, p->prev_fd, pipe_fd);
 		close_pipe_fds(pipe_fd);
 		if (is_directory(cmd->tokens[0]))
@@ -87,9 +91,9 @@ int child_process(t_cmd *cmd, t_pipe *p,  t_data *data, int pipe_fd[])
 					cmd->tokens, data);
 			exit(p->exit_code);
 		}
+		execute_single_command(cmd->tokens, data);
 		// signal(SIGINT, SIG_DFL);
 		// signal(SIGQUIT, SIG_DFL);
-		execute_single_command(cmd->tokens, data);
 		exit(127);
 	}
 	return (pid);
@@ -100,15 +104,17 @@ void	execute_pipeline(t_cmd *cmds, t_data * data, t_pipe *p)
 	t_cmd	*curr;
 	int		pipe_fd[2];
 	int		i;
-	
+
 	pipe_fd[0] = -1;
 	pipe_fd[1] = -1;
 	curr = cmds;
 	i = 0;
+	setup_signals(NINTERACTIVE);
 	while (curr)
 	{
 		setup_pipe(curr, pipe_fd);
 		p->pids[i] = child_process(curr, p, data, pipe_fd);
+		setup_signals(NINTERACTIVE);
 		close_fds(p, pipe_fd);
 		curr = curr->next;
 		i++;
@@ -117,4 +123,5 @@ void	execute_pipeline(t_cmd *cmds, t_data * data, t_pipe *p)
 		close(p->prev_fd);
 	set_status(wait_for_children(p));
 	free(p->pids);
+	// setup_signals(INTERACTIVE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 15:16:49 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/29 16:10:56 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 t_data	*init(void)
 {
 	t_data *data;
-	
+
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		exit_error("minishell: malloc failed", 1);
@@ -140,7 +140,7 @@ void	unquote_all_tokens(t_cmd *cmd)
 // 		processed_line = skip_empty_quotes(line, data->cmd);
 // 		if (!tokenize(data, &data->cmd, line))
 // 		{
-// 			free(processed_line); 
+// 			free(processed_line);
 // 			// free(line); // double free er talis
 // 			continue ;
 // 		}
@@ -244,7 +244,7 @@ static void	process_input_loop(t_data *data)
 	change_shlvl_value(data->env);
 	while (1)
 	{
-		setup_signals();
+		setup_signals(INTERACTIVE);
 			line = readline("minishell> ");
 		if (!line)
 			break ;

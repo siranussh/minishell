@@ -72,7 +72,7 @@ static void	read_heredoc(t_cmd *cmd, char *delimiter)
 	}
 	if (pid == 0)
 	{
-		setup_signals();
+		setup_signals(HEREDOC);
 		handle_heredoc_child(fd, delimiter);
 	}
 	if (!handle_heredoc_parent(cmd, fd, pid))

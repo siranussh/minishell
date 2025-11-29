@@ -3,20 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:18:46 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/28 13:39:49 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/29 16:37:25 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# define FAILURE 1
+# define INTERACTIVE 1
+# define NINTERACTIVE 2
+# define HEREDOC 3
+
 # include "tokenization.h"
 # include "builtins.h"
 # include "execution.h"
 # include "expansion.h"
+
+# include <sys/ioctl.h>
 
 # include <stdio.h>
 # include <stdlib.h> // exit()
@@ -51,6 +58,8 @@ void	free_flags(t_flags *flags);
 void	free_data(t_data *data);
 
 //signal.c
-void    setup_signals_parent_exec(void);
-void    sigint_handler(int signo);
+// void    setup_signals_parent_exec(void);
+// void    sigint_handler(int signo);
+void	nonin_ctrl(int num);/////////////////
+void	setup_signals(int num);
 #endif
