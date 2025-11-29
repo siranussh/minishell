@@ -1,18 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   arr_list_handler.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 12:27:57 by sihakoby          #+#    #+#             */
+/*   Updated: 2025/11/29 12:31:57 by sihakoby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-char *ft_strjoin_three(char *s1, char *s2, char *s3)
+char	*ft_strjoin_three(char *s1, char *s2, char *s3)
 {
-    char *tmp = ft_strjoin(s1, s2);
-    if (!tmp)
-        exit_error("malloc failed", 1);
+	char	*tmp;
+	char	*res;
 
-    char *res = ft_strjoin(tmp, s3);
-    free(tmp);
-
-    if (!res)
-        exit_error("malloc failed", 1);
-
-    return res;
+	tmp = ft_strjoin(s1, s2);
+	if (!tmp)
+		exit_error("malloc failed", 1);
+	res = ft_strjoin(tmp, s3);
+	free(tmp);
+	if (!res)
+		exit_error("malloc failed", 1);
+	return (res);
 }
 
 // t_env_exp *env_exp_from_list(t_env *env_list)
@@ -22,7 +34,7 @@ char *ft_strjoin_three(char *s1, char *s2, char *s3)
 //     int count;
 
 //     if (!env_list)
-//         return NULL;
+//         return (NULL);
 //     tmp = env_list;
 //     count = 0;
 //     while (tmp)
@@ -54,7 +66,7 @@ char *ft_strjoin_three(char *s1, char *s2, char *s3)
 //     exp->num_env = count;
 //     exp->path = NULL;
 
-//     return exp;
+//     return (exp);
 // }
 
 // void free_env_exp(t_env_exp **env_exp_ptr)

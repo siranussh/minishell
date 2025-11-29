@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_redir_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:43 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/28 15:43:40 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/29 13:02:38 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	redir_type(char *str)
 	}
 	return (0);
 }
-
 
 //before cut 28.11.25
 // int	redir_type(char *str)

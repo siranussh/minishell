@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenize.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 13:13:37 by sihakoby          #+#    #+#             */
+/*   Updated: 2025/11/29 13:13:38 by sihakoby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	tokenize(t_data *data, t_cmd **cmd, char *read_line)
@@ -26,4 +38,3 @@ int	tokenize(t_data *data, t_cmd **cmd, char *read_line)
 	free(lines);
 	return (1);
 }
-

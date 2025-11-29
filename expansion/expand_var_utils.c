@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:24 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/28 14:14:09 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/29 14:10:49 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ char	*extract_value_name(char *line)
 
 	i = find_closing_quote(0, line, '$') + 1;
 	j = 0;
-	while (line[i + j] && line[i + j] != ' ' && line[i + j] != '"' && line[i
-		+ j] != 39 && is_special(line[i + j]) == 0)
+	while (line[i + j] && line[i + j] != ' ' && line[i + j] != '"'
+		&& line[i + j] != 39 && is_special(line[i + j]) == 0)
 		j++;
 	name = ft_calloc(sizeof(char), j + 1);
 	if (!name)
 		exit_error("minishell: malloc failed", 1);
 	j = 0;
-	while (line[i + j] && line[i + j] != ' ' && line[i + j] != '"' && line[i
-		+ j] != 39 && is_special(line[i + j]) == 0)
+	while (line[i + j] && line[i + j] != ' ' && line[i + j] != '"'
+		&& line[i + j] != 39 && is_special(line[i + j]) == 0)
 	{
 		name[j] = line[i + j];
 		j++;

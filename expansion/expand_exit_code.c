@@ -6,7 +6,7 @@
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:40:51 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/26 10:41:09 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/29 14:08:24 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	is_var_char(char c)
 
 int	get_var_len(char *s, int i)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (s[i + len] && is_var_char(s[i + len]))

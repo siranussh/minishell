@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_var.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 14:11:06 by sihakoby          #+#    #+#             */
+/*   Updated: 2025/11/29 14:11:26 by sihakoby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	handle_quotes(char c, int *in_single, int *in_double)
@@ -14,6 +26,7 @@ int	handle_quotes(char c, int *in_single, int *in_double)
 	}
 	return (0);
 }
+
 char	*handle_dollar(char *str, int *i, t_env_exp *env)
 {
 	int		dcount;
@@ -37,6 +50,7 @@ char	*handle_dollar(char *str, int *i, t_env_exp *env)
 	free(val);
 	return (str);
 }
+
 char	*expand_exit_status(char *str, int *i)
 {
 	char	*val;
@@ -49,6 +63,7 @@ char	*expand_exit_status(char *str, int *i)
 	*i += ft_strlen(res) - *i;
 	return (res);
 }
+
 char	*replace_with_value(char *str, int *i, char *val, int skip_len)
 {
 	char	*new_str;
@@ -58,4 +73,3 @@ char	*replace_with_value(char *str, int *i, char *val, int skip_len)
 	*i += ft_strlen(val);
 	return (new_str);
 }
-

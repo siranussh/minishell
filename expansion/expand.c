@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:52 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/28 13:05:05 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/29 14:15:00 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ char	*expand_line(char *line, char *var)
 	if (i < 0)
 		return (ft_strdup(line));
 	j = 0;
-	while (line[i + j] && line[i + j] != ' ' && line[i + j] != 34 && line[i
-		+ j] != 39)
+	while (line[i + j] && line[i + j] != ' ' && line[i + j] != 34
+		&& line[i + j] != 39)
 		j++;
 	new_line = malloc(ft_strlen(line) - j + ft_strlen(var) + 1);
 	if (!new_line)
@@ -83,8 +83,8 @@ char	*delete_invalid_dollar(char *str, int i, int j)
 
 	while (str[++i])
 	{
-		if (str[i] && str[i] == '$' && str[i + 1] && is_digit_or_special(str[i
-				+ 1]) == 1)
+		if (str[i] && str[i] == '$' && str[i + 1]
+			&& is_digit_or_special(str[i + 1]) == 1)
 		{
 			j = -1;
 			new_str = malloc(sizeof(char) * ft_strlen(str) - 1);
@@ -122,7 +122,7 @@ char	*delete_invalid_dollar(char *str, int i, int j)
 //     while ((*cmd)->tokens[++i])
 //     {
 //         if ((*cmd)->tokens[i]
-	// && check_dollar_purpose((*cmd)->tokens[i]) == 1)
+// && check_dollar_purpose((*cmd)->tokens[i]) == 1)
 //         {
 //             char *tmp = simple_expand((*cmd)->tokens[i], data->env_exp);
 //             free((*cmd)->tokens[i]);

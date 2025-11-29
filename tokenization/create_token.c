@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/28 16:04:23 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/29 12:47:25 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,28 +105,24 @@ t_cmd	*init_cmd(t_data *data, char *line)
 	return (temp);
 }
 
-//after cutting
+// after cutting
 t_cmd	*build_cmd(t_data *data, char *line)
 {
 	t_cmd	*temp;
 
 	temp = init_cmd(data, line);
-
 	if (temp->num_tokens > 0)
 		temp->tokens = get_token_arr(data, line + data->total_chars, temp);
 	else
 		temp->tokens = NULL;
-
 	if (temp->cmd != NULL)
-		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);
-
+		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens,
+				temp->num_tokens);
 	normalize_redirections(temp);
-
 	return (temp);
 }
 
-
-//best version 28.11.25
+// best version 28.11.25
 // t_cmd	*build_cmd(t_data *data, char *line)
 // {
 // 	t_cmd	*temp;
@@ -154,7 +150,8 @@ t_cmd	*build_cmd(t_data *data, char *line)
 // 	else
 // 		temp->tokens = NULL;
 // 	if (temp->cmd != NULL)///////////ani
-// 		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);//ani
+// 		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens,
+				// temp->num_tokens);//ani
 // 	normalize_redirections(temp);
 // 	return (temp);
 // }

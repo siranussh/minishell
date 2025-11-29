@@ -3,36 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:47 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/28 14:35:29 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/29 13:13:28 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int count_tokens(char *str)
+int	count_tokens(char *str)
 {
-    int i = 0;
-    int count = 0;
+	int	i;
+	int	count;
 
-    while (str[i])
-    {
-        while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-            i++;
-        if (!str[i])
-            break;
-        count++;
-        while (str[i] && str[i] != ' ' && !(str[i] >= 9 && str[i] <= 13))
-        {
-            if (str[i] == '"' || str[i] == '\'')
-                i = find_closing_quote(i + 1, str, str[i]) + 1;
-            else
-                i++;
-        }
-    }
-    return count;
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+			i++;
+		if (!str[i])
+			break ;
+		count++;
+		while (str[i] && str[i] != ' ' && !(str[i] >= 9 && str[i] <= 13))
+		{
+			if (str[i] == '"' || str[i] == '\'')
+				i = find_closing_quote(i + 1, str, str[i]) + 1;
+			else
+				i++;
+		}
+	}
+	return (count);
 }
 
 int	check_redir(char **tk, int i)
@@ -49,8 +51,8 @@ int	check_redir(char **tk, int i)
 		j = 0;
 		while (temp[j] && (temp[j] == 32 || is_other_op(temp[j])))
 			j++;
-		if ((redir_type(tk[i]) && !temp[j]) || is_other_op(temp[ft_strlen(temp)
-					- 1]))
+		if ((redir_type(tk[i]) && !temp[j])
+			|| is_other_op(temp[ft_strlen(temp) - 1]))
 			return (redir_error());
 		temp = ft_strchr(temp + j, redir_smb(redir_type(temp + j)));
 	}
@@ -90,15 +92,14 @@ t_cmd	*last_cmd(t_cmd **cmd)
 	return (temp);
 }
 
-int count_tokens_array(char **tokens)
+int	count_tokens_array(char **tokens)
 {
-int count = 0;
+	int	count;
 
-if (!tokens)
-    return 0;
-
-while (tokens[count])
-    count++;
-
-return count;
+	count = 0;
+	if (!tokens)
+		return (0);
+	while (tokens[count])
+		count++;
+	return (count);
 }

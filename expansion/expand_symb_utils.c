@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_symb_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:06 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/23 00:55:16 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/11/29 14:21:45 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	is_invalid_dollar(char *str)
 	i = 0;
 	while (str[i] && str[i] != '$')
 		i++;
-	if (str[i] && str[i] == '$' && str[i + 1] && is_digit_or_special(str[i
-				+ 1]) == 1)
+	if (str[i] && str[i] == '$' && str[i + 1]
+		&& is_digit_or_special(str[i + 1]) == 1)
 		return (0);
 	else
 		return (1);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_redir3.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 13:11:12 by sihakoby          #+#    #+#             */
+/*   Updated: 2025/11/29 13:11:18 by sihakoby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	check_redir_at(char *str, int i)
@@ -19,34 +31,34 @@ int	check_redir_at(char *str, int i)
 	return (0);
 }
 
-static char **build_new_tokens(char **tokens, char **arr, int pos, int arr_count)
+static char	**build_new_tokens(char **tokens, char **arr, int pos,
+		int arr_count)
 {
-    char    **new;
-    int     old_count;
-    int     i;
-    int     j;
-    int     k;
+	char	**new;
+	int		old_count;
+	int		i;
+	int		j;
+	int		k;
 
-    old_count = count_tokens_array(tokens);
-    new = malloc(sizeof(char *) * (old_count - 1 + arr_count + 1));
-    if (!new)
-        return (NULL);
-    i = 0;
-    while (i < pos)
-        new[i++] = tokens[i];
-    k = 0;
-    while (k < arr_count)
-        new[i++] = ft_strdup(arr[k++]);
-    j = pos + 1;
-    while (j < old_count)
-        new[i++] = tokens[j++];
-
-    new[i] = NULL;
-    return (new);
+	old_count = count_tokens_array(tokens);
+	new = malloc(sizeof(char *) * (old_count - 1 + arr_count + 1));
+	if (!new)
+		return (NULL);
+	i = 0;
+	while (i < pos)
+		new[i++] = tokens[i];
+	k = 0;
+	while (k < arr_count)
+		new[i++] = ft_strdup(arr[k++]);
+	j = pos + 1;
+	while (j < old_count)
+		new[i++] = tokens[j++];
+	new[i] = NULL;
+	return (new);
 }
 
-
-void	replace_token_with_array(char ***tokens, int pos, char **arr, int arr_count)
+void	replace_token_with_array(char ***tokens, int pos, char **arr,
+		int arr_count)
 {
 	char	**new;
 

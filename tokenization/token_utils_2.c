@@ -1,55 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_env_exp.c                                     :+:      :+:    :+:   */
+/*   token_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/29 12:24:50 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 12:26:30 by sihakoby         ###   ########.fr       */
+/*   Created: 2025/11/29 12:58:23 by sihakoby          #+#    #+#             */
+/*   Updated: 2025/11/29 13:00:08 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	free_env_array(t_env_exp *e)
+static int	count_non_c(char *str, char c)
 {
+	int	len;
 	int	i;
 
-	if (!e->env)
-		return ;
+	len = 0;
 	i = 0;
-	while (i < e->num_env)
+	while (str[i])
 	{
-		if (e->env[i] != NULL)
+		if (str[i] != c)
+			len++;
+		i++;
+	}
+	return (len);
+}
+
+char	*delete_quotes(char *str, char c)
+{
+	int		len;
+	int		i;
+	int		j;
+	char	*temp;
+
+	len = count_non_c(str, c);
+	temp = malloc(len + 1);
+	if (!temp)
+		exit_error("malloc failed", 1);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] != c)
 		{
-			free(e->env[i]);
-			e->env[i] = NULL;
+			temp[j] = str[i];
+			j++;
 		}
 		i++;
 	}
-	free(e->env);
-	e->env = NULL;
-}
-
-static void	free_env_path(t_env_exp *e)
-{
-	if (e->path)
-	{
-		free(e->path);
-		e->path = NULL;
-	}
-}
-
-void	free_env_exp(t_env_exp **env_exp_ptr)
-{
-	t_env_exp	*e;
-
-	if (!env_exp_ptr || !*env_exp_ptr)
-		return ;
-	e = *env_exp_ptr;
-	free_env_array(e);
-	free_env_path(e);
-	free(e);
-	*env_exp_ptr = NULL;
+	temp[j] = '\0';
+	free(str);
+	return (temp);
 }

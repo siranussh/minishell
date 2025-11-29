@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_redir.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 13:03:06 by sihakoby          #+#    #+#             */
+/*   Updated: 2025/11/29 13:04:02 by sihakoby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 char	**remove_token(char **tokens, int index)
@@ -12,7 +24,7 @@ char	**remove_token(char **tokens, int index)
 	count = 0;
 	while (tokens[count])
 		count++;
-	result = ft_calloc(sizeof(char *), count);// one less element
+	result = ft_calloc(sizeof(char *), count);
 	if (!result)
 		exit_error("malloc failed", 1);
 	i = 0;
@@ -69,7 +81,6 @@ char	**split_redirection_start(char **tokens, int j, char c)
 	return (split_redirection_tokens(tokens, j, c, 2));
 }
 
-
 char	**split_redirection_tokens(char **tokens, int j, char c, int k)
 {
 	int	i;
@@ -108,8 +119,3 @@ char	**split_redirection_parts(char **tokens, int j, int i, int k)
 	tokens = remove_token(tokens, j);
 	return (tokens);
 }
-
-
-
-
-

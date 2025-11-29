@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_redir2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 13:04:27 by sihakoby          #+#    #+#             */
+/*   Updated: 2025/11/29 13:54:04 by sihakoby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	redir_tokens(t_cmd *cmd)
@@ -28,7 +40,6 @@ static void	add_substr(char **res, char *tok, int start, int len, int *idx)
 	(*idx)++;
 }
 
-
 static void	handle_redir(char **res, char *tok, int *i, int *idx)
 {
 	if (tok[*i + 1] && tok[*i + 1] == tok[*i])
@@ -55,7 +66,6 @@ static void	process_redir_segment(char **res, char *tok, int *i, int *idx)
 	if (tok[*i] == '<' || tok[*i] == '>')
 		handle_redir(res, tok, i, idx);
 }
-
 
 char	**split_redirs_token(char *tok, int *count)
 {
