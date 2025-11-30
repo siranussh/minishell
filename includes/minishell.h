@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:18:46 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/30 22:43:12 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/30 23:13:38 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -60,5 +60,6 @@ void	free_data(t_data *data);
 //signal.c
 void    setup_signals_parent_exec(void);
 void	setup_signals(void);
+void	set_default_signals(void);
 
 #endif

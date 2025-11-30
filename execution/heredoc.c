@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 22:33:53 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/30 22:44:37 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/30 23:13:52 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -78,13 +78,11 @@ static int	read_heredoc(t_cmd *cmd, char *delimiter)
 	{
 		close(fd[0]);
 		close(fd[1]);
-		perror("minishell: fork");
-		return (0);
+		return (perror("minishell: fork"), 0);
 	}
 	if (pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
+		set_default_signals();
 		handle_heredoc_child(fd, delimiter);
 	}
 	if (!handle_heredoc_parent(cmd, fd, pid))
