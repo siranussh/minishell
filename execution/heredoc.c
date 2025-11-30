@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 22:33:53 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/25 21:24:08 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/30 22:44:37 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -45,52 +45,69 @@ static int	handle_heredoc_parent(t_cmd *cmd, int fd[2], int pid)
 
 	close(fd[1]);
 	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+	{
+		g_exit_code = WEXITSTATUS(status);
+		return (1);
+	}
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 	{
+		write(STDOUT_FILENO, "\n", 1);
 		close(fd[0]);
 		cmd->fd_in = -1;
+		g_exit_code = 130;
 		return (0);
 	}
+	else if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+		write(STDERR_FILENO, "Quit (core dumped)\n", 19);
+	g_exit_code = 128 + WTERMSIG(status);
 	return (1);
 }
 
-static void	read_heredoc(t_cmd *cmd, char *delimiter)
+static int	read_heredoc(t_cmd *cmd, char *delimiter)
 {
 	int	fd[2];
 	int	pid;
 	int	status;
 
 	if (pipe(fd) == -1)
-		return (perror("minishell: pipe"));
+		return (perror("minishell: pipe"), 0);
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == -1)
 	{
-		perror("minishell: fork");
 		close(fd[0]);
 		close(fd[1]);
-		return ;
+		perror("minishell: fork");
+		return (0);
 	}
 	if (pid == 0)
 	{
-		setup_signals(HEREDOC);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		handle_heredoc_child(fd, delimiter);
 	}
 	if (!handle_heredoc_parent(cmd, fd, pid))
-		return ;
+		return (0);
 	if (cmd->fd_in != -1)
 		close(cmd->fd_in);
 	cmd->fd_in = fd[0];
+	return (1);
 }
 
-void	process_all_heredocs(t_cmd *cmds)
+int	process_all_heredocs(t_cmd *cmds)
 {
 	t_redir	*r;
 
 	r = cmds->redirs;
 	while (r)
 	{
-		if (r->type == REDIR_HEREDOC && r->filename)
-			read_heredoc(cmds, r->filename);
+		if (r->type == REDIR_HEREDOC)
+		{
+			if (!read_heredoc(cmds, r->filename))
+				return (0);
+		}
 		r = r->next;
 	}
+	return (1);
 }

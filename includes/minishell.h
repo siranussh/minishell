@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:18:46 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 16:37:25 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/30 22:43:12 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -58,8 +58,7 @@ void	free_flags(t_flags *flags);
 void	free_data(t_data *data);
 
 //signal.c
-// void    setup_signals_parent_exec(void);
-// void    sigint_handler(int signo);
-void	nonin_ctrl(int num);/////////////////
-void	setup_signals(int num);
+void    setup_signals_parent_exec(void);
+void	setup_signals(void);
+
 #endif

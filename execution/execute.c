@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 22:30:37 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/29 00:07:30 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/30 22:17:47 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -21,13 +21,15 @@ static void	prepare_all_commands(t_cmd *cmds)
 	}
 }
 
-static void handle_all_heredocs(t_cmd *cmds)
+static int handle_all_heredocs(t_cmd *cmds)
 {
 	while (cmds)
 	{
-		process_all_heredocs(cmds);
+		if (!process_all_heredocs(cmds))
+			return (0);
 		cmds = cmds->next;
 	}
+	return (1);
 }
 
 void	execute(t_cmd *cmds, t_data *data, t_pipe *p)
@@ -41,7 +43,8 @@ void	execute(t_cmd *cmds, t_data *data, t_pipe *p)
 		return ;
 	}
 	prepare_all_commands(cmds);
-	handle_all_heredocs(cmds);
+	if (!handle_all_heredocs(cmds))
+		return ;
 	if (only_builtin(cmds, data) != -1)
 	{
 		free(p->pids);

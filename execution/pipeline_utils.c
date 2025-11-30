@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:22:05 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/26 21:57:27 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/30 21:32:12 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -32,8 +32,19 @@ int	wait_for_children(t_pipe *p)
 	while (i < p->cmds_count)
 	{
 		waitpid(p->pids[i], &status, 0);
-		if (i == (p->cmds_count - 1) && WIFEXITED(status))
-			exit_code = WEXITSTATUS(status);
+		if (i == p->cmds_count - 1)
+		{
+			if (WIFEXITED(status))
+				exit_code = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+			{
+				if (WTERMSIG(status) == SIGQUIT)
+					write(STDERR_FILENO, "Quit (core dumped)\n", 19);
+				else if (WTERMSIG(status) == SIGINT)
+					write(STDOUT_FILENO, "\n", 1);
+				exit_code = 128 + WTERMSIG(status);
+			}
+		}
 		i++;
 	}
 	return (exit_code);

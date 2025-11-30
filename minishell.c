@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 16:10:56 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/30 22:45:25 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -244,7 +244,7 @@ static void	process_input_loop(t_data *data)
 	change_shlvl_value(data->env);
 	while (1)
 	{
-		setup_signals(INTERACTIVE);
+		setup_signals();
 			line = readline("minishell> ");
 		if (!line)
 			break ;

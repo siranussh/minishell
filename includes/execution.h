@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 12:04:35 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/25 23:44:43 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/30 22:14:03 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -37,7 +37,7 @@ void	add_redir_back(t_redir **list, t_redir *new);
 char	**remove_tokens_from_array(char **tokens, int start, int count);
 
 // heredoc.c
-void	process_all_heredocs(t_cmd *cmds);
+int		process_all_heredocs(t_cmd *cmds);
 
 // execute_built_in.c
 int		only_builtin(t_cmd *cmd, t_data *data);

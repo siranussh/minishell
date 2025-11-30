@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 20:23:57 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/30 14:46:59 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/30 22:37:54 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -67,15 +67,12 @@ int child_process(t_cmd *cmd, t_pipe *p,  t_data *data, int pipe_fd[])
 	int	status;
 
 	pid = fork();
+	signal(SIGINT, SIG_IGN);
 	if (pid == -1)
 		return (perror("fork"), -1);
 	if (pid == 0)
 	{
-		// signal(SIGINT, nonin_ctrl);
-		// signal(SIGQUIT, SIG_IGN);
-		// // signal(SIGINT, SIG_DFL);
-		// // signal(SIGQUIT, SIG_DFL);
-		setup_signals(NINTERACTIVE);
+		setup_signals();
 		setup_child_pipes_and_redirs(cmd, p->prev_fd, pipe_fd);
 		close_pipe_fds(pipe_fd);
 		if (is_directory(cmd->tokens[0]))
@@ -92,8 +89,6 @@ int child_process(t_cmd *cmd, t_pipe *p,  t_data *data, int pipe_fd[])
 			exit(p->exit_code);
 		}
 		execute_single_command(cmd->tokens, data);
-		// signal(SIGINT, SIG_DFL);
-		// signal(SIGQUIT, SIG_DFL);
 		exit(127);
 	}
 	return (pid);
@@ -109,12 +104,11 @@ void	execute_pipeline(t_cmd *cmds, t_data * data, t_pipe *p)
 	pipe_fd[1] = -1;
 	curr = cmds;
 	i = 0;
-	setup_signals(NINTERACTIVE);
+	setup_signals_parent_exec();
 	while (curr)
 	{
 		setup_pipe(curr, pipe_fd);
 		p->pids[i] = child_process(curr, p, data, pipe_fd);
-		setup_signals(NINTERACTIVE);
 		close_fds(p, pipe_fd);
 		curr = curr->next;
 		i++;
@@ -123,5 +117,4 @@ void	execute_pipeline(t_cmd *cmds, t_data * data, t_pipe *p)
 		close(p->prev_fd);
 	set_status(wait_for_children(p));
 	free(p->pids);
-	// setup_signals(INTERACTIVE);
 }
