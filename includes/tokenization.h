@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/30 13:02:15 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/30 22:56:21 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -87,6 +87,7 @@ int		pipe_syntax_error(void);
 int		quote_error(void);
 int		redir_error(void);
 int		export_error(char *arg);
+int		shlvl_error(char *arg);
 void	unquote_all_tokens(t_cmd *cmd);
 int		check_quotes_type(char *s);
 int		find_closing_quote(int start, char *str, char c);
