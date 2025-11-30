@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 20:23:57 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/29 00:08:59 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/30 14:46:59 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -82,7 +82,7 @@ int child_process(t_cmd *cmd, t_pipe *p,  t_data *data, int pipe_fd[])
 		{
 			print_error("minishell", cmd->tokens[0], "Is a directory");
 			free(p->pids);
-			free_data(data);////freeee
+			free_data(data);
 			exit(126);
 		}
 		if (is_built_in(cmd->tokens))

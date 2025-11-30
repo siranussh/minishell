@@ -47,10 +47,7 @@ char	*find_cmd_path(char *cmd, t_env *env)
 		return (ft_strdup(cmd));
 	path = get_env_values(env, "PATH");
 	if (!path)
-	{
-		print_error("minishell", cmd, "command not found");
 		return (NULL);
-	}
 	cmd_paths = ft_split(path, ':');
 	full_cmd = check_path(cmd, cmd_paths);
 	ft_free(cmd_paths);
