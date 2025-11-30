@@ -1,19 +1,26 @@
 NAME = minishell
 
 BUILT_SRC = builtin_utils.c list_utils.c \
-			echo.c pwd.c env.c env_parsing.c cd_utils.c cd.c \
-			unset.c exit_utils.c exit.c \
-			export_utils.c export_sort.c export_append.c export.c \
 			builtins.c \
+			cd_utils.c cd.c \
+			echo.c \
+			env_parsing.c env.c \
+			exit_utils.c exit.c \
+			export_append.c export_sort.c export_utils.c export.c \
+			pwd.c \
+			unset.c \
 			shlvl.c
 
-EXEC_SRC = find_cmd_path.c execute_single_cmd.c join_cmd_tokens.c \
+EXEC_SRC = cmd_list_utils.c init_struct.c \
+			find_cmd_path.c join_cmd_tokens.c \
 			redir_utils.c \
-			pipeline_utils.c \
-			cmd_list_utils.c init_struct.c \
 			heredoc.c \
 			parse_redirs.c setup_redirs.c \
-			execute_built_in.c execute_pipeline.c execute.c
+			pipeline_utils.c \
+			execute_built_in.c \
+			execute_single_cmd.c \
+			execute_pipeline.c \
+			execute.c
 
 SRC_TOKEN = create_token.c \
              handle_quotes.c \
@@ -22,8 +29,9 @@ SRC_TOKEN = create_token.c \
              token_redir_utils.c \
              token_redir.c \
 			 token_redir2.c \
-			  token_redir3.c \
+			 token_redir3.c \
              token_utils.c \
+			 token_utils_2.c \
 			 tokenize.c \
 
 SRC_EXPAND = expand_utils.c \

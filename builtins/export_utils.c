@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 14:46:22 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/29 14:48:10 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/30 14:19:42 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -40,9 +40,10 @@ void	key_existance(t_env **env, char *key, char *value)
 	else if (get_env_key_index(*env, key) != -1
 		&& !if_env_value_exist(*env, key))
 		update_env_value(env, key, value);
-	else if (get_env_key_index(*env, key) != -1
-		&& if_env_value_exist(*env, key))
+	else if (get_env_key_index(*env, key) != -1 && !value)
 		return ;
+	else if (get_env_key_index(*env, key))
+		update_env_value(env, key, value);
 }
 
 void	handle_export_arg(t_env **env, char *arg)
@@ -67,7 +68,7 @@ int	is_valid_identifier(char *arg)
 	int	i;
 
 	if (!ft_isalpha(*arg) && *arg != '_')
-		export_error(arg);
+		return (0);
 	i = 1;
 	while (arg[i] && arg[i] != '=')
 	{
@@ -76,10 +77,7 @@ int	is_valid_identifier(char *arg)
 			if (arg[i] == '+' && arg[i + 1] == '=')
 				return (1);
 			else
-			{
-				export_error(arg);
 				return (0);
-			}
 		}
 		i++;
 	}

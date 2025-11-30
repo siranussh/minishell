@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 14:46:26 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/29 14:47:34 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/11/30 14:18:27 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -75,10 +75,10 @@ int	built_in_export(char **args, int argc, t_env **env)
 	{
 		while (i < argc)
 		{
-			if (is_valid_identifier(args[i]))
+			if (is_valid_identifier(args[i]) == 1)
 				handle_export_arg(env, args[i]);
 			else
-				return (1);
+				return(export_error(args[i]));
 			i++;
 		}
 	}
