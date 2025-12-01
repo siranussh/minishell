@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 14:46:06 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/29 14:46:08 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/01 13:59:36 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	built_in_exit(int argc, char **args)
 
 	if (!args || !*args)
 		return (-1);
-	printf("exit\n");
+	write(STDOUT_FILENO, "exit\n", 5);
 	if (argc == 1)
 		exit(g_exit_code);
 	if (!is_number(args[1]) || is_long_overflow(args[1]))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:53 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/13 16:15:20 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/01 13:57:51 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ int	exit_error(char *str, int code)
 
 void	print_error(char *name, char *file, char *err)
 {
-	ft_putstr_fd(name, 2);
-	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(name, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
 	if (file)
 	{
-		ft_putstr_fd(file, 2);
-		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(file, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
 	}
 	if (err)
-		ft_putendl_fd(err, 2);
+		ft_putendl_fd(err, STDERR_FILENO);
 	else
-		ft_putstr_fd("\n", 2);
+		ft_putstr_fd("\n", STDERR_FILENO);
 }

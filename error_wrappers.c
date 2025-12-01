@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   error_wrappers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:05 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/30 23:03:51 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/01 13:57:32 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -37,8 +37,8 @@ int	export_error(char *arg)
 	ft_putstr_fd("minishell: export: `", STDERR_FILENO);
 	if (arg)
 	{
-		ft_putstr_fd(arg, 2);
-		ft_putstr_fd("': ", 2);
+		ft_putstr_fd(arg, STDERR_FILENO);
+		ft_putstr_fd("': ", STDERR_FILENO);
 	}
 	ft_putstr_fd("not a valid identifier", STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
