@@ -51,6 +51,41 @@ char	**env_to_array(t_env *env)
 	return (env_arr);
 }
 
+int	check_access(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		if (ft_strchr(args[i], '/'))
+		{
+			if (access(args[i], F_OK) == -1)
+			{
+				printf("vhgcvrfgr\n");
+				perror("minishell");
+				// free_data(data);
+				exit(126);
+			}
+			if (access(args[i], X_OK) == -1)
+			{
+				perror("minishell");
+				// free_data(data);
+				exit(126);
+			}
+			if (is_directory(args[i]))
+			{
+				print_error("minishell", args[i], "Is a directory");
+				// free(p->pids);
+				// free_data(data);
+				exit(126);
+			}
+		}
+		i++;
+	}
+	return (1);
+}
+
 int	execute_single_command(char **args, t_data *data)
 {
 	char	*path;
@@ -60,11 +95,14 @@ int	execute_single_command(char **args, t_data *data)
 		return (0);
 	if (is_built_in(args))
 		return (run_built_in(args_count(args), args, data));
-	path = find_cmd_path(args[0], data->env);
-	if (!path)
+	if (check_access(args))
 	{
-		print_error("minishell", args[0], "command not found");
-		exit(127);
+		path = find_cmd_path(args[0], data->env);
+		if (!path)
+		{
+			print_error("minishell", args[0], "command not found");
+			exit(127);
+		}
 	}
 	env_arr = env_to_array(data->env);
 	signal(SIGINT, SIG_DFL);

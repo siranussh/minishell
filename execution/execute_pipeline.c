@@ -75,13 +75,13 @@ int child_process(t_cmd *cmd, t_pipe *p,  t_data *data, int pipe_fd[])
 		setup_signals();
 		setup_child_pipes_and_redirs(cmd, p->prev_fd, pipe_fd);
 		close_pipe_fds(pipe_fd);
-		if (is_directory(cmd->tokens[0]))
-		{
-			print_error("minishell", cmd->tokens[0], "Is a directory");
-			free(p->pids);
-			free_data(data);
-			exit(126);
-		}
+		// if (is_directory(cmd->tokens[0]) )
+		// {
+		// 	print_error("minishell", cmd->tokens[0], "Is a directory");
+		// 	free(p->pids);
+		// 	free_data(data);
+		// 	exit(126);
+		// }
 		if (is_built_in(cmd->tokens))
 		{
 			p->exit_code = run_built_in(args_count(cmd->tokens),
