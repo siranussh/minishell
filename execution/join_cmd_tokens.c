@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join_cmd_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 15:57:04 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/26 14:39:01 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/02 12:45:00 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	**join_cmd_tokens(char *cmd, char **tokens, int num_tokens)
 {
 	int		i;
 	char	**args;
+
 	args = (char **)malloc(sizeof(char *) * (num_tokens + 2));
 	if (!args)
 		return (NULL);

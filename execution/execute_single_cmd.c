@@ -51,37 +51,28 @@ char	**env_to_array(t_env *env)
 	return (env_arr);
 }
 
-int	check_access(char **args)
+int	check_access(char *args)
 {
-	int	i;
-
-	i = 0;
-	while (args[i])
+	if (ft_strchr(args, '/'))
 	{
-		if (ft_strchr(args[i], '/'))
+		if (access(args, F_OK) == -1)
 		{
-			if (access(args[i], F_OK) == -1)
-			{
-				printf("vhgcvrfgr\n");
-				perror("minishell");
-				// free_data(data);
-				exit(126);
-			}
-			if (access(args[i], X_OK) == -1)
-			{
-				perror("minishell");
-				// free_data(data);
-				exit(126);
-			}
-			if (is_directory(args[i]))
-			{
-				print_error("minishell", args[i], "Is a directory");
-				// free(p->pids);
-				// free_data(data);
-				exit(126);
-			}
+			print_error("minishell", args, "No such file or directory");
+			// free_data(data);
+			exit(126);
 		}
-		i++;
+		if (access(args, X_OK) == -1)
+		{
+			print_error("minishell", args, "Permission denied");
+			// free_data(data);
+			exit(126);
+		}
+		if (is_directory(args))
+		{
+			print_error("minishell", args, "Is a directory");
+			// free_data(data);
+			exit(126);
+		}
 	}
 	return (1);
 }
@@ -95,7 +86,7 @@ int	execute_single_command(char **args, t_data *data)
 		return (0);
 	if (is_built_in(args))
 		return (run_built_in(args_count(args), args, data));
-	if (check_access(args))
+	if (check_access(args[0]))
 	{
 		path = find_cmd_path(args[0], data->env);
 		if (!path)

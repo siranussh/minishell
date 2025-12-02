@@ -53,7 +53,7 @@ void	cd_minus(char *old_pwd, int *status, t_env *env)
 		*status = 0;
 	else
 		*status = 1;
-	printf("%s\n", old_copy);
+	ft_putendl_fd(old_copy, STDOUT_FILENO);
 	free(old_copy);
 }
 

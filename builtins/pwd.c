@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 14:46:38 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/29 14:46:40 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/02 12:59:35 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	built_in_pwd(void)
 	cwd = getcwd(NULL, 0);
 	if (cwd != NULL)
 	{
-		printf("%s\n", cwd);
+		ft_putendl_fd(cwd, STDOUT_FILENO);
 		free(cwd);
 		return (0);
 	}

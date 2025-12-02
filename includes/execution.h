@@ -60,6 +60,7 @@ char	*find_cmd_path(char *cmd, t_env *env);
 // execute_single_cmd.c
 int		args_count(char **args);
 char	**env_to_array(t_env *env);
+int		check_access(char *args);
 int		execute_single_command(char **args, t_data *data);
 
 // execute_pipeline.c

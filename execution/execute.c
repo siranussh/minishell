@@ -21,7 +21,7 @@ static void	prepare_all_commands(t_cmd *cmds)
 	}
 }
 
-static int handle_all_heredocs(t_cmd *cmds)
+static int	handle_all_heredocs(t_cmd *cmds)
 {
 	while (cmds)
 	{
@@ -37,7 +37,8 @@ void	execute(t_cmd *cmds, t_data *data, t_pipe *p)
 	// int		exit_code;
 	if (p->cmds_count > 1024)
 	{
-		print_error("minishell", NULL, "syntax error near unexpected token `|'");
+		print_error("minishell", NULL,
+			"syntax error near unexpected token `|'");
 		set_status(2);
 		free_data(data);////freeee
 		return ;

@@ -14,14 +14,15 @@
 
 static int	setup_in_redir(t_redir *r)
 {
-	int fd;
+	int	fd;
 
 	if (r->type == REDIR_IN)
 	{
+		check_access(r->filename);
 		fd = open(r->filename, O_RDONLY);
 		if (fd < 0)
 		{
-			printf("minishell: %s: No such file or directory\n", r->filename);
+			print_error("minishell", r->filename, "No such file or directory");
 			exit(1);
 		}
 		dup2(fd, STDIN_FILENO);
@@ -51,11 +52,12 @@ static int	setup_out_redir(t_redir *r)
 
 	if (r->type == REDIR_OUT)
 	{
+		check_access(r->filename);
 		fd = open(r->filename,
 				O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd < 0)
 		{
-			printf("minishell: %s: No such file or directory\n", r->filename);
+			print_error("minishell", r->filename, "No such file or directory");
 			exit(1);
 		}
 		dup2(fd, STDOUT_FILENO);
@@ -71,11 +73,12 @@ static int	setup_append_redir(t_redir *r)
 
 	if (r->type == REDIR_APPEND)
 	{
+		check_access(r->filename);
 		fd = open(r->filename,
 				O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (fd < 0)
 		{
-			printf("minishell: %s: No such file or directory\n", r->filename);
+			print_error("minishell", r->filename, "No such file or directory");
 			exit(1);
 		}
 		dup2(fd, STDOUT_FILENO);
