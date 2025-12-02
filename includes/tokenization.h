@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/02 15:01:42 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/02 23:06:10 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_redir
 	int				type;
 	char			*filename;
 	struct s_redir	*next;
+	int quoted_delimiter;
 }	t_redir;
 
 typedef struct s_cmd

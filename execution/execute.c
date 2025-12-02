@@ -21,16 +21,17 @@ static void	prepare_all_commands(t_cmd *cmds)
 	}
 }
 
-static int	handle_all_heredocs(t_cmd *cmds)
+static int handle_all_heredocs(t_cmd *cmds, t_data *data)
 {
-	while (cmds)
-	{
-		if (!process_all_heredocs(cmds))
-			return (0);
-		cmds = cmds->next;
-	}
-	return (1);
+    while (cmds)
+    {
+        if (!process_all_heredocs(cmds, data))
+            return (0);
+        cmds = cmds->next;
+    }
+    return (1);
 }
+
 
 void	execute(t_cmd *cmds, t_data *data, t_pipe *p)
 {
@@ -44,7 +45,7 @@ void	execute(t_cmd *cmds, t_data *data, t_pipe *p)
 		return ;
 	}
 	prepare_all_commands(cmds);
-	if (!handle_all_heredocs(cmds))
+	if (!handle_all_heredocs(cmds, data))
 		return ;
 	if (only_builtin(cmds, data) != -1)
 	{

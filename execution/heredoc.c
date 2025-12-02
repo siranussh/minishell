@@ -12,32 +12,39 @@
 
 #include "../includes/minishell.h"
 
-static void	read_heredoc_child(int write_end, char *delimiter)
+static void read_heredoc_child(int write_end, char *delimiter, int quoted, t_data *data)
 {
-	char	*line;
+    char *line;
 
-	while (1)
-	{
-		line = readline("> ");
-		if (!line)
-			exit(0);
-		if (ft_strcmp(line, delimiter) == 0)
-		{
-			free(line);
-			exit(0);
-		}
-		ft_putendl_fd(line, write_end);
-		free(line);
-	}
+    while (1)
+    {
+        line = readline("> ");
+        if (!line)
+            exit(0);
+        if (ft_strcmp(line, delimiter) == 0)
+        {
+            free(line);
+            exit(0);
+        }
+        if (!quoted)
+        {
+            char *expanded = replace_all_val(NULL, line, NULL, data->env_exp);
+            line = expanded;
+        }
+        ft_putendl_fd(line, write_end);
+        free(line);
+    }
 }
 
-static void	handle_heredoc_child(int fd[2], char *delimiter)
+
+static void handle_heredoc_child(int fd[2], char *delimiter, int quoted, t_data *data)
 {
-	close(fd[0]);
-	read_heredoc_child(fd[1], delimiter);
-	close(fd[1]);
-	exit(0);
+    close(fd[0]);
+    read_heredoc_child(fd[1], delimiter, quoted, data);
+    close(fd[1]);
+    exit(0);
 }
+
 
 static int	handle_heredoc_parent(t_cmd *cmd, int fd[2], int pid)
 {
@@ -64,48 +71,46 @@ static int	handle_heredoc_parent(t_cmd *cmd, int fd[2], int pid)
 	return (1);
 }
 
-static int	read_heredoc(t_cmd *cmd, char *delimiter)
+static int read_heredoc(t_cmd *cmd, t_redir *r, t_data *data)
 {
-	int	fd[2];
-	int	pid;
-	int	status;
+    int fd[2];
+    int pid;
 
-	if (pipe(fd) == -1)
-		return (perror("minishell: pipe"), 0);
-	signal(SIGINT, SIG_IGN);
-	pid = fork();
-	if (pid == -1)
-	{
-		close(fd[0]);
-		close(fd[1]);
-		return (perror("minishell: fork"), 0);
-	}
-	if (pid == 0)
-	{
-		set_default_signals();
-		handle_heredoc_child(fd, delimiter);
-	}
-	if (!handle_heredoc_parent(cmd, fd, pid))
-		return (0);
-	if (cmd->fd_in != -1)
-		close(cmd->fd_in);
-	cmd->fd_in = fd[0];
-	return (1);
+    if (pipe(fd) == -1)
+        return (perror("minishell: pipe"), 0);
+
+    signal(SIGINT, SIG_IGN);
+
+    pid = fork();
+    if (pid == 0)
+    {
+        set_default_signals();
+        handle_heredoc_child(fd, r->filename, r->quoted_delimiter, data);
+    }
+
+    if (!handle_heredoc_parent(cmd, fd, pid))
+        return (0);
+
+    if (cmd->fd_in != -1)
+        close(cmd->fd_in);
+    cmd->fd_in = fd[0];
+    return (1);
 }
 
-int	process_all_heredocs(t_cmd *cmds)
-{
-	t_redir	*r;
 
-	r = cmds->redirs;
-	while (r)
-	{
-		if (r->type == REDIR_HEREDOC)
-		{
-			if (!read_heredoc(cmds, r->filename))
-				return (0);
-		}
-		r = r->next;
-	}
-	return (1);
+int process_all_heredocs(t_cmd *cmds, t_data *data)
+{
+    t_redir *r = cmds->redirs;
+
+    while (r)
+    {
+        if (r->type == REDIR_HEREDOC)
+        {
+            if (!read_heredoc(cmds, r, data))
+                return (0);
+        }
+        r = r->next;
+    }
+    return (1);
 }
+

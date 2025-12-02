@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/02 18:30:38 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 00:12:21 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,14 @@ void	unquote_all_tokens(t_cmd *cmd)
 			i = 0;
 			while (cmd->tokens[i])
 			{
-				tmp = unqoute_str(cmd->tokens[i]); // remove quotes from this token
-				free(cmd->tokens[i]);              // free old token
-				cmd->tokens[i] = tmp;              // replace with unquoted token
+				if (i > 0 && strcmp(cmd->tokens[i - 1], "<<") == 0)
+				{
+					i++;
+					continue;
+				}
+				tmp = unqoute_str(cmd->tokens[i]);
+				free(cmd->tokens[i]);       
+				cmd->tokens[i] = tmp;             
 				i++;
 			}
 		}
@@ -209,9 +214,9 @@ static int	process_line(t_data *data, char *line)
 {
 	char	*processed_line;
 
-	processed_line = skip_empty_quotes(line, data->cmd);
 	if (!line)
 		return 0;
+	processed_line = skip_empty_quotes(line, data->cmd);
 	if (!tokenize(data, &data->cmd, line))
 	{
 		free(processed_line);

@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:52 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/02 15:00:32 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/02 23:36:55 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,10 @@ void    expand(t_cmd **cmd, t_data *data)
     while ((*cmd)->tokens[++i])
     {
         if (token_is_heredoc_delimiter((*cmd)->tokens, i))
-            continue;
+		{
+			continue;
+		}
+           
         if (check_dollar_purpose((*cmd)->tokens[i]) == 1)
             (*cmd)->tokens[i] = replace_all_val(*cmd, (*cmd)->tokens[i],
                                                NULL, data->env_exp);

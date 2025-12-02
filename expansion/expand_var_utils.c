@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:24 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 14:10:49 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/02 23:46:49 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
