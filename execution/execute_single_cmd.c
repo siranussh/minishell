@@ -92,6 +92,7 @@ int	execute_single_command(char **args, t_data *data)
 		if (!path)
 		{
 			print_error("minishell", args[0], "command not found");
+			free_data(data);
 			exit(127);
 		}
 	}

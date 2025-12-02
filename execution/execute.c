@@ -48,7 +48,6 @@ void	execute(t_cmd *cmds, t_data *data, t_pipe *p)
 		return ;
 	if (only_builtin(cmds, data) != -1)
 	{
-		free(p->pids);
 		// return (get_status());
 		return ;
 	}

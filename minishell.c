@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/02 15:13:02 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/02 18:30:38 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,6 @@ static t_data	*init_shell(char **envp)
 	data = init();
 	if (!data)
 		exit_error("minishell: malloc failed", 1);
-
 	env = env_parse(envp);
 	data->env = env;
 	data->env_exp = env_exp_from_list(env);
