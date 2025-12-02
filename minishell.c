@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/30 22:45:25 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/02 15:13:02 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -183,11 +183,11 @@ static t_data	*init_shell(char **envp)
 
 static void	cleanup_shell(t_data *data)
 {
-	free(data->cmd);
-	free_env_list(data->env);
-	if (data->env_exp)
-		free_env_exp(&data->env_exp);
-	free(data);/////
+	// free(data->cmd);
+	// free_env_list(data->env);
+	// if (data->env_exp)
+	// 	free_env_exp(&data->env_exp);
+	free_data(data);
 }
 
 // static char	*read_shell_line(void)

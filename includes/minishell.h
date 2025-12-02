@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:18:46 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/02 13:14:04 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/02 15:18:39 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	free_redirs(t_redir *redir);
 void	free_env_list(t_env *head);
 void	free_flags(t_flags *flags);
 void	free_data(t_data *data);
+void	free_pipe_struct(t_pipe *p);
 
 //signal.c
 void	setup_signals_parent_exec(void);

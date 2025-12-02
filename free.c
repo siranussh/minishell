@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:46 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/29 00:00:57 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/02 15:36:33 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -71,16 +71,16 @@ void	free_cmd(t_cmd *cmd)
 		free(cmd->delimiter);
 	if (cmd->redirs)
 		free_redirs(cmd->redirs);
-	if (cmd->flags)
-		free(cmd->flags);
-	if (cmd->env)
-	{
-		if (cmd->env->env)
-			ft_free(cmd->env->env);
-		if (cmd->env->path)
-			free(cmd->env->path);
-		free(cmd->env);
-	}
+	// if (cmd->flags)
+	// 	free(cmd->flags);
+	// if (cmd->env)
+	// {
+	// 	if (cmd->env->env)
+	// 		ft_free(cmd->env->env);
+	// 	if (cmd->env->path)
+	// 		free(cmd->env->path);
+	// 	free(cmd->env);
+	// }
 	free(cmd);
 }
 
@@ -116,4 +116,13 @@ void	free_data(t_data *data)
 	if (data->env_exp)
 		free_env_exp(&data->env_exp);
 	free(data);
+}
+
+void	free_pipe_struct(t_pipe *p)
+{
+	int	i;
+
+	if (p->pids)
+		free(p->pids);
+	free(p);
 }

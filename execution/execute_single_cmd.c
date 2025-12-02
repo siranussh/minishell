@@ -59,7 +59,7 @@ int	check_access(char *args)
 		{
 			print_error("minishell", args, "No such file or directory");
 			// free_data(data);
-			exit(126);
+			exit(127);
 		}
 		if (access(args, X_OK) == -1)
 		{
