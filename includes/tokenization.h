@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/02 13:16:23 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/02 15:01:42 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,4 +128,6 @@ void	replace_token_with_array(char ***tokens, int pos, char **arr, int arr_count
 void	normalize_redirections(t_cmd *cmd);
 char	**split_redirs_token(char *tok, int *count);
 int		check_redir_at(char *str, int i);
+int		is_heredoc(char *tok);
+int		token_is_heredoc_delimiter(char **tokens, int i);
 #endif

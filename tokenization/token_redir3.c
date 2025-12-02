@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_redir3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:11:12 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 14:59:55 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/02 15:01:50 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
