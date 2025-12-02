@@ -1,10 +1,10 @@
 #ifndef EXPANSION_H
-#define EXPANSION_H
+# define EXPANSION_H
 
-typedef struct s_env t_env;
-typedef struct s_cmd t_cmd;
-typedef struct s_data t_data;
-typedef struct s_env_exp t_env_exp;
+typedef struct	s_env	t_env;
+typedef struct	s_cmd	t_cmd;
+typedef struct	s_data	t_data;
+typedef struct	s_env_exp	t_env_exp;
 
 int		is_special(char c);
 char	*extract_value_name(char *line);
@@ -55,4 +55,4 @@ char	*handle_dollar(char *str, int *i, t_env_exp *env);
 char	*expand_exit_status(char *str, int *i);
 char	*replace_with_value(char *str, int *i, char *val, int skip_len);
 
-#endif 
+#endif

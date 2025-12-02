@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:16:42 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/28 22:13:28 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/02 13:10:18 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
@@ -34,7 +34,7 @@ char	*ft_substr_ms(char const *s, int start, int len);
 
 // builtins.c
 int		is_built_in(char **args);
-int 	run_built_in(int argc, char **args, t_data *data);
+int		run_built_in(int argc, char **args, t_data *data);
 
 // echo.c
 int		built_in_echo(char **args);

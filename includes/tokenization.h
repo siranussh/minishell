@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/30 22:56:21 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/02 13:16:23 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef TOKENIZATION_H
 # define TOKENIZATION_H
@@ -111,7 +111,7 @@ int		count_tokens_array(char **tokens);
 t_cmd	*build_cmd(t_data *data, char *line);
 int		tokenize(t_data *data, t_cmd **cmd, char *read_line);
 int		find_next_char(char *str, char c, int j);
-int 	skip_quote_and_find(char *s, int *i, char quote);
+int		skip_quote_and_find(char *s, int *i, char quote);
 char	redir_smb(int c);
 int		is_redir(char **token);
 int		redir_type(char *str);

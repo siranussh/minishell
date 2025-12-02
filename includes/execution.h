@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/01 12:04:35 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/30 22:14:03 by anavagya         ###   ########.fr       */
+/*   Created: 2025/12/02 13:06:58 by anavagya          #+#    #+#             */
+/*   Updated: 2025/12/02 13:06:58 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
@@ -65,11 +65,11 @@ int		execute_single_command(char **args, t_data *data);
 
 // execute_pipeline.c
 void	setup_child_pipes_and_redirs(t_cmd *cmd, int prev_fd, int pipe_fd[2]);
-int		child_process(t_cmd *cmd, t_pipe *p,  t_data *data, int pipe_fd[]);
+int		child_process(t_cmd *cmd, t_pipe *p, t_data *data, int pipe_fd[]);
 int		is_directory(char *path);
-void	execute_pipeline(t_cmd *cmds, t_data * data, t_pipe *p);
+void	execute_pipeline(t_cmd *cmds, t_data *data, t_pipe *p);
 
 // execute.c
 void	execute(t_cmd *cmds, t_data *data, t_pipe *p);
 
-# endif
+#endif
