@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_redir3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:11:12 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/02 15:01:50 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/03 15:56:40 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ static int	process_redir_token(t_cmd *cmd, int i)
 {
 	int		new_count;
 	char	**parts;
+	int		k;
 
+	k = -1;
 	new_count = 0;
 	parts = split_redirs_token(cmd->tokens[i], &new_count);
 	if (!parts)
@@ -87,9 +89,14 @@ static int	process_redir_token(t_cmd *cmd, int i)
 	if (new_count > 1)
 	{
 		replace_token_with_array(&cmd->tokens, i, parts, new_count);
+		while (++k < new_count)
+			free(parts[k]);
 		free(parts);
 		return (1);
 	}
+	k = -1;
+	while (++k < new_count)
+		free(parts[k]);
 	free(parts);
 	return (0);
 }

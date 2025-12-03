@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_redir_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:43 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 13:02:38 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/03 15:49:01 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	redir_type(char *str)
 	int	i;
 	int	ret;
 
-	if (!str || !*str)
-		return (0);
 	i = 0;
+	if (!str || str[i] != '\0')
+		return (0);
 	while (str[i])
 	{
 		if (str[i] == '"' || str[i] == '\'')

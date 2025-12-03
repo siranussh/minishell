@@ -46,8 +46,6 @@ void	execute(t_cmd *cmds, t_data *data, t_pipe *p)
 	if (!handle_all_heredocs(cmds, data))
 		return ;
 	if (only_builtin(cmds, data) != -1)
-	{
 		return ;
-	}
 	execute_pipeline(cmds, data, p);
 }
