@@ -37,7 +37,7 @@ void	add_redir_back(t_redir **list, t_redir *new);
 char	**remove_tokens_from_array(char **tokens, int start, int count);
 
 // heredoc.c
-int process_all_heredocs(t_cmd *cmds, t_data *data);
+int		process_all_heredocs(t_cmd *cmds, t_data *data);
 
 // execute_built_in.c
 int		only_builtin(t_cmd *cmd, t_data *data);

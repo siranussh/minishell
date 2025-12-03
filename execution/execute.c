@@ -21,27 +21,25 @@ static void	prepare_all_commands(t_cmd *cmds)
 	}
 }
 
-static int handle_all_heredocs(t_cmd *cmds, t_data *data)
+static int	handle_all_heredocs(t_cmd *cmds, t_data *data)
 {
-    while (cmds)
-    {
-        if (!process_all_heredocs(cmds, data))
-            return (0);
-        cmds = cmds->next;
-    }
-    return (1);
+	while (cmds)
+	{
+		if (!process_all_heredocs(cmds, data))
+			return (0);
+		cmds = cmds->next;
+	}
+	return (1);
 }
-
 
 void	execute(t_cmd *cmds, t_data *data, t_pipe *p)
 {
-	// int		exit_code;
 	if (p->cmds_count > 1024)
 	{
 		print_error("minishell", NULL,
 			"syntax error near unexpected token `|'");
 		set_status(2);
-		free_data(data);////freeee
+		free_data(data);
 		return ;
 	}
 	prepare_all_commands(cmds);
@@ -49,13 +47,7 @@ void	execute(t_cmd *cmds, t_data *data, t_pipe *p)
 		return ;
 	if (only_builtin(cmds, data) != -1)
 	{
-		// return (get_status());
 		return ;
 	}
 	execute_pipeline(cmds, data, p);
-	// if (p->prev_fd != -1)
-	// 	close(p->prev_fd);
-	// wait_for_children(p);
-	// free(p->pids);
-	// return (get_status());
 }

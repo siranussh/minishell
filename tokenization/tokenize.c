@@ -3,30 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:13:37 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/02 15:02:03 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/03 10:56:19 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-
-int is_heredoc(char *tok)
+int	is_heredoc(char *tok)
 {
-    if (!tok)
-        return (0);
-    return (tok[0] == '<' && tok[1] == '<' && tok[2] == '\0');
+	if (!tok)
+		return (0);
+	return (tok[0] == '<' && tok[1] == '<' && tok[2] == '\0');
 }
 
-int token_is_heredoc_delimiter(char **tokens, int i)
+int	token_is_heredoc_delimiter(char **tokens, int i)
 {
-    if (!tokens || !tokens[i])
-        return (0);
-    if (i == 0)
-        return (0);
-    return (is_heredoc(tokens[i - 1]));
+	if (!tokens || !tokens[i])
+		return (0);
+	if (i == 0)
+		return (0);
+	return (is_heredoc(tokens[i - 1]));
 }
 
 int	tokenize(t_data *data, t_cmd **cmd, char *read_line)

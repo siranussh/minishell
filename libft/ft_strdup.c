@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:29:39 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/26 12:22:43 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/03 10:56:37 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	*ft_strdup(const char *s1)
 
 	len = 0;
 	i = 0;
-
 	if (!s1)
 		return (NULL);
 	while (s1[len] != '\0')

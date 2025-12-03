@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 00:12:21 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/03 10:39:35 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,14 @@ void	unquote_all_tokens(t_cmd *cmd)
 			i = 0;
 			while (cmd->tokens[i])
 			{
-				if (i > 0 && strcmp(cmd->tokens[i - 1], "<<") == 0)
+				if (i > 0 && ft_strcmp(cmd->tokens[i - 1], "<<") == 0)
 				{
 					i++;
 					continue;
 				}
 				tmp = unqoute_str(cmd->tokens[i]);
-				free(cmd->tokens[i]);       
-				cmd->tokens[i] = tmp;             
+				free(cmd->tokens[i]);
+				cmd->tokens[i] = tmp;
 				i++;
 			}
 		}
@@ -193,22 +193,6 @@ static void	cleanup_shell(t_data *data)
 	// 	free_env_exp(&data->env_exp);
 	free_data(data);
 }
-
-// static char	*read_shell_line(void)
-// {
-// 	char	*line;
-
-// 	line = readline("minishell> ");
-// 	if (!line)
-// 		return (NULL);
-// 	if (check_spaces(line) == -1 || line[0] == '\0')
-// 	{
-// 		free(line);
-// 		return (NULL);
-// 	}
-// 	add_history(line);
-// 	return (line);
-// }
 
 static int	process_line(t_data *data, char *line)
 {

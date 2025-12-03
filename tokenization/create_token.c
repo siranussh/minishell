@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/02 15:55:52 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 11:05:16 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ t_cmd	*init_cmd(t_data *data, char *line)
 	return (temp);
 }
 
-// after cutting
 t_cmd	*build_cmd(t_data *data, char *line)
 {
 	t_cmd	*temp;

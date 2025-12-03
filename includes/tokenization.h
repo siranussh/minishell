@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/02 23:06:10 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/03 11:38:19 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define REDIR_OUT 3
 # define REDIR_APPEND 4
 
-typedef struct s_env t_env;
+typedef struct s_env	t_env;
 
 typedef struct s_env_exp
 {
@@ -41,7 +41,7 @@ typedef struct s_redir
 	int				type;
 	char			*filename;
 	struct s_redir	*next;
-	int quoted_delimiter;
+	int				quoted_delimiter;
 }	t_redir;
 
 typedef struct s_cmd
@@ -65,70 +65,72 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
-	int				total_chars;
-	// int				heredoc;
-	// int				fd_in;
-	// int				fd_out;
-	// int				nb_cmds;
-	// char			*pipe;
-	// char 			*pids;
-	// char			*cmd_options;
-	// char			*cmd_path;
-	t_cmd			*cmd;
-	t_flags			*flags;
-	t_env_exp		*env_exp;
-	t_env			*env;
+	int			total_chars;
+	t_cmd		*cmd;
+	t_flags		*flags;
+	t_env_exp	*env_exp;
+	t_env		*env;
 }	t_data;
 
-t_data	*init(void);
+// 	create_token.c
 t_cmd	*init_cmd(t_data *data, char *line);
-int		exit_error(char *str, int code);
-void	print_error(char *name, char *file, char *err);
-int		pipe_syntax_error(void);
-int		quote_error(void);
-int		redir_error(void);
-int		export_error(char *arg);
-int		shlvl_error(char *arg);
-void	unquote_all_tokens(t_cmd *cmd);
+t_cmd	*build_cmd(t_data *data, char *line);
+
+// handle_quotes.c
 int		check_quotes_type(char *s);
-int		find_closing_quote(int start, char *str, char c);
-char	*skip_empty_quotes(char *str, t_cmd *cmd);
-int		handle_quote_pair(char *str, char *res, int i, int *j);
-int		is_empty_quotes_skippable(char *str, int i);
-char	*delete_quotes(char *str, char c);
-char	*str_tolower(char *str);
 int		check_dquote(char *str, int is_double, int is_single,
 			t_data *data);
-char	*unqoute_str(char *str);
-int		count_tokens(char *str);
-int		parse_line(t_data **data, char *line,
-			char ***tokens_by_pipe);
-char	**split_cmds_by_pipe(char *str, char **result);
+int		handle_quote_pair(char *str, char *res, int i, int *j);
+
+// handle_quotes_2.c
+int		is_empty_quotes_skippable(char *str, int i);
+char	*skip_empty_quotes(char *str, t_cmd *cmd);
+
+// token_pipe_utils.c
 int		count_pipes(char *str);
+char	**split_cmds_by_pipe(char *str, char **result);
 int		check_pipe_seg(char *str);
 char	**split_pipes(char *str);
-t_cmd	*last_cmd(t_cmd **cmd);
-int		count_tokens_array(char **tokens);
-t_cmd	*build_cmd(t_data *data, char *line);
-int		tokenize(t_data *data, t_cmd **cmd, char *read_line);
-int		find_next_char(char *str, char c, int j);
-int		skip_quote_and_find(char *s, int *i, char quote);
-char	redir_smb(int c);
-int		is_redir(char **token);
-int		redir_type(char *str);
+
+// token_redir_utils.c
 int		is_other_op(char c);
+int		redir_type(char *str);
+int		is_redir(char **token);
+char	redir_smb(int c);
 int		find_next_redir(char *str);
-int		check_redir(char **arg, int i);
+// token_redir.c
 char	**remove_token(char **tokens, int index);
 char	**add_token(char **tokens, char *new, int j);
 char	**split_redirection_start(char **tokens, int j, char c);
-void	redir_tokens(t_cmd *cmd);
 char	**split_redirection_tokens(char **tokens, int j, char c, int k);
 char	**split_redirection_parts(char **tokens, int j, int i, int k);
-void	replace_token_with_array(char ***tokens, int pos, char **arr, int arr_count);
-void	normalize_redirections(t_cmd *cmd);
+
+// token_redir2.c
+void	redir_tokens(t_cmd *cmd);
 char	**split_redirs_token(char *tok, int *count);
+
+// token_redir3.c
 int		check_redir_at(char *str, int i);
+void	replace_token_with_array(char ***tokens, int pos, char **arr,
+			int arr_count);
+void	normalize_redirections(t_cmd *cmd);
+
+// token_utils.c
+int		count_tokens(char *str);
+int		check_redir(char **tk, int i);
+int		parse_line(t_data **data, char *line, char ***tokens_by_pipe);
+t_cmd	*last_cmd(t_cmd **cmd);
+int		count_tokens_array(char **tokens);
+
+// token_utils_2.c
+char	*delete_quotes(char *str, char c);
+
+//tokenize.c
 int		is_heredoc(char *tok);
 int		token_is_heredoc_delimiter(char **tokens, int i);
+int		tokenize(t_data *data, t_cmd **cmd, char *read_line);
+
+int		find_closing_quote(int start, char *str, char c);
+int		find_next_char(char *str, char c, int j);
+
 #endif

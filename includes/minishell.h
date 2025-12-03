@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:18:46 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/02 15:18:39 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 11:59:50 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,55 @@
 
 extern int	g_exit_code;
 
+// utils.c
+int			skip_spaces(char *str, int i);
+char		*str_tolower(char *str);
+char		*unqoute_str(char *str);
+int			check_spaces(char *str);
+
+// arr_list_handler.c
+char		*ft_strjoin_three(char *s1, char *s2, char *s3);
+void		refresh_env_exp(t_data *data);
+int			built_in_export_wrapper(char **args, int argc, t_data *data);
+int			built_in_unset_wrapper(char **args, t_data *data);
+char		*expand_var(t_data *data, char *key);
+
+// arr_list_handler2.c
+t_env_exp	*env_exp_from_list(t_env *env_list);
+
 // get_status.c
-void	set_status(int status);
-int		get_status(void);
+void		set_status(int status);
+int			get_status(void);
+
+// free_env_exp.c
+void		free_env_exp(t_env_exp **env_exp_ptr);
 
 // free.c
-void	ft_free(char **str);
-void	free_redirs(t_redir *redir);
-void	free_env_list(t_env *head);
-void	free_flags(t_flags *flags);
-void	free_data(t_data *data);
-void	free_pipe_struct(t_pipe *p);
+void		ft_free(char **str);
+void		free_redirs(t_redir *redir);
+void		free_env_list(t_env *head);
+void		free_flags(t_flags *flags);
+void		free_data(t_data *data);
+void		free_pipe_struct(t_pipe *p);
 
 //signal.c
-void	setup_signals_parent_exec(void);
-void	setup_signals(void);
-void	set_default_signals(void);
+void		setup_signals_parent_exec(void);
+void		setup_signals(void);
+void		set_default_signals(void);
+
+// error_handling.c
+int			exit_error(char *str, int code);
+void		print_error(char *name, char *file, char *err);
+
+// error_wrappers.c
+int			pipe_syntax_error(void);
+int			quote_error(void);
+int			redir_error(void);
+int			export_error(char *arg);
+int			shlvl_error(char *arg);
+
+// minishell.c
+t_data		*init(void);
+void		unquote_all_tokens(t_cmd *cmd);
 
 #endif

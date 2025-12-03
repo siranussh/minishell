@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:52 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/02 23:36:55 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/03 10:46:13 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,57 +106,25 @@ char	*delete_invalid_dollar(char *str, int i, int j)
 	return (str);
 }
 
-// void expand(t_cmd **cmd, t_data *data)
-// {
-//     int i = -1;
-//     if ((*cmd)->cmd && check_dollar_purpose((*cmd)->cmd) == 1)
-//     {
-//         char *tmp = simple_expand((*cmd)->cmd, data->env_exp);
-//         free((*cmd)->cmd);
-//         (*cmd)->cmd = tmp;
-//     }
-//     if (is_tilde_path((*cmd)->cmd) == 1)
-//         (*cmd)->cmd = replace_tilde((*cmd)->cmd);
-//     if (!(*cmd)->tokens)
-//         return ;
-//     while ((*cmd)->tokens[++i])
-//     {
-//         if ((*cmd)->tokens[i]
-// && check_dollar_purpose((*cmd)->tokens[i]) == 1)
-//         {
-//             char *tmp = simple_expand((*cmd)->tokens[i], data->env_exp);
-//             free((*cmd)->tokens[i]);
-//             (*cmd)->tokens[i] = tmp;
-//         }
-//         if (is_tilde_path((*cmd)->tokens[i]) == 1)
-//             (*cmd)->tokens[i] = replace_tilde((*cmd)->tokens[i]);
-//     }
-// }
-
-void    expand(t_cmd **cmd, t_data *data)
+void	expand(t_cmd **cmd, t_data *data)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    if (check_dollar_purpose((*cmd)->cmd) == 1)
-        (*cmd)->cmd = replace_all_val(*cmd, (*cmd)->cmd, NULL, data->env_exp);
-    if (is_tilde_path((*cmd)->cmd) == 1)
-        (*cmd)->cmd = replace_tilde((*cmd)->cmd);
-
-    if (!(*cmd)->tokens)
-        return ;
-    while ((*cmd)->tokens[++i])
-    {
-        if (token_is_heredoc_delimiter((*cmd)->tokens, i))
-		{
-			continue;
-		}
-           
-        if (check_dollar_purpose((*cmd)->tokens[i]) == 1)
-            (*cmd)->tokens[i] = replace_all_val(*cmd, (*cmd)->tokens[i],
-                                               NULL, data->env_exp);
-        if (is_tilde_path((*cmd)->tokens[i]) == 1)
-            (*cmd)->tokens[i] = replace_tilde((*cmd)->tokens[i]);
-    }
+	i = -1;
+	if (check_dollar_purpose((*cmd)->cmd) == 1)
+		(*cmd)->cmd = replace_all_val(*cmd, (*cmd)->cmd, NULL, data->env_exp);
+	if (is_tilde_path((*cmd)->cmd) == 1)
+		(*cmd)->cmd = replace_tilde((*cmd)->cmd);
+	if (!(*cmd)->tokens)
+		return ;
+	while ((*cmd)->tokens[++i])
+	{
+		if (token_is_heredoc_delimiter((*cmd)->tokens, i))
+			continue ;
+		if (check_dollar_purpose((*cmd)->tokens[i]) == 1)
+			(*cmd)->tokens[i] = replace_all_val(*cmd, (*cmd)->tokens[i],
+					NULL, data->env_exp);
+		if (is_tilde_path((*cmd)->tokens[i]) == 1)
+			(*cmd)->tokens[i] = replace_tilde((*cmd)->tokens[i]);
+	}
 }
-
