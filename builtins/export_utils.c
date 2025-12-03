@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 12:54:35 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/02 12:54:36 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 17:53:50 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	handle_export_arg(t_env **env, char *arg)
 		append_export(env, key, value);
 	else
 		key_existance(env, key, value);
+	free(key);///siran
+	free(value);///siran
 }
 
 int	is_valid_identifier(char *arg)

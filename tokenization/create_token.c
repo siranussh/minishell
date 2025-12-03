@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 15:29:38 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 17:53:06 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,25 @@ static char	**get_token_arr(t_data *data, char *str, t_cmd *cmd)
 {
 	char	**token;
 	char	*temp;
+	char	*trimmed;
+	int		temp_allocated;
 
 	temp = str;
+	temp_allocated = 0;
 	if (check_quotes_type(temp) == -1)
-		temp = skip_empty_quotes(ft_strtrim(temp, " "), cmd);
+	{
+		trimmed = ft_strtrim(temp, " ");
+		if (!trimmed)
+			exit_error("minishell: malloc failed", 1);
+		temp = skip_empty_quotes(trimmed, cmd);
+		free(trimmed);
+		temp_allocated = 1;
+	}
 	token = malloc(sizeof(char *) * (cmd->num_tokens + 1));
 	if (!token)
 		exit_error("minishell: malloc failed", 1);
 	data->total_chars += split_tokens(temp, token);
-	if (check_quotes_type(str) == -1)
+	if (temp_allocated)
 		free(temp);
 	return (token);
 }
@@ -118,7 +128,8 @@ t_cmd	*build_cmd(t_data *data, char *line)
 	if (temp->cmd != NULL)
 	{
 		old_tokens = temp->tokens;
-		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);
+		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens,
+				temp->num_tokens);
 		if (old_tokens != temp->tokens)
 			ft_free(old_tokens);
 	}
@@ -155,7 +166,7 @@ t_cmd	*build_cmd(t_data *data, char *line)
 // 		temp->tokens = NULL;
 // 	if (temp->cmd != NULL)///////////ani
 // 		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens,
-				// temp->num_tokens);//ani
+// temp->num_tokens);//ani
 // 	normalize_redirections(temp);
 // 	return (temp);
 // }
