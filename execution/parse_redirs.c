@@ -28,6 +28,7 @@ static int	handle_heredoc_redir(t_cmd *cmd, int i)
 {
 	t_redir	*r;
 	char	*tok;
+	char	*tmp;
 
 	if (ft_strcmp(cmd->tokens[i], "<<") == 0 && cmd->tokens[i + 1])
 	{
@@ -41,7 +42,9 @@ static int	handle_heredoc_redir(t_cmd *cmd, int i)
 		}
 		else
 		{
-			r = init_redir(REDIR_HEREDOC, ft_strdup(tok));
+			tmp = ft_strdup(tok);
+			r = init_redir(REDIR_HEREDOC, tmp);
+			free(tmp);
 			r->quoted_delimiter = 0;
 		}
 		add_redir_back(&cmd->redirs, r);
@@ -85,7 +88,7 @@ void	parse_redirs(t_cmd *cmd)
 	while (cmd->tokens[i])
 	{
 		if (handle_in_redir(cmd, i) || handle_heredoc_redir(cmd, i)
-			|| handle_out_redir(cmd, i) || handle_append_redir(cmd, i))
+		|| handle_out_redir(cmd, i) || handle_append_redir(cmd, i))
 			continue ;
 		i++;
 	}
