@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 15:19:30 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 21:08:02 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,14 +200,13 @@ static t_data	*init_shell(char **envp)
 
 static int	process_line(t_data *data, char *line)
 {
-	char	*processed_line;
+	//char	*processed_line;
 
 	if (!line)
 		return 0;
-	processed_line = skip_empty_quotes(line, data->cmd);
 	if (!tokenize(data, &data->cmd, line))
 	{
-		free(processed_line);
+		//free(processed_line);
 		if (data->cmd)
 		{
 			free_cmd_list(data->cmd);
@@ -215,7 +214,7 @@ static int	process_line(t_data *data, char *line)
 		}
 		return (0);
 	}
-	free(processed_line);
+	//free(processed_line);
 	if (data->cmd)
 	{
 		expand(&data->cmd, data);
@@ -228,13 +227,11 @@ static void	exec_and_free(t_data *data, char *line)
 {
 	data->p = init_pipe_struct(data);
 	execute(data->cmd, data, data->p);
-	// Free pids array after each command
 	if (data->p && data->p->pids)
 	{
 		free(data->p->pids);
 		data->p->pids = NULL;
 	}
-	// Free command list after each command
 	if (data->cmd)
 	{
 		free_cmd_list(data->cmd);

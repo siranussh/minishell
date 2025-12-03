@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_redir3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:11:12 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 15:56:40 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 21:14:10 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,34 @@ static char	**build_new_tokens(char **tokens, char **arr, int pos,
 		i++;
 	}
 	k = 0;
+	/* duplicate inserted parts, clean up on failure */
 	while (k < arr_count)
-		new[i++] = ft_strdup(arr[k++]);
+	{
+		new[i] = ft_strdup(arr[k]);
+		if (!new[i])
+		{
+			/* free any previously strdup'ed strings */
+			while (--i >= 0 && i >= pos)
+				free(new[i]);
+			free(new);
+			return (NULL);
+		}
+		i++;
+		k++;
+	}
 	j = pos + 1;
 	while (j < old_count)
 		new[i++] = tokens[j++];
 	new[i] = NULL;
 	return (new);
+}
+
+void free_split(char **tmp)
+{
+	int i = -1;
+	while(tmp[++i])
+		free(tmp[i]);
+	free(tmp);
 }
 
 void	replace_token_with_array(char ***tokens, int pos, char **arr,
