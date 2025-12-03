@@ -12,13 +12,13 @@
 
 #include "../includes/minishell.h"
 
-static int	setup_in_redir(t_redir *r)
+static int	setup_in_redir(t_redir *r, t_data *data)
 {
 	int	fd;
 
 	if (r->type == REDIR_IN)
 	{
-		check_access(r->filename);
+		check_access(r->filename, data);
 		fd = open(r->filename, O_RDONLY);
 		if (fd < 0)
 		{
@@ -46,13 +46,13 @@ static int	setup_heredoc_redir(t_cmd *cmd, t_redir *r)
 	return (0);
 }
 
-static int	setup_out_redir(t_redir *r)
+static int	setup_out_redir(t_redir *r, t_data *data)
 {
 	int	fd;
 
 	if (r->type == REDIR_OUT)
 	{
-		check_access(r->filename);
+		check_access(r->filename, data);
 		fd = open(r->filename,
 				O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd < 0)
@@ -67,13 +67,13 @@ static int	setup_out_redir(t_redir *r)
 	return (0);
 }
 
-static int	setup_append_redir(t_redir *r)
+static int	setup_append_redir(t_redir *r, t_data *data)
 {
 	int	fd;
 
 	if (r->type == REDIR_APPEND)
 	{
-		check_access(r->filename);
+		check_access(r->filename, data);
 		fd = open(r->filename,
 				O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (fd < 0)
@@ -88,17 +88,17 @@ static int	setup_append_redir(t_redir *r)
 	return (0);
 }
 
-void	setup_redirs(t_cmd *cmd)
+void	setup_redirs(t_data *data)
 {
 	t_redir	*r;
 
-	if (!cmd || !cmd->redirs)
+	if (!data->cmd || !data->cmd->redirs)
 		return ;
-	r = cmd->redirs;
+	r = data->cmd->redirs;
 	while (r)
 	{
-		if (setup_in_redir(r) || setup_heredoc_redir(cmd, r)
-			|| setup_out_redir(r) || setup_append_redir(r))
+		if (setup_in_redir(r, data) || setup_heredoc_redir(data->cmd, r)
+			|| setup_out_redir(r, data) || setup_append_redir(r, data))
 		{
 			r = r->next;
 			continue ;

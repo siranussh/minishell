@@ -12,17 +12,17 @@
 
 #include "../includes/minishell.h"
 
-void	setup_child_pipes_and_redirs(t_cmd *cmd, int prev_fd, int pipe_fd[2])
+void	setup_child_pipes_and_redirs(t_data *data, int prev_fd, int pipe_fd[2])
 {
 	if (prev_fd != -1)
 	{
 		dup2(prev_fd, STDIN_FILENO);
 		close(prev_fd);
 	}
-	else if (cmd->fd_in != -1)
+	else if (data->cmd->fd_in != -1)
 	{
-		dup2(cmd->fd_in, STDIN_FILENO);
-		close(cmd->fd_in);
+		dup2(data->cmd->fd_in, STDIN_FILENO);
+		close(data->cmd->fd_in);
 	}
 	if (pipe_fd[1] != -1)
 	{
@@ -31,7 +31,7 @@ void	setup_child_pipes_and_redirs(t_cmd *cmd, int prev_fd, int pipe_fd[2])
 	}
 	if (pipe_fd[0] != -1)
 		close(pipe_fd[0]);
-	setup_redirs(cmd);
+	setup_redirs(data);
 }
 
 static void	close_pipe_fds(int pipe_fd[2])
@@ -64,7 +64,6 @@ int	is_directory(char *path)
 int	child_process(t_cmd *cmd, t_pipe *p, t_data *data, int pipe_fd[])
 {
 	int	pid;
-	int	status;
 
 	pid = fork();
 	signal(SIGINT, SIG_IGN);
@@ -73,7 +72,7 @@ int	child_process(t_cmd *cmd, t_pipe *p, t_data *data, int pipe_fd[])
 	if (pid == 0)
 	{
 		setup_signals();
-		setup_child_pipes_and_redirs(cmd, p->prev_fd, pipe_fd);
+		setup_child_pipes_and_redirs(data, p->prev_fd, pipe_fd);
 		close_pipe_fds(pipe_fd);
 		if (is_built_in(cmd->tokens))
 		{
@@ -109,5 +108,4 @@ void	execute_pipeline(t_cmd *cmds, t_data *data, t_pipe *p)
 	if (p->prev_fd != -1)
 		close(p->prev_fd);
 	set_status(wait_for_children(p));
-	free(p->pids);
 }

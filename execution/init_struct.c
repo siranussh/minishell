@@ -12,25 +12,25 @@
 
 #include "../includes/minishell.h"
 
-t_pipe	*init_pipe_struct(t_cmd *cmds)
+t_pipe	*init_pipe_struct(t_data *data)
 {
-	t_pipe	*p;
+	// t_pipe	*p;
 
-	p = (t_pipe *)malloc(sizeof(t_pipe));
-	if (!p)
-		return (NULL);
-	p->prev_fd = -1;
-	p->exit_code = 0;
-	p->cmds_count = ft_cmd_size(cmds);
-	if (p->cmds_count <= 0)
-		return (free(p), NULL);
-	p->pids = (int *)malloc(sizeof(int) * p->cmds_count);
-	if (!p->pids)
+	// p = (t_pipe *)malloc(sizeof(t_pipe));
+	// if (!p)
+	// 	return (NULL);
+	data->p->prev_fd = -1;
+	data->p->exit_code = 0;
+	data->p->cmds_count = ft_cmd_size(data->cmd);
+	if (data->p->cmds_count <= 0)
+		return (free(data->p), NULL);
+	data->p->pids = (int *)malloc(sizeof(int) * data->p->cmds_count);
+	if (!data->p->pids)
 	{
-		free(p);
+		free(data->p);
 		return (NULL);
 	}
-	return (p);
+	return (data->p);
 }
 
 t_redir	*init_redir(int type, char *filename)

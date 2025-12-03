@@ -6,45 +6,45 @@
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:27:50 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 17:47:45 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/03 13:16:26 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	*remove_empty_quotes(char *str, int i)
-{
-	char	*new_str;
+// static char	*remove_empty_quotes(char *str, int i)
+// {
+// 	char	*new_str;
 
-	str[i] = 27;
-	str[i + 1] = 27;
-	new_str = ft_strdup(str);
-	free(str);
-	return (delete_quotes(new_str, 27));
-}
+// 	str[i] = 27;
+// 	str[i + 1] = 27;
+// 	new_str = ft_strdup(str);
+// 	free(str);
+// 	return (delete_quotes(new_str, 27));
+// }
 
-static char	*remove_empty_quotes_arg(char *str, int i)
-{
-	int		j;
-	char	*new_str;
+// static char	*remove_empty_quotes_arg(char *str, int i)
+// {
+// 	int		j;
+// 	char	*new_str;
 
-	str[i] = 48;
-	str[i + 1] = ';';
-	j = -1;
-	new_str = malloc(sizeof(char) * ft_strlen(str));
-	if (!new_str)
-		exit_error("minishell: malloc failed", 1);
-	while (++j < i)
-		new_str[j] = str[j];
-	while (str[j + 1])
-	{
-		new_str[j] = str[j + 1];
-		j++;
-	}
-	new_str[j] = '\0';
-	free(str);
-	return (new_str);
-}
+// 	str[i] = 48;
+// 	str[i + 1] = ';';
+// 	j = -1;
+// 	new_str = malloc(sizeof(char) * ft_strlen(str));
+// 	if (!new_str)
+// 		exit_error("minishell: malloc failed", 1);
+// 	while (++j < i)
+// 		new_str[j] = str[j];
+// 	while (str[j + 1])
+// 	{
+// 		new_str[j] = str[j + 1];
+// 		j++;
+// 	}
+// 	new_str[j] = '\0';
+// 	free(str);
+// 	return (new_str);
+// }
 // before 28.11
 // char *skip_empty_quotes(char *str, t_cmd *cmd)
 // {

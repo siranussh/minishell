@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 14:44:12 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/29 14:44:13 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 13:17:03 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,18 @@ int	ft_strcmp(char *s1, char *s2)
 
 	if (!s1 || !s2)
 		return (-1);
+	// if (!s1 || !s2)
+    //     return 0;
+    // if (!s1)
+    //     return -1;
+    // if (!s2)
+    //     return 1;
 	i = 0;
 	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
 	{
 		i++;
 	}
-	return (s1[i] - s2[i]);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
 char	*ft_substr_ms(char const *s, int start, int len)

@@ -51,26 +51,29 @@ char	**env_to_array(t_env *env)
 	return (env_arr);
 }
 
-int	check_access(char *args)
+int	check_access(char *args, t_data *data)
 {
 	if (ft_strchr(args, '/'))
 	{
 		if (access(args, F_OK) == -1)
 		{
 			print_error("minishell", args, "No such file or directory");
-			// free_data(data);
+			free_data(data);
+			free_pipe_struct(data->p);
 			exit(127);
 		}
 		if (access(args, X_OK) == -1)
 		{
 			print_error("minishell", args, "Permission denied");
-			// free_data(data);
+			free_data(data);
+			free_pipe_struct(data->p);
 			exit(126);
 		}
 		if (is_directory(args))
 		{
 			print_error("minishell", args, "Is a directory");
-			// free_data(data);
+			free_data(data);
+			free_pipe_struct(data->p);
 			exit(126);
 		}
 	}
@@ -86,7 +89,7 @@ int	execute_single_command(char **args, t_data *data)
 		return (0);
 	if (is_built_in(args))
 		return (run_built_in(args_count(args), args, data));
-	if (check_access(args[0]))
+	if (check_access(args[0], data))
 	{
 		path = find_cmd_path(args[0], data->env);
 		if (!path)

@@ -23,7 +23,7 @@ int	only_builtin(t_cmd *cmd, t_data *data)
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
 	parse_redirs(cmd);
-	setup_redirs(cmd);
+	setup_redirs(data);
 	exit_code = run_built_in(args_count(cmd->tokens),
 			cmd->tokens, data);
 	dup2(saved_stdin, STDIN_FILENO);

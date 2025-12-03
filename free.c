@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:46 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/02 18:08:32 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 13:21:01 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ void	free_data(t_data *data)
 		free_cmd_list(data->cmd);
 	if (data->flags)
 		free_flags(data->flags);
+	if (data->p)
+		free_pipe_struct(data->p);
 	if (data->env)
 		free_env_list(data->env);
 	if (data->env_exp)
@@ -120,9 +122,10 @@ void	free_data(t_data *data)
 
 void	free_pipe_struct(t_pipe *p)
 {
-	int	i;
-
-	if (p->pids)
-		free(p->pids);
-	free(p);
+	if (p)
+	{
+		if (p->pids)
+			free(p->pids);
+		free(p);
+	}
 }

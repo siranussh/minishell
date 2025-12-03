@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 10:39:35 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 13:23:22 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ t_data	*init(void)
 	data->flags = ft_calloc(1, sizeof(t_flags));
 	if (!data->flags)
 		exit_error("minishell: malloc failed", 1);
+	data->p = ft_calloc(1, sizeof(t_pipe));
+	if (!data->p)
+		exit_error("minishell: malloc failed", 1);
+	data->p->pids = NULL;/////////
 	data->flags->pipe = 0;
 	data->flags->quote = 0;
 	data->flags->has_special = 0;
@@ -217,11 +221,9 @@ static int	process_line(t_data *data, char *line)
 
 static void	exec_and_free(t_data *data, char *line)
 {
-	t_pipe	*p;
-
-	p = init_pipe_struct(data->cmd);
-	execute(data->cmd, data, p);
-	free(p);
+	data->p = init_pipe_struct(data);
+	execute(data->cmd, data, data->p);
+	// free_pipe_struct(data->p);
 	free(line);
 }
 
@@ -257,7 +259,7 @@ int	main(int argc, char **argv, char **envp)
 	data = init_shell(envp);
 	process_input_loop(data);
 	cleanup_shell(data);
-	// rl_clear_history();
+	rl_clear_history();
 	// clear_history();  macOS version
 	return (0);
 }

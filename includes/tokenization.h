@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 11:38:19 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 12:49:16 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define REDIR_APPEND 4
 
 typedef struct s_env	t_env;
+typedef struct s_pipe	t_pipe;
 
 typedef struct s_env_exp
 {
@@ -66,6 +67,7 @@ typedef struct s_cmd
 typedef struct s_data
 {
 	int			total_chars;
+	t_pipe		*p;
 	t_cmd		*cmd;
 	t_flags		*flags;
 	t_env_exp	*env_exp;
