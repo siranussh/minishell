@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 11:05:16 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 15:29:38 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ t_cmd	*init_cmd(t_data *data, char *line)
 t_cmd	*build_cmd(t_data *data, char *line)
 {
 	t_cmd	*temp;
+	char	**old_tokens;
 
 	temp = init_cmd(data, line);
 	if (temp->num_tokens > 0)
@@ -115,8 +116,12 @@ t_cmd	*build_cmd(t_data *data, char *line)
 	else
 		temp->tokens = NULL;
 	if (temp->cmd != NULL)
-		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens,
-				temp->num_tokens);
+	{
+		old_tokens = temp->tokens;
+		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens, temp->num_tokens);
+		if (old_tokens != temp->tokens)
+			ft_free(old_tokens);
+	}
 	normalize_redirections(temp);
 	return (temp);
 }

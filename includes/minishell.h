@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:18:46 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 11:59:50 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 14:41:44 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void		free_env_exp(t_env_exp **env_exp_ptr);
 // free.c
 void		ft_free(char **str);
 void		free_redirs(t_redir *redir);
+void		free_cmd_list(t_cmd *cmd);
 void		free_env_list(t_env *head);
 void		free_flags(t_flags *flags);
 void		free_data(t_data *data);

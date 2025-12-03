@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 13:23:22 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/03 15:19:30 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_data	*init(void)
 	data->p = ft_calloc(1, sizeof(t_pipe));
 	if (!data->p)
 		exit_error("minishell: malloc failed", 1);
-	data->p->pids = NULL;/////////
+	data->p->pids = NULL;
 	data->flags->pipe = 0;
 	data->flags->quote = 0;
 	data->flags->has_special = 0;
@@ -189,14 +189,14 @@ static t_data	*init_shell(char **envp)
 	return (data);
 }
 
-static void	cleanup_shell(t_data *data)
-{
-	// free(data->cmd);
-	// free_env_list(data->env);
-	// if (data->env_exp)
-	// 	free_env_exp(&data->env_exp);
-	free_data(data);
-}
+// static void	cleanup_shell(t_data *data)
+// {
+// 	// free(data->cmd);
+// 	// free_env_list(data->env);
+// 	// if (data->env_exp)
+// 	// 	free_env_exp(&data->env_exp);
+// 	free_data(data);
+// }
 
 static int	process_line(t_data *data, char *line)
 {
@@ -208,6 +208,11 @@ static int	process_line(t_data *data, char *line)
 	if (!tokenize(data, &data->cmd, line))
 	{
 		free(processed_line);
+		if (data->cmd)
+		{
+			free_cmd_list(data->cmd);
+			data->cmd = NULL;
+		}
 		return (0);
 	}
 	free(processed_line);
@@ -223,7 +228,18 @@ static void	exec_and_free(t_data *data, char *line)
 {
 	data->p = init_pipe_struct(data);
 	execute(data->cmd, data, data->p);
-	// free_pipe_struct(data->p);
+	// Free pids array after each command
+	if (data->p && data->p->pids)
+	{
+		free(data->p->pids);
+		data->p->pids = NULL;
+	}
+	// Free command list after each command
+	if (data->cmd)
+	{
+		free_cmd_list(data->cmd);
+		data->cmd = NULL;
+	}
 	free(line);
 }
 
@@ -258,7 +274,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	data = init_shell(envp);
 	process_input_loop(data);
-	cleanup_shell(data);
+	free_data(data);
+	// cleanup_shell(data);
 	rl_clear_history();
 	// clear_history();  macOS version
 	return (0);

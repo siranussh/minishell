@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:13 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 14:09:52 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/03 14:27:57 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	skip_quote_and_find(char *s, int *i, char quote)
 {
-	int	start;
+	// int	start;
 
-	start = *i;
+	// start = *i;
 	(*i)++;
 	while (s[*i] && s[*i] != quote)
 		(*i)++;

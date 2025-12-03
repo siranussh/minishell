@@ -59,21 +59,21 @@ int	check_access(char *args, t_data *data)
 		{
 			print_error("minishell", args, "No such file or directory");
 			free_data(data);
-			free_pipe_struct(data->p);
+			// free_pipe_struct(data->p);
 			exit(127);
 		}
 		if (access(args, X_OK) == -1)
 		{
 			print_error("minishell", args, "Permission denied");
 			free_data(data);
-			free_pipe_struct(data->p);
+			// free_pipe_struct(data->p);
 			exit(126);
 		}
 		if (is_directory(args))
 		{
 			print_error("minishell", args, "Is a directory");
 			free_data(data);
-			free_pipe_struct(data->p);
+			// free_pipe_struct(data->p);
 			exit(126);
 		}
 	}
