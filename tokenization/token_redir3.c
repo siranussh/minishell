@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_redir3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:11:12 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 15:56:40 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 23:58:05 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,33 +31,74 @@ int	check_redir_at(char *str, int i)
 	return (0);
 }
 
-static char	**build_new_tokens(char **tokens, char **arr, int pos,
-		int arr_count)
-{
-	char	**new;
-	int		old_count;
-	int		i;
-	int		j;
-	int		k;
+// static char	**build_new_tokens(char **tokens, char **arr, int pos,
+// 		int arr_count)
+// {
+// 	char	**new;
+// 	int		old_count;
+// 	int		i;
+// 	int		j;
+// 	int		k;
 
-	old_count = count_tokens_array(tokens);
-	new = malloc(sizeof(char *) * (old_count - 1 + arr_count + 1));
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (i < pos)
+// 	old_count = count_tokens_array(tokens);
+// 	new = malloc(sizeof(char *) * (old_count - 1 + arr_count + 1));
+// 	if (!new)
+// 		return (NULL);
+// 	i = 0;
+// 	while (i < pos)
+// 	{
+// 		new[i] = tokens[i];
+// 		i++;
+// 	}
+// 	k = 0;
+// 	while (k < arr_count)
+// 		new[i++] = ft_strdup(arr[k++]);
+// 	j = pos + 1;
+// 	while (j < old_count)
+// 		new[i++] = tokens[j++];
+// 	new[i] = NULL;
+// 	return (new);
+// }
+
+
+static char	**build_new_tokens(char **tokens, char **arr, int pos,
+	int arr_count)
+{
+char	**new;
+int		old_count;
+int		i;
+int		j;
+int		k;
+
+old_count = count_tokens_array(tokens);
+new = malloc(sizeof(char *) * (old_count - 1 + arr_count + 1));
+if (!new)
+	return (NULL);
+i = 0;
+while (i < pos)
+{
+	new[i] = tokens[i];
+	i++;
+}
+k = 0;
+while (k < arr_count)
+{
+	new[i] = ft_strdup(arr[k]);
+	if (!new[i])
 	{
-		new[i] = tokens[i];
-		i++;
+		while (--i >= 0 && i >= pos)
+			free(new[i]);
+		free(new);
+		return (NULL);
 	}
-	k = 0;
-	while (k < arr_count)
-		new[i++] = ft_strdup(arr[k++]);
-	j = pos + 1;
-	while (j < old_count)
-		new[i++] = tokens[j++];
-	new[i] = NULL;
-	return (new);
+	i++;
+	k++;
+}
+j = pos + 1;
+while (j < old_count)
+	new[i++] = tokens[j++];
+new[i] = NULL;
+return (new);
 }
 
 void	replace_token_with_array(char ***tokens, int pos, char **arr,
@@ -108,7 +149,7 @@ void	normalize_redirections(t_cmd *cmd)
 	i = 0;
 	while (cmd->tokens && cmd->tokens[i])
 	{
-		if (strchr(cmd->tokens[i], '<') || strchr(cmd->tokens[i], '>'))
+		if (ft_strchr(cmd->tokens[i], '<') || ft_strchr(cmd->tokens[i], '>'))
 		{
 			if (process_redir_token(cmd, i))
 				continue ;

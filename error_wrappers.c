@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_wrappers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:05 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/01 13:57:32 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 23:52:27 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	pipe_syntax_error(void)
 {
 	print_error("minishell", NULL, "syntax error near unexpected token '|'");
-	g_exit_code = 258;
+	g_exit_code = 2;
 	return (-1);
 }
 

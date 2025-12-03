@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:46 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/03 14:32:53 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 23:21:09 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ void	ft_free(char **str)
 {
 	int	i;
 
-	i = 0;
-	if (!str || !*str)
+	// if (!str || !*str)
+	// 	return ;
+	if (!str)
 		return ;
+	i = 0;
 	while (str[i])
 	{
 		free(str[i]);

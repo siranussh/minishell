@@ -26,6 +26,7 @@ static void	read_heredoc_child(int write_end, char *delimiter, int quoted,
 		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
+			free_data(data);//esa
 			exit(0);
 		}
 		if (!quoted)

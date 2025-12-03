@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 15:19:30 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/03 23:02:30 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,14 +200,14 @@ static t_data	*init_shell(char **envp)
 
 static int	process_line(t_data *data, char *line)
 {
-	char	*processed_line;
+	// char	*processed_line;  asec animasta 
 
 	if (!line)
 		return 0;
-	processed_line = skip_empty_quotes(line, data->cmd);
+	// processed_line = skip_empty_quotes(line, data->cmd);
 	if (!tokenize(data, &data->cmd, line))
 	{
-		free(processed_line);
+		// free(processed_line);
 		if (data->cmd)
 		{
 			free_cmd_list(data->cmd);
@@ -215,7 +215,7 @@ static int	process_line(t_data *data, char *line)
 		}
 		return (0);
 	}
-	free(processed_line);
+	// free(processed_line);
 	if (data->cmd)
 	{
 		expand(&data->cmd, data);
@@ -276,7 +276,7 @@ int	main(int argc, char **argv, char **envp)
 	process_input_loop(data);
 	free_data(data);
 	// cleanup_shell(data);
-	rl_clear_history();
+	// rl_clear_history();
 	// clear_history();  macOS version
 	return (0);
 }
