@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:24 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/04 13:53:47 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/04 16:37:02 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,14 +151,12 @@ char	*replace_val(t_cmd *cmd, char *line, char **rest_line, t_env_exp *env)
 // 	return (str);
 // }
 
-char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env)
+char	*replace_all_val(char *str, t_data *data)
 {
 	int		i;
 	int		in_single;
 	int		in_double;
 
-	(void)cmd;
-	(void)rest_line;
 	i = 0;
 	in_single = 0;
 	in_double = 0;
@@ -171,7 +169,7 @@ char	*replace_all_val(t_cmd *cmd, char *str, char *rest_line, t_env_exp *env)
 		}
 		if (str[i] == '$' && !in_single)
 		{
-			str = handle_dollar(str, &i, env);
+			str = handle_dollar(str, &i, data->env_exp, data);
 			continue ;
 		}
 		i++;

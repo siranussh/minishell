@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:52 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 10:46:13 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/04 16:42:53 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	expand(t_cmd **cmd, t_data *data)
 
 	i = -1;
 	if (check_dollar_purpose((*cmd)->cmd) == 1)
-		(*cmd)->cmd = replace_all_val(*cmd, (*cmd)->cmd, NULL, data->env_exp);
+		(*cmd)->cmd = replace_all_val((*cmd)->cmd, data);
 	if (is_tilde_path((*cmd)->cmd) == 1)
 		(*cmd)->cmd = replace_tilde((*cmd)->cmd);
 	if (!(*cmd)->tokens)
@@ -122,8 +122,7 @@ void	expand(t_cmd **cmd, t_data *data)
 		if (token_is_heredoc_delimiter((*cmd)->tokens, i))
 			continue ;
 		if (check_dollar_purpose((*cmd)->tokens[i]) == 1)
-			(*cmd)->tokens[i] = replace_all_val(*cmd, (*cmd)->tokens[i],
-					NULL, data->env_exp);
+			(*cmd)->tokens[i] = replace_all_val((*cmd)->tokens[i], data);
 		if (is_tilde_path((*cmd)->tokens[i]) == 1)
 			(*cmd)->tokens[i] = replace_tilde((*cmd)->tokens[i]);
 	}

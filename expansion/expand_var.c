@@ -6,7 +6,7 @@
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 14:11:06 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 17:46:35 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/04 16:29:11 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	handle_quotes(char c, int *in_single, int *in_double)
 	return (0);
 }
 
-char	*handle_dollar(char *str, int *i, t_env_exp *env)
+char	*handle_dollar(char *str, int *i, t_env_exp *env, t_data *data)
 {
 	int		dcount;
 	int		vlen;
@@ -35,7 +35,7 @@ char	*handle_dollar(char *str, int *i, t_env_exp *env)
 	char	*val;
 
 	if (str[*i + 1] == '?')
-		return (expand_exit_status(str, i));
+		return (expand_exit_status(str, i, data));
 	dcount = count_dollars(str, *i);
 	vlen = get_var_len(str, *i + dcount);
 	if (vlen == 0)
@@ -51,12 +51,12 @@ char	*handle_dollar(char *str, int *i, t_env_exp *env)
 	return (str);
 }
 
-char	*expand_exit_status(char *str, int *i)
+char	*expand_exit_status(char *str, int *i, t_data *data)
 {
 	char	*val;
 	char	*res;
 
-	val = ft_itoa(g_exit_code);
+	val = ft_itoa(data->p->exit_code);
 	res = build_new_line(str, val, *i, 2);
 	free(val);
 	free(str);

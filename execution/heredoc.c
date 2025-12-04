@@ -31,7 +31,7 @@ static void	read_heredoc_child(int write_end, char *delimiter, int quoted,
 		}
 		if (!quoted)
 		{
-			expanded = replace_all_val(NULL, line, NULL, data->env_exp);
+			expanded = replace_all_val(line, data);
 			line = expanded;
 		}
 		ft_putendl_fd(line, write_end);
