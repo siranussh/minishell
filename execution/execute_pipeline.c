@@ -1,28 +1,51 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:04:52 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/04 12:04:52 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/04 20:58:40 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
-void	setup_child_pipes_and_redirs(t_data *data, int prev_fd, int pipe_fd[2])
+// void	setup_child_pipes_and_redirs(t_data *data, int prev_fd, int pipe_fd[2])
+// {
+// 	if (prev_fd != -1)
+// 	{
+// 		dup2(prev_fd, STDIN_FILENO);
+// 		close(prev_fd);
+// 	}
+// 	else if (data->cmd->fd_in != -1)
+// 	{
+// 		dup2(data->cmd->fd_in, STDIN_FILENO);
+// 		close(data->cmd->fd_in);
+// 	}
+// 	if (pipe_fd[1] != -1)
+// 	{
+// 		dup2(pipe_fd[1], STDOUT_FILENO);
+// 		close(pipe_fd[1]);./
+// 	}
+// 	if (pipe_fd[0] != -1)
+// 		close(pipe_fd[0]);
+// 	if (data->cmd->redirs && setup_redirs(data) == -1)
+// 		exit(1);
+// }
+
+void	setup_child_pipes_and_redirs(t_cmd *cmd, int prev_fd, int pipe_fd[2])
 {
 	if (prev_fd != -1)
 	{
 		dup2(prev_fd, STDIN_FILENO);
 		close(prev_fd);
 	}
-	else if (data->cmd->fd_in != -1)
+	else if (cmd->fd_in != -1)
 	{
-		dup2(data->cmd->fd_in, STDIN_FILENO);
-		close(data->cmd->fd_in);
+		dup2(cmd->fd_in, STDIN_FILENO);
+		close(cmd->fd_in);
 	}
 	if (pipe_fd[1] != -1)
 	{
@@ -31,7 +54,7 @@ void	setup_child_pipes_and_redirs(t_data *data, int prev_fd, int pipe_fd[2])
 	}
 	if (pipe_fd[0] != -1)
 		close(pipe_fd[0]);
-	if (data->cmd->redirs && setup_redirs(data) == -1)
+	if (cmd->redirs && setup_redirs(cmd) == -1)
 		exit(1);
 }
 
@@ -74,7 +97,8 @@ int	child_process(t_cmd *cmd, t_pipe *p, t_data *data, int pipe_fd[])
 	if (pid == 0)
 	{
 		setup_signals();
-		setup_child_pipes_and_redirs(data, p->prev_fd, pipe_fd);
+		// setup_child_pipes_and_redirs(data, p->prev_fd, pipe_fd);
+		setup_child_pipes_and_redirs(cmd, p->prev_fd, pipe_fd);
 		close_pipe_fds(pipe_fd);
 		if (is_built_in(cmd->tokens))
 		{

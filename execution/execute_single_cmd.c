@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute_single_cmd.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:04:32 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/04 12:04:32 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/04 21:06:50 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -51,9 +51,8 @@ char	**env_to_array(t_env *env)
 	return (env_arr);
 }
 
-int	check_access(char *args, t_data *data)
+int	check_access(char *args)
 {
-	(void)data;
 	if (ft_strchr(args, '/'))
 	{
 		if (access(args, F_OK) == -1)
@@ -87,7 +86,7 @@ int	execute_single_command(char **args, t_data *data)
 		return (0);
 	if (is_built_in(args))
 		return (run_built_in(args_count(args), args, data));
-	access_value = check_access(args[0], data);
+	access_value = check_access(args[0]);// data to data->cmd
 	if (access_value == 0)
 	{
 		path = find_cmd_path(args[0], data->env);
