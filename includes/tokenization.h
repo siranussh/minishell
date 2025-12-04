@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/04 11:40:37 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/04 23:33:44 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ char	*delete_quotes(char *str, char c);
 int		is_heredoc(char *tok);
 int		token_is_heredoc_delimiter(char **tokens, int i);
 int		tokenize(t_data *data, t_cmd **cmd, char *read_line);
+int		check_invalid_redirections(t_cmd *cmd);
 
 int		find_closing_quote(int start, char *str, char c);
 int		find_next_char(char *str, char c, int j);

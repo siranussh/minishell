@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:13:37 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 10:56:19 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/04 23:47:22 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,38 @@ int	token_is_heredoc_delimiter(char **tokens, int i)
 	if (i == 0)
 		return (0);
 	return (is_heredoc(tokens[i - 1]));
+}
+
+int check_invalid_redirections(t_cmd *cmd)
+{
+    int i;
+
+    if (!cmd || !cmd->tokens)
+        return (1);
+    i = 0;
+    while (cmd->tokens[i])
+    {
+        if ((ft_strncmp(cmd->tokens[i], "<<", 2) == 0 && ft_strlen(cmd->tokens[i]) > 2) ||
+            (ft_strncmp(cmd->tokens[i], ">>", 2) == 0 && ft_strlen(cmd->tokens[i]) > 2))
+        {
+            fprintf(stderr, "minishell: syntax error near unexpected token `%s'\n", cmd->tokens[i]);
+            return (0);
+        }
+		if (ft_strcmp(cmd->tokens[i], "<>") == 0 ||
+            ft_strcmp(cmd->tokens[i], "><") == 0)
+        {
+            fprintf(stderr, "minishell: syntax error near unexpected token `%s'\n", cmd->tokens[i]);
+            return (0);
+        }
+		if ((ft_strcmp(cmd->tokens[i], "<") == 0 || ft_strcmp(cmd->tokens[i], ">") == 0) &&
+		(!cmd->tokens[i + 1] || cmd->tokens[i + 1][0] == '<' || cmd->tokens[i + 1][0] == '>'))
+		{
+			fprintf(stderr, "minishell: syntax error near unexpected token `%s'\n", cmd->tokens[i]);
+			return (0);
+		}
+        i++;
+    }
+    return (1);
 }
 
 int	tokenize(t_data *data, t_cmd **cmd, char *read_line)

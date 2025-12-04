@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_redir2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:04:27 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 17:53:25 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/04 22:51:21 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,3 +108,4 @@ char	**split_redirs_token(char *tok, int *count)
 	*count = idx;
 	return (res);
 }
+

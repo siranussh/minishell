@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/04 12:50:23 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/04 22:59:54 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,6 +263,11 @@ static void	process_input_loop(t_data *data)
 		add_history(line);
 		if (!process_line(data, line))
 			continue ;
+		if (!data->cmd)
+		{
+			free(line);
+			continue;
+		}
 		exec_and_free(data, line);
 	}
 }
