@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:16:42 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/02 13:10:18 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/04 21:50:03 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
@@ -66,7 +66,7 @@ int		get_env_key_index(t_env *env, char *key);
 int		built_in_unset(char **args, t_env **env);
 
 // exit.c
-int		built_in_exit(int argc, char **args);
+int		built_in_exit(int argc, char **args, t_data *data);
 
 // exit_utils.c
 int		is_number(char *arg);

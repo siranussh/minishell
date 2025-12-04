@@ -1,20 +1,21 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   shlvl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 12:54:44 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/02 12:54:44 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/04 21:33:10 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
 char	*get_new_shlvl(char	*old)
 {
 	int	level;
+	char *tmp;
 
 	level = 0;
 	if (!old || *old == '\0')
@@ -25,7 +26,10 @@ char	*get_new_shlvl(char	*old)
 	level++;
 	if (level >= 1000)
 	{
-		shlvl_error(ft_itoa(level));
+		tmp = ft_itoa(level);
+		shlvl_error(tmp);
+		free(tmp);
+		// shlvl_error(ft_itoa(level));
 		return (ft_strdup("1"));
 	}
 	return (ft_itoa(level));
