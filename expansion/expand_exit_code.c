@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_exit_code.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:40:51 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 14:08:24 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/04 13:59:47 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

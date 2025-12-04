@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   pipeline_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:22:05 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/30 21:32:12 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/04 14:49:58 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -59,7 +59,7 @@ void	close_fds(t_pipe *p, int pipe_fd[2])
 	p->prev_fd = pipe_fd[0];
 }
 
-void	setup_pipe(t_cmd *curr, int pipe_fd[2])
+int	setup_pipe(t_cmd *curr, int pipe_fd[2])
 {
 	if (curr->next)
 	{
@@ -68,6 +68,7 @@ void	setup_pipe(t_cmd *curr, int pipe_fd[2])
 			perror("pipe");
 			pipe_fd[0] = -1;
 			pipe_fd[1] = -1;
+			return (-1);
 		}
 	}
 	else
@@ -75,4 +76,5 @@ void	setup_pipe(t_cmd *curr, int pipe_fd[2])
 		pipe_fd[0] = -1;
 		pipe_fd[1] = -1;
 	}
+	return (0);
 }

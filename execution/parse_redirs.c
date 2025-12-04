@@ -84,6 +84,8 @@ void	parse_redirs(t_cmd *cmd)
 
 	if (!cmd || !cmd->tokens)
 		return ;
+	if (!has_redirs(cmd->tokens))
+		return ;
 	i = 0;
 	while (cmd->tokens[i])
 	{

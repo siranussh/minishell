@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   setup_redirs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 22:14:37 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/24 22:28:16 by anavagya         ###   ########.fr       */
+/*   Created: 2025/12/04 12:05:38 by anavagya          #+#    #+#             */
+/*   Updated: 2025/12/04 12:05:38 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -23,7 +23,7 @@ static int	setup_in_redir(t_redir *r, t_data *data)
 		if (fd < 0)
 		{
 			print_error("minishell", r->filename, "No such file or directory");
-			exit(1);
+			return (-1);
 		}
 		dup2(fd, STDIN_FILENO);
 		close(fd);
@@ -58,7 +58,7 @@ static int	setup_out_redir(t_redir *r, t_data *data)
 		if (fd < 0)
 		{
 			print_error("minishell", r->filename, "No such file or directory");
-			exit(1);
+			return (-1);
 		}
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
@@ -79,7 +79,7 @@ static int	setup_append_redir(t_redir *r, t_data *data)
 		if (fd < 0)
 		{
 			print_error("minishell", r->filename, "No such file or directory");
-			exit(1);
+			return (-1);
 		}
 		dup2(fd, STDOUT_FILENO);
 		close (fd);
@@ -88,21 +88,23 @@ static int	setup_append_redir(t_redir *r, t_data *data)
 	return (0);
 }
 
-void	setup_redirs(t_data *data)
+int	setup_redirs(t_data *data)
 {
 	t_redir	*r;
 
 	if (!data->cmd || !data->cmd->redirs)
-		return ;
+		return (1); // No redirs, success
 	r = data->cmd->redirs;
 	while (r)
 	{
-		if (setup_in_redir(r, data) || setup_heredoc_redir(data->cmd, r)
-			|| setup_out_redir(r, data) || setup_append_redir(r, data))
+		if (setup_in_redir(r, data) == -1
+			|| setup_heredoc_redir(data->cmd, r) == -1
+			|| setup_out_redir(r, data) == -1
+			|| setup_append_redir(r, data) == -1)
 		{
-			r = r->next;
-			continue ;
+			return (-1); // On any error, stop and return -1
 		}
 		r = r->next;
 	}
+	return (1); // Success
 }

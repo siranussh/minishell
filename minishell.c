@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 23:02:30 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/04 12:50:23 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ static t_data	*init_shell(char **envp)
 
 static int	process_line(t_data *data, char *line)
 {
-	// char	*processed_line;  asec animasta 
+	// char	*processed_line;  asec animasta
 
 	if (!line)
 		return 0;
@@ -227,7 +227,8 @@ static int	process_line(t_data *data, char *line)
 static void	exec_and_free(t_data *data, char *line)
 {
 	data->p = init_pipe_struct(data);
-	execute(data->cmd, data, data->p);
+	data->p->exit_code = execute(data->cmd, data, data->p);
+	// printf("\n\n exit code =========== %d\n\n", data->p->exit_code);
 	// Free pids array after each command
 	if (data->p && data->p->pids)
 	{
@@ -251,7 +252,7 @@ static void	process_input_loop(t_data *data)
 	while (1)
 	{
 		setup_signals();
-			line = readline("minishell> ");
+		line = readline("minishell> ");
 		if (!line)
 			break ;
 		if (check_spaces(line) == -1 || line[0] == '\0')

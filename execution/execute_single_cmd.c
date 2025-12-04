@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute_single_cmd.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/13 11:44:39 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/30 14:56:01 by anavagya         ###   ########.fr       */
+/*   Created: 2025/12/04 12:04:32 by anavagya          #+#    #+#             */
+/*   Updated: 2025/12/04 12:04:32 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -53,56 +53,54 @@ char	**env_to_array(t_env *env)
 
 int	check_access(char *args, t_data *data)
 {
+	(void)data;
 	if (ft_strchr(args, '/'))
 	{
 		if (access(args, F_OK) == -1)
 		{
 			print_error("minishell", args, "No such file or directory");
-			free_data(data);
-			// free_pipe_struct(data->p);
-			exit(127);
+			// free_data(data);
+			return (127);
 		}
 		if (access(args, X_OK) == -1)
 		{
 			print_error("minishell", args, "Permission denied");
-			free_data(data);
-			// free_pipe_struct(data->p);
-			exit(126);
+			return (126);
 		}
 		if (is_directory(args))
 		{
 			print_error("minishell", args, "Is a directory");
-			free_data(data);
-			// free_pipe_struct(data->p);
-			exit(126);
+			// free_data(data);
+			return (126);
 		}
 	}
-	return (1);
+	return (0);
 }
 
 int	execute_single_command(char **args, t_data *data)
 {
 	char	*path;
 	char	**env_arr;
+	int		access_value;
 
 	if (!args || !*args)
 		return (0);
 	if (is_built_in(args))
 		return (run_built_in(args_count(args), args, data));
-	if (check_access(args[0], data))
+	access_value = check_access(args[0], data);
+	if (access_value == 0)
 	{
 		path = find_cmd_path(args[0], data->env);
 		if (!path)
-		{
-			print_error("minishell", args[0], "command not found");
-			free_data(data);
-			exit(127);
-		}
+			return (print_error("minishell", args[0],
+					"command not found"), 127);
 	}
+	else
+		return (access_value);
 	env_arr = env_to_array(data->env);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	execve(path, args, env_arr);
 	print_error("minishell", args[0], "command not found");
-	exit(127);
+	return (127);
 }

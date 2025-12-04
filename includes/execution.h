@@ -32,6 +32,7 @@ t_pipe	*init_pipe_struct(t_data *data);
 t_redir	*init_redir(int type, char *filename);
 
 // redir_utils.c
+int	has_redirs(char **tokens);
 void	add_redir_back(t_redir **list, t_redir *new);
 /////// void	build_redir_list(t_cmd *cmd);
 char	**remove_tokens_from_array(char **tokens, int start, int count);
@@ -46,13 +47,13 @@ int		only_builtin(t_cmd *cmd, t_data *data);
 void	parse_redirs(t_cmd *cmd);
 
 // setup_redirs.c
-void	setup_redirs(t_data *data);
+int		setup_redirs(t_data *data);
 
 // pipeline_utils.c
 void	dup2_and_close(int fd1, int fd2);
 int		wait_for_children(t_pipe *p);
 void	close_fds(t_pipe *p, int pipe_fd[2]);
-void	setup_pipe(t_cmd *curr, int pipe_fd[2]);
+int		setup_pipe(t_cmd *curr, int pipe_fd[2]);
 
 // find_cmd_path.c
 char	*find_cmd_path(char *cmd, t_env *env);
@@ -67,9 +68,9 @@ int		execute_single_command(char **args, t_data *data);
 void	setup_child_pipes_and_redirs(t_data *data, int prev_fd, int pipe_fd[2]);
 int		child_process(t_cmd *cmd, t_pipe *p, t_data *data, int pipe_fd[]);
 int		is_directory(char *path);
-void	execute_pipeline(t_cmd *cmds, t_data *data, t_pipe *p);
+int		execute_pipeline(t_cmd *cmds, t_data *data, t_pipe *p);
 
 // execute.c
-void	execute(t_cmd *cmds, t_data *data, t_pipe *p);
+int		execute(t_cmd *cmds, t_data *data, t_pipe *p);
 
 #endif

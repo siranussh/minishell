@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/22 22:33:53 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/30 23:13:52 by anavagya         ###   ########.fr       */
+/*   Created: 2025/12/04 12:05:20 by anavagya          #+#    #+#             */
+/*   Updated: 2025/12/04 12:05:20 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -26,7 +26,7 @@ static void	read_heredoc_child(int write_end, char *delimiter, int quoted,
 		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
-			free_data(data);//esa
+			free_data(data);
 			exit(0);
 		}
 		if (!quoted)

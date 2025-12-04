@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute_built_in.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/18 21:04:00 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/25 20:28:48 by anavagya         ###   ########.fr       */
+/*   Created: 2025/12/04 12:04:07 by anavagya          #+#    #+#             */
+/*   Updated: 2025/12/04 12:04:07 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -23,7 +23,8 @@ int	only_builtin(t_cmd *cmd, t_data *data)
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
 	parse_redirs(cmd);
-	setup_redirs(data);
+	if (setup_redirs(data) == -1)
+		return (1);
 	exit_code = run_built_in(args_count(cmd->tokens),
 			cmd->tokens, data);
 	dup2(saved_stdin, STDIN_FILENO);

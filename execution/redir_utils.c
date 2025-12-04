@@ -12,6 +12,21 @@
 
 #include "../includes/minishell.h"
 
+int	has_redirs(char **tokens)
+{
+	int i;
+
+	i = 0;
+	while (tokens[i])
+	{
+		if (ft_strcmp(tokens[i], "<") == 0 || ft_strcmp(tokens[i], "<<") == 0
+			|| ft_strcmp(tokens[i], ">") == 0 || ft_strcmp(tokens[i], ">>") == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	add_redir_back(t_redir **list, t_redir *new)
 {
 	t_redir	*tmp;

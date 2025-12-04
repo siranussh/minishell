@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/20 20:23:57 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/30 22:37:54 by anavagya         ###   ########.fr       */
+/*   Created: 2025/12/04 12:04:52 by anavagya          #+#    #+#             */
+/*   Updated: 2025/12/04 12:04:52 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -31,7 +31,8 @@ void	setup_child_pipes_and_redirs(t_data *data, int prev_fd, int pipe_fd[2])
 	}
 	if (pipe_fd[0] != -1)
 		close(pipe_fd[0]);
-	setup_redirs(data);
+	if (data->cmd->redirs && setup_redirs(data) == -1)
+		exit(1);
 }
 
 static void	close_pipe_fds(int pipe_fd[2])
@@ -64,6 +65,7 @@ int	is_directory(char *path)
 int	child_process(t_cmd *cmd, t_pipe *p, t_data *data, int pipe_fd[])
 {
 	int	pid;
+	int	exit_code;
 
 	pid = fork();
 	signal(SIGINT, SIG_IGN);
@@ -76,17 +78,16 @@ int	child_process(t_cmd *cmd, t_pipe *p, t_data *data, int pipe_fd[])
 		close_pipe_fds(pipe_fd);
 		if (is_built_in(cmd->tokens))
 		{
-			p->exit_code = run_built_in(args_count(cmd->tokens),
-					cmd->tokens, data);
-			exit(p->exit_code);
+			exit(run_built_in(args_count(cmd->tokens),
+					cmd->tokens, data));
 		}
-		execute_single_command(cmd->tokens, data);
-		exit(127);
+		exit_code = execute_single_command(cmd->tokens, data);
+		exit(exit_code);
 	}
 	return (pid);
 }
 
-void	execute_pipeline(t_cmd *cmds, t_data *data, t_pipe *p)
+int	execute_pipeline(t_cmd *cmds, t_data *data, t_pipe *p)
 {
 	t_cmd	*curr;
 	int		pipe_fd[2];
@@ -99,7 +100,12 @@ void	execute_pipeline(t_cmd *cmds, t_data *data, t_pipe *p)
 	setup_signals_parent_exec();
 	while (curr)
 	{
-		setup_pipe(curr, pipe_fd);
+		if (setup_pipe(curr, pipe_fd) == -1)
+		{
+			perror("pipe");
+			break ;
+		}
+		// setup_pipe(curr, pipe_fd);
 		p->pids[i] = child_process(curr, p, data, pipe_fd);
 		close_fds(p, pipe_fd);
 		curr = curr->next;
@@ -107,5 +113,6 @@ void	execute_pipeline(t_cmd *cmds, t_data *data, t_pipe *p)
 	}
 	if (p->prev_fd != -1)
 		close(p->prev_fd);
-	set_status(wait_for_children(p));
+	p->exit_code = wait_for_children(p);
+	return (p->exit_code);
 }

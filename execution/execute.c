@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/22 22:30:37 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/30 22:17:47 by anavagya         ###   ########.fr       */
+/*   Created: 2025/12/04 12:03:59 by anavagya          #+#    #+#             */
+/*   Updated: 2025/12/04 12:03:59 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -32,20 +32,21 @@ static int	handle_all_heredocs(t_cmd *cmds, t_data *data)
 	return (1);
 }
 
-void	execute(t_cmd *cmds, t_data *data, t_pipe *p)
+int	execute(t_cmd *cmds, t_data *data, t_pipe *p)
 {
 	if (p->cmds_count > 1024)
 	{
 		print_error("minishell", NULL,
 			"syntax error near unexpected token `|'");
-		set_status(2);
 		free_data(data);
-		return ;
+		return (2);
 	}
 	prepare_all_commands(cmds);
 	if (!handle_all_heredocs(cmds, data))
-		return ;
-	if (only_builtin(cmds, data) != -1)
-		return ;
-	execute_pipeline(cmds, data, p);
+		return (1);
+	p->exit_code = only_builtin(cmds, data);
+	if (p->exit_code != -1)
+		return (p->exit_code);
+	p->exit_code = execute_pipeline(cmds, data, p);
+	return (p->exit_code);
 }
