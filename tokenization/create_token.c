@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/05 12:12:54 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/05 15:26:25 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ static char	**get_token_arr(t_data *data, char *str, t_cmd *cmd)
 		free(trimmed);
 		temp_allocated = 1;
 	}
-	token = ft_calloc((size_t)(cmd->tokens + 1), sizeof(char *));
+	token = ft_calloc((size_t)(cmd->num_tokens + 1), sizeof(char *));
 	if (!token)
 		exit_error("minishell: malloc failed", 1);
 	data->total_chars += split_tokens(temp, token, cmd->num_tokens);
