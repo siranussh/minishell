@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:52 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/04 23:07:08 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/05 18:06:37 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,9 @@ char	*delete_invalid_dollar(char *str, int i, int j)
 void	expand(t_cmd **cmd, t_data *data)
 {
 	int	i;
-	
+
 	if (!cmd || !(*cmd))
-        return;
+		return ;
 	i = -1;
 	if (check_dollar_purpose((*cmd)->cmd) == 1)
 		(*cmd)->cmd = replace_all_val((*cmd)->cmd, data);

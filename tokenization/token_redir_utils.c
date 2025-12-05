@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_redir_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:43 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 15:49:01 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/05 18:03:40 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,41 +42,6 @@ int	redir_type(char *str)
 	}
 	return (0);
 }
-
-//before cut 28.11.25
-// int	redir_type(char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (!str || !*str)
-// 		return (0);
-// 	while (str[i])
-// 	{
-// 		if (str[i] == 34 || str[i] == 39)
-// 		{
-// 			i = find_closing_quote(i + 1, str, str[i]);
-// 			if (i == -1)
-// 				return (-1);
-// 		}
-// 		if (str[i] == '>' && !is_other_op(str[i + 1]))
-// 			return (1);
-// 		if (str[i] == '>' && str[i + 1] == '>' && !is_other_op(str[i + 2]))
-// 			return (2);
-// 		if (str[i] == '<' && !is_other_op(str[i + 1]))
-// 			return (3);
-// 		if (str[i] == '<' && str[i + 1] == '<' && !is_other_op(str[i + 2]))
-// 			return (4);
-// 		if (str[i] == '2' && str[i + 1] == '>' && !is_other_op(str[i + 2]))
-// 			return (5);
-// 		if (str[i] == '2' && str[i + 1] == '>' && str[i + 2] == '>')
-// 			return (6);
-// 		if (is_other_op(str[i]))
-// 			return (-1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 int	is_redir(char **token)
 {

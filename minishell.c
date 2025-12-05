@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/05 14:00:20 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/05 18:05:56 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// static void create_env_exp(t_env_exp *env_exp, char **ev)
-// {
-//     int i = 0;
-
-//     while (ev[i])
-//         i++;
-//     env_exp->num_env = i;
-//     env_exp->env = ft_calloc(i + 1, sizeof(char *));
-//     if (!env_exp->env)
-//         exit_error("minishell: malloc failed", 1);
-//     env_exp->path = NULL;
-//     while (--i >= 0)
-//     {
-//         env_exp->env[i] = ft_strdup(ev[i]);
-//         if (!env_exp->path && ft_strncmp(ev[i], "PATH=", 5) == 0 && ft_strlen(ev[i]) > 5)
-//             env_exp->path = ft_substr(ev[i], 5, ft_strlen(ev[i]) - 5);
-//         if (ft_strncmp(ev[i], "SHLVL=", 6) == 0)
-//         {
-//             free(env_exp->env[i]);
-//             env_exp->env[i] = ft_strjoin("SHLVL=", ft_itoa(ft_atoi(ev[i] + 6) + 1));
-//         }
-//     }
-//     env_exp->env[env_exp->num_env] = NULL;
-
-//     if (!env_exp->path)
-//         env_exp->path = ft_strdup("./");
-// }
 
 t_data	*init(void)
 {
@@ -62,30 +34,6 @@ t_data	*init(void)
 	data->total_chars = 0;
 	return (data);
 }
-
-// static void	print_tokens(t_cmd *cmd)
-// {
-// 	int		i;
-// 	char	*unquoted;
-// 	while (cmd)
-// 	{
-// 		if (cmd->cmd)
-//     printf("Command: %s\n", cmd->cmd);
-// 		if (cmd->tokens)
-// 		{
-// 			i = 0;
-// 			while (cmd->tokens[i])
-// 			{
-// 				unquoted = unqoute_str(cmd->tokens[i]);
-// 				free(cmd->tokens[i]);
-// 				cmd->tokens[i] = unquoted;
-// 				printf("  token[%d]: %s\n", i, cmd->tokens[i]);
-// 				i++;
-// 			}
-// 		}
-// 		cmd = cmd->next;
-// 	}
-// }
 
 void	unquote_all_tokens(t_cmd *cmd)
 {
@@ -114,64 +62,6 @@ void	unquote_all_tokens(t_cmd *cmd)
 	}
 }
 
-//before cut 28.11.25
-// int main(int argc, char **argv, char **envp)
-// {
-// 	t_data	*data;
-// 	t_env	*env;
-// 	t_pipe	*p;
-// 	char	*line;
-// 	char *processed_line;
-
-// 	(void)argc;
-// 	(void)argv;
-// 	p = NULL;
-// 	data = init();
-// 	if (!data)
-// 		exit_error("minishell: malloc failed", 1);
-// 	env = env_parse(envp);
-// 	data->env = env;
-// 	data->env_exp = env_exp_from_list(env);
-// 	if (!data->env_exp)
-// 		exit_error("minishell: malloc failed", 1);
-// 	while (1)
-// 	{
-// 		setup_signals();
-// 		line = readline("minishell> ");
-// 		if (!line)
-// 			break ;
-// 		if (check_spaces(line) == -1 || line[0] == '\0')
-// 		{
-// 			free(line);
-// 			continue ;
-// 		}
-// 		add_history(line);
-// 		processed_line = skip_empty_quotes(line, data->cmd);
-// 		if (!tokenize(data, &data->cmd, line))
-// 		{
-// 			free(processed_line);
-// 			// free(line); // double free er talis
-// 			continue ;
-// 		}
-// 		free(processed_line);
-// 		if (data->cmd)
-// 		{
-// 			// redir_tokens(data->cmd);
-// 			expand(&data->cmd, data);
-// 			unquote_all_tokens(data->cmd);
-// 		}
-// 		p = init_pipe_struct(data->cmd);
-// 		execute(data->cmd, data, p);////new execution////
-// 		free(line);
-// 	}
-// 	free(p);
-// 	free(data->cmd);
-// 	free_env_list(data->env);
-// 	if (data->env_exp)
-// 		free_env_exp(&data->env_exp);
-// 	return (0);
-// }
-
 static t_data	*init_shell(char **envp)
 {
 	t_data	*data;
@@ -189,25 +79,12 @@ static t_data	*init_shell(char **envp)
 	return (data);
 }
 
-// static void	cleanup_shell(t_data *data)
-// {
-// 	// free(data->cmd);
-// 	// free_env_list(data->env);
-// 	// if (data->env_exp)
-// 	// 	free_env_exp(&data->env_exp);
-// 	free_data(data);
-// }
-
 static int	process_line(t_data *data, char *line)
 {
-	// char	*processed_line;  asec animasta
-
 	if (!line)
 		return 0;
-	// processed_line = skip_empty_quotes(line, data->cmd);
 	if (!tokenize(data, &data->cmd, line))
 	{
-		// free(processed_line);
 		if (data->cmd)
 		{
 			free_cmd_list(data->cmd);
@@ -215,7 +92,6 @@ static int	process_line(t_data *data, char *line)
 		}
 		return (0);
 	}
-	// free(processed_line);
 	if (data->cmd)
 	{
 		expand(&data->cmd, data);
@@ -228,14 +104,11 @@ static void	exec_and_free(t_data *data, char *line)
 {
 	data->p = init_pipe_struct(data);
 	data->p->exit_code = execute(data->cmd, data, data->p);
-	// printf("\n\n exit code =========== %d\n\n", data->p->exit_code);
-	// Free pids array after each command
 	if (data->p && data->p->pids)
 	{
 		free(data->p->pids);
 		data->p->pids = NULL;
 	}
-	// Free command list after each command
 	if (data->cmd)
 	{
 		free_cmd_list(data->cmd);

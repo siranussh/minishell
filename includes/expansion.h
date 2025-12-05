@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 10:59:45 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/04 16:38:02 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/05 18:07:30 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ char	*extract_value_name(char *line);
 char	*extract_after_special(char *line, int i, t_cmd *cmd);
 char	*replace_val(t_cmd *cmd, char *line, char **rest_line,
 			t_env_exp *env);
-char    *replace_all_val(char *str, t_data *data);
+char	*replace_all_val(char *str, t_data *data);
 
 // expand_var.c
 int		handle_quotes(char c, int *in_single, int *in_double);
-char    *handle_dollar(char *str, int *i, t_env_exp *env, t_data *data);
+char	*handle_dollar(char *str, int *i, t_env_exp *env, t_data *data);
 char	*expand_exit_status(char *str, int *i, t_data *data);
 char	*replace_with_value(char *str, int *i, char *val, int skip_len);
 char	*build_new_line(char *line, char *insert, int pos, int remove_len);

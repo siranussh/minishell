@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:04:27 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/04 22:51:21 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/05 18:03:54 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,6 @@ void	redir_tokens(t_cmd *cmd)
 		i++;
 	}
 }
-
-// static void	add_substr(char **res, char *tok, int start, int len, int *idx)
-// {
-// 	res[*idx] = ft_substr(tok, start, len);
-// 	(*idx)++;
-// }
 
 static void	handle_redir(char **res, char *tok, int *i, int *idx)
 {

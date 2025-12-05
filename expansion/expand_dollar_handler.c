@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollar_handler.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 14:05:23 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/29 15:56:48 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/05 18:01:36 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,38 +49,6 @@ char	*get_env_var(t_env_exp *env, char *s, int i, int *len)
 		val = ft_strdup("");
 	return (val);
 }
-
-// char	*expand_only_dollars(char *line, int pos, int dollar_count)
-// {
-// 	char	*new_line;
-// 	int		j;
-// 	int		k;
-// 	int		i;
-// 	int		rest;
-
-// 	new_line = malloc(ft_strlen(line) - dollar_count + 2);
-// 	if (!new_line)
-// 		return (NULL);
-// 	j = 0;
-// 	k = 0;
-// 	while (k < pos)
-// 	{
-// 		new_line[j++] = line[k];
-// 		k++;
-// 	}
-// 	i = 0;
-// 	while (i < dollar_count)
-// 	{
-// 		new_line[j++] = '$';
-// 		i++;
-// 	}
-// 	rest = pos + dollar_count;
-// 	while (line[rest])
-// 		new_line[j++] = line[rest++];
-// 	new_line[j] = '\0';
-// 	free(line);
-// 	return (new_line);
-// }
 
 char	*expand_only_dollars(char *line, int pos, int dollar_count)
 {
@@ -144,27 +112,3 @@ char	*expand_dollars_simple(char *line, int pos, t_env_exp *env)
 	free(line);
 	return (new_line);
 }
-// char	*expand_dollars_simple(char *line, int pos, t_env_exp *env)
-// {
-// 	int		dollar_count;
-// 	int		start_var;
-// 	int		var_len;
-// 	int		remove_len;
-// 	char	*var;
-// 	char	*val;
-// 	char	*new_line;
-
-// 	dollar_count = count_dollars(line, pos);
-// 	start_var = pos + dollar_count;
-// 	var_len = get_var_len(line, start_var);
-// 	if (var_len == 0)
-// 		return (expand_only_dollars(line, pos, dollar_count));
-// 	var = ft_substr(line, start_var, var_len);
-// 	val = get_env_var(env, var, 0, &var_len);
-// 	free(var);
-// 	remove_len = dollar_count + var_len;
-// 	new_line = build_new_line(line, val, pos, remove_len);
-// 	free(val);
-// 	free(line);
-// 	return (new_line);
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arr_list_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 12:27:57 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 18:22:37 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/05 18:04:35 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,78 +26,6 @@ char	*ft_strjoin_three(char *s1, char *s2, char *s3)
 		exit_error("malloc failed", 1);
 	return (res);
 }
-
-// t_env_exp *env_exp_from_list(t_env *env_list)
-// {
-//     t_env_exp *exp;
-//     t_env *tmp;
-//     int count;
-
-//     if (!env_list)
-//         return (NULL);
-//     tmp = env_list;
-//     count = 0;
-//     while (tmp)
-//     {
-//         count++;
-//         tmp = tmp->next;
-//     }
-//     exp = ft_calloc(1, sizeof(t_env_exp));
-//     if (!exp)
-//         exit_error("malloc failed", 1);
-
-//     exp->env = ft_calloc(count + 1, sizeof(char *));
-//     if (!exp->env)
-//         exit_error("malloc failed", 1);
-
-//     tmp = env_list;
-//     for (int i = 0; i < count; i++)
-//     {
-//         if (tmp->value)
-//             exp->env[i] = ft_strjoin_three(tmp->key, "=", tmp->value);
-//         else
-//             exp->env[i] = ft_strdup(tmp->key);
-
-//         if (!exp->env[i])
-//             exit_error("malloc failed", 1);
-//         tmp = tmp->next;
-//     }
-//     exp->env[count] = NULL;
-//     exp->num_env = count;
-//     exp->path = NULL;
-
-//     return (exp);
-// }
-
-// void free_env_exp(t_env_exp **env_exp_ptr)
-// {
-// 	t_env_exp	*e;
-// 	int			i;
-
-// 	if (!env_exp_ptr || !*env_exp_ptr)
-// 		return ;
-// 	e = *env_exp_ptr;
-// 	if (e->env)
-// 	{
-// 		for (i = 0; i < e->num_env; ++i)
-// 		{
-// 			if (e->env[i])
-// 			{
-// 				free(e->env[i]);
-// 				e->env[i] = NULL;
-// 			}
-// 		}
-// 		free(e->env);
-// 		e->env = NULL;
-// 	}
-// 	if (e->path)
-// 	{
-// 		free(e->path);
-// 		e->path = NULL;
-// 	}
-// 	free(e);
-// 	*env_exp_ptr = NULL;
-// }
 
 void	refresh_env_exp(t_data *data)
 {

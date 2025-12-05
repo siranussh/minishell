@@ -3,43 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/05 15:26:25 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/05 18:02:55 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// static int	split_tokens(char *str, char **token)
-// {
-// 	int	pos;
-// 	int	start;
-// 	int	i;
-
-// 	pos = 0;
-// 	start = 0;
-// 	i = -1;
-// 	while (str[++i])
-// 	{
-// 		if ((str[i] == ' ' || (str[i] >= 9 && str[i] <= 13)) && str[i + 1]
-// 			&& str[i + 1] != ' ')
-// 			start = i + 1;
-// 		if (str[i] == 34 || str[i] == 39)
-// 			i = find_closing_quote(i + 1, str, str[i]);
-// 		if (str[i] != ' ' && !(str[i] >= 9 && str[i] <= 13)
-// 			&& (str[i + 1] == ' ' || str[i + 1] == '\0'))
-// 		{
-// 			token[pos] = ft_substr(str, start, i - start + 1);
-// 			if (token[pos] == NULL)
-// 				exit_error("minishell: malloc failed", 1);
-// 			pos++;
-// 		}
-// 	}
-// 	token[pos] = NULL;
-// 	return (i);
-// }
 
 static int	split_tokens(char *str, char **token, int max_tokens)
 {
@@ -71,33 +42,6 @@ static int	split_tokens(char *str, char **token, int max_tokens)
 	token[pos] = NULL;
 	return (i);
 }
-
-// static char	**get_token_arr(t_data *data, char *str, t_cmd *cmd)
-// {
-// 	char	**token;
-// 	char	*temp;
-// 	char	*trimmed;
-// 	int		temp_allocated;
-
-// 	temp = str;
-// 	temp_allocated = 0;
-// 	if (check_quotes_type(temp) == -1)
-// 	{
-// 		trimmed = ft_strtrim(temp, " ");
-// 		if (!trimmed)
-// 			exit_error("minishell: malloc failed", 1);
-// 		temp = skip_empty_quotes(trimmed, cmd);
-// 		free(trimmed);
-// 		temp_allocated = 1;
-// 	}
-// 	token = malloc(sizeof(char *) * (cmd->num_tokens + 1));
-// 	if (!token)
-// 		exit_error("minishell: malloc failed", 1);
-// 	data->total_chars += split_tokens(temp, token);
-// 	if (temp_allocated)
-// 		free(temp);
-// 	return (token);
-// }
 
 static char	**get_token_arr(t_data *data, char *str, t_cmd *cmd)
 {
@@ -200,37 +144,3 @@ t_cmd	*build_cmd(t_data *data, char *line)
 	normalize_redirections(temp);
 	return (temp);
 }
-
-// best version 28.11.25
-// t_cmd	*build_cmd(t_data *data, char *line)
-// {
-// 	t_cmd	*temp;
-
-// 	temp = calloc(1, sizeof(t_cmd));
-// 	if (!temp)
-// 		exit_error("minishell: malloc failed", 1);
-// 	temp->cmd = extract_command(data, line + data->total_chars);
-// 	temp->num_tokens = count_tokens(line + data->total_chars);
-// 	temp->next = NULL;
-// 	temp->flags = data->flags;
-// 	// if (temp->num_tokens == 0)
-// 	// 	return (temp);
-// 	temp->redirs = NULL;//aniiiiiiii newwwwwwwwww
-// 	temp->infile = NULL;//aniiiiiiiiiiiiiiiiii
-// 	temp->outfile = NULL;
-// 	temp->append = 0;
-// 	temp->heredoc = 0;
-// 	temp->delimiter = NULL;
-// 	temp->fd_in = -1;
-// 	temp->fd_out = -1;
-// 	temp->next = NULL;//aniiiiiiiiii
-// 	if (temp->num_tokens > 0)
-// 		temp->tokens = get_token_arr(data, line + data->total_chars, temp);
-// 	else
-// 		temp->tokens = NULL;
-// 	if (temp->cmd != NULL)///////////ani
-// 		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens,
-// temp->num_tokens);//ani
-// 	normalize_redirections(temp);
-// 	return (temp);
-// }
