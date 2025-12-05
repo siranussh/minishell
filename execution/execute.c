@@ -41,6 +41,13 @@ int	execute(t_cmd *cmds, t_data *data, t_pipe *p)
 		free_data(data);
 		return (2);
 	}
+	// if (only_redir(cmd))
+	// {
+	// 	fprintf(stderr, "minishell: syntax error near unexpected token `%s'\n",
+	// 		cmd->tokens[0]);
+	// 	free_data(data);
+	// 	return (2);
+	// }
 	prepare_all_commands(cmds);
 	if (!handle_all_heredocs(cmds, data))
 		return (1);

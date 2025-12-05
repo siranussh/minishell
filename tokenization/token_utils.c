@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:47 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/03 15:45:19 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/05 11:46:47 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	parse_line(t_data **data, char *line, char ***tokens_by_pipe)
 	(*data)->flags->pipe = count_pipes(line);
 	if ((*data)->flags->pipe == -1)
 	{
+		(*data)->p->exit_code = 2;
 		free(line);
 		return (1);
 	}
@@ -86,6 +87,8 @@ t_cmd	*last_cmd(t_cmd **cmd)
 {
 	t_cmd	*temp;
 
+	if (!cmd || !(*cmd))
+		return (NULL);
 	temp = *cmd;
 	while (temp->next)
 		temp = temp->next;

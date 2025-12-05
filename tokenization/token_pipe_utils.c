@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:34 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/11/01 12:14:05 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/05 11:52:38 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	count_pipes(char *str)
 		return (0);
 	if (str[0] == '|')
 		return (pipe_syntax_error());
+	// if (ft_strcmp(str, "<<") == 0)
+	// 	return (pipe_syntax_error());
 	i = 0;
 	result = 0;
 	while (str[i])
@@ -80,7 +82,7 @@ int	check_pipe_seg(char *str)
 			result = 0;
 	}
 	if (result == -1)
-		print_error("bash", NULL, "syntax error near unexpected token '|'");
+		print_error("minishell", NULL, "syntax error near unexpected token '|'");
 	return (result);
 }
 

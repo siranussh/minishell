@@ -27,6 +27,19 @@ int	has_redirs(char **tokens)
 	return (0);
 }
 
+// int	only_redir(char **tokens)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (tokens[i])
+// 	{
+
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
 void	add_redir_back(t_redir **list, t_redir *new)
 {
 	t_redir	*tmp;
