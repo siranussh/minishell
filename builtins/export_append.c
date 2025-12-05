@@ -44,4 +44,5 @@ void	append_export(t_env **env, char *key, char *value)
 		update_env_value(env, key, value);
 	else if (key_exists_before && had_value_before)
 		giving_new_value(env, key, value);
+	free(value);/////////new
 }

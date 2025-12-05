@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 12:54:35 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/03 18:20:29 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/05 13:51:26 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	update_env_value(t_env **env, char *key, char *value)
 		{
 			free(tmp->value);
 			tmp->value = ft_strdup(value);
+			free(value);
 		}
 		tmp = tmp->next;
 	}
@@ -36,10 +37,14 @@ void	key_existance(t_env **env, char *key, char *value)
 	{
 		tmp = ft_env_new(key, value);
 		ft_env_add_back(env, tmp);
+		free(value);
 	}
 	else if (get_env_key_index(*env, key) != -1
 		&& !if_env_value_exist(*env, key))
+	{
 		update_env_value(env, key, value);
+		// free(value);
+	}
 	else if (get_env_key_index(*env, key) != -1 && !value)
 		return ;
 	else if (get_env_key_index(*env, key))
@@ -61,7 +66,7 @@ void	handle_export_arg(t_env **env, char *arg)
 		append_export(env, key, value);
 	else
 		key_existance(env, key, value);
-	free(value);
+	// free(value);
 	free(key);
 }
 

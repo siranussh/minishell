@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:13:37 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/05 12:47:06 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/05 13:22:48 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ int	tokenize(t_data *data, t_cmd **cmd, char *read_line)
 			break;
 		}
 		expand(&temp, data);
-		if (!cmd || !(*cmd))///
-			return (0);///
+		if (!cmd || !(*cmd))
+			return (0);
 		(last_cmd(cmd))->next = temp;
 		temp = temp->next;
 	}
