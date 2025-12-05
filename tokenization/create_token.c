@@ -6,37 +6,79 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/05 18:02:55 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/06 00:44:38 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+// static int	split_tokens(char *str, char **token, int max_tokens)
+// {
+// 	int	pos;
+// 	int	start;
+// 	int	i;
+
+// 	pos = 0;
+// 	start = 0;
+// 	i = -1;
+// 	while (str[++i])
+// 	{
+// 		if ((str[i] == ' ' || (str[i] >= 9 && str[i] <= 13)) && str[i + 1]
+// 			&& str[i + 1] != ' ')
+// 			start = i + 1;
+// 		if (str[i] == 34 || str[i] == 39)
+// 			i = find_closing_quote(i + 1, str, str[i]);
+// 		if (str[i] != ' ' && !(str[i] >= 9 && str[i] <= 13)
+// 			&& (str[i + 1] == ' ' || str[i + 1] == '\0'))
+// 		{
+// 			if (pos >= max_tokens)
+// 				exit_error("minishell: token overflow", 1);
+// 			token[pos] = ft_substr(str, start, i - start + 1);
+// 			if (token[pos] == NULL)
+// 				exit_error("minishell: malloc failed", 1);
+// 			pos++;
+// 		}
+// 	}
+// 	token[pos] = NULL;
+// 	return (i);
+// }
+
+static void	add_tok(char **token, int *pos, char *str, int range[2])
+{
+	int	start;
+	int	end;
+
+	start = range[0];
+	end = range[1];
+	token[*pos] = ft_substr(str, start, end - start + 1);
+	if (!token[*pos])
+		exit_error("minishell: malloc failed", 1);
+	(*pos)++;
+}
+
 static int	split_tokens(char *str, char **token, int max_tokens)
 {
-	int	pos;
-	int	start;
 	int	i;
+	int	pos;
+	int	range[2];
 
-	pos = 0;
-	start = 0;
 	i = -1;
+	pos = 0;
+	range[0] = 0;
 	while (str[++i])
 	{
-		if ((str[i] == ' ' || (str[i] >= 9 && str[i] <= 13)) && str[i + 1]
-			&& str[i + 1] != ' ')
-			start = i + 1;
-		if (str[i] == 34 || str[i] == 39)
+		if ((str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+			&& str[i + 1] && str[i + 1] != ' ')
+			range[0] = i + 1;
+		if (str[i] == '"' || str[i] == '\'')
 			i = find_closing_quote(i + 1, str, str[i]);
 		if (str[i] != ' ' && !(str[i] >= 9 && str[i] <= 13)
 			&& (str[i + 1] == ' ' || str[i + 1] == '\0'))
 		{
 			if (pos >= max_tokens)
 				exit_error("minishell: token overflow", 1);
-			token[pos] = ft_substr(str, start, i - start + 1);
-			if (token[pos] == NULL)
-				exit_error("minishell: malloc failed", 1);
-			pos++;
+			range[1] = i;
+			add_tok(token, &pos, str, range);
 		}
 	}
 	token[pos] = NULL;
@@ -68,53 +110,6 @@ static char	**get_token_arr(t_data *data, char *str, t_cmd *cmd)
 	if (temp_allocated)
 		free(temp);
 	return (token);
-}
-
-static char	*extract_command(t_data *data, char *line)
-{
-	int		i;
-	int		start;
-	char	*str;
-
-	i = 0;
-	while (line[i] == 32 || (line[i] >= 9 && line[i] <= 13))
-		i++;
-	start = i;
-	while (line[i] && line[i] != 32 && !(line[i] >= 9 && line[i] <= 13)
-		&& !is_other_op(line[i]))
-	{
-		if (line[i] == 34 || line[i] == 39)
-			i = find_closing_quote(i + 1, line, line[i]);
-		i++;
-	}
-	if (i && !is_other_op(line[i]))
-		str = ft_substr(line, start, i - start);
-	else
-		str = NULL;
-	data->total_chars += i;
-	return (str);
-}
-
-t_cmd	*init_cmd(t_data *data, char *line)
-{
-	t_cmd	*temp;
-
-	temp = calloc(1, sizeof(t_cmd));
-	if (!temp)
-		exit_error("minishell: malloc failed", 1);
-	temp->cmd = extract_command(data, line + data->total_chars);
-	temp->num_tokens = count_tokens(line + data->total_chars);
-	temp->next = NULL;
-	temp->flags = data->flags;
-	temp->redirs = NULL;
-	temp->infile = NULL;
-	temp->outfile = NULL;
-	temp->append = 0;
-	temp->heredoc = 0;
-	temp->delimiter = NULL;
-	temp->fd_in = -1;
-	temp->fd_out = -1;
-	return (temp);
 }
 
 t_cmd	*build_cmd(t_data *data, char *line)

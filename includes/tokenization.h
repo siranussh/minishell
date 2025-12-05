@@ -6,7 +6,7 @@
 /*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/04 23:33:44 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/06 01:50:11 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ typedef struct s_data
 	t_env		*env;
 }	t_data;
 
+//build_redir_tokens.c
+char	**build_new_tokens(char **tokens, char **arr, int pos, int arr_count);
+
 // 	create_token.c
-t_cmd	*init_cmd(t_data *data, char *line);
 t_cmd	*build_cmd(t_data *data, char *line);
 
 // handle_quotes.c
@@ -126,6 +128,7 @@ int		count_tokens_array(char **tokens);
 
 // token_utils_2.c
 char	*delete_quotes(char *str, char c);
+t_cmd	*init_cmd(t_data *data, char *line);
 
 //tokenize.c
 int		is_heredoc(char *tok);
