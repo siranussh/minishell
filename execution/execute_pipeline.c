@@ -103,11 +103,6 @@ int	child_process(t_cmd *cmd, t_pipe *p, t_data *data, int pipe_fd[])
 		// setup_child_pipes_and_redirs(data, p->prev_fd, pipe_fd);
 		setup_child_pipes_and_redirs(data, cmd, p->prev_fd, pipe_fd);
 		close_pipe_fds(pipe_fd);
-		if (is_built_in(cmd->tokens))
-		{
-			exit(run_built_in(args_count(cmd->tokens),
-					cmd->tokens, data));
-		}
 		exit_code = execute_single_command(cmd->tokens, data);
 		free_data(data);
 		exit(exit_code);
@@ -130,6 +125,7 @@ int	execute_pipeline(t_cmd *cmds, t_data *data, t_pipe *p)
 	{
 		if (setup_pipe(curr, pipe_fd) == -1)
 		{
+			close_pipe_fds(pipe_fd);//siran
 			perror("pipe");
 			break ;
 		}
