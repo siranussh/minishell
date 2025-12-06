@@ -134,7 +134,6 @@ int	setup_redirs(t_cmd *cmd)
 			|| setup_out_redir(r, cmd) == -1
 			|| setup_append_redir(r, cmd) == -1)
 		{
-
 			return (-1);
 		}
 		r = r->next;

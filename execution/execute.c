@@ -38,7 +38,6 @@ int	execute(t_cmd *cmds, t_data *data, t_pipe *p)
 	{
 		print_error("minishell", NULL,
 			"syntax error near unexpected token `|'");
-		free_data(data);
 		return (2);
 	}
 	// if (only_redir(cmd))

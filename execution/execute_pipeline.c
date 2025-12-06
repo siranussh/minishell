@@ -35,7 +35,7 @@
 // 		exit(1);
 // }
 
-void	setup_child_pipes_and_redirs(t_cmd *cmd, int prev_fd, int pipe_fd[2])
+void	setup_child_pipes_and_redirs(t_data *data, t_cmd *cmd, int prev_fd, int pipe_fd[2])
 {
 	if (prev_fd != -1)
 	{
@@ -55,7 +55,10 @@ void	setup_child_pipes_and_redirs(t_cmd *cmd, int prev_fd, int pipe_fd[2])
 	if (pipe_fd[0] != -1)
 		close(pipe_fd[0]);
 	if (cmd->redirs && setup_redirs(cmd) == -1)
+	{
+		free_data(data);
 		exit(1);
+	}
 }
 
 static void	close_pipe_fds(int pipe_fd[2])
@@ -98,7 +101,7 @@ int	child_process(t_cmd *cmd, t_pipe *p, t_data *data, int pipe_fd[])
 	{
 		setup_signals();
 		// setup_child_pipes_and_redirs(data, p->prev_fd, pipe_fd);
-		setup_child_pipes_and_redirs(cmd, p->prev_fd, pipe_fd);
+		setup_child_pipes_and_redirs(data, cmd, p->prev_fd, pipe_fd);
 		close_pipe_fds(pipe_fd);
 		if (is_built_in(cmd->tokens))
 		{
@@ -106,6 +109,7 @@ int	child_process(t_cmd *cmd, t_pipe *p, t_data *data, int pipe_fd[])
 					cmd->tokens, data));
 		}
 		exit_code = execute_single_command(cmd->tokens, data);
+		free_data(data);
 		exit(exit_code);
 	}
 	return (pid);

@@ -90,6 +90,7 @@ char	**remove_tokens_from_array(char **tokens, int start, int count)
 	{
 		new_tokens = malloc(sizeof(char *));
 		new_tokens[0] = NULL;
+		ft_free(tokens);
 		return (new_tokens);
 	}
 	new_tokens = malloc(sizeof(char *) * (new_len + 1));

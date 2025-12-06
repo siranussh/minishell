@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_redir3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:11:12 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/06 01:38:31 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/06 15:21:43 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ void	replace_token_with_array(char ***tokens, int pos, char **arr,
 	new = build_new_tokens(*tokens, arr, pos, arr_count);
 	if (!new)
 		return ;
-	free((*tokens)[pos]);
-	free(*tokens);
+	ft_free(*tokens);
 	*tokens = new;
 }
 

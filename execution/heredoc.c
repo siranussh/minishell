@@ -16,7 +16,6 @@ static void	read_heredoc_child(int write_end, char *delimiter, int quoted,
 	t_data *data)
 {
 	char	*line;
-	char	*expanded;
 
 	while (1)
 	{
@@ -30,10 +29,7 @@ static void	read_heredoc_child(int write_end, char *delimiter, int quoted,
 			exit(0);
 		}
 		if (!quoted)
-		{
-			expanded = replace_all_val(line, data);
-			line = expanded;
-		}
+			line = replace_all_val(line, data);
 		ft_putendl_fd(line, write_end);
 		free(line);
 	}
@@ -45,6 +41,7 @@ static void	handle_heredoc_child(int fd[2], char *delimiter, int quoted,
 	close(fd[0]);
 	read_heredoc_child(fd[1], delimiter, quoted, data);
 	close(fd[1]);
+	free_data(data);////
 	exit(0);
 }
 

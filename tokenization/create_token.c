@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/06 00:44:38 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/06 15:21:43 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,7 @@ t_cmd	*build_cmd(t_data *data, char *line)
 		old_tokens = temp->tokens;
 		temp->tokens = join_cmd_tokens(temp->cmd, temp->tokens,
 				temp->num_tokens);
-		if (old_tokens != temp->tokens)
-			ft_free(old_tokens);
+		ft_free(old_tokens);
 	}
 	if (!check_invalid_redirections(temp))
 	{

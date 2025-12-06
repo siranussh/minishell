@@ -68,7 +68,7 @@ int		execute_single_command(char **args, t_data *data);
 
 // execute_pipeline.c
 // void	setup_child_pipes_and_redirs(t_data *data, int prev_fd, int pipe_fd[2]);
-void	setup_child_pipes_and_redirs(t_cmd *cmd, int prev_fd, int pipe_fd[2]);
+void	setup_child_pipes_and_redirs(t_data *data, t_cmd *cmd, int prev_fd, int pipe_fd[2]);
 int		child_process(t_cmd *cmd, t_pipe *p, t_data *data, int pipe_fd[]);
 int		is_directory(char *path);
 int		execute_pipeline(t_cmd *cmds, t_data *data, t_pipe *p);
