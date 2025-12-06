@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:13:37 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/06 13:22:32 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 19:31:08 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,44 +28,6 @@ int	token_is_heredoc_delimiter(char **tokens, int i)
 	return (is_heredoc(tokens[i - 1]));
 }
 
-// int	check_invalid_redirections(t_cmd *cmd)
-// {
-// 	int	i;
-
-// 	if (!cmd || !cmd->tokens)
-// 		return (1);
-// 	i = 0;
-// 	while (cmd->tokens[i])
-// 	{
-// 		if ((ft_strncmp(cmd->tokens[i], "<<", 2) == 0 && ft_strlen(cmd->tokens[i]) > 2) ||
-// 			(ft_strncmp(cmd->tokens[i], ">>", 2) == 0 && ft_strlen(cmd->tokens[i]) > 2))
-// 		{
-// 			fprintf(stderr, "minishell: syntax error near unexpected token `%s'\n", cmd->tokens[i]);
-// 			return (0);
-// 		}
-// 		else if (ft_strcmp(cmd->tokens[i], "<>") == 0 ||
-// 			ft_strcmp(cmd->tokens[i], "><") == 0)
-// 		{
-// 			fprintf(stderr, "minishell: syntax error near unexpected token `%s'\n", cmd->tokens[i]);
-// 			return (0);
-// 		}
-// 		else if ((ft_strcmp(cmd->tokens[i], "<") == 0 || ft_strcmp(cmd->tokens[i], ">") == 0) &&
-// 		(!cmd->tokens[i + 1] || cmd->tokens[i + 1][0] == '<' || cmd->tokens[i + 1][0] == '>'))
-// 		{
-// 			fprintf(stderr, "minishell: syntax error near unexpected token `%s'\n", cmd->tokens[i]);
-// 			return (0);
-// 		}
-// 		else if ((ft_strcmp(cmd->tokens[i], "<<") == 0 || ft_strcmp(cmd->tokens[i], ">>") == 0) &&
-// 		(!cmd->tokens[i + 1] || cmd->tokens[i + 1][0] == '<' || cmd->tokens[i + 1][0] == '>'))
-// 		{
-// 			fprintf(stderr, "minishell: syntax error near unexpected token `%s'\n", cmd->tokens[i]);
-// 			return (0);
-// 		}
-// 		i++;
-// 	}
-// 	return (1);
-// }
-
 static int	print_syntax_error(char *token)
 {
 	fprintf(stderr, "minishell: syntax error near unexpected token `%s'\n",
@@ -75,9 +37,8 @@ static int	print_syntax_error(char *token)
 
 static int	is_invalid_token(char **tokens, int i)
 {
-	if ((ft_strncmp(tokens[i], "<<", 2) == 0 && ft_strlen(tokens[i]) > 2))
-		return (1);
-	if ((ft_strncmp(tokens[i], ">>", 2) == 0 && ft_strlen(tokens[i]) > 2))
+	if ((ft_strncmp(tokens[i], "<<", 2) == 0 && tokens[i][2] == '<')
+		|| (ft_strncmp(tokens[i], ">>", 2) == 0 && tokens[i][2] == '>'))
 		return (1);
 	if (ft_strcmp(tokens[i], "<>") == 0 || ft_strcmp(tokens[i], "><") == 0)
 		return (1);

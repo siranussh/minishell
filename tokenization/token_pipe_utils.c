@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_pipe_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:34 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/05 11:52:38 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 19:00:45 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	**split_pipes(char *str)
 	{
 		if (check_pipe_seg(result[i]) == -1 || check_redir(result, i) == -1)
 		{
-			g_exit_code = 258;
+			g_exit_code = 258; //siran
 			while (i >= 0)
 				free(result[i--]);
 			free(result);
