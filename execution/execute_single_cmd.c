@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:04:32 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/04 21:06:50 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:24:35 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -58,7 +58,6 @@ int	check_access(char *args)
 		if (access(args, F_OK) == -1)
 		{
 			print_error("minishell", args, "No such file or directory");
-			// free_data(data);
 			return (127);
 		}
 		if (access(args, X_OK) == -1)
@@ -69,7 +68,6 @@ int	check_access(char *args)
 		if (is_directory(args))
 		{
 			print_error("minishell", args, "Is a directory");
-			// free_data(data);
 			return (126);
 		}
 	}
@@ -86,7 +84,7 @@ int	execute_single_command(char **args, t_data *data)
 		return (0);
 	if (is_built_in(args))
 		return (run_built_in(args_count(args), args, data));
-	access_value = check_access(args[0]);// data to data->cmd
+	access_value = check_access(args[0]);
 	if (access_value == 0)
 	{
 		path = find_cmd_path(args[0], data->env);

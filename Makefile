@@ -23,37 +23,37 @@ EXEC_SRC = cmd_list_utils.c init_struct.c \
 			execute.c
 
 SRC_TOKEN = create_token.c \
-             handle_quotes.c \
-             handle_quotes_2.c \
-             token_pipe_utils.c \
-             token_redir_utils.c \
-             token_redir.c \
+			 handle_quotes.c \
+			 handle_quotes_2.c \
+			 token_pipe_utils.c \
+			 token_redir_utils.c \
+			 token_redir.c \
 			 token_redir2.c \
 			 token_redir3.c \
-             token_utils.c \
+			 token_utils.c \
 			 token_utils_2.c \
 			 build_redir_tokens.c \
 			 tokenize.c \
 
 SRC_EXPAND = expand_utils.c \
-              expand_symb_utils.c \
-			  expand_var.c \
-              expand_var_utils.c \
-              expand_exit_code.c \
-              expand_libft_modifs.c \
-			  expand.c \
-			  expand_dollar_handler.c \
+			 expand_symb_utils.c \
+			 expand_var.c \
+			 expand_var_utils.c \
+			 expand_exit_code.c \
+			 expand_libft_modifs.c \
+			 expand.c \
+			 expand_dollar_handler.c \
 
 SRC_OTHER = minishell.c \
-             error_handling.c \
-             error_wrappers.c \
-             utils.c \
-             free.c \
-             signals.c \
-			 get_status.c \
+			 error_handling.c \
+			 error_wrappers.c \
+			 utils.c \
+			 free_cmd.c \
+			 free_env_exp.c \
+			 free.c \
+			 signals.c \
 			 arr_list_handler.c \
 			 arr_list_handler2.c \
-			 free_env_exp.c \
 
 TOKEN_DIR = tokenization
 EXPAND_DIR = expansion

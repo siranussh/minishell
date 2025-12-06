@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:46 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/06 15:04:57 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:30:28 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -16,8 +16,6 @@ void	ft_free(char **str)
 {
 	int	i;
 
-	// if (!str || !*str)
-	// 	return ;
 	if (!str)
 		return ;
 	i = 0;
@@ -40,61 +38,6 @@ void	free_env_list(t_env *head)
 		free(head->value);
 		free(head);
 		head = tmp;
-	}
-}
-
-void	free_redirs(t_redir *redir)
-{
-	t_redir	*tmp;
-
-	while (redir)
-	{
-		tmp = redir->next;
-		if (redir->filename)
-			free(redir->filename);
-		free(redir);
-		redir = tmp;
-	}
-}
-
-void	free_cmd(t_cmd *cmd)
-{
-	if (!cmd)
-		return ;
-	if (cmd->cmd)
-		free(cmd->cmd);
-	if (cmd->tokens)
-		ft_free(cmd->tokens);
-	if (cmd->infile)
-		free(cmd->infile);
-	if (cmd->outfile)
-		free(cmd->outfile);
-	if (cmd->delimiter)
-		free(cmd->delimiter);
-	if (cmd->redirs)
-		free_redirs(cmd->redirs);
-	// if (cmd->flags)
-	// 	free(cmd->flags);
-	// if (cmd->env)
-	// {
-	// 	if (cmd->env->env)
-	// 		ft_free(cmd->env->env);
-	// 	if (cmd->env->path)
-	// 		free(cmd->env->path);
-	// 	free(cmd->env);
-	// }
-	free(cmd);
-}
-
-void	free_cmd_list(t_cmd *cmd)
-{
-	t_cmd	*tmp;
-
-	while (cmd)
-	{
-		tmp = cmd->next;
-		free_cmd(cmd);
-		cmd = tmp;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 13:49:17 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/25 22:02:30 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:26:32 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -26,19 +26,6 @@ int	has_redirs(char **tokens)
 	}
 	return (0);
 }
-
-// int	only_redir(char **tokens)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (tokens[i])
-// 	{
-
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 void	add_redir_back(t_redir **list, t_redir *new)
 {

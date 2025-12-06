@@ -1,18 +1,18 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   token_pipe_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:34 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/06 19:00:45 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:05:34 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
-int	count_pipes(char *str)
+int	count_pipes(char *str, t_data *data)
 {
 	int	i;
 	int	result;
@@ -20,7 +20,7 @@ int	count_pipes(char *str)
 	if (!str)
 		return (0);
 	if (str[0] == '|')
-		return (pipe_syntax_error());
+		return (pipe_syntax_error(data));
 	// if (ft_strcmp(str, "<<") == 0)
 	// 	return (pipe_syntax_error());
 	i = 0;
@@ -31,10 +31,10 @@ int	count_pipes(char *str)
 		{
 			i = find_closing_quote(i + 1, str, str[i]);
 			if (i == -1)
-				return (quote_error());
+				return (quote_error(data));
 		}
 		if ((str[i] == '|' && (str[i + 1] == '|' || str[i + 1] == '\0')))
-			return (pipe_syntax_error());
+			return (pipe_syntax_error(data));
 		if (str[i] == '|')
 			result++;
 		i++;
@@ -86,13 +86,13 @@ int	check_pipe_seg(char *str)
 	return (result);
 }
 
-char	**split_pipes(char *str)
+char	**split_pipes(char *str, t_data *data)
 {
 	char	**result;
 	int		i;
 
 	i = -1;
-	result = ft_calloc(sizeof(char *), (count_pipes(str) + 2));
+	result = ft_calloc(sizeof(char *), (count_pipes(str, data) + 2));
 	if (!result)
 		exit_error("minishell: malloc failed", 1);
 	result = split_cmds_by_pipe(str, result);
@@ -100,7 +100,7 @@ char	**split_pipes(char *str)
 	{
 		if (check_pipe_seg(result[i]) == -1 || check_redir(result, i) == -1)
 		{
-			g_exit_code = 258; //siran
+			data->exit_code = 2;
 			while (i >= 0)
 				free(result[i--]);
 			free(result);

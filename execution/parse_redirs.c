@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parse_redirs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 10:56:00 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/03 10:56:00 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:26:09 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -48,12 +48,10 @@ static int	handle_heredoc_redir(t_cmd *cmd, int i)
 		}
 		add_redir_back(&cmd->redirs, r);
 		cmd->tokens = remove_tokens_from_array(cmd->tokens, i, 2);
-		free(delim);
-		return (1);
+		return (free(delim), 1);
 	}
 	return (0);
 }
-
 
 static int	handle_out_redir(t_cmd *cmd, int i)
 {

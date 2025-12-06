@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 13:06:58 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/04 21:08:47 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:23:13 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -18,7 +18,6 @@ typedef struct s_pipe
 	int		prev_fd;
 	int		cmds_count;
 	int		*pids;
-	int		exit_code;
 }	t_pipe;
 
 // join_cmd_tokenc.c
@@ -34,7 +33,6 @@ t_redir	*init_redir(int type, char *filename);
 // redir_utils.c
 int		has_redirs(char **tokens);
 void	add_redir_back(t_redir **list, t_redir *new);
-/////// void	build_redir_list(t_cmd *cmd);
 char	**remove_tokens_from_array(char **tokens, int start, int count);
 
 // heredoc.c
@@ -47,7 +45,6 @@ int		only_builtin(t_cmd *cmd, t_data *data);
 void	parse_redirs(t_cmd *cmd);
 
 // setup_redirs.c
-// int		setup_redirs(t_data *data);
 int		setup_redirs(t_cmd *cmd);
 
 // pipeline_utils.c
@@ -62,13 +59,12 @@ char	*find_cmd_path(char *cmd, t_env *env);
 // execute_single_cmd.c
 int		args_count(char **args);
 char	**env_to_array(t_env *env);
-// int		check_access(char *args, t_data *data);
 int		check_access(char *args);
 int		execute_single_command(char **args, t_data *data);
 
 // execute_pipeline.c
-// void	setup_child_pipes_and_redirs(t_data *data, int prev_fd, int pipe_fd[2]);
-void	setup_child_pipes_and_redirs(t_data *data, t_cmd *cmd, int prev_fd, int pipe_fd[2]);
+void	setup_child_pipes_and_redirs(t_data *data, t_cmd *cmd, int prev_fd,
+			int pipe_fd[2]);
 int		child_process(t_cmd *cmd, t_pipe *p, t_data *data, int pipe_fd[]);
 int		is_directory(char *path);
 int		execute_pipeline(t_cmd *cmds, t_data *data, t_pipe *p);

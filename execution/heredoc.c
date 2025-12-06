@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:05:20 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/04 12:05:20 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:25:18 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -41,11 +41,11 @@ static void	handle_heredoc_child(int fd[2], char *delimiter, int quoted,
 	close(fd[0]);
 	read_heredoc_child(fd[1], delimiter, quoted, data);
 	close(fd[1]);
-	free_data(data);////
+	free_data(data);
 	exit(0);
 }
 
-static int	handle_heredoc_parent(t_cmd *cmd, int fd[2], int pid)
+static int	handle_heredoc_parent(t_data *data, t_cmd *cmd, int fd[2], int pid)
 {
 	int	status;
 
@@ -61,7 +61,7 @@ static int	handle_heredoc_parent(t_cmd *cmd, int fd[2], int pid)
 		write(STDOUT_FILENO, "\n", 1);
 		close(fd[0]);
 		cmd->fd_in = -1;
-		g_exit_code = 130;
+		data->exit_code = 130;
 		return (0);
 	}
 	else if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
@@ -84,7 +84,7 @@ static int	read_heredoc(t_cmd *cmd, t_redir *r, t_data *data)
 		set_default_signals();
 		handle_heredoc_child(fd, r->filename, r->quoted_delimiter, data);
 	}
-	if (!handle_heredoc_parent(cmd, fd, pid))
+	if (!handle_heredoc_parent(data, cmd, fd, pid))
 		return (0);
 	if (cmd->fd_in != -1)
 		close(cmd->fd_in);

@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:03:59 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/04 12:03:59 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:24:53 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -40,19 +40,12 @@ int	execute(t_cmd *cmds, t_data *data, t_pipe *p)
 			"syntax error near unexpected token `|'");
 		return (2);
 	}
-	// if (only_redir(cmd))
-	// {
-	// 	fprintf(stderr, "minishell: syntax error near unexpected token `%s'\n",
-	// 		cmd->tokens[0]);
-	// 	free_data(data);
-	// 	return (2);
-	// }
 	prepare_all_commands(cmds);
 	if (!handle_all_heredocs(cmds, data))
 		return (1);
-	p->exit_code = only_builtin(cmds, data);
-	if (p->exit_code != -1)
-		return (p->exit_code);
-	p->exit_code = execute_pipeline(cmds, data, p);
-	return (p->exit_code);
+	data->exit_code = only_builtin(cmds, data);
+	if (data->exit_code != -1)
+		return (data->exit_code);
+	data->exit_code = execute_pipeline(cmds, data, p);
+	return (data->exit_code);
 }

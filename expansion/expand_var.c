@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   expand_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 14:11:06 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/04 16:29:11 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/06 21:29:57 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -56,7 +56,7 @@ char	*expand_exit_status(char *str, int *i, t_data *data)
 	char	*val;
 	char	*res;
 
-	val = ft_itoa(data->p->exit_code);
+	val = ft_itoa(data->exit_code);
 	res = build_new_line(str, val, *i, 2);
 	free(val);
 	free(str);

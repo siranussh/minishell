@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/06 20:10:25 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/06 21:50:54 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -103,7 +103,7 @@ static int	process_line(t_data *data, char *line)
 static void	exec_and_free(t_data *data, char *line)
 {
 	data->p = init_pipe_struct(data);
-	data->p->exit_code = execute(data->cmd, data, data->p);
+	data->exit_code = execute(data->cmd, data, data->p);
 	if (data->p && data->p->pids)
 	{
 		free(data->p->pids);
@@ -126,6 +126,7 @@ static void	process_input_loop(t_data *data)
 	{
 		setup_signals();
 		line = readline("minishell> ");
+		check_interactive_sigint(data);
 		if (!line)
 			break ;
 		if (check_spaces(line) == -1 || line[0] == '\0')

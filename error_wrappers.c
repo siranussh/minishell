@@ -1,27 +1,28 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   error_wrappers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:05 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/05 12:37:01 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:07:09 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
-int	pipe_syntax_error(void)
+int	pipe_syntax_error(t_data *data)
 {
 	print_error("minishell", NULL, "syntax error near unexpected token '|'");
+	data->exit_code = 2;
 	return (-1);
 }
 
-int	quote_error(void)
+int	quote_error(t_data *data)
 {
 	print_error("minishell", NULL, "unexpected quote");
-	// g_exit_code = 258;
+	data->exit_code = 2;
 	return (-1);
 }
 

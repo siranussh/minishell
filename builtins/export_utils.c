@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 12:54:35 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/05 13:51:26 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:17:06 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -43,7 +43,6 @@ void	key_existance(t_env **env, char *key, char *value)
 		&& !if_env_value_exist(*env, key))
 	{
 		update_env_value(env, key, value);
-		// free(value);
 	}
 	else if (get_env_key_index(*env, key) != -1 && !value)
 		return ;
@@ -66,7 +65,6 @@ void	handle_export_arg(t_env **env, char *arg)
 		append_export(env, key, value);
 	else
 		key_existance(env, key, value);
-	// free(value);
 	free(key);
 }
 

@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/06 01:50:11 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:04:51 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef TOKENIZATION_H
 # define TOKENIZATION_H
@@ -58,7 +58,6 @@ typedef struct s_cmd
 	int				fd_in;
 	int				fd_out;
 	struct s_cmd	*next;
-
 	t_redir			*redirs;
 	t_flags			*flags;
 	t_env_exp		*env;
@@ -67,6 +66,7 @@ typedef struct s_cmd
 typedef struct s_data
 {
 	int			total_chars;
+	int			exit_code;
 	t_pipe		*p;
 	t_cmd		*cmd;
 	t_flags		*flags;
@@ -91,10 +91,10 @@ int		is_empty_quotes_skippable(char *str, int i);
 char	*skip_empty_quotes(char *str, t_cmd *cmd);
 
 // token_pipe_utils.c
-int		count_pipes(char *str);
+int		count_pipes(char *str, t_data *data);// added data
 char	**split_cmds_by_pipe(char *str, char **result);
 int		check_pipe_seg(char *str);
-char	**split_pipes(char *str);
+char	**split_pipes(char *str, t_data *data);
 
 // token_redir_utils.c
 int		is_other_op(char c);

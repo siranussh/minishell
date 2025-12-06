@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:47 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/05 11:46:47 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:05:23 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -67,14 +67,14 @@ int	parse_line(t_data **data, char *line, char ***tokens_by_pipe)
 		free(line);
 		return (1);
 	}
-	(*data)->flags->pipe = count_pipes(line);
+	(*data)->flags->pipe = count_pipes(line, *data);
 	if ((*data)->flags->pipe == -1)
 	{
-		(*data)->p->exit_code = 2;
+		(*data)->exit_code = 2;
 		free(line);
 		return (1);
 	}
-	*tokens_by_pipe = split_pipes(line);
+	*tokens_by_pipe = split_pipes(line, *data);
 	if (!(*tokens_by_pipe))
 	{
 		free(line);

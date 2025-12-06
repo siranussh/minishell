@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:04:07 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/04 20:57:22 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 20:39:02 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -31,6 +31,5 @@ int	only_builtin(t_cmd *cmd, t_data *data)
 	dup2(saved_stdout, STDOUT_FILENO);
 	close(saved_stdin);
 	close(saved_stdout);
-	set_status(exit_code);
 	return (exit_code);
 }

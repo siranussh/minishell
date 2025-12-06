@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 12:54:44 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/04 21:33:10 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:18:54 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -29,7 +29,6 @@ char	*get_new_shlvl(char	*old)
 		tmp = ft_itoa(level);
 		shlvl_error(tmp);
 		free(tmp);
-		// shlvl_error(ft_itoa(level));
 		return (ft_strdup("1"));
 	}
 	return (ft_itoa(level));

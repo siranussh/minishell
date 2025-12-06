@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   export_append.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 14:46:11 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/29 14:46:11 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:16:40 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -44,5 +44,5 @@ void	append_export(t_env **env, char *key, char *value)
 		update_env_value(env, key, value);
 	else if (key_exists_before && had_value_before)
 		giving_new_value(env, key, value);
-	free(value);/////////new
+	free(value);
 }
