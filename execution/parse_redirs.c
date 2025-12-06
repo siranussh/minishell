@@ -28,7 +28,7 @@ static int	handle_heredoc_redir(t_cmd *cmd, int i)
 {
 	t_redir	*r;
 	char	*tok;
-	char	*tmp;
+	char	*delim;
 
 	if (ft_strcmp(cmd->tokens[i], "<<") == 0 && cmd->tokens[i + 1])
 	{
@@ -36,23 +36,24 @@ static int	handle_heredoc_redir(t_cmd *cmd, int i)
 		if ((tok[0] == '"' && tok[ft_strlen(tok) - 1] == '"')
 			|| (tok[0] == '\'' && tok[ft_strlen(tok) - 1] == '\''))
 		{
-			r = init_redir(REDIR_HEREDOC,
-					ft_substr(tok, 1, ft_strlen(tok) - 2));
+			delim = ft_substr(tok, 1, ft_strlen(tok) - 2);
+			r = init_redir(REDIR_HEREDOC, delim);
 			r->quoted_delimiter = 1;
 		}
 		else
 		{
-			tmp = ft_strdup(tok);
-			r = init_redir(REDIR_HEREDOC, tmp);
-			free(tmp);
+			delim = ft_strdup(tok);
+			r = init_redir(REDIR_HEREDOC, delim);
 			r->quoted_delimiter = 0;
 		}
 		add_redir_back(&cmd->redirs, r);
 		cmd->tokens = remove_tokens_from_array(cmd->tokens, i, 2);
+		free(delim);
 		return (1);
 	}
 	return (0);
 }
+
 
 static int	handle_out_redir(t_cmd *cmd, int i)
 {
