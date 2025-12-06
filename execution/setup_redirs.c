@@ -19,16 +19,19 @@ static int	setup_in_redir(t_redir *r, t_cmd *cmd)
 	(void)cmd;
 	if (r->type == REDIR_IN)
 	{
-		check_access(r->filename);
-		fd = open(r->filename, O_RDONLY);
-		if (fd < 0)
+		if (check_access(r->filename) == 0)
 		{
-			print_error("minishell", r->filename, "No such file or directory");
-			return (-1);
+			fd = open(r->filename, O_RDONLY);
+			if (fd < 0)
+			{
+				print_error("minishell", r->filename, "No such file or directory");
+				return (-1);
+			}
+			dup2(fd, STDIN_FILENO);
+			close(fd);
+			return (1);
 		}
-		dup2(fd, STDIN_FILENO);
-		close(fd);
-		return (1);
+		return (-1);
 	}
 	return (0);
 }
@@ -54,17 +57,20 @@ static int	setup_out_redir(t_redir *r, t_cmd *cmd)
 	(void)cmd;
 	if (r->type == REDIR_OUT)
 	{
-		check_access(r->filename);
-		fd = open(r->filename,
-				O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd < 0)
+		if (check_access(r->filename) == 0)
 		{
-			print_error("minishell", r->filename, "No such file or directory");
-			return (-1);
+			fd = open(r->filename,
+					O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			if (fd < 0)
+			{
+				print_error("minishell", r->filename, "No such file or directory");
+				return (-1);
+			}
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
+			return (1);
 		}
-		dup2(fd, STDOUT_FILENO);
-		close(fd);
-		return (1);
+		return (-1);
 	}
 	return (0);
 }
@@ -76,17 +82,20 @@ static int	setup_append_redir(t_redir *r, t_cmd *cmd)
 	(void)cmd;
 	if (r->type == REDIR_APPEND)
 	{
-		check_access(r->filename);
-		fd = open(r->filename,
-				O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (fd < 0)
+		if (check_access(r->filename) == 0)
 		{
-			print_error("minishell", r->filename, "No such file or directory");
-			return (-1);
+			fd = open(r->filename,
+					O_WRONLY | O_CREAT | O_APPEND, 0644);
+			if (fd < 0)
+			{
+				print_error("minishell", r->filename, "No such file or directory");
+				return (-1);
+			}
+			dup2(fd, STDOUT_FILENO);
+			close (fd);
+			return (1);
 		}
-		dup2(fd, STDOUT_FILENO);
-		close (fd);
-		return (1);
+		return (-1);
 	}
 	return (0);
 }
