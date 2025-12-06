@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/06 21:30:01 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 23:32:02 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -76,7 +76,10 @@ static int	split_tokens(char *str, char **token, int max_tokens)
 			&& (str[i + 1] == ' ' || str[i + 1] == '\0'))
 		{
 			if (pos >= max_tokens)
+			{
+				// ft_free(token);////aniiii
 				exit_error("minishell: token overflow", 1);
+			}
 			range[1] = i;
 			add_tok(token, &pos, str, range);
 		}

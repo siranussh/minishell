@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:13:37 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/06 19:31:08 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/06 23:23:01 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -30,8 +30,12 @@ int	token_is_heredoc_delimiter(char **tokens, int i)
 
 static int	print_syntax_error(char *token)
 {
-	fprintf(stderr, "minishell: syntax error near unexpected token `%s'\n",
-		token);
+	ft_putstr_fd( "minishell: syntax error near unexpected token `",
+		STDERR_FILENO);
+	ft_putstr_fd(token, STDERR_FILENO);
+	ft_putstr_fd("'\n", STDERR_FILENO);
+	// fprintf(stderr, "minishell: syntax error near unexpected token `%s'\n",
+	// 	token);
 	return (0);
 }
 

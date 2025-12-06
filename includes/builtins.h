@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:16:42 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/04 21:50:03 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:45:56 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -30,7 +30,6 @@ void	del_env_node(t_env *prew);
 int		ft_strlen_ms(const char *s);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_substr_ms(char const *s, int start, int len);
-// char	*ft_strcpy(char *dest, char *src);
 
 // builtins.c
 int		is_built_in(char **args);

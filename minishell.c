@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/06 21:50:54 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 23:23:49 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -82,7 +82,7 @@ static t_data	*init_shell(char **envp)
 static int	process_line(t_data *data, char *line)
 {
 	if (!line)
-		return 0;
+		return (0);
 	if (!tokenize(data, &data->cmd, line))
 	{
 		if (data->cmd)

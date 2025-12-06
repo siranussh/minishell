@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 14:45:12 by anavagya          #+#    #+#             */
-/*   Updated: 2025/11/29 14:45:12 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:41:36 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 
@@ -24,7 +24,7 @@ int	cd_helper(char *path, char *old_pwd, t_env *env)
 	}
 	if (!get_env_values(env, "OLDPWD"))
 	{
-		tmp = ft_env_new("OLDPWD", ft_strdup(old_pwd));
+		tmp = ft_env_new("OLDPWD", old_pwd);
 		ft_env_add_back(&env, tmp);
 	}
 	change_env_value(env, "OLDPWD", old_pwd);
