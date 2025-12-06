@@ -91,7 +91,7 @@ int	execute_single_command(char **args, t_data *data)
 	{
 		path = find_cmd_path(args[0], data->env);
 		if (!path)
-			return (print_error("minishell", args[0],
+			return (free_data(data), print_error("minishell", args[0],
 					"command not found"), 127);
 	}
 	else
@@ -100,6 +100,7 @@ int	execute_single_command(char **args, t_data *data)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	execve(path, args, env_arr);
+	free_data(data);
 	print_error("minishell", args[0], "command not found");
 	return (127);
 }
