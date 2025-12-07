@@ -35,6 +35,12 @@ int		has_redirs(char **tokens);
 void	add_redir_back(t_redir **list, t_redir *new);
 char	**remove_tokens_from_array(char **tokens, int start, int count);
 
+// // heredoc_utils.c
+// t_data	*get_heredoc_data(t_data *data, int set);
+// void	heredoc_sighandler(int sig);
+// void	read_heredoc_child(int write_end, char *delimiter, int quoted,
+// 			t_data *data);
+
 // heredoc.c
 int		process_all_heredocs(t_cmd *cmds, t_data *data);
 
