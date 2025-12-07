@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:13:37 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/06 23:23:01 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/07 11:32:34 by sihakoby         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -116,11 +116,19 @@ int	check_invalid_redirections(t_cmd *cmd)
 // 	return (1);
 // }
 
-void	free_lines(char **lines, int count)
+void	free_lines(char **lines)
 {
-	while (count--)
-		free(lines[count]);
-	free(lines);
+    int	i;
+	
+	i = 0;
+    if (!lines)
+        return;
+    while (lines[i])
+    {
+        free(lines[i]);
+        i++;
+    }
+    free(lines);
 }
 
 int	tokenize(t_data *data, t_cmd **cmd, char *read_line)
@@ -132,21 +140,22 @@ int	tokenize(t_data *data, t_cmd **cmd, char *read_line)
 	i = 0;
 	data->total_chars = 0;
 	if (parse_line(&data, read_line, &lines))
-		return (0);
+		return (free_lines(lines),0);
 	*cmd = build_cmd(data, lines[0]);
 	if (!*cmd)
-		return (free_lines(lines, 1), 0);
+		return (free_lines(lines), 0);
 	expand(cmd, data);
 	while (++i <= data->flags->pipe)
 	{
 		data->total_chars = 0;
 		temp = build_cmd(data, lines[i]);
 		if (!temp)
-			return (free_cmd_list(*cmd), free_lines(lines, i + 1),
+			return (free_cmd_list(*cmd), free_lines(lines),
 				*cmd = NULL, 0);
 		expand(&temp, data);
 		(last_cmd(cmd))->next = temp;
 	}
-	free_lines(lines, i);
+	free_lines(lines);
 	return (1);
 }
+                                                         
