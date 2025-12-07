@@ -1,39 +1,16 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:43:17 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/06 23:23:49 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/07 15:34:18 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-t_data	*init(void)
-{
-	t_data *data;
-
-	data = ft_calloc(1, sizeof(t_data));
-	if (!data)
-		exit_error("minishell: malloc failed", 1);
-	data->env = NULL;
-	data->flags = ft_calloc(1, sizeof(t_flags));
-	if (!data->flags)
-		exit_error("minishell: malloc failed", 1);
-	data->p = ft_calloc(1, sizeof(t_pipe));
-	if (!data->p)
-		exit_error("minishell: malloc failed", 1);
-	data->p->pids = NULL;
-	data->flags->pipe = 0;
-	data->flags->quote = 0;
-	data->flags->has_special = 0;
-	data->cmd = NULL;
-	data->total_chars = 0;
-	return (data);
-}
 
 void	unquote_all_tokens(t_cmd *cmd)
 {
@@ -50,7 +27,7 @@ void	unquote_all_tokens(t_cmd *cmd)
 				if (i > 0 && ft_strcmp(cmd->tokens[i - 1], "<<") == 0)
 				{
 					i++;
-					continue;
+					continue ;
 				}
 				tmp = unqoute_str(cmd->tokens[i]);
 				free(cmd->tokens[i]);
@@ -60,23 +37,6 @@ void	unquote_all_tokens(t_cmd *cmd)
 		}
 		cmd = cmd->next;
 	}
-}
-
-static t_data	*init_shell(char **envp)
-{
-	t_data	*data;
-	t_env	*env;
-
-	data = init();
-	if (!data)
-		exit_error("minishell: malloc failed", 1);
-	env = env_parse(envp);
-	data->env = env;
-	data->env_exp = env_exp_from_list(env);
-	if (!data->env_exp)
-		exit_error("minishell: malloc failed", 1);
-
-	return (data);
 }
 
 static int	process_line(t_data *data, char *line)
@@ -140,7 +100,7 @@ static void	process_input_loop(t_data *data)
 		if (!data->cmd)
 		{
 			free(line);
-			continue;
+			continue ;
 		}
 		exec_and_free(data, line);
 	}
@@ -155,8 +115,6 @@ int	main(int argc, char **argv, char **envp)
 	data = init_shell(envp);
 	process_input_loop(data);
 	free_data(data);
-	// cleanup_shell(data);
 	rl_clear_history();
-	// clear_history();  macOS version
 	return (0);
 }

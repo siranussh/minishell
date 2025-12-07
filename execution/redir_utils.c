@@ -1,26 +1,27 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/08 13:49:17 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/06 22:26:32 by anavagya         ###   ########.fr       */
+/*   Created: 2025/12/07 15:00:43 by anavagya          #+#    #+#             */
+/*   Updated: 2025/12/07 15:00:43 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 int	has_redirs(char **tokens)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tokens[i])
 	{
 		if (ft_strcmp(tokens[i], "<") == 0 || ft_strcmp(tokens[i], "<<") == 0
-			|| ft_strcmp(tokens[i], ">") == 0 || ft_strcmp(tokens[i], ">>") == 0)
+			|| ft_strcmp(tokens[i], ">") == 0
+			|| ft_strcmp(tokens[i], ">>") == 0)
 			return (1);
 		i++;
 	}

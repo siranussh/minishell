@@ -15,6 +15,7 @@ EXEC_SRC = cmd_list_utils.c init_struct.c \
 			find_cmd_path.c join_cmd_tokens.c \
 			redir_utils.c \
 			heredoc.c \
+			heredoc_utils.c \
 			parse_redirs.c setup_redirs.c \
 			pipeline_utils.c \
 			execute_built_in.c \
@@ -45,6 +46,7 @@ SRC_EXPAND = expand_utils.c \
 			 expand_dollar_handler.c \
 
 SRC_OTHER = minishell.c \
+			 init.c \
 			 error_handling.c \
 			 error_wrappers.c \
 			 utils.c \

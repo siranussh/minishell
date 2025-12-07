@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 12:58:23 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/06 00:44:54 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/07 15:23:36 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char	*delete_quotes(char *str, char c)
 	free(str);
 	return (temp);
 }
-
 
 static char	*extract_command(t_data *data, char *line)
 {

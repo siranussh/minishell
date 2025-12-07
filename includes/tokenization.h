@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/22 14:43:40 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/06 22:04:51 by anavagya         ###   ########.fr       */
+/*   Created: 2025/12/07 15:16:00 by anavagya          #+#    #+#             */
+/*   Updated: 2025/12/07 15:28:06 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef TOKENIZATION_H
 # define TOKENIZATION_H
@@ -133,8 +133,8 @@ t_cmd	*init_cmd(t_data *data, char *line);
 //tokenize.c
 int		is_heredoc(char *tok);
 int		token_is_heredoc_delimiter(char **tokens, int i);
-int		tokenize(t_data *data, t_cmd **cmd, char *read_line);
 int		check_invalid_redirections(t_cmd *cmd);
+int		tokenize(t_data *data, t_cmd **cmd, char *read_line);
 
 int		find_closing_quote(int start, char *str, char c);
 int		find_next_char(char *str, char c, int j);

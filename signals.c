@@ -1,12 +1,22 @@
-#include "../includes/minishell.h"
-#include <readline/history.h>
-#include <readline/readline.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/07 15:31:36 by anavagya          #+#    #+#             */
+/*   Updated: 2025/12/07 15:36:56 by anavagya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int			g_exit_code = 0;
+#include "../includes/minishell.h"
+
+int	g_signal_nmb = 0;
 
 static void	signal_handler(int sig)
 {
-	g_exit_code = sig;
+	g_signal_nmb = sig;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -33,12 +43,12 @@ void	set_default_signals(void)
 
 void	check_interactive_sigint(t_data *data)
 {
-	if (g_exit_code == SIGINT)
+	if (g_signal_nmb == SIGINT)
 	{
 		data->exit_code = 130;
 		rl_on_new_line();
-        rl_replace_line("", 0);
-        rl_redisplay();
-		g_exit_code = 0;
+		rl_replace_line("", 0);
+		rl_redisplay();
+		g_signal_nmb = 0;
 	}
 }

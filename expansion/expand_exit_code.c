@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:40:51 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/04 13:59:47 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/07 15:36:56 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*replace_exit_code(char *str, int i)
 	char	*tmp;
 	char	*result;
 
-	err_str = ft_itoa(g_exit_code);
+	err_str = ft_itoa(g_signal_nmb);
 	if (!err_str)
 		return (NULL);
 	before = ft_substr(str, 0, i);

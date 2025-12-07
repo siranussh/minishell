@@ -1,47 +1,16 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:16:38 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/06 23:32:02 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/07 15:20:30 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// static int	split_tokens(char *str, char **token, int max_tokens)
-// {
-// 	int	pos;
-// 	int	start;
-// 	int	i;
-
-// 	pos = 0;
-// 	start = 0;
-// 	i = -1;
-// 	while (str[++i])
-// 	{
-// 		if ((str[i] == ' ' || (str[i] >= 9 && str[i] <= 13)) && str[i + 1]
-// 			&& str[i + 1] != ' ')
-// 			start = i + 1;
-// 		if (str[i] == 34 || str[i] == 39)
-// 			i = find_closing_quote(i + 1, str, str[i]);
-// 		if (str[i] != ' ' && !(str[i] >= 9 && str[i] <= 13)
-// 			&& (str[i + 1] == ' ' || str[i + 1] == '\0'))
-// 		{
-// 			if (pos >= max_tokens)
-// 				exit_error("minishell: token overflow", 1);
-// 			token[pos] = ft_substr(str, start, i - start + 1);
-// 			if (token[pos] == NULL)
-// 				exit_error("minishell: malloc failed", 1);
-// 			pos++;
-// 		}
-// 	}
-// 	token[pos] = NULL;
-// 	return (i);
-// }
 
 static void	add_tok(char **token, int *pos, char *str, int range[2])
 {
@@ -76,10 +45,7 @@ static int	split_tokens(char *str, char **token, int max_tokens)
 			&& (str[i + 1] == ' ' || str[i + 1] == '\0'))
 		{
 			if (pos >= max_tokens)
-			{
-				// ft_free(token);////aniiii
 				exit_error("minishell: token overflow", 1);
-			}
 			range[1] = i;
 			add_tok(token, &pos, str, range);
 		}

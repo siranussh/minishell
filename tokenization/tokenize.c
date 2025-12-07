@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:13:37 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/07 13:07:55 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/07 15:26:41 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,6 @@ int	token_is_heredoc_delimiter(char **tokens, int i)
 	if (i == 0)
 		return (0);
 	return (is_heredoc(tokens[i - 1]));
-}
-
-static int	print_syntax_error(char *token)
-{
-	ft_putstr_fd( "minishell: syntax error near unexpected token `",
-		STDERR_FILENO);
-	ft_putstr_fd(token, STDERR_FILENO);
-	ft_putstr_fd("'\n", STDERR_FILENO);
-	// fprintf(stderr, "minishell: syntax error near unexpected token `%s'\n",
-	// 	token);
-	return (0);
 }
 
 static int	is_invalid_token(char **tokens, int i)
@@ -71,64 +60,6 @@ int	check_invalid_redirections(t_cmd *cmd)
 		i++;
 	}
 	return (1);
-}
-
-// int	tokenize(t_data *data, t_cmd **cmd, char *read_line)
-// {
-// 	int		i;
-// 	t_cmd	*temp;
-// 	char	**lines;
-
-// 	i = 0;
-// 	lines = NULL;
-// 	data->total_chars = 0;
-// 	if (parse_line(&data, read_line, &lines))
-// 		return (0);
-// 	*cmd = build_cmd(data, lines[0]);
-// 	if (!*cmd)
-// 	{
-// 		while (i--)
-// 		free(lines[i]);
-// 		free(lines);
-// 			return (0);
-// 	}
-// 	expand(cmd, data);
-
-// 	while (++i <= data->flags->pipe)
-// 	{
-// 		data->total_chars = 0;
-// 		temp = build_cmd(data, lines[i]);
-// 		if (!temp)
-// 		{
-// 			free_cmd_list(*cmd);
-// 			*cmd = NULL;
-// 			break;
-// 		}
-// 		expand(&temp, data);
-// 		if (!cmd || !(*cmd))
-// 			return (0);
-// 		(last_cmd(cmd))->next = temp;
-// 		temp = temp->next;
-// 	}
-// 	while (i--)
-// 		free(lines[i]);
-// 	free(lines);
-// 	return (1);
-// }
-
-void	free_lines(char **lines)
-{
-    int	i;
-
-	i = 0;
-    if (!lines)
-        return;
-    while (lines[i])
-    {
-        free(lines[i]);
-        i++;
-    }
-    free(lines);
 }
 
 int	tokenize(t_data *data, t_cmd **cmd, char *read_line)

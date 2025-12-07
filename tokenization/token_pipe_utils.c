@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_pipe_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:42:34 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/07 11:22:48 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/07 15:23:08 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	count_pipes(char *str, t_data *data)
 		return (0);
 	if (str[0] == '|')
 		return (pipe_syntax_error(data));
-	// if (ft_strcmp(str, "<<") == 0)
-	// 	return (pipe_syntax_error());
 	i = 0;
 	result = 0;
 	while (str[i])
@@ -82,7 +80,8 @@ int	check_pipe_seg(char *str)
 			result = 0;
 	}
 	if (result == -1)
-		print_error("minishell", NULL, "syntax error near unexpected token '|'");
+		print_error("minishell", NULL,
+			"syntax error near unexpected token '|'");
 	return (result);
 }
 
@@ -90,7 +89,7 @@ char	**split_pipes(char *str, t_data *data)
 {
 	char	**result;
 	int		i;
-	
+
 	i = -1;
 	result = ft_calloc(sizeof(char *), (count_pipes(str, data) + 2));
 	if (!result)

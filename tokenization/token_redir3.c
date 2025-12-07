@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:11:12 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/06 15:21:43 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/07 15:23:57 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	check_redir_at(char *str, int i)
 		return (-1);
 	return (0);
 }
-
 
 void	replace_token_with_array(char ***tokens, int pos, char **arr,
 		int arr_count)

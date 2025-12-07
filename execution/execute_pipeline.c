@@ -1,18 +1,19 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/04 12:04:52 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/06 22:22:10 by anavagya         ###   ########.fr       */
+/*   Created: 2025/12/07 14:59:04 by anavagya          #+#    #+#             */
+/*   Updated: 2025/12/07 14:59:04 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	setup_child_pipes_and_redirs(t_data *data, t_cmd *cmd, int prev_fd, int pipe_fd[2])
+void	setup_child_pipes_and_redirs(t_data *data, t_cmd *cmd, int prev_fd,
+			int pipe_fd[2])
 {
 	if (prev_fd != -1)
 	{

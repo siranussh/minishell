@@ -6,23 +6,22 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 13:53:01 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/07 13:58:28 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/07 15:06:46 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_data	*get_heredoc_data(t_data *data, int set)
+static t_data	*get_heredoc_data(t_data *data, int set)
 {
-	static t_data	*stored;
+	static t_data	*stored = NULL;
 
-	stored = NULL;
 	if (set)
 		stored = data;
 	return (stored);
 }
 
-void	heredoc_sighandler(int sig)
+static void	heredoc_sighandler(int sig)
 {
 	t_data	*data;
 
@@ -61,4 +60,3 @@ void	read_heredoc_child(int write_end, char *delimiter, int quoted,
 		free(line);
 	}
 }
-

@@ -1,65 +1,16 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/04 12:05:20 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/06 22:25:18 by anavagya         ###   ########.fr       */
+/*   Created: 2025/12/07 15:05:30 by anavagya          #+#    #+#             */
+/*   Updated: 2025/12/07 15:05:30 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-static t_data	*get_heredoc_data(t_data *data, int set)
-{
-	static t_data	*stored = NULL;
-
-	if (set)
-		stored = data;
-	return (stored);
-}
-
-static void	heredoc_sighandler(int sig)
-{
-	t_data	*data;
-
-	(void)sig;
-	data = get_heredoc_data(NULL, 0);
-	if (data)
-		free_data(data);
-	exit(130);
-}
-
-static void	read_heredoc_child(int write_end, char *delimiter, int quoted,
-	t_data *data)
-{
-	char	*line;
-
-	get_heredoc_data(data, 1);
-	signal(SIGINT, heredoc_sighandler);
-	signal(SIGQUIT, SIG_IGN);
-	while (1)
-	{
-		line = readline("> ");
-		if (!line)
-		{
-			free_data(data);
-			exit(130);
-		}
-		if (ft_strcmp(line, delimiter) == 0)
-		{
-			free(line);
-			free_data(data);
-			exit(0);
-		}
-		if (!quoted)
-			line = replace_all_val(line, data);
-		ft_putendl_fd(line, write_end);
-		free(line);
-	}
-}
 
 static void	handle_heredoc_child(int fd[2], char *delimiter, int quoted,
 	t_data *data)
@@ -79,7 +30,7 @@ static int	handle_heredoc_parent(t_data *data, t_cmd *cmd, int fd[2], int pid)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 	{
-		g_exit_code = WEXITSTATUS(status);
+		g_signal_nmb = WEXITSTATUS(status);
 		return (1);
 	}
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
@@ -92,7 +43,7 @@ static int	handle_heredoc_parent(t_data *data, t_cmd *cmd, int fd[2], int pid)
 	}
 	else if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
 		write(STDERR_FILENO, "Quit (core dumped)\n", 19);
-	g_exit_code = 128 + WTERMSIG(status);
+	g_signal_nmb = 128 + WTERMSIG(status);
 	return (1);
 }
 

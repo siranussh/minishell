@@ -1,16 +1,31 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:46 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/06 22:30:28 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/07 15:27:15 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	free_lines(char **lines)
+{
+	int	i;
+
+	i = 0;
+	if (!lines)
+		return ;
+	while (lines[i])
+	{
+		free(lines[i]);
+		i++;
+	}
+	free(lines);
+}
 
 void	ft_free(char **str)
 {
@@ -25,20 +40,6 @@ void	ft_free(char **str)
 		i++;
 	}
 	free(str);
-}
-
-void	free_env_list(t_env *head)
-{
-	t_env	*tmp;
-
-	while (head)
-	{
-		tmp = head->next;
-		free(head->key);
-		free(head->value);
-		free(head);
-		head = tmp;
-	}
 }
 
 void	free_flags(t_flags *flags)
