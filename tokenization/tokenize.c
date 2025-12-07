@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:13:37 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/07 11:32:34 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/07 13:07:55 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	check_invalid_redirections(t_cmd *cmd)
 void	free_lines(char **lines)
 {
     int	i;
-	
+
 	i = 0;
     if (!lines)
         return;
@@ -140,7 +140,7 @@ int	tokenize(t_data *data, t_cmd **cmd, char *read_line)
 	i = 0;
 	data->total_chars = 0;
 	if (parse_line(&data, read_line, &lines))
-		return (free_lines(lines),0);
+		return (0);
 	*cmd = build_cmd(data, lines[0]);
 	if (!*cmd)
 		return (free_lines(lines), 0);
@@ -158,4 +158,3 @@ int	tokenize(t_data *data, t_cmd **cmd, char *read_line)
 	free_lines(lines);
 	return (1);
 }
-                                                         

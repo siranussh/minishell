@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 14:46:06 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/07 12:48:23 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/07 12:53:18 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ int	built_in_exit(int argc, char **args, t_data *data)
 		exit(2);
 	}
 	if (argc > 2)
-	{
-		print_error("minishell", "exit", "too many arguments");
-		return (1);
-	}
+		return (print_error("minishell", "exit", "too many arguments"), 1);
 	status = ft_atol(args[1]);
 	if (data)
 		free_data(data);

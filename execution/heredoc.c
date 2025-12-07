@@ -21,7 +21,10 @@ static void	read_heredoc_child(int write_end, char *delimiter, int quoted,
 	{
 		line = readline("> ");
 		if (!line)
-			exit(0);
+		{
+			free_data(data);
+			exit(130);
+		}
 		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
