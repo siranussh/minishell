@@ -2,9 +2,12 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   setup_redirs.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                                                    +:+ +:+        
+	+:+     */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+      
+	+#+        */
+/*                                                +#+#+#+#+#+  
+	+#+           */
 /*   Created: 2025/12/07 15:05:22 by anavagya          #+#    #+#             */
 /*   Updated: 2025/12/07 15:05:22 by anavagya         ###   ########.fr       */
 /*                                                                            */
@@ -19,20 +22,15 @@ static int	setup_in_redir(t_redir *r, t_cmd *cmd)
 	(void)cmd;
 	if (r->type == REDIR_IN)
 	{
-		if (check_access(r->filename) == 0)
+		fd = open(r->filename, O_RDONLY);
+		if (fd < 0)
 		{
-			fd = open(r->filename, O_RDONLY);
-			if (fd < 0)
-			{
-				print_error("minishell", r->filename,
-					"No such file or directory");
-				return (-1);
-			}
-			dup2(fd, STDIN_FILENO);
-			close(fd);
-			return (1);
+			print_error("minishell", r->filename, strerror(errno));
+			return (-1);
 		}
-		return (-1);
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+		return (1);
 	}
 	return (0);
 }
@@ -58,21 +56,15 @@ static int	setup_out_redir(t_redir *r, t_cmd *cmd)
 	(void)cmd;
 	if (r->type == REDIR_OUT)
 	{
-		if (check_access(r->filename) == 0)
+		fd = open(r->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (fd < 0)
 		{
-			fd = open(r->filename,
-					O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (fd < 0)
-			{
-				print_error("minishell", r->filename,
-					"No such file or directory");
-				return (-1);
-			}
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-			return (1);
+			print_error("minishell", r->filename, strerror(errno));
+			return (-1);
 		}
-		return (-1);
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
+		return (1);
 	}
 	return (0);
 }
@@ -84,21 +76,15 @@ static int	setup_append_redir(t_redir *r, t_cmd *cmd)
 	(void)cmd;
 	if (r->type == REDIR_APPEND)
 	{
-		if (check_access(r->filename) == 0)
+		fd = open(r->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (fd < 0)
 		{
-			fd = open(r->filename,
-					O_WRONLY | O_CREAT | O_APPEND, 0644);
-			if (fd < 0)
-			{
-				print_error("minishell", r->filename,
-					"No such file or directory");
-				return (-1);
-			}
-			dup2(fd, STDOUT_FILENO);
-			close (fd);
-			return (1);
+			print_error("minishell", r->filename, strerror(errno));
+			return (-1);
 		}
-		return (-1);
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
+		return (1);
 	}
 	return (0);
 }
@@ -112,8 +98,7 @@ int	setup_redirs(t_cmd *cmd)
 	r = cmd->redirs;
 	while (r)
 	{
-		if (setup_in_redir(r, cmd) == -1
-			|| setup_heredoc_redir(cmd, r) == -1
+		if (setup_in_redir(r, cmd) == -1 || setup_heredoc_redir(cmd, r) == -1
 			|| setup_out_redir(r, cmd) == -1
 			|| setup_append_redir(r, cmd) == -1)
 		{
