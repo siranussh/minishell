@@ -43,7 +43,7 @@ static int	handle_heredoc_parent(t_data *data, t_cmd *cmd, int fd[2], int pid)
 	}
 	else if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
 		write(STDERR_FILENO, "Quit (core dumped)\n", 19);
-	g_signal_nmb = 128 + WTERMSIG(status);
+	data->exit_code = 128 + WTERMSIG(status);
 	return (1);
 }
 
