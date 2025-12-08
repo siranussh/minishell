@@ -66,7 +66,8 @@ void	free_cmd_list(t_cmd *cmd)
 	while (cmd)
 	{
 		tmp = cmd->next;
-		free_cmd(cmd);
+		if (cmd)
+			free_cmd(cmd);
 		cmd = tmp;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:24 by sihakoby          #+#    #+#             */
-/*   Updated: 2025/12/05 18:02:11 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/08 16:24:09 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,32 +57,6 @@ char	*extract_after_special(char *line, int i, t_cmd *cmd)
 	}
 	rest[i] = '\0';
 	return (rest);
-}
-
-char	*replace_val(t_cmd *cmd, char *line, char **rest_line, t_env_exp *env)
-{
-	char	*name;
-	int		i;
-
-	if (ft_strnstr(line, "$?", ft_strlen(line)) != 0)
-		return (replace_all_exit_code(line));
-	name = extract_value_name(line);
-	if (!name)
-		return (NULL);
-	if (!name[0])
-		return (ft_strdup("$"));
-	i = find_next_char(line, '$', -1);
-	while (line[++i] && line[i] != ' ')
-	{
-		if ((is_special(line[i]) == -1 && line[i] != '$') || (line[i] == '$'
-				&& i == find_next_char(line, '$', find_next_char(line, '$', -1)
-					+ 1)))
-		{
-			*rest_line = extract_after_special(line, i, cmd);
-			break ;
-		}
-	}
-	return (cmp_value_name(line, name, env));
 }
 
 char	*replace_all_val(char *str, t_data *data)

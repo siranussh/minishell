@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:46 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/07 15:27:15 by anavagya         ###   ########.fr       */
+/*   Updated: 2025/12/08 16:36:20 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	free_data(t_data *data)
 		free_env_list(data->env);
 	if (data->env_exp)
 		free_env_exp(&data->env_exp);
-	free(data);
+	if (data)
+		free(data);
 }
 
 void	free_pipe_struct(t_pipe *p)

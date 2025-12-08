@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <siranhakobyan13@gmail.com>       +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 10:59:45 by anavagya          #+#    #+#             */
-/*   Updated: 2025/12/05 18:07:30 by sihakoby         ###   ########.fr       */
+/*   Updated: 2025/12/08 16:25:23 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ char	*expand_only_dollars(char *line, int pos, int dollar_count);
 char	*expand_dollars_simple(char *line, int pos, t_env_exp *env);
 
 // expand_exit_code.c
-char	*replace_exit_code(char *str, int i);
-char	*replace_all_exit_code(char *str);
 int		is_var_char(char c);
 int		get_var_len(char *s, int i);
 
@@ -51,8 +49,6 @@ char	*cmp_value_name(char *line, char *name, t_env_exp *env);
 // expand_var_utils.c
 char	*extract_value_name(char *line);
 char	*extract_after_special(char *line, int i, t_cmd *cmd);
-char	*replace_val(t_cmd *cmd, char *line, char **rest_line,
-			t_env_exp *env);
 char	*replace_all_val(char *str, t_data *data);
 
 // expand_var.c

@@ -85,20 +85,20 @@ int	execute_single_command(char **args, t_data *data)
 	if (is_built_in(args))
 		return (run_built_in(args_count(args), args, data));
 	access_value = check_access(args[0]);
-	if (access_value == 0)
-	{
-		path = find_cmd_path(args[0], data->env);
-		if (!path)
-			return (print_error("minishell", args[0],
-					"command not found"), 127);
-	}
-	else
+	if (access_value != 0)
 		return (access_value);
+	path = find_cmd_path(args[0], data->env);
+	if (!path)
+	{
+		print_error("minishell", args[0], "command not found");
+		return (127);
+	}
 	env_arr = env_to_array(data->env);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	execve(path, args, env_arr);
-	free_data(data);
+	free(path);
+	ft_free(env_arr);
 	print_error("minishell", args[0], "command not found");
 	return (127);
 }
