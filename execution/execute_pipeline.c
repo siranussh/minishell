@@ -72,12 +72,11 @@ int	child_process(t_cmd *cmd, t_pipe *p, t_data *data, int pipe_fd[])
 	int	exit_code;
 
 	pid = fork();
-	signal(SIGINT, SIG_IGN);
 	if (pid == -1)
 		return (perror("minishell: fork"), -1);
 	if (pid == 0)
 	{
-		setup_signals();
+		set_default_signals();
 		setup_child_pipes_and_redirs(data, cmd, p->prev_fd, pipe_fd);
 		close_pipe_fds(pipe_fd);
 		exit_code = execute_single_command(cmd->tokens, data);

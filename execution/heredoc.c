@@ -51,6 +51,7 @@ static int	read_heredoc(t_cmd *cmd, t_redir *r, t_data *data)
 {
 	int	fd[2];
 	int	pid;
+	int	result;
 
 	if (pipe(fd) == -1)
 		return (perror("minishell: pipe"), 0);
@@ -61,7 +62,9 @@ static int	read_heredoc(t_cmd *cmd, t_redir *r, t_data *data)
 		set_default_signals();
 		handle_heredoc_child(fd, r->filename, r->quoted_delimiter, data);
 	}
-	if (!handle_heredoc_parent(data, cmd, fd, pid))
+	result = handle_heredoc_parent(data, cmd, fd, pid);
+	setup_signals();
+	if (!result)
 		return (0);
 	if (cmd->fd_in != -1)
 		close(cmd->fd_in);
